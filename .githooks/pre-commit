@@ -1,0 +1,9 @@
+#!/bin/bash
+
+# Block commits that include files in site/
+if git diff --cached --name-only | grep -q '^site/'; then
+  echo "❌ ERROR: You are trying to commit files in site/ (generated output)."
+  echo "Remove them with: git restore --staged site/"
+  exit 1
+fi
+
