@@ -1,6 +1,6 @@
 site_name: My Snippets & Notes
 site_url: https://cudavinci.github.io/4reference/
-site_author: CUDAVINCI
+site_author: Sean Fuller
 site_description: >-
   Notes and code snippets
 
@@ -18,20 +18,20 @@ theme:
     - content.action.view
     - content.code.annotate
     - content.code.copy
-    - content.code.select
-    - content.tabs.link
+    # - content.code.select
+    # - content.tabs.link
     - content.tooltips
     - header.autohide
     - navigation.expand
     - navigation.footer
     - navigation.indexes
     - navigation.instant            # ← enable if you want SPA-like speed
-    - navigation.instant.prefetch
-    - navigation.instant.progress
-    - navigation.prune
+    # - navigation.instant.prefetch
+    # - navigation.instant.progress
+    # - navigation.prune
     - navigation.sections
     - navigation.tabs
-    - navigation.tabs.sticky
+    # - navigation.tabs.sticky
     - navigation.top
     - navigation.tracking
     - search.highlight
@@ -78,5 +78,5 @@ markdown_extensions:
       alternate_style: true
   - pymdownx.details
   - toc:
-      toc_depth: 5
+      toc_depth: 4
       permalink: true

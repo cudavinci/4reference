@@ -34,7 +34,7 @@ alohamora
 ### venv
 
 pyenv local 3.12.13
-python3 -m venv .venv
+python3 -m venv .venv # only do this once
 source .venv/bin/activate
-pip install --upgrade pip setuptools wheel
-pip install -r base_requirements.txt
+pip install --upgrade pip setuptools wheel # only do this once
+pip install -r base_requirements.txt # only do this once
