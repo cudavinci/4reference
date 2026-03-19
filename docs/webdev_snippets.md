@@ -435,6 +435,184 @@ People like Bootstrap because it enables you to create responsive websites witho
 
 ## JavaScript
 
+### Python vs JavaScript Quick Reference
+
+A side-by-side cheat sheet for common patterns. If you know Python, JavaScript's syntax will feel familiar for most things — the main gotchas are bracket syntax (just imagine there are no brackets...or brackets ~ newlines), `===` vs `==`, no negative indexing, objects instead of dicts, and the `this` keyword in classes.
+
+| Concept | Python | JavaScript |
+| :--- | :--- | :--- |
+| **Variables** | | |
+| Mutable variable | `x = 5` | `let x = 5;` |
+| Immutable binding | _(no direct equivalent)_ | `const x = 5;` |
+| Type annotation | `x: int = 5` | _(TypeScript)_ `let x: number = 5;` |
+| **Strings** | | |
+| Interpolation | `f"Hello {name}"` | `` `Hello ${name}` `` |
+| Multiline string | `"""line1\nline2"""` | `` `line1 `` <br> `` line2` `` |
+| **Primitives** | | |
+| Null / None | `None` | `null` / `undefined` |
+| Boolean literals | `True` / `False` | `true` / `false` |
+| **Operators** | | |
+| Logical | `and` / `or` / `not` | `&&` / `\|\|` / `!` |
+| Equality (value) | `==` | `===` _(strict — always prefer this)_ |
+| Equality (type-coercing) | _(N/A)_ | `==` _(avoid)_ |
+| **Conditionals** | | |
+| If / else if / else | `if x > 0:` / `elif x == 0:` / `else:` | `if (x > 0) {` / `} else if (x == 0) {` / `} else {` |
+| Ternary | `val = a if cond else b` | `val = cond ? a : b;` |
+| Nullish fallback | `val = x or default` _(falsy)_ | `val = x ?? default;` _(nullish only)_ |
+| Optional chaining | _(N/A — use `getattr`)_ | `obj?.prop?.nested` |
+| **Lists / Arrays** | | |
+| Declaration | `lst = [1, 2, 3]` | `let arr = [1, 2, 3];` |
+| Index (first) | `lst[0]` | `arr[0]` |
+| Index (last) | `lst[-1]` | `arr[arr.length - 1]` |
+| Slice | `lst[1:3]` | `arr.slice(1, 3)` |
+| Append | `lst.append(x)` | `arr.push(x);` |
+| Remove last | `lst.pop()` | `arr.pop();` |
+| Length | `len(lst)` | `arr.length` |
+| Contains | `x in lst` | `arr.includes(x)` |
+| **Dicts / Objects** | | |
+| Declaration | `d = {"key": "val"}` | `let obj = { key: "val" };` |
+| Access by key | `d["key"]` | `obj["key"]` or `obj.key` |
+| Access with default | `d.get("key", default)` | `obj.key ?? default` |
+| Check key exists | `"key" in d` | `"key" in obj` or `obj.hasOwnProperty("key")` |
+| Keys / values / pairs | `d.keys()` / `d.values()` / `d.items()` | `Object.keys(obj)` / `Object.values(obj)` / `Object.entries(obj)` |
+| Delete key | `del d["key"]` | `delete obj.key;` |
+| Merge | `{**d1, **d2}` | `{ ...obj1, ...obj2 }` |
+| **Loops** | | |
+| For (range) | `for i in range(5):` | `for (let i = 0; i < 5; i++) {` |
+| For-each (value) | `for item in lst:` | `for (const item of arr) {` |
+| For-each (key/index + value) | `for i, item in enumerate(lst):` | `arr.forEach((item, i) => { ... });` |
+| For-each (object keys) | `for key in d:` | `for (const key in obj) {` |
+| While | `while condition:` | `while (condition) {` |
+| Do-while | _(N/A)_ | `do { ... } while (condition);` |
+| Break / Continue | `break` / `continue` | `break;` / `continue;` |
+| **Functional / Array methods** | | |
+| Map | `[x*2 for x in lst]` | `arr.map(x => x * 2)` |
+| Filter | `[x for x in lst if x > 5]` | `arr.filter(x => x > 5)` |
+| Reduce | `functools.reduce(fn, lst, init)` | `arr.reduce((acc, x) => acc + x, init)` |
+| All / Some | `all(cond(x) for x in lst)` / `any(...)` | `arr.every(x => cond(x))` / `arr.some(x => cond(x))` |
+| Find first | `next((x for x in lst if cond), None)` | `arr.find(x => cond(x))` |
+| Flatten | `[x for sub in lst for x in sub]` | `arr.flat()` / `arr.flatMap(fn)` |
+| **Functions** | | |
+| Definition | `def fn(a, b):` | `function fn(a, b) {` |
+| Default arg | `def fn(a, b=10):` | `function fn(a, b = 10) {` |
+| Lambda / Arrow | `fn = lambda a, b: a + b` | `const fn = (a, b) => a + b;` |
+| Rest args | `def fn(*args):` | `function fn(...args) {` |
+| Keyword args / named | `def fn(**kwargs):` | _(use destructured object)_ `fn({ a, b })` |
+| Return | `return val` | `return val;` |
+| **Destructuring / Unpacking** | | |
+| Array / list unpack | `a, b = lst` | `const [a, b] = arr;` |
+| Skip elements | `a, _, c = lst` | `const [a, , c] = arr;` |
+| Object / dict unpack | _(N/A directly)_ | `const { key1, key2 } = obj;` |
+| With rename | _(N/A)_ | `const { key: newName } = obj;` |
+| Spread into list | `[*lst1, *lst2]` | `[...arr1, ...arr2]` |
+| **Error handling** | | |
+| Try / catch | `try:` / `except Exception as e:` | `try {` / `} catch (e) {` |
+| Finally | `finally:` | `} finally {` |
+| Throw / raise | `raise ValueError("msg")` | `throw new Error("msg");` |
+| **Classes** | | |
+| Definition | `class Dog:` | `class Dog {` |
+| Constructor | `def __init__(self, name):` | `constructor(name) {` |
+| Instance var | `self.name = name` | `this.name = name;` |
+| Method | `def speak(self):` | `speak() {` |
+| Inheritance | `class Dog(Animal):` | `class Dog extends Animal {` |
+| Call parent | `super().__init__(name)` | `super(name);` |
+| **Imports / Modules** | | |
+| Import module | `import module` | `import module from 'module';` |
+| Named import | `from module import fn` | `import { fn } from 'module';` |
+| CommonJS (Node) | _(N/A)_ | `const m = require('module');` |
+| **Type checking** | | |
+| Get type | `type(x)` | `typeof x` |
+| Instance check | `isinstance(x, int)` | `x instanceof ClassName` |
+| **Misc** | | |
+| Print / log | `print(x)` | `console.log(x);` |
+| Length | `len(x)` | `x.length` |
+| String → number | `int("42")` / `float("3.14")` | `parseInt("42")` / `parseFloat("3.14")` |
+| Number → string | `str(42)` | `String(42)` or `` `${42}` `` |
+| Random float [0,1) | `random.random()` | `Math.random()` |
+| Floor / ceil / round | `math.floor(x)` / `math.ceil(x)` / `round(x)` | `Math.floor(x)` / `Math.ceil(x)` / `Math.round(x)` |
+
+#### Classes: side-by-side
+
+=== "Python"
+    ```python
+    class Animal:
+        def __init__(self, name: str):
+            self.name = name
+
+        def speak(self) -> str:
+            return f"{self.name} speaks"
+
+
+    class Dog(Animal):
+        def speak(self) -> str:
+            return f"{self.name} barks"
+
+
+    d = Dog("Rex")
+    print(d.speak())  # Rex barks
+    print(isinstance(d, Animal))  # True
+    ```
+
+=== "JavaScript"
+    ```javascript
+    class Animal {
+        constructor(name) {
+            this.name = name;
+        }
+
+        speak() {
+            return `${this.name} speaks`;
+        }
+    }
+
+    class Dog extends Animal {
+        speak() {
+            return `${this.name} barks`;
+        }
+    }
+
+    const d = new Dog("Rex");
+    console.log(d.speak());         // Rex barks
+    console.log(d instanceof Animal); // true
+    ```
+
+#### Async: side-by-side
+
+=== "Python"
+    ```python
+    import asyncio
+
+    async def fetch_data(url: str) -> dict:
+        await asyncio.sleep(1)  # simulated I/O
+        return {"url": url, "data": "..."}
+
+    async def main():
+        result = await fetch_data("https://example.com")
+        print(result)
+
+    asyncio.run(main())
+    ```
+
+=== "JavaScript"
+    ```javascript
+    async function fetchData(url) {
+        const response = await fetch(url);  // real browser/Node API
+        const data = await response.json();
+        return data;
+    }
+
+    async function main() {
+        const result = await fetchData("https://example.com");
+        console.log(result);
+    }
+
+    main();
+    // Alternatively with .then():
+    // fetchData(url).then(data => console.log(data)).catch(err => console.error(err));
+    ```
+
+---
+
 ### JavaScript Basics
 
 ---
