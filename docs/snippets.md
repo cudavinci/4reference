@@ -109,25 +109,7 @@
 | `git switch <branch>` | Switch branches — modern replacement for `git checkout <branch>`. |
 | `git switch -c <new-branch>` | Create and switch to a new branch — modern replacement for `git checkout -b`. |
 
-### less editor
-
-| Shortcut | Action |
-| :------ | :----------- |
-| `Space`  or  `f` | Scroll forward one window (or screen) |
-| `b` | Scroll backward one window (or screen) |
-| `d` | Scroll forward half a window |
-| `u` | Scroll backward half a window |
-| `Enter`  or  `e` | Scroll forward one line |
-| `y`  or  `k` | Scroll backward one line |
-| `g` | Go to the start of the document |
-| `G` | Go to the end of the document |
-| `/` | Search forward for a pattern |
-| `?` | Search backward for a pattern |
-| `n` | Repeat the previous search (in the same direction) |
-| `N` | Repeat the previous search (in the opposite direction) |
-| `q` | Quit  less  and return to the command line |
-
-### ghh CLI
+### github CLI
 
 | Command | Description |
 | :------ | :----------- |
@@ -143,34 +125,52 @@
 | `gh repo fork --clone ___ --remote` | Fork repo and clone locally with remote origin. |
 | `gh repo fork --clone ___ --remote --remote-name=upstream` | Fork repo and clone locally with remote origin and upstream. |
 
+### less editor
+
+| Shortcut | Action | Windows (WSL) |
+| :------ | :----------- | :----------- |
+| `Space`  or  `f` | Scroll forward one window (or screen) | |
+| `b` | Scroll backward one window (or screen) | |
+| `d` | Scroll forward half a window | |
+| `u` | Scroll backward half a window | |
+| `Enter`  or  `e` | Scroll forward one line | |
+| `y`  or  `k` | Scroll backward one line | |
+| `g` | Go to the start of the document | |
+| `G` | Go to the end of the document | |
+| `/` | Search forward for a pattern | |
+| `?` | Search backward for a pattern | |
+| `n` | Repeat the previous search (in the same direction) | |
+| `N` | Repeat the previous search (in the opposite direction) | |
+| `q` | Quit  less  and return to the command line | |
+
 ---
 
 ## SHELL
 
 ### Shortcuts (zsh)
-| Key/Command | Description |
-| --- | --- |
-| `Ctrl + a` | Go to the beginning of the line you are currently typing on. |
-| `Ctrl + e` | Go to the end of the line you are currently typing on. |
-| `Ctrl + _` | Undo the last command. |
-| `Ctrl + l` | Clears the Screen |
-| `Cmd + K` | Clears the Screen |
-| `Ctrl + U` | Cut everything backwards to beginning of line |
-| `Ctrl + K` | Cut everything forward to end of line |
-| `Ctrl + W` | Cut one word backwards using white space as delimiter |
-| `Ctrl + Y` | Paste whatever was cut by the last cut command |
-| `Ctrl + Z` | Puts whatever you are running into a suspended background process. fg restores it |
-| `Ctrl + H` | Same as backspace |
-| `Ctrl + C` | Kill whatever you are running. Also clears everything on current line |
-| `Ctrl + D` | Exit the current shell when no process is running, or send EOF to a the running process |
-| `Ctrl + T` | Swap the last two characters before the cursor |
-| `Ctrl + F` | Move cursor one character forward |
-| `Ctrl + B` | Move cursor one character backward |
-| `Option + →` | Move cursor one word forward |
-| `Option + ←` | Move cursor one word backward |
-| `Esc + T` | Move cursor one word backward |
-| `Esc + Backspace` | Swap the last two words before the cursor |
-| `Tab` | Cut one word backwards using none alphabetic characters as delimiters |
+| Key/Command | Description | Windows (WSL) |
+| --- | --- | --- |
+| `Ctrl + a` | Go to the beginning of the line you are currently typing on. | |
+| `Ctrl + e` | Go to the end of the line you are currently typing on. | |
+| `Ctrl + _` | Undo the last command. | |
+| `Ctrl + l` | Clears the Screen | |
+| `Cmd + K` | Clears the Screen (iTerm2 — clears scrollback buffer) | `Ctrl + L` (shell clear only; no scrollback-clear equivalent by default) |
+| `Ctrl + U` | Cut everything backwards to beginning of line | |
+| `Ctrl + K` | Cut everything forward to end of line | |
+| `Ctrl + W` | Cut one word backwards using white space as delimiter | |
+| `Ctrl + Y` | Paste whatever was cut by the last cut command | |
+| `Ctrl + Z` | Puts whatever you are running into a suspended background process. fg restores it | |
+| `Ctrl + H` | Same as backspace | |
+| `Ctrl + C` | Kill whatever you are running. Also clears everything on current line | |
+| `Ctrl + D` | Exit the current shell when no process is running, or send EOF to a the running process | |
+| `Ctrl + T` | Swap the last two characters before the cursor | |
+| `Ctrl + F` | Move cursor one character forward | |
+| `Ctrl + B` | Move cursor one character backward | |
+| `Option + →` | Move cursor one word forward | `Alt + →` |
+| `Option + ←` | Move cursor one word backward | `Alt + ←` |
+| `Esc + T` | Move cursor one word backward | |
+| `Esc + Backspace` | Swap the last two words before the cursor | |
+| `Tab` | Cut one word backwards using none alphabetic characters as delimiters | |
 
 ### Core Commands
 
@@ -427,522 +427,6 @@
 
 ## PYTHON
 
-### New OpenAI API (v 1.7.1)
-
-#### API Key
-
-`export OPENAI_API_KEY='...'`
-
-OR
-
-save .env file in root directory with: `OPENAI_API_KEY=abc123` (be sure to add .env to .gitignore)
-
-
-#### Models
-
-| Model | Description | Context window | Training data |
-| --- | --- | --- | --- |
-| gpt-4-1106-preview | **GPT-4 Turbo** The latest GPT-4 model with improved instruction following, JSON mode, reproducible outputs, parallel function calling, and more. Returns a maximum of 4,096 output tokens. This preview model is not yet suited for production traffic. [Learn more](https://openai.com/blog/new-models-and-developer-products-announced-at-devday). | 128,000 tokens | Up to Apr 2023 |
-| gpt-4-vision-preview | **GPT-4 Turbo with vision** Ability to understand images, in addition to all other GPT-4 Turbo capabilties. Returns a maximum of 4,096 output tokens. This is a preview model version and not suited yet for production traffic. [Dev Day](https://openai.com/blog/new-models-and-developer-products-announced-at-devday). | 128,000 tokens | Up to Apr 2023 |
-| gpt-4 | Currently points to `gpt-4-0613`. See [continuous model upgrades](https://platform.openai.com/docs/models/continuous-model-upgrades). | 8,192 tokens | Up to Sep 2021 |
-| gpt-4-32k | Currently points to `gpt-4-32k-0613`. See [continuous model upgrades](https://platform.openai.com/docs/models/continuous-model-upgrades). | 32,768 tokens | Up to Sep 2021 |
-| gpt-4-0613 | Snapshot of `gpt-4` from June 13th 2023 with improved function calling support. | 8,192 tokens | Up to Sep 2021 |
-| gpt-4-32k-0613 | Snapshot of `gpt-4-32k` from June 13th 2023 with improved function calling support. | 32,768 tokens | Up to Sep 2021 |
-
-#### Chat Completions
-
-**THIS IS DEPRECATED**:
-
-```python
-import openai
-openai.api_key = os.getenv("OPENAI_API_KEY")
-
-MODEL = "gpt-4" # more expensive now
-response = openai.ChatCompletion.create(
-  ...
-)
-
-# ChatCompletion response object:
-# {
-#   "id": "chatcmpl-7UkgnSDzlevZxiy0YjZcLYdUMz5yZ",
-#   "object": "chat.completion",
-#   "created": 1687563669,
-#   "model": "gpt-4",
-#   "choices": [
-#     {
-#       "index": 0,
-#       "message": {
-#         "role": "assistant",
-#         "content": "\n\nHello there, how may I assist you today?",
-#       },
-#       "finish_reason": "stop"
-#     }
-#   ],
-#   "usage": {
-#     "prompt_tokens": 39,
-#     "completion_tokens": 3,
-#     "total_tokens": 42
-#   }
-# }
-```
-
-**THIS IS THE NEW WAY**:
-
-```python
-from openai import OpenAI
-client = OpenAI() # defaults to looking for OPENAI_API_KEY or .env file
-
-MODEL = "gpt-4-turbo" # cheaper & smarter
-completion = client.chat.completions.create(
-    model=MODEL,
-    messages=[
-        {"role": "system", "content": "You are a helpful assistant."},
-
-        {"role": "user", "content": "Knock knock."},
-        {"role": "assistant", "content": "Who's there?"},
-        
-        {"role": "user", "content": "Orange."},
-    ],
-    temperature=0,
-)
-
-# Chat completion object:
-# {
-#   "id": "chatcmpl-123",
-#   "object": "chat.completion",
-#   "created": 1677652288,
-#   "model": "gpt-4-turbo",
-#   "system_fingerprint": "fp_44709d6fcb",
-#   "choices": [{
-#     "index": 0,
-#     "message": {
-#       "role": "assistant",
-#       "content": "Orange who?"
-#     },
-#     "logprobs": null,
-#     "finish_reason": "stop"
-#   }],
-#   "usage": {
-#     "prompt_tokens": 9,
-#     "completion_tokens": 12,
-#     "total_tokens": 21
-#   }
-# }
-
-print(completion.choices[0].message.content)
-# 'Orange who?'
-```
-
-**Chat Completions Request body fields:**
-
-![Chat Completions Request Args (messages)](img/chatcompletions.png)
-![Chat Completions Request Args (response_format)](img/chatcompletions2.png)
-![Chat Completions Request Args (functions)](img/chatcompletions3.png)
-![Chat Completions Request Args (model, tokens)](img/chatcompletions4.png)
-
-Response object fields:
-
-- `id`: the ID of the request
-- `object`: the type of object returned (e.g., `chat.completion`)
-- `created`: the timestamp of the request
-- `model`: the full name of the model used to generate the response
-- `usage`: the number of tokens used to generate the replies, counting prompt, completion, and total
-- `choices`: a list of completion objects (only one, unless you set `n` greater than 1)
-    - `message`: the message object generated by the model, with `role` and `content`
-    - `finish_reason`: the reason the model stopped generating text (either `stop`, or `length` if `max_tokens` limit was reached)
-    - `index`: the index of the completion in the list of choices
-
-```python
-# Example with system prompt & few-shot learning:
-
-# Faked few-shot conversation to prime the model into translating business jargon into simpler speech
-# (OPTIONAL: Use the `name` parameter in the example messages -- so the model won't refer back to them & can differentiate between participants of the same role
-completion = client.chat.completions.create(
-    model=MODEL,
-    messages=[
-        {"role": "system", "content": "You are a helpful, pattern-following assistant that translates corporate jargon into plain English."},
-        
-        {"role": "system", "name":"example_user", "content": "New synergies will help drive top-line growth."},
-        {"role": "system", "name": "example_assistant", "content": "Things working well together will increase revenue."},
-        
-        {"role": "system", "name":"example_user", "content": "Let's circle back when we have more bandwidth to touch base on opportunities for increased leverage."},
-        {"role": "system", "name": "example_assistant", "content": "Let's talk later when we're less busy about how to do better."},
-        
-        {"role": "user", "content": "This late pivot means we don't have time to boil the ocean for the client deliverable."},
-    ],
-    temperature=0,
-)
-
-print(response["choices"][0]["message"]["content"])
-# This sudden change in plans means we don't have enough time to do everything for the client's project.
-```
-
-#### Token Counts
-
-* Context window equivalents:
-  * 1 token --> 4 characters
-  * 128,000 tokens --> 512,000 characters
-  * Natural Language:
-    * 6 characters per English word on average (5 char + 1 space)
-    * 512,000 characters / 6 characters per word ≈ 85,333 words
-    * 85,333 words / 250 words per page using 12pt Times New Roman ≈ 341 double-spaced pages (170 single-spaced pages)
-    * **So 128,000 tokens is roughly equivalent to 170 single-spaced pages of text**
-  * Code:
-    * 50 characters per line on average
-    * 512,000 characters / 50 characters per line ≈ 10,240 lines of code
-    * **So 128,000 tokens is roughly equivalent to 10,240 lines of code**
-
-Function to track tokens:
-
-```python
-def num_tokens_from_messages(messages, model="gpt-3.5-turbo-0613"):
-  """Returns the number of tokens used by a list of messages."""
-  try:
-      encoding = tiktoken.encoding_for_model(model)
-  except KeyError:
-      encoding = tiktoken.get_encoding("cl100k_base")
-  if model == "gpt-3.5-turbo-0613":  # note: future models may deviate from this
-      num_tokens = 0
-      for message in messages:
-          num_tokens += 4  # every message follows <im_start>{role/name}\n{content}<im_end>\n
-          for key, value in message.items():
-              num_tokens += len(encoding.encode(value))
-              if key == "name":  # if there's a name, the role is omitted
-                  num_tokens += -1  # role is always required and always 1 token
-      num_tokens += 2  # every reply is primed with <im_start>assistant
-      return num_tokens
-  else:
-      raise NotImplementedError(f"""num_tokens_from_messages() is not presently implemented for model {model}.
-      See https://github.com/openai/openai-python/blob/main/chatml.md for information on how messages are converted to tokens.""")
-```
-
-#### JSON Mode
-
-A common way to use Chat Completions is to instruct the model to always return a JSON object that makes sense for your use case, by specifying this in the system message. While this does work in some cases, occasionally the models may generate output that does not parse to valid JSON objects.
-
-To prevent these errors and improve model performance, when calling `gpt-4-1106-preview` or `gpt-3.5-turbo-1106`, you can set [response\_format](https://platform.openai.com/docs/api-reference/chat/create#chat-create-response_format) to `{ "type": "json_object" }` to enable JSON mode. When JSON mode is enabled, the model is constrained to only generate strings that parse into valid JSON object.
-
-Important notes:
-
-- When using JSON mode, **always** instruct the model to produce JSON via some message in the conversation, for example via your system message. If you don't include an explicit instruction to generate JSON, the model may generate an unending stream of whitespace and the request may run continually until it reaches the token limit. To help ensure you don't forget, the API will throw an error if the string `"JSON"` does not appear somewhere in the context.
-- The JSON in the message the model returns may be partial (i.e. cut off) if `finish_reason` is `length`, which indicates the generation exceeded `max_tokens` or the conversation exceeded the token limit. To guard against this, check `finish_reason` before parsing the response.
-- JSON mode will not guarantee the output matches any specific schema, only that it is valid and parses without errors.
-
-```python
-from openai import OpenAI
-client = OpenAI()
-
-response = client.chat.completions.create(
-  model="gpt-3.5-turbo-1106",
-  response_format={ "type": "json_object" },
-  messages=[
-    {"role": "system", "content": "You are a helpful assistant designed to output JSON."},
-    {"role": "user", "content": "Who won the world series in 2020?"}
-  ]
-)
-print(response.choices[0].message.content)
-```
-
-In this example, the response includes a JSON object that looks something like the following:
-
-`"content": "{\"winner\": \"Los Angeles Dodgers\"}"`
-
-**Note that JSON mode is always enabled when the model is generating arguments as part of function calling.**
-
-#### Streaming Chat Completions
-
-```python
-from openai import OpenAI
-client = OpenAI()
-
-completion = client.chat.completions.create(
-  model="gpt-4-1106-preview",
-  messages=[
-    {"role": "system", "content": "You are a helpful assistant."},
-    {"role": "user", "content": "Hello!"}
-  ],
-  stream=True
-)
-
-for chunk in completion:
-  print(chunk.choices[0].delta)
-
-
-# ..........
-# {
-#     "id": "chatcmpl-123",
-#     "object": "chat.completion.chunk",
-#     "created": 1694268190,
-#     "model": "gpt-3.5-turbo-0613",
-#     "system_fingerprint": "fp_44709d6fcb",
-#     "choices": [
-#         {
-#             "index": 0,
-#             "delta": {
-#                 "content": " today"
-#             },
-#             "logprobs": null,
-#             "finish_reason": null
-#         }
-#     ]
-# }
-
-# {
-#     "id": "chatcmpl-123",
-#     "object": "chat.completion.chunk",
-#     "created": 1694268190,
-#     "model": "gpt-3.5-turbo-0613",
-#     "system_fingerprint": "fp_44709d6fcb",
-#     "choices": [
-#         {
-#             "index": 0,
-#             "delta": {
-#                 "content": "?"
-#             },
-#             "logprobs": null,
-#             "finish_reason": null
-#         }
-#     ]
-# }
-
-# {
-#     "id": "chatcmpl-123",
-#     "object": "chat.completion.chunk",
-#     "created": 1694268190,
-#     "model": "gpt-3.5-turbo-0613",
-#     "system_fingerprint": "fp_44709d6fcb",
-#     "choices": [
-#         {
-#             "index": 0,
-#             "delta": {},
-#             "logprobs": null,
-#             "finish_reason": "stop" <---- stop here
-#         }
-#     ]
-# }
-```
-
-#### Function Calling
-
-```python
-from openai import OpenAI
-client = OpenAI()
-
-tools = [
-  {
-    "type": "function",
-    "function": {
-      "name": "get_current_weather",
-      "description": "Get the current weather in a given location",
-      "parameters": {
-        "type": "object",
-        "properties": {
-          "location": {
-            "type": "string",
-            "description": "The city and state, e.g. San Francisco, CA",
-          },
-          "unit": {"type": "string", "enum": ["celsius", "fahrenheit"]},
-        },
-        "required": ["location"],
-      },
-    }
-  }
-]
-messages = [{"role": "user", "content": "What's the weather like in Boston today?"}]
-completion = client.chat.completions.create(
-  model="gpt-4-1106-preview",
-  messages=messages,
-  tools=tools,
-  tool_choice="auto"
-)
-
-print(completion)
-
-# {
-#   "id": "chatcmpl-abc123",
-#   "object": "chat.completion",
-#   "created": 1699896916,
-#   "model": "gpt-3.5-turbo-0613",
-#   "choices": [
-#     {
-#       "index": 0,
-#       "message": {
-#         "role": "assistant",
-#         "content": null,
-#         "tool_calls": [
-#           {
-#             "id": "call_abc123",
-#             "type": "function",
-#             "function": {
-#               "name": "get_current_weather",
-#               "arguments": "{\n\"location\": \"Boston, MA\"\n}"
-#             }
-#           }
-#         ]
-#       },
-#       "logprobs": null,
-#       "finish_reason": "tool_calls"
-#     }
-#   ],
-#   "usage": {
-#     "prompt_tokens": 82,
-#     "completion_tokens": 17,
-#     "total_tokens": 99
-#   }
-# }
-
-```
-
-#### Image Input Chat Completions
-
-```python
-from openai import OpenAI
-
-client = OpenAI()
-
-response = client.chat.completions.create(
-    model="gpt-4-vision-preview",
-    messages=[
-        {
-            "role": "user",
-            "content": [
-                {"type": "text", "text": "What’s in this image?"},
-                {
-                    "type": "image_url",
-                    "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/Gfp-wisconsin-madison-the-nature-boardwalk.jpg/2560px-Gfp-wisconsin-madison-the-nature-boardwalk.jpg",
-                },
-            ],
-        }
-    ],
-    max_tokens=300,
-)
-
-print(response.choices[0])
-```
-
-##### Multiple Images
-
-
-The Chat Completions API is capable of taking in and processing multiple image inputs in both base64 encoded format or as an image URL. The model will process each image and use the information from all of them to answer the question.
-
-```python
-from openai import OpenAI
-
-client = OpenAI()
-response = client.chat.completions.create(
-  model="gpt-4-vision-preview",
-  messages=[
-    {
-      "role": "user",
-      "content": [
-        {
-          "type": "text",
-          "text": "What are in these images? Is there any difference between them?",
-        },
-        {
-          "type": "image_url",
-          "image_url": {
-            "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/Gfp-wisconsin-madison-the-nature-boardwalk.jpg/2560px-Gfp-wisconsin-madison-the-nature-boardwalk.jpg",
-          },
-        },
-        {
-          "type": "image_url",
-          "image_url": {
-            "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/Gfp-wisconsin-madison-the-nature-boardwalk.jpg/2560px-Gfp-wisconsin-madison-the-nature-boardwalk.jpg",
-          },
-        },
-      ],
-    }
-  ],
-  max_tokens=300,
-)
-print(response.choices[0])
-```
-
-Here the model is shown two copies of the same image and can answer questions about both or each of the images independently.
-
-##### Low or high fidelity image understanding
-
-By controlling the `detail` parameter, which has three options, `low`, `high`, or `auto`, you have control over how the model processes the image and generates its textual understanding. By default, the model will use the `auto` setting which will look at the image input size and decide if it should use the `low` or `high` setting.
-
-- `low` will disable the “high res” model. The model will receive a low-res 512px x 512px version of the image, and represent the image with a budget of 65 tokens. This allows the API to return faster responses and consume fewer input tokens for use cases that do not require high detail.
-- `high` will enable “high res” mode, which first allows the model to see the low res image and then creates detailed crops of input images as 512px squares based on the input image size. Each of the detailed crops uses twice the token budget (65 tokens) for a total of 129 tokens.
-```python
-from openai import OpenAI
-
-client = OpenAI()
-
-response = client.chat.completions.create(
-  model="gpt-4-vision-preview",
-  messages=[
-    {
-      "role": "user",
-      "content": [
-        {"type": "text", "text": "What’s in this image?"},
-        {
-          "type": "image_url",
-          "image_url": {
-            "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/Gfp-wisconsin-madison-the-nature-boardwalk.jpg/2560px-Gfp-wisconsin-madison-the-nature-boardwalk.jpg",
-            "detail": "high"
-          },
-        },
-      ],
-    }
-  ],
-  max_tokens=300,
-)
-
-print(response.choices[0].message.content)
-```
-
-#### Error Handling
-
-```python
-import openai
-from openai import OpenAI
-client = OpenAI()
-
-try:
-  #Make your OpenAI API request here
-  response = client.completions.create(
-    prompt="Hello world",
-    model="gpt-3.5-turbo-instruct"
-  )
-except openai.APIError as e:
-  #Handle API error here, e.g. retry or log
-  print(f"OpenAI API returned an API Error: {e}")
-  pass
-except openai.APIConnectionError as e:
-  #Handle connection error here
-  print(f"Failed to connect to OpenAI API: {e}")
-  pass
-except openai.RateLimitError as e:
-  #Handle rate limit error (we recommend using exponential backoff)
-  print(f"OpenAI API request exceeded rate limit: {e}")
-  pass
-```
-
-#### Rate limits
-
-Rate limits are restrictions that our API imposes on the number of times a user or client can access our services within a specified period of time.
-
-[Rate Limits](img/Rate%20limits.png)
-
-How do these rate limits work?
-
-Rate limits are measured in five ways: **RPM** (requests per minute), **RPD** (requests per day), **TPM** (tokens per minute), **TPD** (tokens per day), and **IPM** (images per minute). Rate limits can be hit across any of the options depending on what occurs first. For example, you might send 20 requests with only 100 tokens to the ChatCompletions endpoint and that would fill your limit (if your RPM was 20), even if you did not send 150k tokens (if your TPM limit was 150k) within those 20 requests.
-
-Other important things worth noting:
-
-- Rate limits are imposed at the [organization level](https://platform.openai.com/docs/guides/production-best-practices), not user level.
-- Rate limits vary by the [model](https://platform.openai.com/docs/models/models) being used.
-- Limits are also placed on the total amount an organization can spend on the API each month. These are also known as "usage limits".
-
-
-(See [here](https://platform.openai.com/docs/guides/rate-limits/error-mitigation) for more info on rate limit & error mitigation strategies.)
-
----
-
 ### numpy
 
 #### Reshaping
@@ -1022,7 +506,7 @@ Next Tab | `⌘`+ `Right Arrow`
 Go to Window | `⌘` + `Option` + `Number`
 
 
-### My Favorite Shell Key Combos
+### My Favorite Shell Key Combos (not me, some dude on the internet)
 
 These might be helpful to getting you faster with the shell.
 These are just common shell shortcuts unrelated to iTerm itelf.
@@ -1101,6 +585,73 @@ Cancel the search and restore original line | `Ctrl` + `G`
 Clear the screen/pane (when `Ctrl + L` won't work) | `⌘` + `K`  (I use this all the time)
 Broadcast command to all panes in window (nice when needed!) | `⌘` + `Alt` +  `I` (again to toggle)
 Find Cursor | `⌘` + `/`  _or use a theme or cursor shape that is easy to see_
+
+## vim
+
+Vim operates in **modes**. The key mental shift: Normal mode is *home* — where you spend most of your time moving around and operating on text. You drop into Insert mode to type, then immediately `Esc` back out. Visual mode is for selecting. Command mode (`:`) is for file and editor operations.
+
+The deeper insight is that vim has a **grammar**: `[count] operator motion`. For example, `3dw` deletes 3 words, `ci"` changes everything inside quotes, `d$` deletes to end of line. Once the grammar clicks, you stop memorizing individual shortcuts and start composing them. The `.` key (repeat last change) becomes your best friend.
+
+| Action | macOS | Windows (WSL) |
+| :------ | :----------- | :----------- |
+| **Modes** | | |
+| Enter Insert mode (before cursor) | `i` | |
+| Enter Insert mode (after cursor) | `a` | |
+| Insert at start of line | `I` | |
+| Append at end of line | `A` | |
+| Open new line below, enter Insert | `o` | |
+| Open new line above, enter Insert | `O` | |
+| Return to Normal mode | `Esc` or `Ctrl + [` | |
+| Enter Visual mode (char) | `v` | |
+| Enter Visual mode (line) | `V` | |
+| Enter Visual block mode | `Ctrl + v` | |
+| Enter Command mode | `:` | |
+| **File operations** | | |
+| Save | `:w` | |
+| Quit | `:q` | |
+| Save and quit | `:wq` or `ZZ` | |
+| Quit without saving | `:q!` | |
+| **Navigation** | | |
+| Left / Down / Up / Right | `h` / `j` / `k` / `l` | |
+| Next word (start) / prev word | `w` / `b` | |
+| Next word (end) | `e` | |
+| Start of line / end of line | `0` / `$` | |
+| First non-blank char of line | `^` | |
+| Top of file / bottom of file | `gg` / `G` | |
+| Jump to line n | `:{n}` or `{n}G` | |
+| Page down / page up | `Ctrl + f` / `Ctrl + b` | |
+| Half-page down / up | `Ctrl + d` / `Ctrl + u` | |
+| Jump to matching bracket | `%` | |
+| **Search** | | |
+| Search forward | `/{pattern}` | |
+| Search backward | `?{pattern}` | |
+| Next / previous result | `n` / `N` | |
+| Search word under cursor | `*` (forward) / `#` (backward) | |
+| Clear search highlight | `:noh` | |
+| **Editing** | | |
+| Undo / redo | `u` / `Ctrl + r` | |
+| Repeat last change | `.` | |
+| Delete char under cursor | `x` | |
+| Delete line | `dd` | |
+| Delete to end of line | `D` or `d$` | |
+| Delete word | `dw` | |
+| Change word (delete + Insert) | `cw` | |
+| Change to end of line | `C` or `c$` | |
+| Replace single char | `r{char}` | |
+| Yank (copy) line | `yy` | |
+| Paste after cursor / before cursor | `p` / `P` | |
+| Indent / dedent line | `>>` / `<<` | |
+| **Operators + motions (composable)** | | |
+| Delete {motion} | `d{motion}` — e.g. `d3w`, `dG` | |
+| Yank {motion} | `y{motion}` — e.g. `y$`, `ygg` | |
+| Change {motion} | `c{motion}` — e.g. `ciw`, `ci"` | |
+| `i` vs `a` text objects | `i` = inside, `a` = around — e.g. `ci(`, `da[` | |
+| **Useful extras** | | |
+| Show line numbers | `:set number` | |
+| Find and replace (whole file) | `:%s/old/new/g` | |
+| Find and replace (with confirm) | `:%s/old/new/gc` | |
+| Yank to system clipboard | `"+y` | `"+y` (requires xclip/xsel in WSL) |
+| Paste from system clipboard | `"+p` | `"+p` |
 
 ## tmux
 

@@ -1,6 +1,6 @@
 site_name: My Snippets & Notes
 site_url: https://cudavinci.github.io/4reference/
-site_author: Sean Fuller
+site_author: CUDAVINCI
 site_description: >-
   Notes and code snippets
 
@@ -18,33 +18,33 @@ theme:
     - content.action.view
     - content.code.annotate
     - content.code.copy
-    # - content.code.select
-    # - content.tabs.link
+    - content.code.select
+    - content.tabs.link
     - content.tooltips
     - header.autohide
     - navigation.expand
     - navigation.footer
     - navigation.indexes
-    # - navigation.instant
-    # - navigation.instant.prefetch
-    # - navigation.instant.progress
-    # - navigation.prune
+    - navigation.instant            # ← enable if you want SPA-like speed
+    - navigation.instant.prefetch
+    - navigation.instant.progress
+    - navigation.prune
     - navigation.sections
     - navigation.tabs
-    # - navigation.tabs.sticky
+    - navigation.tabs.sticky
     - navigation.top
     - navigation.tracking
     - search.highlight
     - search.share
     - search.suggest
-    # - toc.follow
+    - toc.follow                     # ← ADDED (key for Option C)
     - toc.integrate
   palette:
     - media: "(prefers-color-scheme)"
       scheme: dracula
-      primary: '#f8f8f2'       # Dracula foreground
-      accent: '#bd93f9'        # Dracula purple
-      background: '#282a36'    # Dracula background
+      primary: '#f8f8f2'
+      accent: '#bd93f9'
+      background: '#282a36'
       toggle:
         icon: material/link
         name: Switch to light mode
@@ -62,22 +62,15 @@ theme:
       toggle:
         icon: material/toggle-switch-off
         name: Switch to system preference
-    # - media: "(prefers-color-scheme: dark)"
-    #   scheme: slate
-    #   primary: '#f8f8f2'       # Dracula foreground
-    #   accent: '#bd93f9'        # Dracula purple
-    #   background: '#282a36'    # Dracula background
-    #   text: '#f8f8f2'          # Suggested for primary text, Dracula foreground
-    #   code: '#ff79c6'          # Suggested for inline code, Dracula pink
-    #   anchor: '#8be9fd'        # Suggested for anchor links, Dracula cyan
-    #   anchor_hover: '#50fa7b'  # Suggested for anchor hover, Dracula green
-    #   toggle:
-    #     icon: material/toggle-switch-off
-    #     name: Switch to system preference
   font:
     text: Roboto
     code: Roboto Mono
-    
+
+nav:
+  - Home: index.md
+  - Code Snippets: snippets.md
+  - Web Development: webdev_snippets.md
+
 markdown_extensions:
   - admonition
   - pymdownx.superfences
@@ -85,4 +78,5 @@ markdown_extensions:
       alternate_style: true
   - pymdownx.details
   - toc:
-      toc_depth: 2
+      toc_depth: 3   # ← bumped from 2 → better granularity
+      permalink: true
