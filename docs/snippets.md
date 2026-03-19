@@ -76,6 +76,13 @@
 | `git diff --cached origin/main` | Compare committed (pre-push) local changes to remote (all contents).<br>This opens the `less` editor.<br>`n`: Next change<br>`N`: Previous change<br>`spacebar`: Pagedown<br>`b`: Pageup<br>`q`: Quit<br>`?`: Help |
 | `git diff --cached origin/main --name-only` | Compare committed (pre-push) local changes to remote (filenames only). |
 | `git reset --hard --force` | Force-update local repo state to match remote branch (**overwrites** -- stash). |
+| `git diff` | Show unstaged changes (working tree vs index). |
+| `git diff --staged` | Show staged changes (index vs last commit). Alias for `--cached`. |
+| `git diff HEAD` | Show all changes — staged and unstaged — vs last commit. |
+| `git diff <commit>` | Compare working tree against a specific commit or branch tip. |
+| `git diff <branch-a>..<branch-b>` | Compare the tips of two branches. Useful before a merge or PR review. |
+| `git diff --stat` | Summary view: files changed, insertions, deletions. No full patch. |
+| `git diff --word-diff` | Highlight changes at the word level instead of line level. Great for prose or config files. |
 | `git reset --soft HEAD~1` | Undo most recent _local_ commit (to staging). |
 | `git reset --mixed HEAD~1` | Undo most recent _local_ commit (to unstaged). |
 | `git rm file_to_delete`<br>`git commit -m "removed file_to_delete"`<br>`git push origin master` | Delete file from remote and local. |
@@ -88,6 +95,19 @@
 | `cd subdirectory`<br>`sudo rm -rf .git` | Force-remove subdirectory's sub-git repo. |
 | `git branch new-branch`<br>`git checkout new-branch`<br>[make changes]<br>`git add -A`<br>`git commit -m "commit message"`<br>`git push origin new-branch`<br>`git branch -d new-branch` | Create new branch, make changes, push, and delete branch locally. |
 | `git log origin/<branch-name>..HEAD` | View local commits not yet pushed to remote. |
+| `git checkout <hash> -- <file>` | Pull a specific file out of any commit into your working tree. Classic form of the above. |
+| `git show <commit>` | Show the diff and metadata for a specific commit. |
+| `git show <commit>:<file>` | Print a file exactly as it was at a given commit. No checkout needed. |
+| `git restore <file>` | Discard unstaged changes to a file. Replaces `git checkout -- <file>`. |
+| `git restore --staged <file>` | Unstage a file while keeping the changes in the working tree. |
+| `git restore --source=<commit> <file>` | Restore a file to its state at a specific commit without switching branches. |
+| `git stash`<br>`git stash pop` | Stash dirty working tree state so you can switch context, then restore it. |
+| `git stash list` | Show all stashed states. Use `git stash apply stash@{n}` to apply a specific one. |
+| `git log --oneline --graph --all --decorate` | Visual branch graph in the terminal. Useful for understanding diverged history. |
+| `git blame <file>` | Annotate every line with the commit and author that last touched it. |
+| `git cherry-pick <commit>` | Apply a single commit from another branch onto the current branch. |
+| `git switch <branch>` | Switch branches — modern replacement for `git checkout <branch>`. |
+| `git switch -c <new-branch>` | Create and switch to a new branch — modern replacement for `git checkout -b`. |
 
 ### less editor
 
