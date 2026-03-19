@@ -4370,3 +4370,2940 @@ Creating a productive development workflow is crucial when working with React. T
 ### Conclusion
 
 Developing React applications with VSCode and npm provides a powerful and efficient environment. Utilizing the right tools and best practices can greatly enhance the development experience and productivity.
+
+---
+
+# Book1 - Test-Driven Development with Python (2nd Edition)
+## Obey the Testing Goat: Using Django, Selenium & JavaScript
+### by Harry J.W. Percival (O'Reilly, 2017)
+
+---
+
+# Part I. The Basics of TDD and Django
+
+---
+
+## Chapter 1: Getting Django Set Up Using a Functional Test
+
+### Obey the Testing Goat! Do Nothing Until You Have a Test
+
+- **TDD core rule**: Never write production code without a failing test first
+- **Functional Test (FT)**: A test from the user's perspective (also called acceptance test / end-to-end test)
+- **The Testing Goat**: Metaphor for the discipline of TDD — always write the test first
+
+```python
+# functional_tests.py — the very first test
+from selenium import webdriver
+
+browser = webdriver.Firefox()
+browser.get('http://localhost:8000')
+assert 'Django' in browser.title
+```
+
+**Key library: `selenium`** — browser automation framework that drives real browsers (Firefox via geckodriver) for functional testing.
+
+### Getting Django Up and Running
+
+```bash
+django-admin.py startproject superlists
+cd superlists
+python manage.py runserver
+```
+
+- Creates project scaffold: `manage.py`, `superlists/settings.py`, `superlists/urls.py`
+- Dev server at `http://127.0.0.1:8000/`
+- Running the FT against the dev server confirms Django's default "it worked!" page
+
+### Starting a Git Repository
+
+```bash
+git init
+echo "db.sqlite3" >> .gitignore
+echo "__pycache__" >> .gitignore
+echo "*.pyc" >> .gitignore
+git add .
+git commit -m "First commit: basic Django project and FT"
+```
+
+- Commit early and often — git is integral to the TDD workflow
+- `.gitignore` the database, bytecode, and geckodriver logs
+
+---
+
+## Chapter 2: Extending Our Functional Test Using the unittest Module
+
+### Using a Functional Test to Scope Out a Minimum Viable App
+
+- FTs should read like a **user story** — comments describe what the user sees and does
+- The to-do list app: users enter items, the app remembers them, each user gets a unique URL
+
+### The Python Standard Library's unittest Module
+
+**Key library: `unittest`** — Python's built-in test framework.
+
+```python
+from selenium import webdriver
+import unittest
+
+class NewVisitorTest(unittest.TestCase):
+
+    def setUp(self):
+        self.browser = webdriver.Firefox()
+
+    def tearDown(self):
+        self.browser.quit()
+
+    def test_can_start_a_list_and_retrieve_it_later(self):
+        self.browser.get('http://localhost:8000')
+        self.assertIn('To-Do', self.browser.title)
+        self.fail('Finish the test!')
+
+if __name__ == '__main__':
+    unittest.main(warnings='ignore')
+```
+
+- **`unittest.TestCase`**: Base class providing test infrastructure
+- **`setUp()`**: Runs before each test method (e.g., launch browser)
+- **`tearDown()`**: Runs after each test, even on failure (e.g., close browser)
+- **Test methods must start with `test_`** to be discovered
+- **`self.fail(msg)`**: Always fails — useful as a reminder placeholder
+- **Assertions**: `assertIn`, `assertEqual`, `assertTrue`, `assertFalse`
+
+---
+
+## Chapter 3: Testing a Simple Home Page with Unit Tests
+
+### Unit Tests, and How They Differ from Functional Tests
+
+| Functional Tests | Unit Tests |
+|---|---|
+| Test from user's perspective | Test from programmer's perspective |
+| Ensure correct features are built | Ensure code is clean and bug-free |
+| Use Selenium / real browser | Use Django test client / direct calls |
+| Slow, end-to-end | Fast, isolated |
+
+**Double-loop TDD workflow**:
+1. Write FT (outer loop) → fails
+2. Write unit test (inner loop) → fails
+3. Write minimal code → unit test passes
+4. Repeat inner loop until FT passes
+5. Refactor
+
+### Unit Testing in Django
+
+```python
+# lists/tests.py
+from django.test import TestCase
+from django.urls import resolve
+from lists.views import home_page
+
+class HomePageTest(TestCase):
+
+    def test_root_url_resolves_to_home_page_view(self):
+        found = resolve('/')
+        self.assertEqual(found.func, home_page)
+```
+
+- **`django.test.TestCase`**: Enhanced `unittest.TestCase` with Django-specific helpers (auto test DB, test client)
+- **`resolve(url)`**: Maps URL path to view function — tests URL routing
+- Run with: `python manage.py test`
+
+### Django's MVC, URLs, and View Functions
+
+```python
+# superlists/urls.py
+from django.conf.urls import url
+from lists import views
+
+urlpatterns = [
+    url(r'^$', views.home_page, name='home'),
+]
+```
+
+```python
+# lists/views.py
+from django.http import HttpResponse
+
+def home_page(request):
+    return HttpResponse('<html><title>To-Do Lists</title></html>')
+```
+
+- **URL patterns** use regex: `^$` matches root path
+- **View functions** take `HttpRequest`, return `HttpResponse`
+
+### At Last! We Actually Write Some Application Code!
+
+```bash
+python manage.py startapp lists
+```
+
+Creates: `lists/models.py`, `lists/views.py`, `lists/tests.py`, `lists/admin.py`, `lists/migrations/`
+
+### The Unit-Test/Code Cycle
+
+1. Run test → see it fail (read the traceback)
+2. Make smallest possible code change
+3. Run test → see it pass (or get a new error)
+4. Repeat
+
+---
+
+## Chapter 4: What Are We Doing with All These Tests? (And, Refactoring)
+
+### Programming Is Like Pulling a Bucket of Water Up from a Well
+
+- TDD is a **ratchet mechanism** — tests save your progress and prevent regression
+- Each passing test is a notch in the ratchet
+
+### Using Selenium to Test User Interactions
+
+```python
+from selenium.webdriver.common.keys import Keys
+
+inputbox = self.browser.find_element_by_id('id_new_item')
+inputbox.send_keys('Buy peacock feathers')
+inputbox.send_keys(Keys.ENTER)
+```
+
+### The "Don't Test Constants" Rule, and Templates to the Rescue
+
+- Don't test that HTML strings are exactly equal — test **behavior**, not constants
+- Solution: move HTML to **templates** and test that the right template is used
+
+#### Refactoring to Use a Template
+
+```html
+<!-- lists/templates/home.html -->
+<html>
+  <title>To-Do Lists</title>
+</html>
+```
+
+```python
+# lists/views.py
+from django.shortcuts import render
+
+def home_page(request):
+    return render(request, 'home.html')
+```
+
+- Register app in `settings.py` `INSTALLED_APPS` for template discovery
+- `render(request, template_name, context_dict)` searches app `templates/` folders
+
+#### The Django Test Client
+
+```python
+class HomePageTest(TestCase):
+    def test_uses_home_template(self):
+        response = self.client.get('/')
+        self.assertTemplateUsed(response, 'home.html')
+```
+
+- **`self.client`**: Django's test client, simulates GET/POST without a real server
+- **`assertTemplateUsed(response, name)`**: Checks which template rendered the response — much better than string comparison
+
+### On Refactoring
+
+- **Refactoring**: Changing code structure without changing behavior
+- **Rule**: Only refactor when all tests pass
+- **Rule**: Never change code and tests at the same time
+
+### Recap: The TDD Process
+
+```
+FT fails → write unit test → UT fails → write minimal code →
+UT passes → refactor → repeat until FT passes → commit
+```
+
+---
+
+## Chapter 5: Saving User Input: Testing the Database
+
+### Wiring Up Our Form to Send a POST Request
+
+```html
+<form method="POST">
+  <input name="item_text" id="id_new_item" placeholder="Enter a to-do item" />
+  {% csrf_token %}
+</form>
+```
+
+- **`{% csrf_token %}`**: Django template tag — injects hidden CSRF protection token
+- **CSRF (Cross-Site Request Forgery)**: Attack where malicious site triggers actions on your site
+
+### Processing a POST Request on the Server
+
+```python
+def test_can_save_a_POST_request(self):
+    response = self.client.post('/', data={'item_text': 'A new list item'})
+    self.assertIn('A new list item', response.content.decode())
+```
+
+### Passing Python Variables to Be Rendered in the Template
+
+```python
+# View passes context to template
+return render(request, 'home.html', {'new_item_text': request.POST.get('item_text', '')})
+```
+
+```html
+<!-- Template uses {{ variable }} syntax -->
+<td>{{ new_item_text }}</td>
+```
+
+### Three Strikes and Refactor
+
+- When you see duplication three times, it's time to extract a helper
+
+### The Django ORM and Our First Model
+
+**Django ORM** — maps Python classes to database tables:
+
+```python
+# lists/models.py
+from django.db import models
+
+class Item(models.Model):
+    text = models.TextField(default='')
+```
+
+**ORM operations**:
+
+```python
+item = Item()
+item.text = 'First item'
+item.save()                        # INSERT into database
+
+Item.objects.create(text='Second') # Create + save in one step
+Item.objects.all()                 # SELECT * (returns QuerySet)
+Item.objects.count()               # COUNT(*)
+Item.objects.first()               # First record
+```
+
+#### Our First Database Migration
+
+```bash
+python manage.py makemigrations   # Generate migration from model changes
+python manage.py migrate          # Apply migrations to database
+```
+
+### Saving the POST to the Database
+
+```python
+def home_page(request):
+    if request.method == 'POST':
+        Item.objects.create(text=request.POST['item_text'])
+        return redirect('/')
+    items = Item.objects.all()
+    return render(request, 'home.html', {'items': items})
+```
+
+### Redirect After a POST
+
+- **Web best practice**: Always redirect after a successful POST to prevent duplicate submissions on refresh
+- `return redirect('/')` sends HTTP 302
+
+#### Better Unit Testing Practice: Each Test Should Test One Thing
+
+```python
+# GOOD: Separate concerns into separate tests
+def test_can_save_a_POST_request(self):
+    self.client.post('/', data={'item_text': 'A new list item'})
+    self.assertEqual(Item.objects.count(), 1)
+
+def test_redirects_after_POST(self):
+    response = self.client.post('/', data={'item_text': 'A new list item'})
+    self.assertEqual(response.status_code, 302)
+    self.assertEqual(response['location'], '/')
+```
+
+### Rendering Items in the Template
+
+```html
+<table id="id_list_table">
+  {% for item in items %}
+    <tr><td>{{ forloop.counter }}: {{ item.text }}</td></tr>
+  {% endfor %}
+</table>
+```
+
+- **`{% for %}...{% endfor %}`**: Django template loop
+- **`{{ forloop.counter }}`**: 1-based loop index
+
+---
+
+## Chapter 6: Improving Functional Tests: Ensuring Isolation and Removing Voodoo Sleeps
+
+### Ensuring Test Isolation in Functional Tests
+
+**Problem**: Database state leaks between test runs.
+
+**Solution**: **`LiveServerTestCase`** — Django test class that creates a test DB and dev server per test.
+
+```python
+from django.test import LiveServerTestCase
+
+class NewVisitorTest(LiveServerTestCase):
+
+    def setUp(self):
+        self.browser = webdriver.Firefox()
+
+    def tearDown(self):
+        self.browser.quit()
+
+    def test_can_start_a_list(self):
+        self.browser.get(self.live_server_url)  # Use dynamic URL, not hardcoded
+```
+
+- Auto-creates and destroys a test database for each test
+- `self.live_server_url` provides the actual server address
+
+#### Running Just the Unit Tests
+
+```bash
+python manage.py test lists                    # Unit tests only
+python manage.py test functional_tests         # FTs only
+```
+
+### On Implicit and Explicit Waits, and Voodoo time.sleeps
+
+**Problem with `time.sleep()`**: Too slow (wastes time) or too fast (flaky tests).
+
+**Explicit wait pattern** (best practice):
+
+```python
+import time
+from selenium.common.exceptions import WebDriverException
+
+MAX_WAIT = 10
+
+def wait_for_row_in_list_table(self, row_text):
+    start_time = time.time()
+    while True:
+        try:
+            table = self.browser.find_element_by_id('id_list_table')
+            rows = table.find_elements_by_tag_name('tr')
+            self.assertIn(row_text, [row.text for row in rows])
+            return
+        except (AssertionError, WebDriverException) as e:
+            if time.time() - start_time > MAX_WAIT:
+                raise e
+            time.sleep(0.5)
+```
+
+- Polls every 0.5s up to `MAX_WAIT` seconds
+- Catches `WebDriverException` (element not found yet) and `AssertionError` (wrong content)
+- Returns immediately on success — no wasted time
+
+---
+
+## Chapter 7: Working Incrementally
+
+### Small Design When Necessary
+
+- **YAGNI** (You Ain't Gonna Need It): Only build what's needed to pass current tests
+- **REST-ish URL design**: `/lists/<id>/` for viewing, `/lists/new` for creating, `/lists/<id>/add_item` for adding
+
+### Implementing the New Design Incrementally Using TDD
+
+**New models with ForeignKey**:
+
+```python
+class List(models.Model):
+    pass
+
+class Item(models.Model):
+    text = models.TextField(default='')
+    list = models.ForeignKey(List, default=None, on_delete=models.CASCADE)
+```
+
+**ORM reverse relationship**:
+
+```python
+list_ = List.objects.get(id=list_id)
+items = list_.item_set.all()  # Django auto-creates reverse accessor
+```
+
+### Ensuring We Have a Regression Test
+
+```python
+def test_multiple_users_can_start_lists_at_different_urls(self):
+    # Edith creates a list
+    self.browser.get(self.live_server_url)
+    # ... add item, get URL ...
+    edith_list_url = self.browser.current_url
+    self.assertRegex(edith_list_url, '/lists/.+')
+
+    # New browser session for Francis (new user)
+    self.browser.quit()
+    self.browser = webdriver.Firefox()
+
+    # Francis should NOT see Edith's items
+    page_text = self.browser.find_element_by_tag_name('body').text
+    self.assertNotIn('Buy peacock feathers', page_text)
+```
+
+- `self.assertRegex(string, pattern)` — regex assertion
+- New browser instance simulates a different user
+
+### Taking a First, Self-Contained Step: One New URL
+
+**Key Django assertion**:
+
+```python
+self.assertContains(response, 'itemey 1')
+```
+
+- `assertContains(response, text)` — checks status 200 AND text present in decoded content
+- Cleaner than manual `.content.decode()` + `assertIn()`
+
+### URL patterns with capture groups
+
+```python
+urlpatterns = [
+    url(r'^$', views.home_page, name='home'),
+    url(r'^lists/new$', views.new_list, name='new_list'),
+    url(r'^lists/(\d+)/$', views.view_list, name='view_list'),
+    url(r'^lists/(\d+)/add_item$', views.add_item, name='add_item'),
+]
+```
+
+- `(\d+)` captures numeric ID, passed as argument to view function
+
+---
+
+# Part II. Web Development Sine Qua Nons
+
+---
+
+## Chapter 8: Prettification: Layout and Styling, and What to Test About It
+
+### What to Functionally Test About Layout and Style
+
+- Don't write tests for aesthetics — test that **static files load correctly** (smoke test)
+- Use `assertAlmostEqual` with `delta` for layout assertions (avoids pixel-brittle tests)
+
+```python
+def test_layout_and_styling(self):
+    self.browser.get(self.live_server_url)
+    self.browser.set_window_size(1024, 768)
+    inputbox = self.browser.find_element_by_id('id_new_item')
+    self.assertAlmostEqual(
+        inputbox.location['x'] + inputbox.size['width'] / 2,
+        512, delta=10
+    )
+```
+
+### Django Template Inheritance
+
+```html
+<!-- base.html -->
+<html>
+<head><title>To-Do Lists</title></head>
+<body>
+  <h1>{% block header_text %}{% endblock %}</h1>
+  <form method="POST" action="{% block form_action %}{% endblock %}">
+    {% csrf_token %}
+    <input name="item_text" id="id_new_item" placeholder="Enter a to-do item" />
+  </form>
+  {% block table %}{% endblock %}
+</body>
+</html>
+
+<!-- home.html -->
+{% extends 'base.html' %}
+{% block header_text %}Start a new To-Do list{% endblock %}
+{% block form_action %}/lists/new{% endblock %}
+
+<!-- list.html -->
+{% extends 'base.html' %}
+{% block header_text %}Your To-Do list{% endblock %}
+{% block form_action %}/lists/{{ list.id }}/add_item{% endblock %}
+{% block table %}
+  <table id="id_list_table">
+    {% for item in list.item_set.all %}
+      <tr><td>{{ forloop.counter }}: {{ item.text }}</td></tr>
+    {% endfor %}
+  </table>
+{% endblock %}
+```
+
+### Static Files in Django
+
+```python
+# settings.py
+STATIC_URL = '/static/'
+STATIC_ROOT = os.path.abspath(os.path.join(BASE_DIR, '..', 'static'))
+```
+
+```bash
+python manage.py collectstatic --noinput
+```
+
+#### Switching to StaticLiveServerTestCase
+
+**Key library: `django.contrib.staticfiles.testing.StaticLiveServerTestCase`**
+
+```python
+from django.contrib.staticfiles.testing import StaticLiveServerTestCase
+
+class NewVisitorTest(StaticLiveServerTestCase):
+    # Automatically serves static files during tests
+    pass
+```
+
+- Replaces `LiveServerTestCase` — serves static files so CSS/JS load in FTs
+
+---
+
+## Chapter 9: Testing Deployment Using a Staging Site
+
+### TDD and the Danger Areas of Deployment
+
+- Danger areas: static files, database, dependencies
+- **Solution**: Run FTs against a staging server before deploying to production
+
+### As Always, Start with a Test
+
+```python
+import os
+
+class NewVisitorTest(StaticLiveServerTestCase):
+    def setUp(self):
+        self.browser = webdriver.Firefox()
+        staging_server = os.environ.get('STAGING_SERVER')
+        if staging_server:
+            self.live_server_url = 'http://' + staging_server
+```
+
+```bash
+# Run FTs against staging
+STAGING_SERVER=superlists-staging.example.com python manage.py test functional_tests
+```
+
+### Manually Provisioning a Server to Host Our Site
+
+**Directory structure on server**:
+
+```
+~/sites/SITENAME/
+    database/       # db.sqlite3
+    source/         # git repo
+    static/         # collectstatic output
+    virtualenv/     # Python virtualenv
+```
+
+**Key tools**: Nginx (reverse proxy), Gunicorn (WSGI server), Systemd (process manager)
+
+---
+
+## Chapter 10: Getting to a Production-Ready Deployment
+
+### Switching to Gunicorn
+
+**Key tool: `gunicorn`** — Production WSGI HTTP server for Python.
+
+```bash
+pip install gunicorn
+gunicorn --bind unix:/tmp/SITENAME.socket superlists.wsgi:application
+```
+
+### Switching to Using Unix Sockets
+
+- Unix sockets (`/tmp/SITENAME.socket`) instead of TCP ports — more secure, no port collisions
+
+### Switching DEBUG to False and Setting ALLOWED_HOSTS
+
+```python
+DEBUG = False
+ALLOWED_HOSTS = ['superlists-staging.example.com']
+```
+
+### Using Systemd to Make Sure Gunicorn Starts on Boot
+
+```ini
+# /etc/systemd/system/gunicorn-SITENAME.service
+[Unit]
+Description=Gunicorn server for SITENAME
+
+[Service]
+Restart=on-failure
+User=elspeth
+WorkingDirectory=/home/elspeth/sites/SITENAME/source
+ExecStart=/home/elspeth/sites/SITENAME/virtualenv/bin/gunicorn \
+    --bind unix:/tmp/SITENAME.socket superlists.wsgi:application
+
+[Install]
+WantedBy=multi-user.target
+```
+
+```bash
+sudo systemctl daemon-reload
+sudo systemctl enable gunicorn-SITENAME
+sudo systemctl start gunicorn-SITENAME
+```
+
+---
+
+## Chapter 11: Automating Deployment with Fabric
+
+**Key library: `fabric`** — Python tool for automating SSH commands on remote servers.
+
+```bash
+pip install fabric3
+```
+
+### Breakdown of a Fabric Script for Our Deployment
+
+```python
+# deploy_tools/fabfile.py
+from fabric.api import run, env
+import random
+
+REPO_URL = 'https://github.com/hjwp/book-example.git'
+
+def deploy():
+    site_folder = f'/home/{env.user}/sites/{env.host}'
+    source_folder = site_folder + '/source'
+    _create_directory_structure_if_necessary(site_folder)
+    _get_latest_source(source_folder)
+    _update_virtualenv(source_folder)
+    _update_static_files(source_folder)
+    _update_database(source_folder)
+
+def _create_directory_structure_if_necessary(site_folder):
+    for subfolder in ('database', 'source', 'static', 'virtualenv'):
+        run(f'mkdir -p {site_folder}/{subfolder}')
+
+def _get_latest_source(source_folder):
+    run(f'cd {source_folder} && git fetch')
+
+def _update_virtualenv(source_folder):
+    run(f'{source_folder}/../virtualenv/bin/pip install -r {source_folder}/requirements.txt')
+
+def _update_static_files(source_folder):
+    run(f'cd {source_folder} && ../virtualenv/bin/python manage.py collectstatic --noinput')
+
+def _update_database(source_folder):
+    run(f'cd {source_folder} && ../virtualenv/bin/python manage.py migrate --noinput')
+```
+
+```bash
+fab deploy:host=elspeth@superlists-staging.example.com
+```
+
+- **Idempotent**: Safe to run multiple times — checks before creating
+- Version-control the deployment script itself
+
+---
+
+## Chapter 12: Splitting Our Tests into Multiple Files, and a Generic Wait Helper
+
+### Skipping a Test
+
+```python
+from unittest import skip
+
+@skip
+def test_cannot_add_empty_list_items(self):
+    self.fail('write me!')
+```
+
+- `@skip` temporarily disables a test — remove before committing
+
+### Splitting Functional Tests Out into Many Files
+
+```
+functional_tests/
+    __init__.py
+    base.py                          # Shared FunctionalTest base class
+    test_simple_list_creation.py
+    test_layout_and_styling.py
+    test_list_item_validation.py
+```
+
+```python
+# functional_tests/base.py
+from django.contrib.staticfiles.testing import StaticLiveServerTestCase
+
+MAX_WAIT = 10
+
+class FunctionalTest(StaticLiveServerTestCase):
+    def setUp(self):
+        self.browser = webdriver.Firefox()
+    def tearDown(self):
+        self.browser.quit()
+    def wait_for(self, fn):
+        # generic wait helper (see below)
+```
+
+```python
+# functional_tests/test_simple_list_creation.py
+from .base import FunctionalTest  # relative import
+
+class NewVisitorTest(FunctionalTest):
+    def test_can_start_a_list_for_one_user(self):
+        ...
+```
+
+### A New Functional Test Tool: A Generic Explicit Wait Helper
+
+```python
+def wait_for(self, fn):
+    start_time = time.time()
+    while True:
+        try:
+            return fn()
+        except (AssertionError, WebDriverException) as e:
+            if time.time() - start_time > MAX_WAIT:
+                raise e
+            time.sleep(0.5)
+```
+
+**Usage with lambdas** — defer execution until inside the retry loop:
+
+```python
+self.wait_for(lambda: self.assertEqual(
+    self.browser.find_element_by_css_selector('.has-error').text,
+    "You can't have an empty list item"
+))
+```
+
+### Refactoring Unit Tests into Several Files
+
+```
+lists/tests/
+    __init__.py
+    test_models.py
+    test_views.py
+    test_forms.py
+```
+
+---
+
+## Chapter 13: Validation at the Database Layer
+
+### Model-Layer Validation
+
+- Push validation **as low as possible** — database layer is the last line of defense
+
+#### The self.assertRaises Context Manager
+
+```python
+from django.core.exceptions import ValidationError
+
+def test_cannot_save_empty_list_items(self):
+    list_ = List.objects.create()
+    item = Item(list=list_, text='')
+    with self.assertRaises(ValidationError):
+        item.save()
+        item.full_clean()  # Must call explicitly!
+```
+
+#### A Django Quirk: Model Save Doesn't Run Validation
+
+- **`model.save()`** does NOT call validators on `TextField`
+- **`model.full_clean()`** manually triggers all model validation
+- This is a Django design choice — form-level validation is separate from save
+
+### Surfacing Model Validation Errors in the View
+
+```python
+from django.core.exceptions import ValidationError
+
+def view_list(request, list_id):
+    list_ = List.objects.get(id=list_id)
+    error = None
+    if request.method == 'POST':
+        try:
+            item = Item(text=request.POST['item_text'], list=list_)
+            item.full_clean()
+            item.save()
+            return redirect(f'/lists/{list_.id}/')
+        except ValidationError:
+            error = "You can't have an empty list item"
+    return render(request, 'list.html', {'list': list_, 'error': error})
+```
+
+### Django Pattern: Processing POST Requests in the Same View as Renders the Form
+
+- Single view handles both GET (display form) and POST (process form)
+- On validation error, re-render same template with error message
+
+### Refactor: Removing Hardcoded URLs
+
+```python
+# In models
+from django.urls import reverse
+
+class List(models.Model):
+    def get_absolute_url(self):
+        return reverse('view_list', args=[self.id])
+
+# In views — redirect using model method
+return redirect(list_)  # Django calls get_absolute_url()
+```
+
+- **`{% url 'view_list' list.id %}`** — template tag for reverse URL resolution
+
+---
+
+## Chapter 14: A Simple Form
+
+### Moving Validation Logic into a Form
+
+**Key library: `django.forms`** — Django's form framework handles validation, rendering, and saving.
+
+#### Exploring the Forms API with a Unit Test
+
+```python
+# lists/forms.py
+from django import forms
+from lists.models import Item
+
+EMPTY_ITEM_ERROR = "You can't have an empty list item"
+
+class ItemForm(forms.models.ModelForm):
+    class Meta:
+        model = Item
+        fields = ('text',)
+        widgets = {
+            'text': forms.fields.TextInput(attrs={
+                'placeholder': 'Enter a to-do item',
+                'class': 'form-control input-lg',
+            }),
+        }
+        error_messages = {
+            'text': {'required': EMPTY_ITEM_ERROR}
+        }
+```
+
+- **`ModelForm`**: Auto-generates form from model — reuses model field definitions and validation
+- **`widgets`**: Customize HTML rendering (placeholder, CSS classes)
+- **`error_messages`**: Customize validation error text
+
+#### Testing and Customising Form Validation
+
+```python
+def test_form_validation_for_blank_items(self):
+    form = ItemForm(data={'text': ''})
+    self.assertFalse(form.is_valid())
+    self.assertEqual(form.errors['text'], [EMPTY_ITEM_ERROR])
+```
+
+- **`form.is_valid()`**: Returns `True`/`False`, populates `form.errors`
+- **`form.errors`**: Dict mapping field names to lists of error strings
+
+### Using the Form in Our Views
+
+```python
+# GET — render empty form
+def home_page(request):
+    return render(request, 'home.html', {'form': ItemForm()})
+
+# POST — validate and save
+def new_list(request):
+    form = ItemForm(data=request.POST)
+    if form.is_valid():
+        list_ = List.objects.create()
+        form.save(for_list=list_)
+        return redirect(list_)
+    else:
+        return render(request, 'home.html', {'form': form})
+```
+
+```html
+<!-- Template renders form field + errors -->
+{{ form.text }}
+{% if form.errors %}
+  <div class="form-group has-error">
+    <span class="help-block">{{ form.text.errors }}</span>
+  </div>
+{% endif %}
+```
+
+### Using the Form's Own Save Method
+
+```python
+class ItemForm(forms.models.ModelForm):
+    # ...
+    def save(self, for_list):
+        self.instance.list = for_list
+        return super().save()
+```
+
+### An Unexpected Benefit: Free Client-Side Validation from HTML5
+
+- Django ModelForm adds `required` attribute to HTML inputs from `blank=False`
+- Browsers prevent empty form submission automatically
+- Still need server-side validation as a safety net
+
+---
+
+## Chapter 15: More Advanced Forms
+
+### Preventing Duplicates at the Model Layer
+
+```python
+class Item(models.Model):
+    text = models.TextField(default='')
+    list = models.ForeignKey(List, default=None)
+
+    class Meta:
+        ordering = ('id',)
+        unique_together = ('list', 'text')
+```
+
+- **`unique_together`**: Database-level constraint — same text + same list = error
+- **`ordering`**: Default sort order for QuerySets
+
+### A More Complex Form to Handle Uniqueness Validation
+
+```python
+class ExistingListItemForm(ItemForm):
+    def __init__(self, for_list, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.instance.list = for_list
+
+    def validate_unique(self):
+        try:
+            self.instance.validate_unique()
+        except ValidationError as e:
+            e.error_dict = {'text': [DUPLICATE_ITEM_ERROR]}
+            self._update_errors(e)
+
+    def save(self):
+        return forms.models.ModelForm.save(self)
+```
+
+- Form needs list context to validate uniqueness across items in the same list
+- Override `validate_unique()` to customize the error message
+
+### A Little Digression on Queryset Ordering and String Representations
+
+```python
+class Item(models.Model):
+    def __str__(self):
+        return self.text
+```
+
+- `__str__` makes debugging/assertions much more readable
+
+---
+
+## Chapter 16: Dipping Our Toes, Very Tentatively, into JavaScript
+
+### Setting Up a Basic JavaScript Test Runner
+
+**Key library: `QUnit`** — JavaScript unit testing framework.
+
+```html
+<!-- lists/static/tests/tests.html -->
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" href="qunit-2.0.1.css">
+</head>
+<body>
+  <div id="qunit"></div>
+  <div id="qunit-fixture">
+    <!-- Test fixtures: HTML that gets reset for each test -->
+    <form>
+      <input id="id_text" />
+      <div class="form-group has-error">
+        <span class="help-block">An error</span>
+      </div>
+    </form>
+  </div>
+  <script src="qunit-2.0.1.js"></script>
+  <script src="../jquery-3.1.1.min.js"></script>
+  <script src="../list.js"></script>
+  <script>
+    QUnit.test("errors are hidden on input", function (assert) {
+      $('#id_text').trigger('input');
+      assert.equal($('.has-error').is(':visible'), false);
+    });
+  </script>
+</body>
+</html>
+```
+
+### Using jQuery and the Fixtures Div
+
+- **`$('#id')`**: jQuery selector
+- **`.on('event', fn)`**: Attach event listener
+- **`.is(':visible')`**: Check if element is displayed
+- **`.hide()` / `.show()`**: Toggle visibility
+
+### Building a JavaScript Unit Test for Our Desired Functionality
+
+```javascript
+// lists/static/list.js
+$('#id_text').on('input', function () {
+    $('.has-error').hide();
+});
+```
+
+### JavaScript Testing in the TDD Cycle
+
+- Write QUnit test → fails → implement JS → passes → refactor
+- Same Red/Green/Refactor cycle as Python TDD
+
+---
+
+## Chapter 17: Deploying Our New Code
+
+### Staging Deploy
+
+```bash
+cd deploy_tools
+fab deploy:host=elspeth@superlists-staging.example.com
+```
+
+### Live Deploy
+
+```bash
+fab deploy:host=elspeth@superlists.example.com
+sudo systemctl restart gunicorn-superlists.example.com
+```
+
+### Wrap-Up: git tag the New Release
+
+```bash
+git tag -f LIVE
+git push -f origin LIVE
+```
+
+---
+
+# Part III. More Advanced Topics in Testing
+
+---
+
+## Chapter 18: User Authentication, Spiking, and De-Spiking
+
+### Passwordless Auth
+
+- Token-based login: generate unique token, email login URL, user clicks link to authenticate
+- No passwords to store or manage
+
+### Exploratory Coding, aka "Spiking"
+
+- **Spike**: Prototype code to explore an API or solution without TDD discipline
+- Done on a **separate branch**: `git checkout -b passwordless-spike`
+- Goal: learn how something works, then throw away the code
+
+### De-spiking
+
+- Rewrite the spike code using proper TDD
+- Revert spike branch: `git checkout master`
+- Write tests first, implement properly
+
+### Custom Authentication Models
+
+```python
+# accounts/models.py
+class Token(models.Model):
+    email = models.EmailField()
+    uid = models.CharField(default=uuid.uuid4, max_length=40)
+
+class ListUser(AbstractBaseUser, PermissionsMixin):
+    email = models.EmailField(primary_key=True)
+    USERNAME_FIELD = 'email'
+    objects = ListUserManager()
+```
+
+### Custom Authentication Backend
+
+```python
+# accounts/authentication.py
+class PasswordlessAuthenticationBackend:
+    def authenticate(self, uid):
+        try:
+            token = Token.objects.get(uid=uid)
+        except Token.DoesNotExist:
+            return None
+        try:
+            user = ListUser.objects.get(email=token.email)
+        except ListUser.DoesNotExist:
+            user = ListUser.objects.create(email=token.email)
+        return user
+
+    def get_user(self, email):
+        try:
+            return ListUser.objects.get(email=email)
+        except ListUser.DoesNotExist:
+            return None
+```
+
+```python
+# settings.py
+AUTH_USER_MODEL = 'accounts.ListUser'
+AUTHENTICATION_BACKENDS = ['accounts.authentication.PasswordlessAuthenticationBackend']
+```
+
+### Sending Emails from Django
+
+```python
+from django.core.mail import send_mail
+
+send_mail(
+    'Your login link for Superlists',
+    f'Use this link to log in:\n\n{url}',
+    'noreply@superlists',
+    [email],
+)
+```
+
+### Using Environment Variables to Avoid Secrets in Source Code
+
+```python
+EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_PASSWORD')
+```
+
+### A Minimal Custom User Model
+
+- Minimal user model uses email as primary key
+- Tests serve as documentation for model behavior
+
+---
+
+## Chapter 19: Using Mocks to Test External Dependencies or Reduce Duplication
+
+### Mocking Manually, aka Monkeypatching
+
+```python
+def test_sends_mail(self):
+    self.send_mail_called = False
+
+    def fake_send_mail(subject, body, from_email, to_list):
+        self.send_mail_called = True
+        self.subject = subject
+
+    accounts.views.send_mail = fake_send_mail  # monkeypatch
+    self.client.post('/accounts/send_login_email', data={'email': 'a@b.com'})
+    self.assertTrue(self.send_mail_called)
+```
+
+### The Python Mock Library
+
+**Key library: `unittest.mock`** — Python's built-in mocking framework (stdlib since 3.3).
+
+```python
+from unittest.mock import Mock, patch, call
+
+# Mock objects auto-create attributes and track calls
+m = Mock()
+m.any_attribute            # returns another Mock
+m.any_method()             # returns a Mock, records the call
+m.called                   # True — was it called?
+m.call_args                # call() object with (args, kwargs)
+m.return_value = 42        # configure what it returns
+```
+
+#### Using unittest.patch
+
+```python
+from unittest.mock import patch
+
+@patch('accounts.views.send_mail')
+def test_sends_mail_to_address_from_post(self, mock_send_mail):
+    self.client.post('/accounts/send_login_email', data={'email': 'a@b.com'})
+
+    self.assertTrue(mock_send_mail.called)
+    (subject, body, from_email, to_list), kwargs = mock_send_mail.call_args
+    self.assertEqual(subject, 'Your login link for Superlists')
+    self.assertEqual(to_list, ['a@b.com'])
+```
+
+**How `@patch` works**:
+1. Finds object at the dotted path (e.g., `accounts.views.send_mail`)
+2. Replaces it with a `Mock` object for the duration of the test
+3. Injects the mock as an extra argument to the test method
+4. Restores the original after the test
+
+**Critical rule**: Patch where the object is **used**, not where it's **defined**:
+
+```python
+# accounts/views.py imports send_mail
+# So patch 'accounts.views.send_mail', NOT 'django.core.mail.send_mail'
+```
+
+#### Patching at the Class Level
+
+```python
+@patch('accounts.views.auth')
+class LoginViewTest(TestCase):
+    def test_redirects(self, mock_auth):
+        ...
+    def test_calls_authenticate(self, mock_auth):
+        mock_auth.authenticate.return_value = None
+        ...
+```
+
+### Using mock.return_value
+
+```python
+mock_auth.authenticate.return_value = mock_user
+# Now when view calls auth.authenticate(...), it gets mock_user back
+```
+
+### Checking That We Send the User a Link with a Token
+
+```python
+@patch('accounts.views.send_mail')
+def test_sends_link_to_login_using_token_uid(self, mock_send_mail):
+    self.client.post('/accounts/send_login_email', data={'email': 'a@b.com'})
+    token = Token.objects.first()
+    expected_url = f'http://testserver/accounts/login?token={token.uid}'
+    (subject, body, from_email, to_list), kwargs = mock_send_mail.call_args
+    self.assertIn(expected_url, body)
+```
+
+### Testing the Django Messages Framework
+
+```python
+# Better: test behavior, not implementation
+def test_adds_success_message(self):
+    response = self.client.post('/accounts/send_login_email',
+        data={'email': 'a@b.com'}, follow=True)  # follow redirects
+    message = list(response.context['messages'])[0]
+    self.assertEqual(message.message, "Check your email...")
+    self.assertEqual(message.tags, "success")
+```
+
+---
+
+## Chapter 20: Test Fixtures and a Decorator for Explicit Waits
+
+### Skipping the Login Process by Pre-creating a Session
+
+**Test Fixture**: Pre-created data that lets tests skip repetitive setup.
+
+```python
+def create_pre_authenticated_session(self, email):
+    user = User.objects.create(email=email)
+    session = SessionStore()
+    session[SESSION_KEY] = user.pk
+    session[BACKEND_SESSION_KEY] = settings.AUTHENTICATION_BACKENDS[0]
+    session.save()
+
+    # Must visit domain before setting cookie
+    self.browser.get(self.live_server_url + '/404_no_such_url/')
+    self.browser.add_cookie(dict(
+        name=settings.SESSION_COOKIE_NAME,
+        value=session.session_key,
+        path='/',
+    ))
+```
+
+- **`SessionStore`**: Django's session backend — creates a session record in DB
+- **`browser.add_cookie()`**: Inject session cookie into Selenium browser
+- Must navigate to the domain first (cookies are domain-scoped)
+
+### Our Final Explicit Wait Helper: A Wait Decorator
+
+```python
+import time
+from functools import wraps
+
+def wait(fn):
+    @wraps(fn)
+    def modified_fn(*args, **kwargs):
+        start_time = time.time()
+        while True:
+            try:
+                return fn(*args, **kwargs)
+            except (AssertionError, WebDriverException) as e:
+                if time.time() - start_time > MAX_WAIT:
+                    raise e
+                time.sleep(0.5)
+    return modified_fn
+```
+
+**Usage** — decorate helper methods directly:
+
+```python
+@wait
+def wait_for_row_in_list_table(self, row_text):
+    table = self.browser.find_element_by_id('id_list_table')
+    rows = table.find_elements_by_tag_name('tr')
+    self.assertIn(row_text, [row.text for row in rows])
+
+@wait
+def wait_to_be_logged_in(self, email):
+    self.browser.find_element_by_link_text('Log out')
+    navbar = self.browser.find_element_by_css_selector('.navbar')
+    self.assertIn(email, navbar.text)
+```
+
+---
+
+## Chapter 21: Server-Side Debugging
+
+### The Proof Is in the Pudding: Using Staging to Catch Final Bugs
+
+- Run FTs against staging server to catch deployment-specific bugs
+- Logging is essential for debugging production issues
+
+#### Setting Up Logging
+
+```python
+# settings.py
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'console': {'level': 'DEBUG', 'class': 'logging.StreamHandler'},
+    },
+    'loggers': {
+        'django': {'handlers': ['console']},
+    },
+    'root': {'level': 'INFO'},
+}
+```
+
+### Setting Secret Environment Variables on the Server
+
+```bash
+echo "EMAIL_PASSWORD=mysecret" >> ~/.env
+# Source in Gunicorn systemd service via EnvironmentFile=
+```
+
+### Managing the Test Database on Staging
+
+- Create sessions on the staging server for FTs using Django management commands
+- Use `fabric` to run management commands remotely
+
+---
+
+## Chapter 22: Finishing "My Lists": Outside-In TDD
+
+### The Alternative: "Inside-Out"
+
+- **Inside-Out**: Build models first, then views, then templates
+- Risk: building inner components more general than needed
+
+### Why Prefer "Outside-In"?
+
+- **Outside-In**: Start from templates/UI, work inward to views, then models
+- Also called **"programming by wishful thinking"** — design the API you wish you had
+- Each layer's tests inform the next layer's design
+
+### The Outside Layer: Presentation and Templates
+
+- Start with FT describing user-visible behavior
+- FT failure reveals what the template needs
+
+### Moving Down One Layer to View Functions (the Controller)
+
+- Template needs data → view must provide it
+- Write unit test for view → implement view
+
+### Moving Down to the Model Layer
+
+```python
+class List(models.Model):
+    owner = models.ForeignKey(settings.AUTH_USER_MODEL, blank=True, null=True)
+
+    @property
+    def name(self):
+        return self.item_set.first().text
+```
+
+### The Outside-In Workflow
+
+```
+FT → Template needs X → View test → View needs Y from model →
+Model test → Model implementation → View passes → FT passes
+```
+
+---
+
+## Chapter 23: Test Isolation, and "Listening to Your Tests"
+
+### A First Attempt at Using Mocks for Isolation
+
+```python
+from unittest.mock import patch, Mock
+
+@patch('lists.views.NewListForm')
+def test_passes_POST_data_to_NewListForm(self, mockNewListForm):
+    self.client.post('/lists/new', data={'text': 'new item'})
+    mockNewListForm.assert_called_once_with(data=self.request.POST)
+```
+
+#### Using Mock side_effects to Check the Sequence of Events
+
+```python
+def check_owner_assigned():
+    self.assertEqual(mock_list.owner, user)
+
+mock_list.save.side_effect = check_owner_assigned
+```
+
+- `side_effect` runs a function when the mock is called — verifies ordering
+
+### Listen to Your Tests: Ugly Tests Signal a Need to Refactor
+
+- Hard-to-write tests → code design needs improvement
+- Solution: extract collaborators, hide ORM behind helper methods
+
+### Rewriting Our Tests for the View to Be Fully Isolated
+
+```python
+@patch('lists.views.NewListForm')
+def test_saves_form_with_owner_if_form_valid(self, mockNewListForm):
+    mock_form = mockNewListForm.return_value
+    mock_form.is_valid.return_value = True
+    new_list(self.request)
+    mock_form.save.assert_called_once_with(owner=self.request.user)
+```
+
+### Moving Down to the Forms Layer
+
+```python
+class NewListForm(ItemForm):
+    def save(self, owner):
+        if owner.is_authenticated:
+            return List.create_new(first_item_text=self.cleaned_data['text'], owner=owner)
+        else:
+            return List.create_new(first_item_text=self.cleaned_data['text'])
+```
+
+### Moving Down to the Models Layer
+
+```python
+@staticmethod
+def create_new(first_item_text, owner=None):
+    list_ = List.objects.create(owner=owner)
+    Item.objects.create(text=first_item_text, list=list_)
+    return list_
+```
+
+### Thinking of Interactions Between Layers as "Contracts"
+
+- **Implicit contract**: When you mock `form.save(owner=user)`, you're claiming the real form accepts `owner`
+- Verify contracts with integration tests
+
+### Conclusions: When to Write Isolated Versus Integrated Tests
+
+- **Let complexity be your guide**: Simple code → integrated tests; complex code → isolated tests
+- Keep a few integrated **sanity check** tests alongside isolated tests
+- Use all three layers: FTs, integrated tests, isolated unit tests
+
+---
+
+## Chapter 24: Continuous Integration (CI)
+
+### Installing Jenkins
+
+**Key tool: Jenkins** — open-source CI server (Java-based).
+
+```bash
+wget -q -O - https://pkg.jenkins.io/debian-stable/jenkins.io.key | apt-key add -
+apt-get install jenkins
+```
+
+### Configuring Jenkins
+
+- Runs on port 8080
+- **Key plugins**: ShiningPanda (Python/virtualenv), Xvfb (virtual display), Git
+
+### Setting Up Our Project
+
+- **Source Code Management**: Git repo URL
+- **Build Triggers**: Poll SCM (`H/5 * * * *`)
+- **Build Environment**: Start Xvfb before build (1024x768x24)
+
+### Taking Screenshots
+
+```python
+import os
+from datetime import datetime
+
+SCREEN_DUMP_LOCATION = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'screendumps')
+
+def _get_filename(self):
+    timestamp = datetime.now().isoformat().replace(':', '.')[:19]
+    return f'{SCREEN_DUMP_LOCATION}/{self.__class__.__name__}.{self._testMethodName}-window{self._windowId}-{timestamp}'
+
+def take_screenshot(self):
+    filename = self._get_filename() + '.png'
+    self.browser.get_screenshot_as_file(filename)
+
+def dump_html(self):
+    filename = self._get_filename() + '.html'
+    with open(filename, 'w') as f:
+        f.write(self.browser.page_source)
+```
+
+- Screenshots + HTML dumps on test failure — invaluable for debugging CI
+
+### If in Doubt, Try Bumping the Timeout
+
+```python
+MAX_WAIT = 20  # or even 30 for CI environments
+```
+
+- CI servers are often under heavier load — increase timeouts generously
+
+### Running Our QUnit JavaScript Tests in Jenkins with PhantomJS
+
+**Key tool: PhantomJS** — headless browser for JavaScript testing (deprecated, prefer Xvfb+Firefox).
+
+```bash
+npm install -g phantomjs
+phantomjs runner.js tests.html
+```
+
+---
+
+## Chapter 25: The Token Social Bit, the Page Pattern, and an Exercise for the Reader
+
+### The Page Pattern
+
+**Page Object Pattern**: Encapsulates page structure in reusable classes.
+
+```python
+class ListPage:
+    def __init__(self, test):
+        self.test = test
+
+    def get_table_rows(self):
+        return self.test.browser.find_elements_by_css_selector('#id_list_table tr')
+
+    @wait
+    def wait_for_row_in_list_table(self, item_text, item_number):
+        expected = f'{item_number}: {item_text}'
+        rows = self.get_table_rows()
+        self.test.assertIn(expected, [row.text for row in rows])
+
+    def get_item_input_box(self):
+        return self.test.browser.find_element_by_id('id_text')
+
+    def add_list_item(self, item_text):
+        new_item_no = len(self.get_table_rows()) + 1
+        self.get_item_input_box().send_keys(item_text)
+        self.get_item_input_box().send_keys(Keys.ENTER)
+        self.wait_for_row_in_list_table(item_text, new_item_no)
+        return self  # method chaining
+```
+
+**Benefits**:
+- When HTML changes, update one place (the Page object), not every test
+- Tests read like narratives: `ListPage(self).add_list_item('Buy milk')`
+- Method chaining via `return self`
+
+### An FT with Multiple Users, and addCleanup
+
+```python
+def test_can_share_a_list_with_another_user(self):
+    self.create_pre_authenticated_session('edith@example.com')
+    edith_browser = self.browser
+    self.addCleanup(lambda: quit_if_possible(edith_browser))
+
+    oni_browser = webdriver.Firefox()
+    self.addCleanup(lambda: quit_if_possible(oni_browser))
+    self.browser = oni_browser
+    self.create_pre_authenticated_session('oni@example.com')
+```
+
+- **`self.addCleanup(fn)`**: Register cleanup functions that run after tearDown, even on failure
+
+---
+
+## Chapter 26: Fast Tests, Slow Tests, and Hot Lava
+
+### Thesis: Unit Tests Are Superfast and Good Besides That
+
+- **Fast feedback** keeps you in flow state
+- Unit tests drive better design by forcing decoupled code
+- Run in milliseconds vs. minutes for FTs
+
+### The Problems with "Pure" Unit Tests
+
+- **Isolated tests can be harder to read** — mock setup obscures intent
+- **Isolated tests don't automatically test integration** — mocks can lie
+- **Unit tests seldom catch unexpected bugs** — they test what you expect
+- **Mocky tests become tightly coupled to implementation** — refactoring breaks tests
+
+### Synthesis: What Do We Want from Our Tests, Anyway?
+
+Three goals:
+1. **Correctness**: Does the code work?
+2. **Clean, Maintainable Code**: Is the design good?
+3. **Productive Workflow**: Is the feedback loop fast enough?
+
+### Architectural Solutions
+
+#### Ports and Adapters / Hexagonal / Clean Architecture
+
+- Identify **boundaries** (DB, UI, network, email)
+- **Core logic**: Pure Python, no side effects, easy to unit test
+- **Adapters**: Handle boundary interactions, tested with integration tests
+
+#### Functional Core, Imperative Shell
+
+- Core follows **functional programming** (no side effects, pure functions)
+- Shell handles all I/O and state mutation
+- Core is trivially testable without mocks
+
+### Evaluate Your Tests Against the Benefits You Want from Them
+
+| Test Type | Speed | Correctness | Design Feedback | Integration Safety |
+|---|---|---|---|---|
+| Isolated unit tests | Fastest | Moderate | Excellent | None |
+| Integrated unit tests | Fast | Good | Moderate | Good |
+| Functional tests | Slowest | Excellent | Minimal | Excellent |
+
+**Recommendation**: Use a balanced portfolio of all three, weighted by your project's needs.
+
+---
+
+# Appendices
+
+---
+
+## Appendix A: PythonAnywhere
+
+- Cloud hosting for Django; browser-based console
+- Use `xvfb-run` for headless Selenium tests: `xvfb-run python manage.py test`
+- **Xvfb**: X Virtual Framebuffer — creates virtual display for GUI-less servers
+
+---
+
+## Appendix B: Django Class-Based Views
+
+**Class-Based Generic Views (CBGVs)** — reduce boilerplate for common patterns:
+
+```python
+from django.views.generic import FormView, CreateView, DetailView
+
+class HomePageView(FormView):
+    template_name = 'home.html'
+    form_class = ItemForm
+
+class ViewAndAddToList(DetailView, CreateView):
+    model = List
+    template_name = 'list.html'
+    form_class = ExistingListItemForm
+```
+
+- **`FormView`**: Display form on GET, validate on POST
+- **`CreateView`**: Create object from form submission
+- **`DetailView`**: Display single object
+- Customize via method overrides: `form_valid()`, `get_form()`
+- Trade-off: Less boilerplate, but complex inheritance can be harder to debug
+
+---
+
+## Appendix C: Provisioning with Ansible
+
+**Key tool: Ansible** — YAML-based configuration management via SSH.
+
+```yaml
+# provision.ansible.yaml
+- hosts: all
+  vars:
+    host: "{{ inventory_hostname }}"
+  tasks:
+    - name: add deadsnakes PPA
+      apt_repository: repo='ppa:fkrull/deadsnakes'
+
+    - name: install packages
+      apt: pkg=nginx,git,python3.6,python3.6-venv state=present
+
+    - name: add nginx config
+      template: src=./nginx.conf.j2 dest=/etc/nginx/sites-available/{{ host }}
+      notify: restart nginx
+
+    - name: add gunicorn service
+      template: src=./gunicorn.service.j2 dest=/etc/systemd/system/gunicorn-{{ host }}.service
+      notify: restart gunicorn
+
+  handlers:
+    - name: restart nginx
+      service: name=nginx state=restarted
+    - name: restart gunicorn
+      systemd: name=gunicorn-{{ host }} daemon_reload=yes state=restarted
+```
+
+```bash
+ansible-playbook -i inventory.ansible provision.ansible.yaml --ask-become-pass
+```
+
+- **Playbooks**: Declarative YAML defining desired server state
+- **Handlers**: Run only when notified (e.g., restart after config change)
+- **Templates**: Jinja2 templating for config files
+
+---
+
+## Appendix D: Testing Database Migrations
+
+- **Data migrations**: Modify database content, not just schema
+- Test with real (sanitized) data from production
+- Example: Deduplicate data before adding a `unique_together` constraint
+
+```python
+# Migration: deduplicate items
+def find_dupes(apps, schema_editor):
+    List = apps.get_model("lists", "List")
+    for list_ in List.objects.all():
+        texts = set()
+        for ix, item in enumerate(list_.item_set.all()):
+            if item.text in texts:
+                item.text = f'{item.text} ({ix})'
+                item.save()
+            texts.add(item.text)
+
+class Migration(migrations.Migration):
+    operations = [migrations.RunPython(find_dupes)]
+```
+
+- Always test migrations against a staging database before production
+
+---
+
+## Appendix E: Behaviour-Driven Development (BDD)
+
+**Key library: `behave`** — Python BDD framework using Gherkin syntax.
+
+```gherkin
+# features/my_lists.feature
+Feature: My Lists
+  As a logged-in user
+  I want to see all my lists on one page
+
+  Scenario: Create two lists and see them on the My Lists page
+    Given I am a logged-in user
+    When I create a list with first item "Reticulate Splines"
+    And I add an item "Immanentize Eschaton"
+    Then I will see a link to "My lists"
+```
+
+```python
+# features/steps/my_lists.py
+from behave import given, when, then
+
+@given('I am a logged-in user')
+def step_impl(context):
+    create_pre_authenticated_session(context)
+
+@when('I create a list with first item "{item_text}"')
+def step_impl(context, item_text):
+    context.browser.get(context.get_url('/'))
+    context.browser.find_element_by_id('id_text').send_keys(item_text)
+    context.browser.find_element_by_id('id_text').send_keys(Keys.ENTER)
+```
+
+- **Given/When/Then** maps to **Arrange/Act/Assert**
+- Step functions are reusable across scenarios
+- **Trade-off**: More structured than inline FTs, but adds an abstraction layer
+
+**Also mentioned**: `behave-django` for Django integration, `Lettuce` (limited Python 3 support)
+
+---
+
+## Appendix F: Building a REST API: JSON, Ajax, and Mocking with JavaScript
+
+```python
+# lists/api.py
+from django.http import HttpResponse
+import json
+
+def list(request, list_id):
+    list_ = List.objects.get(id=list_id)
+    item_dicts = [{'id': i.id, 'text': i.text} for i in list_.item_set.all()]
+    return HttpResponse(json.dumps(item_dicts), content_type='application/json')
+```
+
+```python
+# API unit test
+def test_get_returns_json_200(self):
+    list_ = List.objects.create()
+    response = self.client.get(f'/api/lists/{list_.id}/')
+    self.assertEqual(response.status_code, 200)
+    self.assertEqual(response['content-type'], 'application/json')
+```
+
+- REST API enables frontend/backend separation
+- Test API independently from UI with Django test client
+
+---
+
+## Appendix G: Django-Rest-Framework
+
+**Key library: `djangorestframework` (DRF)** — toolkit for building Web APIs.
+
+```bash
+pip install djangorestframework
+```
+
+- Provides serializers, viewsets, routers, authentication
+- Auto-generates browsable API
+- Reduces boilerplate for CRUD API endpoints
+- Integrates with Django's model/form validation
+
+---
+
+## Quick Reference: Key Libraries and Tools
+
+| Library/Tool | Purpose | Import / Install |
+|---|---|---|
+| `unittest` | Python test framework (stdlib) | `import unittest` |
+| `unittest.mock` | Mocking framework (stdlib) | `from unittest.mock import Mock, patch` |
+| `django.test.TestCase` | Django unit test base class | `from django.test import TestCase` |
+| `LiveServerTestCase` | FT base with live server | `from django.test import LiveServerTestCase` |
+| `StaticLiveServerTestCase` | FT base with static files | `from django.contrib.staticfiles.testing import StaticLiveServerTestCase` |
+| `selenium` | Browser automation | `pip install selenium` |
+| `fabric` | SSH deployment automation | `pip install fabric3` |
+| `gunicorn` | Production WSGI server | `pip install gunicorn` |
+| `behave` | BDD framework (Gherkin) | `pip install behave` |
+| `QUnit` | JavaScript test framework | Download JS file |
+| `Jenkins` | CI server | `apt-get install jenkins` |
+| `Ansible` | Server provisioning | `pip install ansible` |
+| `djangorestframework` | REST API toolkit | `pip install djangorestframework` |
+
+## Quick Reference: Key Django Test Assertions
+
+```python
+self.assertEqual(a, b)                    # a == b
+self.assertIn(needle, haystack)           # needle in haystack
+self.assertTrue(x) / assertFalse(x)      # bool check
+self.assertContains(response, text)       # status 200 + text in response
+self.assertTemplateUsed(response, name)   # verify template
+self.assertRedirects(response, url)       # status 302 + location
+self.assertRaises(ExceptionType)          # context manager for exceptions
+self.assertRegex(text, pattern)           # regex match
+self.assertAlmostEqual(a, b, delta=N)     # approximate equality
+```
+
+## Quick Reference: The TDD Cycle
+
+```
+1. Write a Functional Test (user story)        → RED
+2. Write a Unit Test (specific behavior)        → RED
+3. Write minimal code to pass Unit Test         → GREEN
+4. Refactor (improve code, tests still pass)    → REFACTOR
+5. Repeat 2-4 until Functional Test passes      → GREEN
+6. Commit!
+```
+
+# Book2 - Python Testing with pytest, Second Edition — Summary
+
+> **Author:** Brian Okken | **Publisher:** Pragmatic Bookshelf (Feb 2022)
+> **Sample App:** "Cards" — a CLI task tracker built with **Typer** (CLI), **Rich** (formatting), and **TinyDB** (database)
+
+---
+
+## Part I — Primary Power
+
+### 1. Getting Started with pytest
+
+#### Installing pytest
+```bash
+python3 -m venv venv
+source venv/bin/activate        # Windows: venv\Scripts\activate.bat
+pip install pytest
+```
+
+#### Running pytest
+- `pytest` — searches current dir + subdirs for tests
+- `pytest test_file.py` — run one file
+- `pytest test_file.py::test_func` — run one test
+- `pytest dir/` — run a directory
+- `-v` / `--verbose` — show individual test names and PASSED/FAILED
+- `--tb=no` — suppress tracebacks
+
+#### Test Discovery
+- Files named `test_*.py` or `*_test.py`
+- Functions/methods named `test_*`
+- Classes named `Test*`
+
+#### Test Outcomes
+| Symbol | Meaning |
+|--------|---------|
+| `.` / PASSED | Test succeeded |
+| `F` / FAILED | Assertion or uncaught exception in test |
+| `s` / SKIPPED | Test skipped via `@pytest.mark.skip` or `skipif` |
+| `x` / XFAIL | Expected failure, and it did fail |
+| `X` / XPASS | Expected failure, but it passed |
+| `E` / ERROR | Exception in a fixture or hook, not the test itself |
+
+---
+
+### 2. Writing Test Functions
+
+#### Installing the Sample Application
+- Cards is an installable Python package: `pip install ./cards_proj/`
+- **Application code** = code under test (CUT/SUT/DUT)
+- **Test code** = code that validates the application
+
+#### Writing Knowledge-Building Tests
+- Quick tests to verify understanding of data structures / APIs
+- Cards uses a Python **dataclass** (`Card`) with `summary`, `owner`, `state`, `id`
+  - `compare=False` on `id` means equality ignores `id`
+  - Convenience methods: `Card.from_dict(d)`, `card.to_dict()`
+
+#### Using assert Statements
+- pytest uses plain `assert` — no `assertEqual`, `assertTrue`, etc.
+- **Assert rewriting**: pytest intercepts `assert` to provide rich failure diffs
+- `-vv` shows full diff details (matching vs differing attributes, caret markers)
+
+#### Failing with pytest.fail() and Exceptions
+- Any uncaught exception fails a test
+- `pytest.fail("message")` explicitly fails with a message
+- Use `assert` by default; reserve `pytest.fail()` for assertion helpers
+
+#### Writing Assertion Helper Functions
+```python
+def assert_identical(c1: Card, c2: Card):
+    __tracebackhide__ = True        # hide this frame from traceback
+    assert c1 == c2
+    if c1.id != c2.id:
+        pytest.fail(f"id's don't match. {c1.id} != {c2.id}")
+```
+
+#### Testing for Expected Exceptions
+```python
+# Check exception type
+with pytest.raises(TypeError):
+    cards.CardsDB()
+
+# Check exception message with regex
+with pytest.raises(TypeError, match="missing 1 .* positional argument"):
+    cards.CardsDB()
+
+# Inspect the exception object
+with pytest.raises(TypeError) as exc_info:
+    cards.CardsDB()
+assert "missing 1 required" in str(exc_info.value)
+```
+- `exc_info` is of type `ExceptionInfo`
+
+#### Structuring Test Functions
+- **Arrange-Act-Assert** (Bill Wake) / **Given-When-Then** (BDD, Dan North)
+  - **Given/Arrange** — set up data/state
+  - **When/Act** — perform the action under test
+  - **Then/Assert** — verify the outcome
+- Avoid interleaved assert patterns (`Arrange-Assert-Act-Assert-...`); keep assertions at the end
+
+#### Grouping Tests with Classes
+```python
+class TestEquality:
+    def test_equality(self):
+        ...
+    def test_inequality(self):
+        ...
+```
+- Run a class: `pytest test_file.py::TestEquality`
+- Run a method: `pytest test_file.py::TestEquality::test_equality`
+- Use classes primarily for grouping; avoid complex inheritance
+
+#### Running a Subset of Tests
+| Subset | Syntax |
+|--------|--------|
+| Single function | `pytest path/test_mod.py::test_func` |
+| Single class | `pytest path/test_mod.py::TestClass` |
+| Single method | `pytest path/test_mod.py::TestClass::test_method` |
+| Single module | `pytest path/test_mod.py` |
+| Directory | `pytest path/` |
+| Keyword pattern | `pytest -k "pattern"` |
+
+- `-k` supports `and`, `or`, `not`, and parentheses:
+  ```bash
+  pytest -k "(dict or ids) and not TestEquality"
+  ```
+
+---
+
+### 3. pytest Fixtures
+
+#### Getting Started with Fixtures
+```python
+@pytest.fixture()
+def some_data():
+    return 42
+
+def test_some_data(some_data):    # pytest injects by name
+    assert some_data == 42
+```
+- **Fixture**: a `@pytest.fixture()` decorated function run by pytest before (and sometimes after) tests
+- Exception in a fixture → test reports **Error**, not Fail
+
+#### Using Fixtures for Setup and Teardown
+```python
+@pytest.fixture()
+def cards_db():
+    with TemporaryDirectory() as db_dir:
+        db = cards.CardsDB(Path(db_dir))
+        yield db          # test runs here
+        db.close()        # teardown — guaranteed to run
+```
+- Code **before** `yield` = setup; code **after** `yield` = teardown
+- Teardown runs regardless of test pass/fail
+
+#### Tracing Fixture Execution with --setup-show
+```bash
+pytest --setup-show test_count.py
+```
+- Shows `SETUP` / `TEARDOWN` around each test, with scope letter (`F`=function, `M`=module, `S`=session)
+
+#### Specifying Fixture Scope
+| Scope | Runs once per... |
+|-------|-----------------|
+| `function` (default) | each test function |
+| `class` | each test class |
+| `module` | each test module (.py file) |
+| `package` | each test directory |
+| `session` | entire test session |
+
+```python
+@pytest.fixture(scope="session")
+def db():
+    ...
+```
+- Scope is defined at the fixture, not where it's used
+- Fixtures can only depend on fixtures of **equal or wider** scope
+
+#### Sharing Fixtures through conftest.py
+- Place fixtures in `conftest.py` to share across multiple test files
+- pytest reads `conftest.py` automatically — **never import it**
+- Can have `conftest.py` at any directory level
+
+#### Finding Where Fixtures Are Defined
+- `pytest --fixtures` — list all available fixtures with source locations
+- `pytest --fixtures-per-test test_file.py::test_name` — fixtures used by a specific test
+
+#### Using Multiple Fixture Levels
+- Use a session-scoped DB fixture + a function-scoped fixture that calls `delete_all()`
+- Gives you one DB connection but clean state per test
+
+#### Using Multiple Fixtures per Test or Fixture
+- Tests and fixtures can depend on multiple fixtures in their parameter lists
+
+#### Deciding Fixture Scope Dynamically
+```python
+def db_scope(fixture_name, config):
+    if config.getoption("--func-db", None):
+        return "function"
+    return "session"
+
+@pytest.fixture(scope=db_scope)
+def db():
+    ...
+```
+- Pass a callable to `scope=` for runtime decisions
+
+#### Using autouse for Fixtures That Always Get Used
+```python
+@pytest.fixture(autouse=True, scope="session")
+def footer_session_scope():
+    yield
+    print(f"finished: {time.strftime(...)}")
+```
+- Runs for every test in scope without being named in the test's parameter list
+- Use sparingly
+
+#### Renaming Fixtures
+```python
+@pytest.fixture(name="app")
+def _app():
+    yield app()
+```
+
+---
+
+### 4. Builtin Fixtures
+
+#### Using tmp_path and tmp_path_factory
+- **`tmp_path`** (function scope) — returns a `pathlib.Path` to a temp directory
+- **`tmp_path_factory`** (session scope) — call `.mktemp("name")` to get temp dirs
+- `--basetemp=mydir` to override the base temp directory
+- Legacy equivalents: `tmpdir` / `tmpdir_factory` (return `py.path.local`)
+
+#### Using capsys
+```python
+def test_version(capsys):
+    cards.cli.version()
+    output = capsys.readouterr().out.rstrip()
+    assert output == cards.__version__
+```
+- `.readouterr()` returns a namedtuple with `.out` and `.err`
+- `capsys.disabled()` context manager temporarily turns off capture
+- `-s` / `--capture=no` flag disables capture globally
+- Variants: `capfd`, `capsysbinary`, `capfdbinary`, `caplog`
+
+#### Using monkeypatch
+- **Monkeypatch**: dynamic modification of code/environment during a test, automatically undone after
+- Methods:
+  - `setattr(target, name, value)` / `delattr(target, name)`
+  - `setitem(dic, name, value)` / `delitem(dic, name)`
+  - `setenv(name, value)` / `delenv(name)`
+  - `syspath_prepend(path)`
+  - `chdir(path)`
+
+```python
+def test_patch_env_var(monkeypatch, tmp_path):
+    monkeypatch.setenv("CARDS_DB_DIR", str(tmp_path))
+    assert run_cards("config") == str(tmp_path)
+```
+
+#### Remaining Builtin Fixtures
+- `cache` — persist values across pytest runs (enables `--last-failed`, `--failed-first`)
+- `pytestconfig` — access config values and plugin hooks
+- `request` — info on executing test; used in fixture parametrization
+- `recwarn` — test warning messages
+- `pytester` / `testdir` — for testing pytest plugins
+- `record_property` / `record_testsuite_property` — add metadata to XML reports
+
+---
+
+### 5. Parametrization
+
+#### Testing Without Parametrize
+- Writing separate functions for each test case is redundant
+- Combining into a loop loses individual reporting and stops at first failure
+
+#### Parametrizing Functions
+```python
+@pytest.mark.parametrize("start_state", ["done", "in prog", "todo"])
+def test_finish(cards_db, start_state):
+    c = Card("write a book", state=start_state)
+    ...
+```
+- First arg: comma-separated string or list of param names
+- Second arg: list of values (or tuples for multiple params)
+- Each value becomes a separate test case
+
+#### Parametrizing Fixtures
+```python
+@pytest.fixture(params=["done", "in prog", "todo"])
+def start_state(request):
+    return request.param
+
+def test_finish(cards_db, start_state):
+    ...
+```
+- Useful when setup/teardown must run per parameter value
+- All tests using the fixture get parametrized
+
+#### Parametrizing with pytest_generate_tests
+```python
+def pytest_generate_tests(metafunc):
+    if "start_state" in metafunc.fixturenames:
+        metafunc.parametrize("start_state", ["done", "in prog", "todo"])
+```
+- Hook function called during test collection
+- Most powerful: can use command-line flags, combine parameters dynamically
+
+#### Using Keywords to Select Test Cases
+```bash
+pytest -k "todo and not (play or create)"
+```
+- Works on parametrized test IDs (the bracket portion)
+- Quote expressions with spaces/brackets for shell safety
+
+---
+
+### 6. Markers
+
+#### Using Builtin Markers
+- `@pytest.mark.skip(reason=None)` — unconditional skip
+- `@pytest.mark.skipif(condition, *, reason)` — conditional skip
+- `@pytest.mark.xfail(condition, *, reason, run=True, raises=None, strict=False)` — expected failure
+- `@pytest.mark.parametrize(...)` — covered in Ch5
+- `@pytest.mark.usefixtures(...)` — apply fixtures to tests
+- `@pytest.mark.filterwarnings(warning)` — add warning filter
+
+#### Skipping Tests with pytest.mark.skip
+```python
+@pytest.mark.skip(reason="Feature not implemented yet")
+def test_less_than():
+    ...
+```
+- `-ra` flag shows reasons for all non-passing tests
+
+#### Skipping Tests Conditionally with pytest.mark.skipif
+```python
+@pytest.mark.skipif(
+    parse(cards.__version__).major < 2,
+    reason="Not supported in 1.x",
+)
+```
+- Uses **`packaging`** library (`pip install packaging`) for version parsing
+
+#### Expecting Tests to Fail with pytest.mark.xfail
+- `strict=False` (default): passing xfail → XPASS (not a failure)
+- `strict=True`: passing xfail → FAILED
+- Recommendation: set `xfail_strict = true` in `pytest.ini`
+
+#### Selecting Tests with Custom Markers
+```python
+@pytest.mark.smoke
+def test_start(cards_db):
+    ...
+```
+- Register markers in `pytest.ini` to avoid typo warnings:
+  ```ini
+  [pytest]
+  markers =
+      smoke: subset of tests
+      exception: check for expected exceptions
+  ```
+- Select: `pytest -m smoke`
+
+#### Marking Files, Classes, and Parameters
+- **File-level**: `pytestmark = pytest.mark.finish` (or a list)
+- **Class-level**: `@pytest.mark.smoke` on the class
+- **Parameter-level**: `pytest.param("in prog", marks=pytest.mark.smoke)`
+
+#### Using "and," "or," "not," and Parentheses with Markers
+```bash
+pytest -m "(exception or smoke) and (not finish)"
+```
+- Can combine `-m` and `-k` flags
+
+#### Being Strict with Markers
+- `--strict-markers` turns unknown marker warnings into errors
+- Add to `addopts` in `pytest.ini` for always-on behavior
+
+#### Combining Markers with Fixtures
+```python
+@pytest.mark.num_cards(3)
+def test_three_cards(cards_db):
+    assert cards_db.count() == 3
+```
+- In the fixture, use `request.node.get_closest_marker("num_cards")` to read the marker
+- Access args via `marker.args` and `marker.kwargs`
+- **Faker** library (`pip install Faker`): provides a `faker` fixture for generating fake data
+  - `faker.sentence()`, `faker.first_name()`, `faker.seed_instance(101)`
+
+#### Listing Markers
+```bash
+pytest --markers
+```
+
+---
+
+## Part II — Working with Projects
+
+### 7. Strategy
+
+#### Determining Test Scope
+- Consider: security, performance, load testing, input validation
+- Start with user-visible functionality testing; defer other concerns until needed
+
+#### Considering Software Architecture
+- Cards has 3 layers: **CLI** (cli.py) → **API** (api.py) → **DB** (db.py)
+- CLI and DB layers intentionally thin; most logic in API
+- Strategy: test features through the API; test CLI just enough to verify it calls the API correctly
+
+#### Evaluating the Features to Test
+- Prioritize by: **Recent**, **Core**, **Risk**, **Problematic**, **Expertise**
+- Core features get thorough testing; non-core get at least one test case
+
+#### Creating Test Cases
+- Start with a non-trivial **happy path** test case
+- Then consider: interesting inputs, interesting starting states, interesting end states, error states
+- Example for `count`: empty DB, one item, more than one item
+- Example for `delete`: delete one of many, delete the last card, delete non-existent
+
+#### Writing a Test Strategy
+- Document the strategy so you and your team can refer to it later
+- Cards strategy summary:
+  1. Test user-visible features through the API
+  2. Test CLI just enough to verify API integration
+  3. Test core features thoroughly (`add`, `count`, `delete`, `finish`, `list`, `start`, `update`)
+  4. Cursory tests for `config` and `version`
+
+---
+
+### 8. Configuration Files
+
+#### Understanding pytest Configuration Files
+| File | Purpose |
+|------|---------|
+| `pytest.ini` | Primary config; its location defines **rootdir** |
+| `conftest.py` | Fixtures and hook functions; can exist at any level |
+| `__init__.py` | Prevents test filename collisions across subdirectories |
+| `tox.ini` | tox config; can include a `[pytest]` section |
+| `pyproject.toml` | Modern Python packaging; uses `[tool.pytest.ini_options]` |
+| `setup.cfg` | Legacy packaging; uses `[tool:pytest]` |
+
+#### Saving Settings and Flags in pytest.ini
+```ini
+[pytest]
+addopts =
+    --strict-markers
+    --strict-config
+    -ra
+testpaths = tests
+markers =
+    smoke: subset of tests
+```
+- `--strict-config` raises errors for config file parsing issues
+
+#### Using tox.ini, pyproject.toml, or setup.cfg in place of pytest.ini
+- **tox.ini**: identical `[pytest]` section syntax
+- **pyproject.toml**: `[tool.pytest.ini_options]`; values are quoted strings or lists
+- **setup.cfg**: `[tool:pytest]` section; beware parser differences
+
+#### Determining a Root Directory and Config File
+- pytest searches upward from test path for a config file → that directory becomes **rootdir**
+- Tip: always place at least an empty `pytest.ini` at the project root
+
+#### Sharing Local Fixtures and Hook Functions with conftest.py
+- Anything in `conftest.py` applies to tests in that directory and below
+- Try to stick to one `conftest.py` for easy fixture discovery
+
+#### Avoiding Test File Name Collision
+- `__init__.py` in test subdirs allows duplicate filenames like `tests/api/test_add.py` and `tests/cli/test_add.py`
+- Without it: `import file mismatch` error
+
+---
+
+### 9. Coverage
+
+> **Key libraries:** **coverage.py** (`pip install coverage`) and **pytest-cov** (`pip install pytest-cov`)
+
+#### Using coverage.py with pytest-cov
+```bash
+pytest --cov=cards ch7                          # basic report
+pytest --cov=cards --cov-report=term-missing ch7  # show missed lines
+```
+- Equivalent without pytest-cov:
+  ```bash
+  coverage run --source=cards -m pytest ch7
+  coverage report --show-missing
+  ```
+- `.coveragerc` config maps installed package paths to local source:
+  ```ini
+  [paths]
+  source =
+      cards_proj/src/cards
+      */site-packages/cards
+  ```
+
+#### Generating HTML Reports
+```bash
+pytest --cov=cards --cov-report=html ch7
+# or
+coverage html
+```
+- Output: `htmlcov/index.html` — color-coded line-by-line coverage
+
+#### Excluding Code from Coverage
+```python
+if __name__ == '__main__':  # pragma: no cover
+    main()
+```
+- `# pragma: no cover` excludes a line or block
+
+#### Running Coverage on Tests
+```bash
+pytest --cov=cards --cov=ch7 ch7
+```
+- Catches duplicate test function names (only last one in a file runs)
+- Catches unused fixtures / dead code in fixtures
+
+#### Running Coverage on a Directory
+```bash
+pytest --cov=ch9/some_code ch9/some_code
+```
+
+#### Running Coverage on a Single File
+```bash
+pytest --cov=single_file single_file.py   # no .py in --cov
+```
+
+---
+
+### 10. Mocking
+
+> **Key library:** `unittest.mock` (stdlib since Python 3.3)
+
+#### Isolating the Command-Line Interface
+- Cards CLI accesses: `cards.__version__`, `cards.CardsDB`, `cards.InvalidCardId`, `cards.Card`
+- **Typer** provides `CliRunner` for in-process CLI testing:
+  ```python
+  from typer.testing import CliRunner
+  runner = CliRunner()
+  result = runner.invoke(cards.app, ["version"])
+  ```
+
+#### Testing with Typer
+```python
+import shlex
+def cards_cli(command_string):
+    result = runner.invoke(cards.app, shlex.split(command_string))
+    return result.stdout.rstrip()
+```
+
+#### Mocking an Attribute
+```python
+from unittest import mock
+
+def test_mock_version():
+    with mock.patch.object(cards, "__version__", "1.2.3"):
+        result = runner.invoke(app, ["version"])
+        assert result.stdout.rstrip() == "1.2.3"
+```
+
+#### Mocking a Class and Methods
+```python
+with mock.patch.object(cards, "CardsDB") as MockCardsDB:
+    MockCardsDB.return_value.path.return_value = "/foo/"
+```
+- Calling a mock returns `mock.return_value` (another mock)
+- Set `.return_value` on chained mocks for method calls
+
+#### Keeping Mock and Implementation in Sync with Autospec
+```python
+with mock.patch.object(cards, "CardsDB", autospec=True) as CardsDB:
+    ...
+```
+- **Always use `autospec=True`** — prevents mock drift (misspelled methods, wrong params)
+- Without it, mocks silently accept any attribute or call
+
+#### Making Sure Functions Are Called Correctly
+```python
+def test_add_with_owner(mock_cardsdb):
+    cards_cli("add some task -o brian")
+    expected = cards.Card("some task", owner="brian", state="todo")
+    mock_cardsdb.add_card.assert_called_with(expected)
+```
+- Variants: `assert_called()`, `assert_called_once()`, `assert_called_once_with(...)`, `assert_not_called()`
+
+#### Creating Error Conditions
+```python
+mock_cardsdb.delete_card.side_effect = cards.api.InvalidCardId
+out = cards_cli("delete 25")
+assert "Error: Invalid card id 25" in out
+```
+
+#### Testing at Multiple Layers to Avoid Mocking
+- Alternative: call CLI, then use the real API to verify state
+- Tests **behavior** instead of implementation → more resilient to refactoring
+- **Change detector tests**: tests that break during valid refactoring (avoid these)
+
+#### Using Plugins to Assist Mocking
+- **pytest-mock**: provides a `mocker` fixture (thin wrapper around `unittest.mock`)
+- Domain-specific: `pytest-postgresql`, `pytest-mongo`, `pytest-httpserver`, `responses`, `betamax`
+
+---
+
+### 11. tox and Continuous Integration
+
+#### What Is Continuous Integration?
+- Automated build + test triggered on code changes
+- Allows frequent integration, reducing merge conflicts
+
+#### Introducing tox
+> **tox** (`pip install tox`): local CI automation tool
+
+- For each environment: creates venv → installs deps → builds package → installs package → runs tests
+
+#### Setting Up tox
+```ini
+[tox]
+envlist = py310
+isolated_build = True       # required for pyproject.toml-based packages
+
+[testenv]
+deps =
+    pytest
+    faker
+commands = pytest
+```
+
+#### Running tox
+```bash
+tox                         # run all environments
+tox -e py310                # run one environment
+tox -p                      # run environments in parallel
+```
+
+#### Testing Multiple Python Versions
+```ini
+envlist = py37, py38, py39, py310
+skip_missing_interpreters = True
+```
+
+#### Adding a Coverage Report to tox
+- Add `pytest-cov` to `deps`, change commands to `pytest --cov=cards`
+- Use `.coveragerc` with `[paths]` to unify source paths
+
+#### Specifying a Minimum Coverage Level
+```ini
+commands = pytest --cov=cards --cov=tests --cov-fail-under=100
+```
+
+#### Passing pytest Parameters Through tox
+```ini
+commands = pytest --cov=cards {posargs}
+```
+```bash
+tox -e py310 -- -k test_version --no-cov
+```
+- `--` separates tox args from pytest args
+
+#### Running tox with GitHub Actions
+```yaml
+# .github/workflows/main.yml
+name: CI
+on: [push, pull_request]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python: ["3.7", "3.8", "3.9", "3.10"]
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.python }}
+      - run: pip install tox
+      - run: tox -e py
+```
+- CI alternatives: GitLab CI, Bitbucket Pipelines, CircleCI, Jenkins
+
+---
+
+### 12. Testing Scripts and Applications
+
+#### Testing a Simple Python Script
+```python
+from subprocess import run
+def test_hello():
+    result = run(["python", "hello.py"], capture_output=True, text=True)
+    assert result.stdout == "Hello, World!\n"
+```
+- For tox with non-packaged code: set `skipsdist = true`
+
+#### Testing an Importable Python Script
+- Wrap logic in `main()`, guard with `if __name__ == "__main__": main()`
+- Now tests can `import hello` and call `hello.main()` with `capsys`
+
+#### Separating Code into src and tests Directories
+```ini
+# pytest.ini
+[pytest]
+pythonpath = src
+testpaths = tests
+```
+- `pythonpath` (pytest 7+) adds directories to `sys.path` during test collection
+- For pytest 6.2: use the **pytest-srcpaths** plugin
+
+#### Defining the Python Search Path
+- `sys.path` = list of directories Python searches during import
+- pytest adds test directories automatically; `pythonpath` adds source directories
+
+#### Testing requirements.txt-Based Applications
+- In `tox.ini`, add `-rrequirements.txt` to `deps` to install dependencies
+
+---
+
+### 13. Debugging Test Failures
+
+#### Installing Cards in Editable Mode
+```bash
+pip install -e "./cards_proj/[test]"   # editable + optional test deps
+```
+
+#### Debugging with pytest Flags
+
+**Test selection/ordering:**
+- `--lf` / `--last-failed` — rerun only failures
+- `--ff` / `--failed-first` — run all, failures first
+- `-x` / `--exitfirst` — stop after first failure
+- `--maxfail=num` — stop after N failures
+- `--sw` / `--stepwise` — stop at first failure; resume from there next time
+- `--nf` / `--new-first` — order by file modification time
+
+**Output control:**
+- `-v` / `--verbose`
+- `--tb=[auto/long/short/line/native/no]`
+- `-l` / `--showlocals` — display local variables in tracebacks
+
+**Debugger:**
+- `--pdb` — drop into pdb at point of failure
+- `--trace` — drop into pdb at start of each test
+- `--pdbcls=IPython.terminal.debugger:TerminalPdb` — use IPython debugger
+
+#### Re-Running Failed Tests
+```bash
+pytest --lf --tb=no          # verify failures reproduce
+pytest --lf -x               # stop at first, show traceback
+pytest --lf -x -l --tb=short # also show local variables
+```
+
+#### Debugging with pdb
+- `breakpoint()` in code → pytest stops there
+- **pdb commands:**
+  - `l(ist)` / `ll` — show source; `w(here)` — stack trace
+  - `p expr` / `pp expr` — print/pretty-print
+  - `n(ext)` — next line; `s(tep)` — step into; `r(eturn)` — continue to return
+  - `c(ontinue)` — run to next breakpoint; `unt(il) lineno` — run to line
+  - `q(uit)` — exit
+
+#### Combining pdb and tox
+```bash
+tox -e py310 -- --pdb --no-cov
+```
+
+---
+
+## Part III — Booster Rockets
+
+### 14. Third-Party Plugins
+
+#### Finding Plugins
+- https://docs.pytest.org/en/latest/reference/plugin_list.html
+- https://pypi.org — search for `pytest-`
+- https://github.com/pytest-dev
+
+#### Installing Plugins
+```bash
+pip install pytest-cov     # or any plugin
+```
+
+#### Exploring the Diversity of pytest Plugins
+
+**Test flow:**
+- **pytest-order** — specify run order via marker
+- **pytest-randomly** — randomize order (also seeds Faker/Factory Boy)
+- **pytest-repeat** — repeat tests N times (`--count=10`)
+- **pytest-rerunfailures** — rerun flaky tests
+- **pytest-xdist** — parallel execution (`-n=auto`)
+
+**Output:**
+- **pytest-instafail** — show failures immediately
+- **pytest-sugar** — green checkmarks + progress bar
+- **pytest-html** — HTML test reports
+
+**Web:**
+- **pytest-selenium**, **pytest-splinter** — browser testing
+- **pytest-django**, **pytest-flask** — framework integration
+
+**Fake data:**
+- **Faker** — general fake data
+- **model-bakery** — Django model objects
+- **pytest-factoryboy** — Factory Boy fixtures
+- **pytest-mimesis** — faster alternative to Faker
+
+**Misc:**
+- **pytest-cov** — coverage
+- **pytest-benchmark** — timing benchmarks
+- **pytest-timeout** — enforce time limits
+- **pytest-asyncio** — async tests
+- **pytest-bdd** — BDD-style tests
+- **pytest-freezegun** — freeze time
+- **pytest-mock** — thin `unittest.mock` wrapper
+
+#### Running Tests in Parallel
+```bash
+pip install pytest-xdist
+pytest -n=auto              # use all CPU cores
+pytest --looponfail         # watch mode: rerun failures on file changes
+```
+
+#### Randomizing Test Order
+```bash
+pip install pytest-randomly
+pytest -v                   # order is now randomized
+pytest -p no:randomly       # disable temporarily
+```
+
+---
+
+### 15. Building Plugins
+
+#### Starting with a Cool Idea
+- Example: skip `@pytest.mark.slow` tests by default; include with `--slow` flag
+- Default behavior change: no flag = exclude slow; `--slow` = include all
+
+#### Building a Local conftest Plugin
+Three **hook functions** used:
+```python
+# 1. Declare the marker
+def pytest_configure(config):
+    config.addinivalue_line("markers", "slow: mark test as slow to run")
+
+# 2. Add --slow CLI flag
+def pytest_addoption(parser):
+    parser.addoption("--slow", action="store_true", help="include tests marked slow")
+
+# 3. Skip slow tests unless --slow is passed
+def pytest_collection_modifyitems(config, items):
+    if not config.getoption("--slow"):
+        skip_slow = pytest.mark.skip(reason="need --slow option to run")
+        for item in items:
+            if item.get_closest_marker("slow"):
+                item.add_marker(skip_slow)
+```
+
+#### Creating an Installable Plugin
+- Move conftest code into `pytest_skip_slow.py`
+- Use **Flit** (`pip install flit`) to scaffold `pyproject.toml` with `flit init`
+- Key `pyproject.toml` additions:
+  - `[project.entry-points.pytest11]` with `skip_slow = "pytest_skip_slow"`
+  - Classifier: `"Framework :: Pytest"`
+- Build: `flit build` → creates `.whl` in `dist/`
+- Install: `pip install dist/pytest_skip_slow-0.0.1-py3-none-any.whl`
+
+#### Testing Plugins with pytester
+```python
+# tests/conftest.py
+pytest_plugins = ["pytester"]
+
+# tests/test_plugin.py
+@pytest.fixture()
+def examples(pytester):
+    pytester.copy_example("examples/test_slow.py")
+
+def test_skip_slow(pytester, examples):
+    result = pytester.runpytest("-v")
+    result.stdout.fnmatch_lines(["*test_slow SKIPPED*"])
+    result.assert_outcomes(passed=1, skipped=1)
+```
+- **pytester** fixture: creates temp dir, provides `runpytest()`, `copy_example()`, `makepyfile()`, etc.
+- `fnmatch_lines()` — glob-style matching on stdout lines
+- `assert_outcomes()` — check pass/fail/skip counts
+- `parseoutcomes()` — returns dict for manual assertions
+
+#### Testing Multiple Python and pytest Versions with tox
+```ini
+[tox]
+envlist = py{37,38,39,310}-pytest{62,70}
+
+[testenv]
+deps =
+    pytest62: pytest==6.2.5
+    pytest70: pytest==7.0.0
+commands = pytest {posargs:tests}
+```
+- Curly braces + dashes create a matrix of environments
+
+#### Publishing Plugins
+- Git repository: `pip install git+https://github.com/user/repo`
+- Shared directory: `pip install pkg --no-index --find-links=path/`
+- PyPI: see Python packaging docs and Flit upload docs
+
+---
+
+### 16. Advanced Parametrization
+
+#### Using Complex Values
+```python
+@pytest.mark.parametrize("starting_card", [
+    Card("foo", state="todo"),
+    Card("foo", state="in prog"),
+    Card("foo", state="done"),
+])
+def test_card(cards_db, starting_card):
+    ...
+```
+- Object values get numbered IDs by default (`starting_card0`, `starting_card1`, ...)
+
+#### Creating Custom Identifiers
+
+**`ids` as a function:**
+```python
+@pytest.mark.parametrize("starting_card", card_list, ids=lambda c: c.state)
+```
+
+**`ids` as a list:**
+```python
+@pytest.mark.parametrize("starting_card", card_list, ids=["todo", "in prog", "done"])
+```
+
+**`pytest.param` with explicit `id`:**
+```python
+pytest.param(Card("foo", state="in prog"), id="special")
+```
+
+**Dictionary technique** (keeps IDs and values together):
+```python
+text_variants = {"Short": "x", "With Spaces": "x y z", ...}
+@pytest.mark.parametrize(
+    "variant", text_variants.values(), ids=text_variants.keys()
+)
+```
+
+#### Parametrizing with Dynamic Values
+```python
+def text_variants():
+    variants = {"Short": "x", "With Spaces": "x y z", ...}
+    for key, value in variants.items():
+        yield pytest.param(value, id=key)
+
+@pytest.mark.parametrize("variant", text_variants())
+def test_summary(cards_db, variant):
+    ...
+```
+- Generator function can read from files, databases, APIs, etc.
+
+#### Using Multiple Parameters
+**Explicit tuples:**
+```python
+@pytest.mark.parametrize("summary, owner, state", [
+    ("short", "First", "todo"),
+    ("short", "First", "in prog"),
+])
+```
+
+**Stacking decorators** (creates a matrix):
+```python
+@pytest.mark.parametrize("state", states)
+@pytest.mark.parametrize("owner", owners)
+@pytest.mark.parametrize("summary", summaries)
+def test_stacking(cards_db, summary, owner, state):
+    ...
+```
+- 2 summaries × 2 owners × 3 states = 12 test cases
+
+#### Using Indirect Parametrization
+```python
+@pytest.fixture()
+def user(request):
+    role = request.param
+    print(f"\nLog in as {role}")
+    yield role
+    print(f"\nLog out {role}")
+
+@pytest.mark.parametrize("user", ["admin", "team_member", "visitor"], indirect=["user"])
+def test_access_rights(user):
+    ...
+```
+- `indirect=["user"]` routes the param through the `user` fixture instead of directly to the test
+- Useful for: setup/teardown per param, selecting a subset of fixture params
+
+**Optional indirect fixture** (works with and without parametrize):
+```python
+@pytest.fixture()
+def user(request):
+    role = getattr(request, "param", "visitor")   # default if not parametrized
+    ...
+```
+
+---
+
+## Appendices
+
+### A1. Virtual Environments
+- `python -m venv venv --prompt .` — creates venv; `--prompt .` uses parent dir name
+- Activate: `source venv/bin/activate` (macOS/Linux) or `venv\Scripts\activate.bat` (Windows)
+- `deactivate` to exit
+
+### A2. pip
+- `pip install package` — install from PyPI
+- `pip install ./local_dir/` — install local package
+- `pip install -e ./local_dir/` — install in editable/development mode
+- `pip install -r requirements.txt` — install from requirements file
+- `pip install git+https://github.com/user/repo` — install from git
+- `pip list` — show installed packages
+- `pip uninstall package` — remove a package
+
