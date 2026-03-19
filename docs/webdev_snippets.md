@@ -478,7 +478,7 @@ Bootstrap example:
         <p class="lead">This is a simple example webpage. It is written in HTML, CSS, and JavaScript.</p>
         <hr class="my-4">
         <p>Explore the features of Bootstrap to enhance web development.</p>
-        <a class="btn btn-primary btn-lg" href="https://sfuller14.github.io/drawio/src/main/webapp/index.html" role="button">Learn more</a>
+        <a class="btn btn-primary btn-lg" href="https://cudavinci.github.io/drawio/src/main/webapp/index.html" role="button">Learn more</a>
     </div>
 
     <!-- Main Content -->
@@ -613,7 +613,7 @@ People like Bootstrap because it enables you to create responsive websites witho
 				</p>
 				<p>
 					This is a link to
-					<a href="https://sfuller14.github.io/drawio/src/main/webapp/index.html" target="_blank">Github Pages</a>.
+					<a href="https://cudavinci.github.io/drawio/src/main/webapp/index.html" target="_blank">Github Pages</a>.
 				</p>
 				<button onclick="alert('Hello World!')">Click Me!</button>
 			</div>
