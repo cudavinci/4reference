@@ -1,0 +1,2377 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Notes and code snippets">
+      
+      
+        <meta name="author" content="Sean Fuller">
+      
+      
+        <link rel="canonical" href="https://sfuller14.github.io/4reference/snippets/">
+      
+      
+        <link rel="prev" href="../shortcuts_macos_vscode/">
+      
+      
+        <link rel="next" href="../webdev_snippets/">
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.5">
+    
+    
+      
+        <title>Code Snippets - My Snippets & Notes</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.8608ea7d.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+
+      
+    
+<script src="../assets/pymdownx-extras/material-extra-theme-2ek1P7jT.js" type="text/javascript"></script>
+<script src="../assets/pymdownx-extras/material-extra-3rdparty-BUCF4rjN.js" type="text/javascript"></script>
+
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/pymdownx-extras/extra-3005714f37.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="dracula" data-md-color-primary="#f8f8f2" data-md-color-accent="#bd93f9">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#code-snippets" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+
+<header class="md-header" data-md-component="header">
+  <nav
+    class="md-header__inner md-grid"
+    aria-label="header.title"
+  >
+    <a
+      href="https://sfuller14.github.io/4reference/"
+      title="My Snippets &amp; Notes"
+      class="md-header__button md-logo"
+      aria-label="My Snippets & Notes"
+    >
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            My Snippets & Notes
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Code Snippets
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    <div class="md-header__options">
+      <div class="md-header-nav__scheme md-header-nav__button md-source__icon md-icon">
+          <a
+            href="javascript:toggleScheme();"
+            title="Light mode"
+            class="light-mode"
+          >
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+          </a>
+          <a
+            href="javascript:toggleScheme();"
+            title="Dark mode"
+            class="dark-mode"
+          >
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+          </a>
+          <a
+            href="javascript:toggleScheme();"
+            title="System preference"
+            class="system-mode"
+          >
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M7.5 2c-1.79 1.15-3 3.18-3 5.5s1.21 4.35 3.03 5.5C4.46 13 2 10.54 2 7.5A5.5 5.5 0 0 1 7.5 2m11.57 1.5 1.43 1.43L4.93 20.5 3.5 19.07zm-6.18 2.43L11.41 5 9.97 6l.42-1.7L9 3.24l1.75-.12.58-1.65L12 3.1l1.73.03-1.35 1.13zm-3.3 3.61-1.16-.73-1.12.78.34-1.32-1.09-.83 1.36-.09.45-1.29.51 1.27 1.36.03-1.05.87zM19 13.5a5.5 5.5 0 0 1-5.5 5.5c-1.22 0-2.35-.4-3.26-1.07l7.69-7.69c.67.91 1.07 2.04 1.07 3.26m-4.4 6.58 2.77-1.15-.24 3.35zm4.33-2.7 1.15-2.77 2.2 2.54zm1.15-4.96-1.14-2.78 3.34.24zM9.63 18.93l2.77 1.15-2.53 2.19z"/></svg>
+          </a>
+           <a
+            href="javascript:toggleScheme();"
+            title="Unknown scheme"
+            class="unknown-mode"
+          >
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m15.07 11.25-.9.92C13.45 12.89 13 13.5 13 15h-2v-.5c0-1.11.45-2.11 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41a2 2 0 0 0-2-2 2 2 0 0 0-2 2H8a4 4 0 0 1 4-4 4 4 0 0 1 4 4 3.2 3.2 0 0 1-.93 2.25M13 19h-2v-2h2M12 2A10 10 0 0 0 2 12a10 10 0 0 0 10 10 10 10 0 0 0 10-10c0-5.53-4.5-10-10-10"/></svg>
+          </a>
+      </div>
+    </div>
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href=".." class="md-tabs__link">
+        
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../shortcuts_macos_vscode/" class="md-tabs__link">
+        
+  
+    
+  
+  Shortcuts macos vscode
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+    
+  
+  
+    <li class="md-tabs__item md-tabs__item--active">
+      <a href="./" class="md-tabs__link">
+        
+  
+    
+  
+  Code Snippets
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../webdev_snippets/" class="md-tabs__link">
+        
+  
+    
+  
+  Web Development Notes
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--lifted md-nav--integrated" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="My Snippets &amp; Notes" class="md-nav__button md-logo" aria-label="My Snippets & Notes" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    My Snippets & Notes
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../shortcuts_macos_vscode/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Shortcuts macos vscode
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Code Snippets
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Code Snippets
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#vscode-macos" class="md-nav__link">
+    <span class="md-ellipsis">
+      VSCode-macos
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#git" class="md-nav__link">
+    <span class="md-ellipsis">
+      GIT
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#shell" class="md-nav__link">
+    <span class="md-ellipsis">
+      SHELL
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#docker" class="md-nav__link">
+    <span class="md-ellipsis">
+      Docker
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#postgres-mac" class="md-nav__link">
+    <span class="md-ellipsis">
+      postgres (Mac)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#python" class="md-nav__link">
+    <span class="md-ellipsis">
+      PYTHON
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#iterm2" class="md-nav__link">
+    <span class="md-ellipsis">
+      iTerm2
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tmux" class="md-nav__link">
+    <span class="md-ellipsis">
+      tmux
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../webdev_snippets/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Web Development Notes
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+  
+                  
+
+
+
+<h1 id="code-snippets">Code Snippets</h1>
+<details class="note">
+<summary>Code Snippets - Contents</summary>
+<ul>
+<li><a href="#code-snippets">Code Snippets</a></li>
+<li><a href="#VSCode-macos">VSCode_MacOS</a><ul>
+<li><a href="#commands">Commands</a></li>
+</ul>
+</li>
+<li><a href="#git">GIT</a><ul>
+<li><a href="#commands">Commands</a></li>
+<li><a href="#less-editor">less editor</a></li>
+<li><a href="#ghh-cli">ghh CLI</a></li>
+</ul>
+</li>
+<li><a href="#shell">SHELL</a><ul>
+<li><a href="#shortcuts-zsh">Shortcuts (zsh)</a></li>
+<li><a href="#core-commands">Core Commands</a></li>
+<li><a href="#chaining-commands">Chaining Commands</a></li>
+<li><a href="#explanation-of-grep">Explanation of <code>grep</code></a></li>
+<li><a href="#piping-commands">Piping Commands</a></li>
+<li><a href="#help">Help</a></li>
+</ul>
+</li>
+<li><a href="#docker">Docker</a></li>
+<li><a href="#postgres-mac">postgres (Mac)</a><ul>
+<li><a href="#table-of-most-common-commands">Table of Most Common Commands</a></li>
+</ul>
+</li>
+<li><a href="#python">PYTHON</a><ul>
+<li><a href="#new-openai-api-v-171">New OpenAI API (v 1.7.1)</a></li>
+<li><a href="#api-key">API Key</a></li>
+<li><a href="#models">Models</a></li>
+<li><a href="#chat-completions">Chat Completions</a></li>
+<li><a href="#token-counts">Token Counts</a></li>
+<li><a href="#json-mode">JSON Mode</a></li>
+<li><a href="#streaming-chat-completions">Streaming Chat Completions</a></li>
+<li><a href="#function-calling">Function Calling</a></li>
+<li><a href="#image-input-chat-completions">Image Input Chat Completions</a><ul>
+<li><a href="#multiple-images">Multiple Images</a></li>
+<li><a href="#low-or-high-fidelity-image-understanding">Low or high fidelity image understanding</a></li>
+</ul>
+</li>
+<li><a href="#error-handling">Error Handling</a></li>
+<li><a href="#rate-limits">Rate limits</a></li>
+<li><a href="#numpy">numpy</a></li>
+<li><a href="#reshaping">Reshaping</a></li>
+<li><a href="#broadcasting">Broadcasting</a></li>
+</ul>
+</li>
+<li><a href="#iterm2">iTerm2</a><ul>
+<li><a href="#tabs-and-windows">Tabs and Windows</a></li>
+<li><a href="#my-favorite-shell-key-combos">My Favorite Shell Key Combos</a></li>
+<li><a href="#moving-faster">Moving Faster</a></li>
+<li><a href="#about-keyboard-shortcuts-">About keyboard shortcuts 💡</a></li>
+<li><a href="#copy-and-paste-with-iterm-without-using-the-mouse">Copy and Paste with iTerm without using the mouse</a></li>
+<li><a href="#search-the-command-history">Search the Command History</a></li>
+<li><a href="#misc">Misc</a></li>
+</ul>
+</li>
+<li><a href="#tmux">tmux</a><ul>
+<li><a href="#pane-management">Pane Management</a></li>
+<li><a href="#window-management">Window Management</a></li>
+<li><a href="#session-management">Session Management</a></li>
+<li><a href="#resizing-panes">Resizing Panes</a></li>
+<li><a href="#miscellaneous">Miscellaneous</a></li>
+</ul>
+</li>
+</ul>
+</details>
+<hr />
+<h2 id="vscode-macos">VSCode-macos</h2>
+<h3 id="commands">Commands</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Description</th>
+<th style="text-align: left;">Command</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">Copilot Chat</td>
+<td style="text-align: left;"><code>Shift + Cmd + C</code></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="git">GIT</h2>
+<h3 id="commands_1">Commands</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Command</th>
+<th style="text-align: left;">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><code>git checkout dev</code><br><code>git pull</code><br><code>git checkout -b feature-1</code><br>[make changes]<br><code>git commit -am "feature changes"</code><br><code>git push origin feature-1</code><br><code>git checkout dev</code><br><code>git rebase feature-1</code><br><code>git push</code><br><code>git checkout main</code><br><code>git pull</code><br><code>git merge dev</code><br><code>git push</code></td>
+<td style="text-align: left;">Gitflow -- rebase feature branches into dev<br>Then merge dev into main</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>git remote add origin git@github.com:USERNAME/REPO_NAME.git</code></td>
+<td style="text-align: left;">Add remote origin (when not set)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>git remote set-url origin git@github.com:USERNAME/REPO_NAME.git</code></td>
+<td style="text-align: left;">Set remote origin (overwrite existing)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>git rm --cached FILE_OR_DIR_NAME</code><br><code>git commit -m "Removed FILE_OR_DIR_NAME from repository"</code><br><code>git push origin master</code></td>
+<td style="text-align: left;">Remove local already-pushed file from remote.<br><strong>Be careful if you mess with .gitignore, change branches, then merge<br>Local files will get deleted</strong></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>git config --get remote.origin.url</code></td>
+<td style="text-align: left;">Get git remote origin's URL.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>git diff --cached origin/main</code></td>
+<td style="text-align: left;">Compare committed (pre-push) local changes to remote (all contents).<br>This opens the <code>less</code> editor.<br><code>n</code>: Next change<br><code>N</code>: Previous change<br><code>spacebar</code>: Pagedown<br><code>b</code>: Pageup<br><code>q</code>: Quit<br><code>?</code>: Help</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>git diff --cached origin/main --name-only</code></td>
+<td style="text-align: left;">Compare committed (pre-push) local changes to remote (filenames only).</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>git reset --hard --force</code></td>
+<td style="text-align: left;">Force-update local repo state to match remote branch (<strong>overwrites</strong> -- stash).</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>git reset --soft HEAD~1</code></td>
+<td style="text-align: left;">Undo most recent <em>local</em> commit (to staging).</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>git reset --mixed HEAD~1</code></td>
+<td style="text-align: left;">Undo most recent <em>local</em> commit (to unstaged).</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>git rm file_to_delete</code><br><code>git commit -m "removed file_to_delete"</code><br><code>git push origin master</code></td>
+<td style="text-align: left;">Delete file from remote and local.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>git rm -r folder_to_delete</code><br><code>git commit -m "removed folder_to_delete"</code><br><code>git push origin master</code></td>
+<td style="text-align: left;">Delete folder from remote and local.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>git rm --cached file_to_delete</code><br><code>git commit -m "removed file_to_delete"</code><br><code>git push origin master</code></td>
+<td style="text-align: left;">Delete file from remote only.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>git fetch origin</code><br><code>git ls-tree -r master --name-only</code></td>
+<td style="text-align: left;">List all files on remote master.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>git commit -am "commit message"</code></td>
+<td style="text-align: left;">Add and commit all changes.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>git clean -f</code></td>
+<td style="text-align: left;">Force-remove untracked files.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>git clean -fd</code></td>
+<td style="text-align: left;">Force-remove untracked directories.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>cd subdirectory</code><br><code>sudo rm -rf .git</code></td>
+<td style="text-align: left;">Force-remove subdirectory's sub-git repo.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>git branch new-branch</code><br><code>git checkout new-branch</code><br>[make changes]<br><code>git add -A</code><br><code>git commit -m "commit message"</code><br><code>git push origin new-branch</code><br><code>git branch -d new-branch</code></td>
+<td style="text-align: left;">Create new branch, make changes, push, and delete branch locally.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>git log origin/&lt;branch-name&gt;..HEAD</code></td>
+<td style="text-align: left;">View local commits not yet pushed to remote.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="less-editor">less editor</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Shortcut</th>
+<th style="text-align: left;">Action</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><code>Space</code>  or  <code>f</code></td>
+<td style="text-align: left;">Scroll forward one window (or screen)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>b</code></td>
+<td style="text-align: left;">Scroll backward one window (or screen)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>d</code></td>
+<td style="text-align: left;">Scroll forward half a window</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>u</code></td>
+<td style="text-align: left;">Scroll backward half a window</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>Enter</code>  or  <code>e</code></td>
+<td style="text-align: left;">Scroll forward one line</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>y</code>  or  <code>k</code></td>
+<td style="text-align: left;">Scroll backward one line</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>g</code></td>
+<td style="text-align: left;">Go to the start of the document</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>G</code></td>
+<td style="text-align: left;">Go to the end of the document</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>/</code></td>
+<td style="text-align: left;">Search forward for a pattern</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>?</code></td>
+<td style="text-align: left;">Search backward for a pattern</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>n</code></td>
+<td style="text-align: left;">Repeat the previous search (in the same direction)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>N</code></td>
+<td style="text-align: left;">Repeat the previous search (in the opposite direction)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>q</code></td>
+<td style="text-align: left;">Quit  less  and return to the command line</td>
+</tr>
+</tbody>
+</table>
+<h3 id="ghh-cli">ghh CLI</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Command</th>
+<th style="text-align: left;">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><code>gh repo create ___ --private</code></td>
+<td style="text-align: left;">Create new repo (private).</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>gh repo clone ___</code></td>
+<td style="text-align: left;">Clone repo.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>gh repo view --web</code></td>
+<td style="text-align: left;">Open repo in browser.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>gh repo delete ___</code></td>
+<td style="text-align: left;">Delete repo.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>gh repo list</code></td>
+<td style="text-align: left;">List all repos.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>gh repo rename old-name new-name</code></td>
+<td style="text-align: left;">Rename repo.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>gh repo transfer ___ new-owner</code></td>
+<td style="text-align: left;">Transfer repo to new owner.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>gh repo fork ___</code></td>
+<td style="text-align: left;">Fork repo.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>gh repo fork --clone ___</code></td>
+<td style="text-align: left;">Fork repo and clone locally.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>gh repo fork --clone ___ --remote</code></td>
+<td style="text-align: left;">Fork repo and clone locally with remote origin.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>gh repo fork --clone ___ --remote --remote-name=upstream</code></td>
+<td style="text-align: left;">Fork repo and clone locally with remote origin and upstream.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="shell">SHELL</h2>
+<h3 id="shortcuts-zsh">Shortcuts (zsh)</h3>
+<table>
+<thead>
+<tr>
+<th>Key/Command</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Ctrl + a</code></td>
+<td>Go to the beginning of the line you are currently typing on.</td>
+</tr>
+<tr>
+<td><code>Ctrl + e</code></td>
+<td>Go to the end of the line you are currently typing on.</td>
+</tr>
+<tr>
+<td><code>Ctrl + _</code></td>
+<td>Undo the last command.</td>
+</tr>
+<tr>
+<td><code>Ctrl + l</code></td>
+<td>Clears the Screen</td>
+</tr>
+<tr>
+<td><code>Cmd + K</code></td>
+<td>Clears the Screen</td>
+</tr>
+<tr>
+<td><code>Ctrl + U</code></td>
+<td>Cut everything backwards to beginning of line</td>
+</tr>
+<tr>
+<td><code>Ctrl + K</code></td>
+<td>Cut everything forward to end of line</td>
+</tr>
+<tr>
+<td><code>Ctrl + W</code></td>
+<td>Cut one word backwards using white space as delimiter</td>
+</tr>
+<tr>
+<td><code>Ctrl + Y</code></td>
+<td>Paste whatever was cut by the last cut command</td>
+</tr>
+<tr>
+<td><code>Ctrl + Z</code></td>
+<td>Puts whatever you are running into a suspended background process. fg restores it</td>
+</tr>
+<tr>
+<td><code>Ctrl + H</code></td>
+<td>Same as backspace</td>
+</tr>
+<tr>
+<td><code>Ctrl + C</code></td>
+<td>Kill whatever you are running. Also clears everything on current line</td>
+</tr>
+<tr>
+<td><code>Ctrl + D</code></td>
+<td>Exit the current shell when no process is running, or send EOF to a the running process</td>
+</tr>
+<tr>
+<td><code>Ctrl + T</code></td>
+<td>Swap the last two characters before the cursor</td>
+</tr>
+<tr>
+<td><code>Ctrl + F</code></td>
+<td>Move cursor one character forward</td>
+</tr>
+<tr>
+<td><code>Ctrl + B</code></td>
+<td>Move cursor one character backward</td>
+</tr>
+<tr>
+<td><code>Option + →</code></td>
+<td>Move cursor one word forward</td>
+</tr>
+<tr>
+<td><code>Option + ←</code></td>
+<td>Move cursor one word backward</td>
+</tr>
+<tr>
+<td><code>Esc + T</code></td>
+<td>Move cursor one word backward</td>
+</tr>
+<tr>
+<td><code>Esc + Backspace</code></td>
+<td>Swap the last two words before the cursor</td>
+</tr>
+<tr>
+<td><code>Tab</code></td>
+<td>Cut one word backwards using none alphabetic characters as delimiters</td>
+</tr>
+</tbody>
+</table>
+<h3 id="core-commands">Core Commands</h3>
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>cd /</code></td>
+<td>Root of drive</td>
+</tr>
+<tr>
+<td><code>cd -</code></td>
+<td>Previous directory</td>
+</tr>
+<tr>
+<td><code>ls -l</code></td>
+<td>Long listing</td>
+</tr>
+<tr>
+<td><code>ls -a</code></td>
+<td>Listing including hidden files</td>
+</tr>
+<tr>
+<td><code>ls -lh</code></td>
+<td>Long listing with human-readable file sizes</td>
+</tr>
+<tr>
+<td><code>ls -R</code></td>
+<td>Entire content of folder recursively</td>
+</tr>
+<tr>
+<td><code>find [folder] -name [search_pattern]</code></td>
+<td>Search for files/dirs, e.g., <code>find . -name "*.txt"</code> (searches recursively)</td>
+</tr>
+<tr>
+<td><code>find [folder] -name [search_pattern] -type d</code></td>
+<td>Search for directories only</td>
+</tr>
+<tr>
+<td><code>find [folder] -name [search_pattern] -type f</code></td>
+<td>Search for files only</td>
+</tr>
+<tr>
+<td><code>find . -maxdepth 1 -name [search_pattern]</code></td>
+<td>Search non-recursively</td>
+</tr>
+<tr>
+<td><code>grep [search_pattern] [dir]</code></td>
+<td>Search all files in the specified directory for all lines that contain the pattern</td>
+</tr>
+<tr>
+<td><code>grep [search_pattern] [file]</code></td>
+<td>Search file for all lines that contain the pattern, e.g., <code>grep "Tom" file.txt</code></td>
+</tr>
+<tr>
+<td><code>grep -r [search_pattern] [dir]</code></td>
+<td>Recursively search in all files in the specified directory for all lines that contain the pattern</td>
+</tr>
+<tr>
+<td><code>sudo [command]</code></td>
+<td>Run command with the security privileges of the superuser (Super User DO)</td>
+</tr>
+<tr>
+<td><code>open [file]</code></td>
+<td>Opens a file (as if you double-clicked it)</td>
+</tr>
+<tr>
+<td><code>top</code></td>
+<td>Displays active processes. Press q to quit</td>
+</tr>
+<tr>
+<td><code>nano [file]</code></td>
+<td>Opens the file using the nano editor</td>
+</tr>
+<tr>
+<td><code>vim [file]</code></td>
+<td>Opens the file using the vim editor</td>
+</tr>
+<tr>
+<td><code>clear</code></td>
+<td>Clears the screen</td>
+</tr>
+<tr>
+<td><code>reset</code></td>
+<td>Resets the terminal display</td>
+</tr>
+<tr>
+<td><code>unzip path/to/your/file.zip</code></td>
+<td>General unzip</td>
+</tr>
+<tr>
+<td><code>unzip path/to/your/file.zip -d path/to/destination/folder</code></td>
+<td>Unzip to specific path</td>
+</tr>
+<tr>
+<td><code>zip -r compressed_filename.zip foldername</code></td>
+<td>General zip</td>
+</tr>
+<tr>
+<td><code>zip -r compressed_filename.zip foldername</code></td>
+<td>General zip</td>
+</tr>
+<tr>
+<td><code>lsof -i -P -n \| grep LISTEN</code></td>
+<td>Show all active ports being used by user processes</td>
+</tr>
+<tr>
+<td><code>sudo lsof -i -P -n \| grep LISTEN</code></td>
+<td>Show all active ports, including system</td>
+</tr>
+</tbody>
+</table>
+<h3 id="chaining-commands">Chaining Commands</h3>
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>[command-a]; [command-b]</td>
+<td>Run command A and then B, regardless of the success of A</td>
+</tr>
+<tr>
+<td>[command-a] &amp;&amp; [command-b]</td>
+<td>Run command B if A succeeded</td>
+</tr>
+<tr>
+<td>[command-a] || [command-b]</td>
+<td>Run command B if A failed</td>
+</tr>
+<tr>
+<td>[command-a] &amp;</td>
+<td>Run command A in the background</td>
+</tr>
+</tbody>
+</table>
+<h3 id="explanation-of-grep">Explanation of <code>grep</code></h3>
+<ul>
+<li><code>grep</code> is a command-line utility for searching plain-text data sets for lines that match a regular expression.</li>
+<li><code>grep</code> searches the named input FILEs (or standard input if no files are named, or the file name - is given) for lines containing a match to the given PATTERN.</li>
+<li>By default, <code>grep</code> prints the matching lines.</li>
+<li><code>egrep</code> or <code>grep -E</code> is the same as <code>grep</code>, but uses extended regular expressions instead of basic regular expressions.</li>
+<li>Example: <code>egrep 'foo|bar'</code> is the same as <code>grep -E 'foo|bar'</code></li>
+<li><code>fgrep</code> or <code>grep -F</code> is the same as <code>grep</code>, but interprets PATTERN as a list of fixed strings (instead of regular expressions), separated by newlines, any of which is to be matched.</li>
+<li>This is different from normal <code>grep</code> which interprets PATTERN as a regular expression.</li>
+<li>Example: <code>fgrep 'foo'</code> is the same as <code>grep -F 'foo'</code></li>
+<li>Example: <code>fgrep -f file1 file2</code> is the same as <code>grep -F -f file1 file2</code></li>
+<li>To obtain the opposite effect of <code>grep</code>, use the <code>-v</code> or <code>--invert-match</code> option.</li>
+<li>Example: <code>grep -v 'foo'</code> will match all lines that do not contain the string 'foo'</li>
+<li>Output grep results to a file using the <code>&gt;</code> operator.</li>
+<li>Example: <code>grep 'foo' file.txt &gt; output.txt</code></li>
+</ul>
+<h3 id="piping-commands">Piping Commands</h3>
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>find [dir] -name [search_pattern]</td>
+<td>Search for files, e.g., <code>find /Users -name "file.txt"</code> (searches recursively)</td>
+</tr>
+<tr>
+<td>grep [search_pattern] [file]</td>
+<td>Search for all lines that contain the pattern, e.g., grep "Tom" file.txt</td>
+</tr>
+<tr>
+<td>grep -r [search_pattern] [dir]</td>
+<td>Recursively search in all files in the specified directory for all lines that contain the pattern</td>
+</tr>
+<tr>
+<td>grep -v [search_pattern] [file]</td>
+<td>Search for all lines that do NOT contain the pattern</td>
+</tr>
+<tr>
+<td>grep -i [search_pattern] [file]</td>
+<td>Search for all lines that contain the case-insensitive pattern</td>
+</tr>
+<tr>
+<td>mdfind [search_pattern]</td>
+<td>Spotlight search for files (names, content, other metadata), e.g., mdfind skateboard</td>
+</tr>
+<tr>
+<td>mdfind -onlyin [dir] -name [pattern]</td>
+<td>Spotlight search for files named like pattern in the given directory</td>
+</tr>
+</tbody>
+</table>
+<h3 id="help">Help</h3>
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>[command] -h</td>
+<td>Offers help</td>
+</tr>
+<tr>
+<td>[command] -help</td>
+<td>Offers help</td>
+</tr>
+<tr>
+<td>info [command]</td>
+<td>Offers help</td>
+</tr>
+<tr>
+<td>man [command]</td>
+<td>Show the help manual for [command]</td>
+</tr>
+<tr>
+<td>whatis [command]</td>
+<td>Gives a one-line description of [command]</td>
+</tr>
+<tr>
+<td>apropos [search-pattern]</td>
+<td>Searches for command with keywords in description</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="docker">Docker</h2>
+<ul>
+<li>Docker Image: a read-only template with instructions for creating a Docker container</li>
+<li>Docker Container: a runnable instance of a Docker image</li>
+<li>Dockerfile: a text file that contains all the commands a user could call on the command line to assemble an image.</li>
+<li><code>FROM</code>: the base image to build upon</li>
+<li><code>WORKDIR</code>: set the working directory</li>
+<li><code>RUN</code>: execute a command in the container</li>
+<li><code>COPY</code>: copy files from the host to the container</li>
+<li><code>ADD</code>: copy files from the host to the container (can also download files from the internet and copy them to the container)</li>
+<li><code>ARG</code>: set build-time variables</li>
+<li><code>ENV</code>: set environment variables</li>
+<li><code>EXPOSE</code>: expose a port</li>
+<li><code>CMD</code>: the command to run when the container starts</li>
+<li><code>ENTRYPOINT</code>: the command to run when the container starts (can be overridden by <code>CMD</code>)</li>
+<li><code>HEALTHCHECK</code>: check the health of the container</li>
+<li>Common Docker commands:</li>
+<li><code>docker build -t [image-name] .</code>: build the Docker image (<code>-t</code> is the tag name)<ul>
+<li>Use with <code>--file</code> to specify a Dockerfile other than the default <code>Dockerfile</code></li>
+<li>Use with <code>--build-arg [arg-name]=[arg-value]</code> to pass build-time variables</li>
+<li>Use with <code>--platform</code> to specify the platform (e.g., <code>linux/amd64</code>, <code>linux/arm64</code>, <code>linux/arm/v7</code>)</li>
+</ul>
+</li>
+<li><code>docker run -it [image-name]</code>: run the Docker container</li>
+<li><code>docker tag [image-name] [username]/[repo-name]:[tag]</code>: tag the Docker image</li>
+<li><code>docker push [username]/[repo-name]:[tag]</code>: push the Docker image to Docker Hub (or ECR, etc.)</li>
+<li><code>docker login --username [username] --password [password]</code>: log in to Docker Hub (or ECR, etc.)</li>
+<li>Docker Compose: a tool for defining and running multi-container Docker applications</li>
+<li><code>docker-compose up</code>: start the Docker containers</li>
+<li><code>docker-compose down</code>: stop the Docker containers</li>
+<li><code>docker-compose build</code>: build the Docker containers</li>
+<li><code>docker-compose push</code>: push the Docker containers to Docker Hub (or ECR, etc.)</li>
+<li><code>docker-compose pull</code>: pull the Docker containers from Docker Hub (or ECR, etc.)</li>
+<li><code>docker-compose config</code>: validate and view the Docker Compose file</li>
+<li><code>docker-compose logs</code>: view the logs of the Docker containers</li>
+<li><code>docker-compose ps</code>: view the status of the Docker containers</li>
+<li><code>docker-compose top</code>: view the processes running in the Docker containers</li>
+<li><code>docker-compose exec [service-name] [command]</code>: execute a command in a running container</li>
+<li><code>docker-compose run [service-name] [command]</code>: run a one-off command in a new container</li>
+<li><code>docker-compose restart [service-name]</code>: restart a container</li>
+<li><code>docker-compose stop [service-name]</code>: stop a container</li>
+<li><code>docker-compose rm [service-name]</code>: remove a container</li>
+<li><code>docker-compose kill [service-name]</code>: kill a container</li>
+<li><code>docker-compose down --rmi all</code>: remove all containers and images</li>
+<li><code>docker-compose down --volumes</code>: remove all volumes</li>
+<li><code>docker-compose down --remove-orphans</code>: remove all orphaned containers</li>
+<li>docker-compose.yaml: a YAML file that defines the Docker Compose configuration</li>
+<li><code>version</code>: the version of the Docker Compose file format</li>
+<li><code>services</code>: the services to run</li>
+<li><code>networks</code>: the networks to create</li>
+<li><code>volumes</code>: the volumes to create</li>
+<li><code>configs</code>: the configs to create</li>
+<li><code>secrets</code>: the secrets to create</li>
+<li><code>deploy</code>: the deployment configuration</li>
+<li><code>build</code>: the build configuration</li>
+<li><code>image</code>: the image configuration</li>
+<li><code>container_name</code>: the container name</li>
+<li><code>command</code>: the command to run</li>
+<li><code>entrypoint</code>: the entrypoint to run</li>
+<li><code>environment</code>: the environment variables to set</li>
+<li><code>env_file</code>: the environment variables to set from a file</li>
+<li><code>ports</code>: the ports to expose</li>
+<li><code>volumes</code>: the volumes to mount</li>
+<li><code>depends_on</code>: the services to depend on</li>
+<li><code>networks</code>: the networks to connect to</li>
+<li><code>network_mode</code>: the network mode to use</li>
+<li><code>restart</code>: the restart policy</li>
+<li><code>logging</code>: the logging configuration</li>
+<li><code>labels</code>: the labels to set</li>
+<li><code>configs</code>: the configs to mount</li>
+<li><code>secrets</code>: the secrets to mount</li>
+<li><code>deploy</code>: the deployment configuration</li>
+<li><code>build</code>: the build configuration</li>
+<li><code>image</code>: the image configuration</li>
+<li><code>container_name</code>: the container name</li>
+<li><code>command</code>: the command to run</li>
+<li><code>entrypoint</code>: the entrypoint to run</li>
+<li><code>environment</code>: the environment variables to set</li>
+<li><code>env_file</code>: the environment variables to set from a file</li>
+<li><code>ports</code>: the ports to expose</li>
+<li><code>volumes</code>: the volumes to mount</li>
+<li><code>depends_on</code>: the services to depend on</li>
+<li><code>networks</code>: the networks to connect to</li>
+<li><code>network_mode</code>: the network mode to use</li>
+<li><code>restart</code>: the restart policy</li>
+<li><code>logging</code>: the logging configuration</li>
+<li><code>labels</code>: the labels to set</li>
+<li><code>configs</code>: the configs to mount</li>
+<li><code>secrets</code>: the secrets to mount</li>
+<li><code>deploy</code>: the deployment configuration</li>
+<li><code>build</code>: the build configuration</li>
+<li><code>image</code>: the image configuration</li>
+<li><code>container_name</code>: the container name</li>
+<li>Makefile: a text file that contains a set of tasks to be executed by the <code>make</code> command</li>
+<li>Used to automate the build process</li>
+<li>Used in conjunction with Docker Compose to automate the deployment process</li>
+<li><code>deploy</code>: deploy the Docker containers using the following commands...</li>
+<li>End-to-End workflow using Dockerfile, docker-compose.yaml, and Makefile:
+  1) In Dockerfile, specify the base image to build upon, the working directory, and the commands to run in order to build the image in the container
+  2) In docker-compose.yaml, specify version, services (and their configs/ports/etc.)
+  3) In Makefile, specify the commands to run to build and deploy the Docker containers
+  4) Run <code>make deploy</code> to build and deploy the Docker containers</li>
+<li>Dockerfile example:
+  <div class="highlight"><pre><span></span><code><span class="k">FROM</span><span class="w"> </span><span class="s">python:3.8.5-slim-buster</span>
+
+<span class="k">WORKDIR</span><span class="w"> </span><span class="s">/app</span>
+
+<span class="k">RUN</span><span class="w"> </span>apt-get<span class="w"> </span>update<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>build-essential<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>libpq-dev<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>libssl-dev<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>libffi-dev<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>python3-dev<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>python3-pip<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>python3-setuptools<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>python3-wheel<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span><span class="o">&amp;&amp;</span><span class="w"> </span>rm<span class="w"> </span>-rf<span class="w"> </span>/var/lib/apt/lists/*
+
+<span class="k">COPY</span><span class="w"> </span>requirements.txt<span class="w"> </span>requirements.txt
+<span class="k">RUN</span><span class="w"> </span>pip3<span class="w"> </span>install<span class="w"> </span>-r<span class="w"> </span>requirements.txt
+
+<span class="k">COPY</span><span class="w"> </span>.<span class="w"> </span>.
+
+<span class="k">CMD</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;python3&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;app.py&quot;</span><span class="p">]</span>
+</code></pre></div></li>
+<li>Simple docker-compose.yaml example:
+  <div class="highlight"><pre><span></span><code><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;3.8&quot;</span>
+
+<span class="nt">services</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">app</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">build</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">.</span>
+<span class="w">    </span><span class="nt">ports</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;5000:5000&quot;</span>
+<span class="w">  </span><span class="nt">db</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">postgres:13.3</span>
+<span class="w">    </span><span class="nt">environment</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">POSTGRES_USER</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">postgres</span>
+<span class="w">      </span><span class="nt">POSTGRES_PASSWORD</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">postgres</span>
+<span class="w">      </span><span class="nt">POSTGRES_DB</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">postgres</span>
+<span class="w">    </span><span class="nt">ports</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;5432:5432&quot;</span>
+</code></pre></div></li>
+<li>Makefile example:
+  <div class="highlight"><pre><span></span><code><span class="nf">.PHONY</span><span class="o">:</span><span class="w"> </span><span class="n">deploy</span>
+<span class="nf">deploy</span><span class="o">:</span>
+<span class="w">    </span>docker-compose<span class="w"> </span>build
+<span class="w">    </span>docker-compose<span class="w"> </span>push
+<span class="w">    </span>docker-compose<span class="w"> </span>pull
+<span class="w">    </span>docker-compose<span class="w"> </span>up<span class="w"> </span>-d
+</code></pre></div></li>
+</ul>
+<hr />
+<h2 id="postgres-mac">postgres (Mac)</h2>
+<h3 id="table-of-most-common-commands">Table of Most Common Commands</h3>
+<table>
+<thead>
+<tr>
+<th>Action</th>
+<th>Command</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Start postgres and log into main local database</td>
+<td><code>psql -U [username] -d [database]</code></td>
+</tr>
+<tr>
+<td>List all tables in this db</td>
+<td><code>\dt</code></td>
+</tr>
+<tr>
+<td>List all tables in all dbs</td>
+<td><code>\dt *.*</code></td>
+</tr>
+<tr>
+<td>List all databases</td>
+<td><code>\l</code></td>
+</tr>
+<tr>
+<td>Navigate to a different database</td>
+<td><code>\c [database]</code></td>
+</tr>
+<tr>
+<td>List all schemas in this db</td>
+<td><code>\dn</code></td>
+</tr>
+<tr>
+<td>Create a new database</td>
+<td><code>CREATE DATABASE [database];</code></td>
+</tr>
+<tr>
+<td>Create a new schema</td>
+<td><code>CREATE SCHEMA [schema];</code></td>
+</tr>
+<tr>
+<td>Create a new table</td>
+<td><code>CREATE TABLE [table] ( [column] [datatype] [constraints] );</code></td>
+</tr>
+<tr>
+<td>Delete a database</td>
+<td><code>DROP DATABASE [database];</code></td>
+</tr>
+<tr>
+<td>Export a database</td>
+<td><code>pg_dump -U [username] [database] &gt; [filename].sql</code></td>
+</tr>
+<tr>
+<td>Import a database</td>
+<td><code>psql -U [username] -d [database] -f [filename].sql</code></td>
+</tr>
+<tr>
+<td>Exit psql</td>
+<td><code>\q</code></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="python">PYTHON</h2>
+<h3 id="new-openai-api-v-171">New OpenAI API (v 1.7.1)</h3>
+<h4 id="api-key">API Key</h4>
+<p><code>export OPENAI_API_KEY='...'</code></p>
+<p>OR</p>
+<p>save .env file in root directory with: <code>OPENAI_API_KEY=abc123</code> (be sure to add .env to .gitignore)</p>
+<h4 id="models">Models</h4>
+<table>
+<thead>
+<tr>
+<th>Model</th>
+<th>Description</th>
+<th>Context window</th>
+<th>Training data</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>gpt-4-1106-preview</td>
+<td><strong>GPT-4 Turbo</strong> The latest GPT-4 model with improved instruction following, JSON mode, reproducible outputs, parallel function calling, and more. Returns a maximum of 4,096 output tokens. This preview model is not yet suited for production traffic. <a href="https://openai.com/blog/new-models-and-developer-products-announced-at-devday">Learn more</a>.</td>
+<td>128,000 tokens</td>
+<td>Up to Apr 2023</td>
+</tr>
+<tr>
+<td>gpt-4-vision-preview</td>
+<td><strong>GPT-4 Turbo with vision</strong> Ability to understand images, in addition to all other GPT-4 Turbo capabilties. Returns a maximum of 4,096 output tokens. This is a preview model version and not suited yet for production traffic. <a href="https://openai.com/blog/new-models-and-developer-products-announced-at-devday">Dev Day</a>.</td>
+<td>128,000 tokens</td>
+<td>Up to Apr 2023</td>
+</tr>
+<tr>
+<td>gpt-4</td>
+<td>Currently points to <code>gpt-4-0613</code>. See <a href="https://platform.openai.com/docs/models/continuous-model-upgrades">continuous model upgrades</a>.</td>
+<td>8,192 tokens</td>
+<td>Up to Sep 2021</td>
+</tr>
+<tr>
+<td>gpt-4-32k</td>
+<td>Currently points to <code>gpt-4-32k-0613</code>. See <a href="https://platform.openai.com/docs/models/continuous-model-upgrades">continuous model upgrades</a>.</td>
+<td>32,768 tokens</td>
+<td>Up to Sep 2021</td>
+</tr>
+<tr>
+<td>gpt-4-0613</td>
+<td>Snapshot of <code>gpt-4</code> from June 13th 2023 with improved function calling support.</td>
+<td>8,192 tokens</td>
+<td>Up to Sep 2021</td>
+</tr>
+<tr>
+<td>gpt-4-32k-0613</td>
+<td>Snapshot of <code>gpt-4-32k</code> from June 13th 2023 with improved function calling support.</td>
+<td>32,768 tokens</td>
+<td>Up to Sep 2021</td>
+</tr>
+</tbody>
+</table>
+<h4 id="chat-completions">Chat Completions</h4>
+<p><strong>THIS IS DEPRECATED</strong>:</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">openai</span>
+<span class="n">openai</span><span class="o">.</span><span class="n">api_key</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;OPENAI_API_KEY&quot;</span><span class="p">)</span>
+
+<span class="n">MODEL</span> <span class="o">=</span> <span class="s2">&quot;gpt-4&quot;</span> <span class="c1"># more expensive now</span>
+<span class="n">response</span> <span class="o">=</span> <span class="n">openai</span><span class="o">.</span><span class="n">ChatCompletion</span><span class="o">.</span><span class="n">create</span><span class="p">(</span>
+  <span class="o">...</span>
+<span class="p">)</span>
+
+<span class="c1"># ChatCompletion response object:</span>
+<span class="c1"># {</span>
+<span class="c1">#   &quot;id&quot;: &quot;chatcmpl-7UkgnSDzlevZxiy0YjZcLYdUMz5yZ&quot;,</span>
+<span class="c1">#   &quot;object&quot;: &quot;chat.completion&quot;,</span>
+<span class="c1">#   &quot;created&quot;: 1687563669,</span>
+<span class="c1">#   &quot;model&quot;: &quot;gpt-4&quot;,</span>
+<span class="c1">#   &quot;choices&quot;: [</span>
+<span class="c1">#     {</span>
+<span class="c1">#       &quot;index&quot;: 0,</span>
+<span class="c1">#       &quot;message&quot;: {</span>
+<span class="c1">#         &quot;role&quot;: &quot;assistant&quot;,</span>
+<span class="c1">#         &quot;content&quot;: &quot;\n\nHello there, how may I assist you today?&quot;,</span>
+<span class="c1">#       },</span>
+<span class="c1">#       &quot;finish_reason&quot;: &quot;stop&quot;</span>
+<span class="c1">#     }</span>
+<span class="c1">#   ],</span>
+<span class="c1">#   &quot;usage&quot;: {</span>
+<span class="c1">#     &quot;prompt_tokens&quot;: 39,</span>
+<span class="c1">#     &quot;completion_tokens&quot;: 3,</span>
+<span class="c1">#     &quot;total_tokens&quot;: 42</span>
+<span class="c1">#   }</span>
+<span class="c1"># }</span>
+</code></pre></div>
+<p><strong>THIS IS THE NEW WAY</strong>:</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">openai</span><span class="w"> </span><span class="kn">import</span> <span class="n">OpenAI</span>
+<span class="n">client</span> <span class="o">=</span> <span class="n">OpenAI</span><span class="p">()</span> <span class="c1"># defaults to looking for OPENAI_API_KEY or .env file</span>
+
+<span class="n">MODEL</span> <span class="o">=</span> <span class="s2">&quot;gpt-4-turbo&quot;</span> <span class="c1"># cheaper &amp; smarter</span>
+<span class="n">completion</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">chat</span><span class="o">.</span><span class="n">completions</span><span class="o">.</span><span class="n">create</span><span class="p">(</span>
+    <span class="n">model</span><span class="o">=</span><span class="n">MODEL</span><span class="p">,</span>
+    <span class="n">messages</span><span class="o">=</span><span class="p">[</span>
+        <span class="p">{</span><span class="s2">&quot;role&quot;</span><span class="p">:</span> <span class="s2">&quot;system&quot;</span><span class="p">,</span> <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="s2">&quot;You are a helpful assistant.&quot;</span><span class="p">},</span>
+
+        <span class="p">{</span><span class="s2">&quot;role&quot;</span><span class="p">:</span> <span class="s2">&quot;user&quot;</span><span class="p">,</span> <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="s2">&quot;Knock knock.&quot;</span><span class="p">},</span>
+        <span class="p">{</span><span class="s2">&quot;role&quot;</span><span class="p">:</span> <span class="s2">&quot;assistant&quot;</span><span class="p">,</span> <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="s2">&quot;Who&#39;s there?&quot;</span><span class="p">},</span>
+
+        <span class="p">{</span><span class="s2">&quot;role&quot;</span><span class="p">:</span> <span class="s2">&quot;user&quot;</span><span class="p">,</span> <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="s2">&quot;Orange.&quot;</span><span class="p">},</span>
+    <span class="p">],</span>
+    <span class="n">temperature</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="c1"># Chat completion object:</span>
+<span class="c1"># {</span>
+<span class="c1">#   &quot;id&quot;: &quot;chatcmpl-123&quot;,</span>
+<span class="c1">#   &quot;object&quot;: &quot;chat.completion&quot;,</span>
+<span class="c1">#   &quot;created&quot;: 1677652288,</span>
+<span class="c1">#   &quot;model&quot;: &quot;gpt-4-turbo&quot;,</span>
+<span class="c1">#   &quot;system_fingerprint&quot;: &quot;fp_44709d6fcb&quot;,</span>
+<span class="c1">#   &quot;choices&quot;: [{</span>
+<span class="c1">#     &quot;index&quot;: 0,</span>
+<span class="c1">#     &quot;message&quot;: {</span>
+<span class="c1">#       &quot;role&quot;: &quot;assistant&quot;,</span>
+<span class="c1">#       &quot;content&quot;: &quot;Orange who?&quot;</span>
+<span class="c1">#     },</span>
+<span class="c1">#     &quot;logprobs&quot;: null,</span>
+<span class="c1">#     &quot;finish_reason&quot;: &quot;stop&quot;</span>
+<span class="c1">#   }],</span>
+<span class="c1">#   &quot;usage&quot;: {</span>
+<span class="c1">#     &quot;prompt_tokens&quot;: 9,</span>
+<span class="c1">#     &quot;completion_tokens&quot;: 12,</span>
+<span class="c1">#     &quot;total_tokens&quot;: 21</span>
+<span class="c1">#   }</span>
+<span class="c1"># }</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">completion</span><span class="o">.</span><span class="n">choices</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">message</span><span class="o">.</span><span class="n">content</span><span class="p">)</span>
+<span class="c1"># &#39;Orange who?&#39;</span>
+</code></pre></div>
+<p><strong>Chat Completions Request body fields:</strong></p>
+<p><img alt="Chat Completions Request Args (messages)" src="../img/chatcompletions.png" />
+<img alt="Chat Completions Request Args (response_format)" src="../img/chatcompletions2.png" />
+<img alt="Chat Completions Request Args (functions)" src="../img/chatcompletions3.png" />
+<img alt="Chat Completions Request Args (model, tokens)" src="../img/chatcompletions4.png" /></p>
+<p>Response object fields:</p>
+<ul>
+<li><code>id</code>: the ID of the request</li>
+<li><code>object</code>: the type of object returned (e.g., <code>chat.completion</code>)</li>
+<li><code>created</code>: the timestamp of the request</li>
+<li><code>model</code>: the full name of the model used to generate the response</li>
+<li><code>usage</code>: the number of tokens used to generate the replies, counting prompt, completion, and total</li>
+<li><code>choices</code>: a list of completion objects (only one, unless you set <code>n</code> greater than 1)<ul>
+<li><code>message</code>: the message object generated by the model, with <code>role</code> and <code>content</code></li>
+<li><code>finish_reason</code>: the reason the model stopped generating text (either <code>stop</code>, or <code>length</code> if <code>max_tokens</code> limit was reached)</li>
+<li><code>index</code>: the index of the completion in the list of choices</li>
+</ul>
+</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="c1"># Example with system prompt &amp; few-shot learning:</span>
+
+<span class="c1"># Faked few-shot conversation to prime the model into translating business jargon into simpler speech</span>
+<span class="c1"># (OPTIONAL: Use the `name` parameter in the example messages -- so the model won&#39;t refer back to them &amp; can differentiate between participants of the same role</span>
+<span class="n">completion</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">chat</span><span class="o">.</span><span class="n">completions</span><span class="o">.</span><span class="n">create</span><span class="p">(</span>
+    <span class="n">model</span><span class="o">=</span><span class="n">MODEL</span><span class="p">,</span>
+    <span class="n">messages</span><span class="o">=</span><span class="p">[</span>
+        <span class="p">{</span><span class="s2">&quot;role&quot;</span><span class="p">:</span> <span class="s2">&quot;system&quot;</span><span class="p">,</span> <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="s2">&quot;You are a helpful, pattern-following assistant that translates corporate jargon into plain English.&quot;</span><span class="p">},</span>
+
+        <span class="p">{</span><span class="s2">&quot;role&quot;</span><span class="p">:</span> <span class="s2">&quot;system&quot;</span><span class="p">,</span> <span class="s2">&quot;name&quot;</span><span class="p">:</span><span class="s2">&quot;example_user&quot;</span><span class="p">,</span> <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="s2">&quot;New synergies will help drive top-line growth.&quot;</span><span class="p">},</span>
+        <span class="p">{</span><span class="s2">&quot;role&quot;</span><span class="p">:</span> <span class="s2">&quot;system&quot;</span><span class="p">,</span> <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;example_assistant&quot;</span><span class="p">,</span> <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="s2">&quot;Things working well together will increase revenue.&quot;</span><span class="p">},</span>
+
+        <span class="p">{</span><span class="s2">&quot;role&quot;</span><span class="p">:</span> <span class="s2">&quot;system&quot;</span><span class="p">,</span> <span class="s2">&quot;name&quot;</span><span class="p">:</span><span class="s2">&quot;example_user&quot;</span><span class="p">,</span> <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="s2">&quot;Let&#39;s circle back when we have more bandwidth to touch base on opportunities for increased leverage.&quot;</span><span class="p">},</span>
+        <span class="p">{</span><span class="s2">&quot;role&quot;</span><span class="p">:</span> <span class="s2">&quot;system&quot;</span><span class="p">,</span> <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;example_assistant&quot;</span><span class="p">,</span> <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="s2">&quot;Let&#39;s talk later when we&#39;re less busy about how to do better.&quot;</span><span class="p">},</span>
+
+        <span class="p">{</span><span class="s2">&quot;role&quot;</span><span class="p">:</span> <span class="s2">&quot;user&quot;</span><span class="p">,</span> <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="s2">&quot;This late pivot means we don&#39;t have time to boil the ocean for the client deliverable.&quot;</span><span class="p">},</span>
+    <span class="p">],</span>
+    <span class="n">temperature</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">response</span><span class="p">[</span><span class="s2">&quot;choices&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="s2">&quot;message&quot;</span><span class="p">][</span><span class="s2">&quot;content&quot;</span><span class="p">])</span>
+<span class="c1"># This sudden change in plans means we don&#39;t have enough time to do everything for the client&#39;s project.</span>
+</code></pre></div>
+<h4 id="token-counts">Token Counts</h4>
+<ul>
+<li>Context window equivalents:</li>
+<li>1 token --&gt; 4 characters</li>
+<li>128,000 tokens --&gt; 512,000 characters</li>
+<li>Natural Language:<ul>
+<li>6 characters per English word on average (5 char + 1 space)</li>
+<li>512,000 characters / 6 characters per word ≈ 85,333 words</li>
+<li>85,333 words / 250 words per page using 12pt Times New Roman ≈ 341 double-spaced pages (170 single-spaced pages)</li>
+<li><strong>So 128,000 tokens is roughly equivalent to 170 single-spaced pages of text</strong></li>
+</ul>
+</li>
+<li>Code:<ul>
+<li>50 characters per line on average</li>
+<li>512,000 characters / 50 characters per line ≈ 10,240 lines of code</li>
+<li><strong>So 128,000 tokens is roughly equivalent to 10,240 lines of code</strong></li>
+</ul>
+</li>
+</ul>
+<p>Function to track tokens:</p>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">num_tokens_from_messages</span><span class="p">(</span><span class="n">messages</span><span class="p">,</span> <span class="n">model</span><span class="o">=</span><span class="s2">&quot;gpt-3.5-turbo-0613&quot;</span><span class="p">):</span>
+<span class="w">  </span><span class="sd">&quot;&quot;&quot;Returns the number of tokens used by a list of messages.&quot;&quot;&quot;</span>
+  <span class="k">try</span><span class="p">:</span>
+      <span class="n">encoding</span> <span class="o">=</span> <span class="n">tiktoken</span><span class="o">.</span><span class="n">encoding_for_model</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
+  <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+      <span class="n">encoding</span> <span class="o">=</span> <span class="n">tiktoken</span><span class="o">.</span><span class="n">get_encoding</span><span class="p">(</span><span class="s2">&quot;cl100k_base&quot;</span><span class="p">)</span>
+  <span class="k">if</span> <span class="n">model</span> <span class="o">==</span> <span class="s2">&quot;gpt-3.5-turbo-0613&quot;</span><span class="p">:</span>  <span class="c1"># note: future models may deviate from this</span>
+      <span class="n">num_tokens</span> <span class="o">=</span> <span class="mi">0</span>
+      <span class="k">for</span> <span class="n">message</span> <span class="ow">in</span> <span class="n">messages</span><span class="p">:</span>
+          <span class="n">num_tokens</span> <span class="o">+=</span> <span class="mi">4</span>  <span class="c1"># every message follows &lt;im_start&gt;{role/name}\n{content}&lt;im_end&gt;\n</span>
+          <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">message</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+              <span class="n">num_tokens</span> <span class="o">+=</span> <span class="nb">len</span><span class="p">(</span><span class="n">encoding</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="n">value</span><span class="p">))</span>
+              <span class="k">if</span> <span class="n">key</span> <span class="o">==</span> <span class="s2">&quot;name&quot;</span><span class="p">:</span>  <span class="c1"># if there&#39;s a name, the role is omitted</span>
+                  <span class="n">num_tokens</span> <span class="o">+=</span> <span class="o">-</span><span class="mi">1</span>  <span class="c1"># role is always required and always 1 token</span>
+      <span class="n">num_tokens</span> <span class="o">+=</span> <span class="mi">2</span>  <span class="c1"># every reply is primed with &lt;im_start&gt;assistant</span>
+      <span class="k">return</span> <span class="n">num_tokens</span>
+  <span class="k">else</span><span class="p">:</span>
+      <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;&quot;&quot;num_tokens_from_messages() is not presently implemented for model </span><span class="si">{</span><span class="n">model</span><span class="si">}</span><span class="s2">.</span>
+<span class="s2">      See https://github.com/openai/openai-python/blob/main/chatml.md for information on how messages are converted to tokens.&quot;&quot;&quot;</span><span class="p">)</span>
+</code></pre></div>
+<h4 id="json-mode">JSON Mode</h4>
+<p>A common way to use Chat Completions is to instruct the model to always return a JSON object that makes sense for your use case, by specifying this in the system message. While this does work in some cases, occasionally the models may generate output that does not parse to valid JSON objects.</p>
+<p>To prevent these errors and improve model performance, when calling <code>gpt-4-1106-preview</code> or <code>gpt-3.5-turbo-1106</code>, you can set <a href="https://platform.openai.com/docs/api-reference/chat/create#chat-create-response_format">response_format</a> to <code>{ "type": "json_object" }</code> to enable JSON mode. When JSON mode is enabled, the model is constrained to only generate strings that parse into valid JSON object.</p>
+<p>Important notes:</p>
+<ul>
+<li>When using JSON mode, <strong>always</strong> instruct the model to produce JSON via some message in the conversation, for example via your system message. If you don't include an explicit instruction to generate JSON, the model may generate an unending stream of whitespace and the request may run continually until it reaches the token limit. To help ensure you don't forget, the API will throw an error if the string <code>"JSON"</code> does not appear somewhere in the context.</li>
+<li>The JSON in the message the model returns may be partial (i.e. cut off) if <code>finish_reason</code> is <code>length</code>, which indicates the generation exceeded <code>max_tokens</code> or the conversation exceeded the token limit. To guard against this, check <code>finish_reason</code> before parsing the response.</li>
+<li>JSON mode will not guarantee the output matches any specific schema, only that it is valid and parses without errors.</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">openai</span><span class="w"> </span><span class="kn">import</span> <span class="n">OpenAI</span>
+<span class="n">client</span> <span class="o">=</span> <span class="n">OpenAI</span><span class="p">()</span>
+
+<span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">chat</span><span class="o">.</span><span class="n">completions</span><span class="o">.</span><span class="n">create</span><span class="p">(</span>
+  <span class="n">model</span><span class="o">=</span><span class="s2">&quot;gpt-3.5-turbo-1106&quot;</span><span class="p">,</span>
+  <span class="n">response_format</span><span class="o">=</span><span class="p">{</span> <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;json_object&quot;</span> <span class="p">},</span>
+  <span class="n">messages</span><span class="o">=</span><span class="p">[</span>
+    <span class="p">{</span><span class="s2">&quot;role&quot;</span><span class="p">:</span> <span class="s2">&quot;system&quot;</span><span class="p">,</span> <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="s2">&quot;You are a helpful assistant designed to output JSON.&quot;</span><span class="p">},</span>
+    <span class="p">{</span><span class="s2">&quot;role&quot;</span><span class="p">:</span> <span class="s2">&quot;user&quot;</span><span class="p">,</span> <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="s2">&quot;Who won the world series in 2020?&quot;</span><span class="p">}</span>
+  <span class="p">]</span>
+<span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">choices</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">message</span><span class="o">.</span><span class="n">content</span><span class="p">)</span>
+</code></pre></div>
+<p>In this example, the response includes a JSON object that looks something like the following:</p>
+<p><code>"content": "{\"winner\": \"Los Angeles Dodgers\"}"</code></p>
+<p><strong>Note that JSON mode is always enabled when the model is generating arguments as part of function calling.</strong></p>
+<h4 id="streaming-chat-completions">Streaming Chat Completions</h4>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">openai</span><span class="w"> </span><span class="kn">import</span> <span class="n">OpenAI</span>
+<span class="n">client</span> <span class="o">=</span> <span class="n">OpenAI</span><span class="p">()</span>
+
+<span class="n">completion</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">chat</span><span class="o">.</span><span class="n">completions</span><span class="o">.</span><span class="n">create</span><span class="p">(</span>
+  <span class="n">model</span><span class="o">=</span><span class="s2">&quot;gpt-4-1106-preview&quot;</span><span class="p">,</span>
+  <span class="n">messages</span><span class="o">=</span><span class="p">[</span>
+    <span class="p">{</span><span class="s2">&quot;role&quot;</span><span class="p">:</span> <span class="s2">&quot;system&quot;</span><span class="p">,</span> <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="s2">&quot;You are a helpful assistant.&quot;</span><span class="p">},</span>
+    <span class="p">{</span><span class="s2">&quot;role&quot;</span><span class="p">:</span> <span class="s2">&quot;user&quot;</span><span class="p">,</span> <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="s2">&quot;Hello!&quot;</span><span class="p">}</span>
+  <span class="p">],</span>
+  <span class="n">stream</span><span class="o">=</span><span class="kc">True</span>
+<span class="p">)</span>
+
+<span class="k">for</span> <span class="n">chunk</span> <span class="ow">in</span> <span class="n">completion</span><span class="p">:</span>
+  <span class="nb">print</span><span class="p">(</span><span class="n">chunk</span><span class="o">.</span><span class="n">choices</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">delta</span><span class="p">)</span>
+
+
+<span class="c1"># ..........</span>
+<span class="c1"># {</span>
+<span class="c1">#     &quot;id&quot;: &quot;chatcmpl-123&quot;,</span>
+<span class="c1">#     &quot;object&quot;: &quot;chat.completion.chunk&quot;,</span>
+<span class="c1">#     &quot;created&quot;: 1694268190,</span>
+<span class="c1">#     &quot;model&quot;: &quot;gpt-3.5-turbo-0613&quot;,</span>
+<span class="c1">#     &quot;system_fingerprint&quot;: &quot;fp_44709d6fcb&quot;,</span>
+<span class="c1">#     &quot;choices&quot;: [</span>
+<span class="c1">#         {</span>
+<span class="c1">#             &quot;index&quot;: 0,</span>
+<span class="c1">#             &quot;delta&quot;: {</span>
+<span class="c1">#                 &quot;content&quot;: &quot; today&quot;</span>
+<span class="c1">#             },</span>
+<span class="c1">#             &quot;logprobs&quot;: null,</span>
+<span class="c1">#             &quot;finish_reason&quot;: null</span>
+<span class="c1">#         }</span>
+<span class="c1">#     ]</span>
+<span class="c1"># }</span>
+
+<span class="c1"># {</span>
+<span class="c1">#     &quot;id&quot;: &quot;chatcmpl-123&quot;,</span>
+<span class="c1">#     &quot;object&quot;: &quot;chat.completion.chunk&quot;,</span>
+<span class="c1">#     &quot;created&quot;: 1694268190,</span>
+<span class="c1">#     &quot;model&quot;: &quot;gpt-3.5-turbo-0613&quot;,</span>
+<span class="c1">#     &quot;system_fingerprint&quot;: &quot;fp_44709d6fcb&quot;,</span>
+<span class="c1">#     &quot;choices&quot;: [</span>
+<span class="c1">#         {</span>
+<span class="c1">#             &quot;index&quot;: 0,</span>
+<span class="c1">#             &quot;delta&quot;: {</span>
+<span class="c1">#                 &quot;content&quot;: &quot;?&quot;</span>
+<span class="c1">#             },</span>
+<span class="c1">#             &quot;logprobs&quot;: null,</span>
+<span class="c1">#             &quot;finish_reason&quot;: null</span>
+<span class="c1">#         }</span>
+<span class="c1">#     ]</span>
+<span class="c1"># }</span>
+
+<span class="c1"># {</span>
+<span class="c1">#     &quot;id&quot;: &quot;chatcmpl-123&quot;,</span>
+<span class="c1">#     &quot;object&quot;: &quot;chat.completion.chunk&quot;,</span>
+<span class="c1">#     &quot;created&quot;: 1694268190,</span>
+<span class="c1">#     &quot;model&quot;: &quot;gpt-3.5-turbo-0613&quot;,</span>
+<span class="c1">#     &quot;system_fingerprint&quot;: &quot;fp_44709d6fcb&quot;,</span>
+<span class="c1">#     &quot;choices&quot;: [</span>
+<span class="c1">#         {</span>
+<span class="c1">#             &quot;index&quot;: 0,</span>
+<span class="c1">#             &quot;delta&quot;: {},</span>
+<span class="c1">#             &quot;logprobs&quot;: null,</span>
+<span class="c1">#             &quot;finish_reason&quot;: &quot;stop&quot; &lt;---- stop here</span>
+<span class="c1">#         }</span>
+<span class="c1">#     ]</span>
+<span class="c1"># }</span>
+</code></pre></div>
+<h4 id="function-calling">Function Calling</h4>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">openai</span><span class="w"> </span><span class="kn">import</span> <span class="n">OpenAI</span>
+<span class="n">client</span> <span class="o">=</span> <span class="n">OpenAI</span><span class="p">()</span>
+
+<span class="n">tools</span> <span class="o">=</span> <span class="p">[</span>
+  <span class="p">{</span>
+    <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;function&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;function&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;get_current_weather&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Get the current weather in a given location&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;parameters&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;properties&quot;</span><span class="p">:</span> <span class="p">{</span>
+          <span class="s2">&quot;location&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;string&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;The city and state, e.g. San Francisco, CA&quot;</span><span class="p">,</span>
+          <span class="p">},</span>
+          <span class="s2">&quot;unit&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;string&quot;</span><span class="p">,</span> <span class="s2">&quot;enum&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;celsius&quot;</span><span class="p">,</span> <span class="s2">&quot;fahrenheit&quot;</span><span class="p">]},</span>
+        <span class="p">},</span>
+        <span class="s2">&quot;required&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;location&quot;</span><span class="p">],</span>
+      <span class="p">},</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">]</span>
+<span class="n">messages</span> <span class="o">=</span> <span class="p">[{</span><span class="s2">&quot;role&quot;</span><span class="p">:</span> <span class="s2">&quot;user&quot;</span><span class="p">,</span> <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="s2">&quot;What&#39;s the weather like in Boston today?&quot;</span><span class="p">}]</span>
+<span class="n">completion</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">chat</span><span class="o">.</span><span class="n">completions</span><span class="o">.</span><span class="n">create</span><span class="p">(</span>
+  <span class="n">model</span><span class="o">=</span><span class="s2">&quot;gpt-4-1106-preview&quot;</span><span class="p">,</span>
+  <span class="n">messages</span><span class="o">=</span><span class="n">messages</span><span class="p">,</span>
+  <span class="n">tools</span><span class="o">=</span><span class="n">tools</span><span class="p">,</span>
+  <span class="n">tool_choice</span><span class="o">=</span><span class="s2">&quot;auto&quot;</span>
+<span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">completion</span><span class="p">)</span>
+
+<span class="c1"># {</span>
+<span class="c1">#   &quot;id&quot;: &quot;chatcmpl-abc123&quot;,</span>
+<span class="c1">#   &quot;object&quot;: &quot;chat.completion&quot;,</span>
+<span class="c1">#   &quot;created&quot;: 1699896916,</span>
+<span class="c1">#   &quot;model&quot;: &quot;gpt-3.5-turbo-0613&quot;,</span>
+<span class="c1">#   &quot;choices&quot;: [</span>
+<span class="c1">#     {</span>
+<span class="c1">#       &quot;index&quot;: 0,</span>
+<span class="c1">#       &quot;message&quot;: {</span>
+<span class="c1">#         &quot;role&quot;: &quot;assistant&quot;,</span>
+<span class="c1">#         &quot;content&quot;: null,</span>
+<span class="c1">#         &quot;tool_calls&quot;: [</span>
+<span class="c1">#           {</span>
+<span class="c1">#             &quot;id&quot;: &quot;call_abc123&quot;,</span>
+<span class="c1">#             &quot;type&quot;: &quot;function&quot;,</span>
+<span class="c1">#             &quot;function&quot;: {</span>
+<span class="c1">#               &quot;name&quot;: &quot;get_current_weather&quot;,</span>
+<span class="c1">#               &quot;arguments&quot;: &quot;{\n\&quot;location\&quot;: \&quot;Boston, MA\&quot;\n}&quot;</span>
+<span class="c1">#             }</span>
+<span class="c1">#           }</span>
+<span class="c1">#         ]</span>
+<span class="c1">#       },</span>
+<span class="c1">#       &quot;logprobs&quot;: null,</span>
+<span class="c1">#       &quot;finish_reason&quot;: &quot;tool_calls&quot;</span>
+<span class="c1">#     }</span>
+<span class="c1">#   ],</span>
+<span class="c1">#   &quot;usage&quot;: {</span>
+<span class="c1">#     &quot;prompt_tokens&quot;: 82,</span>
+<span class="c1">#     &quot;completion_tokens&quot;: 17,</span>
+<span class="c1">#     &quot;total_tokens&quot;: 99</span>
+<span class="c1">#   }</span>
+<span class="c1"># }</span>
+</code></pre></div>
+<h4 id="image-input-chat-completions">Image Input Chat Completions</h4>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">openai</span><span class="w"> </span><span class="kn">import</span> <span class="n">OpenAI</span>
+
+<span class="n">client</span> <span class="o">=</span> <span class="n">OpenAI</span><span class="p">()</span>
+
+<span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">chat</span><span class="o">.</span><span class="n">completions</span><span class="o">.</span><span class="n">create</span><span class="p">(</span>
+    <span class="n">model</span><span class="o">=</span><span class="s2">&quot;gpt-4-vision-preview&quot;</span><span class="p">,</span>
+    <span class="n">messages</span><span class="o">=</span><span class="p">[</span>
+        <span class="p">{</span>
+            <span class="s2">&quot;role&quot;</span><span class="p">:</span> <span class="s2">&quot;user&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="p">[</span>
+                <span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;text&quot;</span><span class="p">,</span> <span class="s2">&quot;text&quot;</span><span class="p">:</span> <span class="s2">&quot;What’s in this image?&quot;</span><span class="p">},</span>
+                <span class="p">{</span>
+                    <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;image_url&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;image_url&quot;</span><span class="p">:</span> <span class="s2">&quot;https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/Gfp-wisconsin-madison-the-nature-boardwalk.jpg/2560px-Gfp-wisconsin-madison-the-nature-boardwalk.jpg&quot;</span><span class="p">,</span>
+                <span class="p">},</span>
+            <span class="p">],</span>
+        <span class="p">}</span>
+    <span class="p">],</span>
+    <span class="n">max_tokens</span><span class="o">=</span><span class="mi">300</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">choices</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+</code></pre></div>
+<h5 id="multiple-images">Multiple Images</h5>
+<p>The Chat Completions API is capable of taking in and processing multiple image inputs in both base64 encoded format or as an image URL. The model will process each image and use the information from all of them to answer the question.</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">openai</span><span class="w"> </span><span class="kn">import</span> <span class="n">OpenAI</span>
+
+<span class="n">client</span> <span class="o">=</span> <span class="n">OpenAI</span><span class="p">()</span>
+<span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">chat</span><span class="o">.</span><span class="n">completions</span><span class="o">.</span><span class="n">create</span><span class="p">(</span>
+  <span class="n">model</span><span class="o">=</span><span class="s2">&quot;gpt-4-vision-preview&quot;</span><span class="p">,</span>
+  <span class="n">messages</span><span class="o">=</span><span class="p">[</span>
+    <span class="p">{</span>
+      <span class="s2">&quot;role&quot;</span><span class="p">:</span> <span class="s2">&quot;user&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+          <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;text&quot;</span><span class="p">,</span>
+          <span class="s2">&quot;text&quot;</span><span class="p">:</span> <span class="s2">&quot;What are in these images? Is there any difference between them?&quot;</span><span class="p">,</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+          <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;image_url&quot;</span><span class="p">,</span>
+          <span class="s2">&quot;image_url&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;url&quot;</span><span class="p">:</span> <span class="s2">&quot;https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/Gfp-wisconsin-madison-the-nature-boardwalk.jpg/2560px-Gfp-wisconsin-madison-the-nature-boardwalk.jpg&quot;</span><span class="p">,</span>
+          <span class="p">},</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+          <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;image_url&quot;</span><span class="p">,</span>
+          <span class="s2">&quot;image_url&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;url&quot;</span><span class="p">:</span> <span class="s2">&quot;https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/Gfp-wisconsin-madison-the-nature-boardwalk.jpg/2560px-Gfp-wisconsin-madison-the-nature-boardwalk.jpg&quot;</span><span class="p">,</span>
+          <span class="p">},</span>
+        <span class="p">},</span>
+      <span class="p">],</span>
+    <span class="p">}</span>
+  <span class="p">],</span>
+  <span class="n">max_tokens</span><span class="o">=</span><span class="mi">300</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">choices</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+</code></pre></div>
+<p>Here the model is shown two copies of the same image and can answer questions about both or each of the images independently.</p>
+<h5 id="low-or-high-fidelity-image-understanding">Low or high fidelity image understanding</h5>
+<p>By controlling the <code>detail</code> parameter, which has three options, <code>low</code>, <code>high</code>, or <code>auto</code>, you have control over how the model processes the image and generates its textual understanding. By default, the model will use the <code>auto</code> setting which will look at the image input size and decide if it should use the <code>low</code> or <code>high</code> setting.</p>
+<ul>
+<li><code>low</code> will disable the “high res” model. The model will receive a low-res 512px x 512px version of the image, and represent the image with a budget of 65 tokens. This allows the API to return faster responses and consume fewer input tokens for use cases that do not require high detail.</li>
+<li><code>high</code> will enable “high res” mode, which first allows the model to see the low res image and then creates detailed crops of input images as 512px squares based on the input image size. Each of the detailed crops uses twice the token budget (65 tokens) for a total of 129 tokens.
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">openai</span><span class="w"> </span><span class="kn">import</span> <span class="n">OpenAI</span>
+
+<span class="n">client</span> <span class="o">=</span> <span class="n">OpenAI</span><span class="p">()</span>
+
+<span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">chat</span><span class="o">.</span><span class="n">completions</span><span class="o">.</span><span class="n">create</span><span class="p">(</span>
+  <span class="n">model</span><span class="o">=</span><span class="s2">&quot;gpt-4-vision-preview&quot;</span><span class="p">,</span>
+  <span class="n">messages</span><span class="o">=</span><span class="p">[</span>
+    <span class="p">{</span>
+      <span class="s2">&quot;role&quot;</span><span class="p">:</span> <span class="s2">&quot;user&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;text&quot;</span><span class="p">,</span> <span class="s2">&quot;text&quot;</span><span class="p">:</span> <span class="s2">&quot;What’s in this image?&quot;</span><span class="p">},</span>
+        <span class="p">{</span>
+          <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;image_url&quot;</span><span class="p">,</span>
+          <span class="s2">&quot;image_url&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;url&quot;</span><span class="p">:</span> <span class="s2">&quot;https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/Gfp-wisconsin-madison-the-nature-boardwalk.jpg/2560px-Gfp-wisconsin-madison-the-nature-boardwalk.jpg&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;detail&quot;</span><span class="p">:</span> <span class="s2">&quot;high&quot;</span>
+          <span class="p">},</span>
+        <span class="p">},</span>
+      <span class="p">],</span>
+    <span class="p">}</span>
+  <span class="p">],</span>
+  <span class="n">max_tokens</span><span class="o">=</span><span class="mi">300</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">choices</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">message</span><span class="o">.</span><span class="n">content</span><span class="p">)</span>
+</code></pre></div></li>
+</ul>
+<h4 id="error-handling">Error Handling</h4>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">openai</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">openai</span><span class="w"> </span><span class="kn">import</span> <span class="n">OpenAI</span>
+<span class="n">client</span> <span class="o">=</span> <span class="n">OpenAI</span><span class="p">()</span>
+
+<span class="k">try</span><span class="p">:</span>
+  <span class="c1">#Make your OpenAI API request here</span>
+  <span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">completions</span><span class="o">.</span><span class="n">create</span><span class="p">(</span>
+    <span class="n">prompt</span><span class="o">=</span><span class="s2">&quot;Hello world&quot;</span><span class="p">,</span>
+    <span class="n">model</span><span class="o">=</span><span class="s2">&quot;gpt-3.5-turbo-instruct&quot;</span>
+  <span class="p">)</span>
+<span class="k">except</span> <span class="n">openai</span><span class="o">.</span><span class="n">APIError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+  <span class="c1">#Handle API error here, e.g. retry or log</span>
+  <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;OpenAI API returned an API Error: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+  <span class="k">pass</span>
+<span class="k">except</span> <span class="n">openai</span><span class="o">.</span><span class="n">APIConnectionError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+  <span class="c1">#Handle connection error here</span>
+  <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Failed to connect to OpenAI API: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+  <span class="k">pass</span>
+<span class="k">except</span> <span class="n">openai</span><span class="o">.</span><span class="n">RateLimitError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+  <span class="c1">#Handle rate limit error (we recommend using exponential backoff)</span>
+  <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;OpenAI API request exceeded rate limit: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+  <span class="k">pass</span>
+</code></pre></div>
+<h4 id="rate-limits">Rate limits</h4>
+<p>Rate limits are restrictions that our API imposes on the number of times a user or client can access our services within a specified period of time.</p>
+<p><a href="../img/Rate%20limits.png">Rate Limits</a></p>
+<p>How do these rate limits work?</p>
+<p>Rate limits are measured in five ways: <strong>RPM</strong> (requests per minute), <strong>RPD</strong> (requests per day), <strong>TPM</strong> (tokens per minute), <strong>TPD</strong> (tokens per day), and <strong>IPM</strong> (images per minute). Rate limits can be hit across any of the options depending on what occurs first. For example, you might send 20 requests with only 100 tokens to the ChatCompletions endpoint and that would fill your limit (if your RPM was 20), even if you did not send 150k tokens (if your TPM limit was 150k) within those 20 requests.</p>
+<p>Other important things worth noting:</p>
+<ul>
+<li>Rate limits are imposed at the <a href="https://platform.openai.com/docs/guides/production-best-practices">organization level</a>, not user level.</li>
+<li>Rate limits vary by the <a href="https://platform.openai.com/docs/models/models">model</a> being used.</li>
+<li>Limits are also placed on the total amount an organization can spend on the API each month. These are also known as "usage limits".</li>
+</ul>
+<p>(See <a href="https://platform.openai.com/docs/guides/rate-limits/error-mitigation">here</a> for more info on rate limit &amp; error mitigation strategies.)</p>
+<hr />
+<h3 id="numpy">numpy</h3>
+<h4 id="reshaping">Reshaping</h4>
+<ul>
+<li>The reshape() function takes a single tuple argument that specifies the new shape of the array</li>
+<li>Used frequently to <em>add</em> a dimension of when for libs like sklearn and keras (to the END of the shape tuple -- i.e. <strong>right-padding with 1s</strong>)</li>
+<li>In the case of reshaping 1-D <code>(m,)</code> --&gt; 2-D <code>(m,1)</code>:</li>
+<li>Tuple would be the shape of the array as the first dimension (data.shape[0]) and 1 for the second dimension:<ul>
+<li><code>data.shape == (m_old, )</code> (e.g. <code>(1000,)</code>)</li>
+<li><code>data = data.reshape( (m_old, n_new)  )</code></li>
+<li><code>data.shape == (m_old, n_new)</code> (e.g. <code>(1000, 1)</code>)</li>
+</ul>
+</li>
+</ul>
+<h4 id="broadcasting">Broadcasting</h4>
+<p>In formal LinAlg, arithmetic can only be performed when:  </p>
+<ul>
+<li>the shape of each dimension in the arrays are equal (even for dotproduct - though not matmul)</li>
+</ul>
+<p>However, in ML, we often want to add <strong>A</strong> <code>(m,n)</code> to <strong>v</strong> <code>(,n)</code>.<br />
+NumPy enables this by <em>broadcasting</em> the vector to the shape of the matrix.<br />
+Specifically np (<strong>which considers vectors as (n,) since it is row-oriented</strong>) effectively:</p>
+<ol>
+<li><strong>Left-pads with 1s</strong> the dimensions of the smaller array</li>
+<li><strong>Right-to-left compares</strong> the dimensions of the two arrays and ensures either
+  a. The dimensions are equal <strong>OR</strong>
+  b. At least one of the dimensions is 1</li>
+<li>If all dimensions pass, np <strong>replicates</strong> (<em>broadcast</em>) the smaller array along the dim(s) where it is 1 to match the shape of the larger array.</li>
+</ol>
+<p><strong>NOTE</strong>: Broadcasting is not a copy operation. It is a view of the original array with the same data. This means that if you modify a broadcasted array, it modifies the original array.  </p>
+<p>So for example:  </p>
+<ul>
+<li>1-D vs. 2-D</li>
+<li>LOOKS like comparing:  <ul>
+<li>A.shape -- (2,3)  </li>
+<li>b.shape -- (3,)  </li>
+</ul>
+</li>
+<li>ACTUALLY np is comparing:  <ul>
+<li>A.shape -- (2,3)  </li>
+<li>b.shape -- (1,3)  </li>
+</ul>
+</li>
+<li>2-D vs. scalar  </li>
+<li>LOOKS like comparing:  <ul>
+<li>A.shape -- (2,3)  </li>
+<li>b.shape -- (1,)  </li>
+</ul>
+</li>
+<li>ACTUALLY np is comparing:  <ul>
+<li>A.shape -- (2,3)  </li>
+<li>b.shape -- (1,1)</li>
+</ul>
+</li>
+</ul>
+<hr />
+<h2 id="iterm2">iTerm2</h2>
+<h3 id="tabs-and-windows">Tabs and Windows</h3>
+<table>
+<thead>
+<tr>
+<th><strong>Function</strong></th>
+<th><strong>Shortcut</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>New Tab</td>
+<td><code>⌘</code> + <code>T</code></td>
+</tr>
+<tr>
+<td>Close Tab or Window</td>
+<td><code>⌘</code> + <code>W</code>  (same as many mac apps)</td>
+</tr>
+<tr>
+<td>Go to Tab</td>
+<td><code>⌘</code> + <code>Number Key</code>  (ie: <code>⌘2</code> is 2nd tab)</td>
+</tr>
+<tr>
+<td>Go to Split Pane by Direction</td>
+<td><code>⌘</code> + <code>Option</code> + <code>Arrow Key</code></td>
+</tr>
+<tr>
+<td>Cycle iTerm Windows</td>
+<td><code>⌘</code> + <code>backtick</code>  (true of all mac apps and works with desktops/mission control)</td>
+</tr>
+<tr>
+<td><strong>Splitting</strong></td>
+<td></td>
+</tr>
+<tr>
+<td>Split Window Vertically (same profile)</td>
+<td><code>⌘</code> + <code>D</code></td>
+</tr>
+<tr>
+<td>Split Window Horizontally (same profile)</td>
+<td><code>⌘</code> + <code>Shift</code> + <code>D</code>  (mnemonic: shift is a wide horizontal key)</td>
+</tr>
+<tr>
+<td><strong>Moving</strong></td>
+<td></td>
+</tr>
+<tr>
+<td>Move a pane with the mouse</td>
+<td><code>⌘</code> + <code>Alt</code> + <code>Shift</code> and then drag the pane from anywhere</td>
+</tr>
+<tr>
+<td><strong>Fullscreen</strong></td>
+<td></td>
+</tr>
+<tr>
+<td>Fullscreen</td>
+<td><code>⌘</code>+ <code>Enter</code></td>
+</tr>
+<tr>
+<td>Maximize a pane</td>
+<td><code>⌘</code> + <code>Shift</code> + <code>Enter</code>  (use with fullscreen to temp fullscreen a pane!)</td>
+</tr>
+<tr>
+<td>Resize Pane</td>
+<td><code>Ctrl</code> + <code>⌘</code> + <code>Arrow</code> (given you haven't mapped this to something else)</td>
+</tr>
+<tr>
+<td><strong>Less Often Used By Me</strong></td>
+<td></td>
+</tr>
+<tr>
+<td>Go to Split Pane by Order of Use</td>
+<td><code>⌘</code> + <code>]</code> , <code>⌘</code> + <code>[</code></td>
+</tr>
+<tr>
+<td>Split Window Horizontally (new profile)</td>
+<td><code>Option</code> + <code>⌘</code> + <code>H</code></td>
+</tr>
+<tr>
+<td>Split Window Vertically (new profile)</td>
+<td><code>Option</code> + <code>⌘</code> + <code>V</code></td>
+</tr>
+<tr>
+<td>Previous Tab</td>
+<td><code>⌘</code>+ <code>Left Arrow</code>  (I usually move by tab number like <code>⌘+1</code>)</td>
+</tr>
+<tr>
+<td>Next Tab</td>
+<td><code>⌘</code>+ <code>Right Arrow</code></td>
+</tr>
+<tr>
+<td>Go to Window</td>
+<td><code>⌘</code> + <code>Option</code> + <code>Number</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="my-favorite-shell-key-combos">My Favorite Shell Key Combos</h3>
+<p>These might be helpful to getting you faster with the shell.
+These are just common shell shortcuts unrelated to iTerm itelf.
+These will usually work in Bash/Zsh/Fish on Mac and on Linux.
+There are many shortcuts out there but I use these quite a bit.
+There is also more than one way to do a thing so adopt what you like best.</p>
+<p>Hopefully some of these improve your work life.  :)</p>
+<table>
+<thead>
+<tr>
+<th><strong>Function</strong></th>
+<th><strong>Key Combination</strong></th>
+<th><strong>Use</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Delete to start of line</td>
+<td><code>Ctrl</code> + <code>U</code></td>
+<td>Use this to start over typing without hitting Ctrl-C</td>
+</tr>
+<tr>
+<td>Delete to end of line</td>
+<td><code>Ctrl</code> + <code>K</code></td>
+<td>Use this with command history to repeat commands and changing one thing at the end!</td>
+</tr>
+<tr>
+<td>Repeat last command</td>
+<td><code>Up Arrow</code></td>
+<td>Cycle and browse your history with up and down.  <code>Ctrl-R</code> is faster if you know the string you are looking for.</td>
+</tr>
+<tr>
+<td>Move back and forth on a line</td>
+<td><code>Arrow Keys</code></td>
+<td>This takes you off the home row but it's easy to remember</td>
+</tr>
+<tr>
+<td>Move back and forth on a line by words</td>
+<td><code>⌥</code> + <code>Arrow Keys</code></td>
+<td>Fast way to jump by words to correct a typo or "run again" with minor changes to last command.  Ctrl as modifier might also work on mac and non-mac keyboards/shells/apps.</td>
+</tr>
+<tr>
+<td>Delete previous word (in shell)</td>
+<td><code>Ctrl</code> + <code>W</code></td>
+<td>It's faster to delete by words.  Especially when your last command was wrong by a single typo or something.</td>
+</tr>
+<tr>
+<td>Clear screen</td>
+<td><code>Ctrl</code> + <code>L</code></td>
+<td>This is telling the shell to do it instead of an explicit command like <code>clear</code> or <code>cls</code> in DOS.  If you use <code>⌘</code> + <code>K</code>, this is telling iTerm to clear the screen which might have the same result or do something terrible (like when using a TUI like <code>top</code> or <code>htop</code>.  In general, use this instead of typing <code>clear</code> over and over.</td>
+</tr>
+<tr>
+<td>Exit Shell</td>
+<td><code>Ctrl</code> + <code>D</code></td>
+<td>Instead of typing exit, just get this in muscle memory.  It works in many contexts.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="moving-faster">Moving Faster</h3>
+<p>A lot of shell shortcuts work in iterm and it's good to learn these because arrow keys, home/end
+keys and Mac equivalents don't always work.  For example <code>⌘</code> + <code>Left Arrow</code> is usually the same as <code>Home</code>
+(go to beginning of current line) but that doesn't work in the shell.  Home works in many apps but it
+takes you away from the home row.</p>
+<table>
+<thead>
+<tr>
+<th><strong>Function</strong></th>
+<th><strong>Shortcut</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Move to the start of line</td>
+<td><code>Ctrl</code> + <code>A</code> or <code>Home</code> (Home is fn+Left arrow)</td>
+</tr>
+<tr>
+<td>Move to the end of line</td>
+<td><code>Ctrl</code> + <code>E</code> or <code>End</code> (End is fn+Right arrow)</td>
+</tr>
+<tr>
+<td>Moving by word on a line (this is a shell thing but passes through fine)</td>
+<td><code>Ctrl</code> + <code>Left/Right Arrow</code></td>
+</tr>
+<tr>
+<td>Cursor Jump with Mouse (shell and vim - might depend on config)</td>
+<td><code>Option</code> + <code>Left Click</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="about-keyboard-shortcuts">About keyboard shortcuts 💡</h3>
+<blockquote>
+<p>So, some keyboard shortcuts are Mac's.  For example fn+Left Arrow is the Home key.  On a fullsize Mac keyboard, there is a Home key.  Home will usually pass through to iTerm and the shell.  By shell, I mean zsh, bash or fish.  The shell is the program running inside of iTerm when you open iTerm.  If you launch <code>vim</code> or something, zsh/bash/fish is "gone" because vim is running.  So, it's complicated to explain when keys work and when they don't.</p>
+<p>For example, Home will work in zsh.  It will take you to the beginning of the line.  If your cursor is at the end of "three" in this below example
+<div class="highlight"><pre><span></span><code>one two three|
+</code></pre></div>
+When you press Home (fn+Left Arrow) your cursor will be on one: <code>|one</code>
+So, in this way, Home works the same in "the shell" as it does in TextEdit.app or any basic text box on Mac.
+This is not the case if you start up <code>vim</code> or <code>emacs</code>.  This is not iTerm's fault.  This is just how Mac/Linux works.  Just a head's up on that little detail.</p>
+</blockquote>
+<h3 id="copy-and-paste-with-iterm-without-using-the-mouse">Copy and Paste with iTerm without using the mouse</h3>
+<p>I don't use this feature too much.  I instead just mouse select (which copies to the clipboard) and paste.  There's no need to Copy to the clipboard if you have <code>General &gt; Selection &gt; Copy to pasteboard on selection</code> enabled.</p>
+<table>
+<thead>
+<tr>
+<th><strong>Function</strong></th>
+<th><strong>Shortcut</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Enter Copy Mode</td>
+<td><code>Shift</code> + <code>⌘</code> + <code>C</code></td>
+</tr>
+<tr>
+<td>Enter Character Selection Mode in Copy Mode</td>
+<td><code>Ctrl</code> + <code>V</code></td>
+</tr>
+<tr>
+<td>Move cursor in Copy Mode</td>
+<td><code>HJKL</code> vim motions or arrow keys</td>
+</tr>
+<tr>
+<td>Copy text in Copy Mode</td>
+<td><code>Ctrl</code> + <code>K</code></td>
+</tr>
+</tbody>
+</table>
+<p>Copy actions goes into the normal system clipboard which you can paste like normal.</p>
+<h3 id="search-the-command-history">Search the Command History</h3>
+<p>Some of these are not directly related to iTerm and are just "shell features".  Like, if you open Terminal.app on Mac some of these still work because it's the shell and not iTerm.  I'm including them anyway.</p>
+<table>
+<thead>
+<tr>
+<th><strong>Function</strong></th>
+<th><strong>Shortcut</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Search as you type</td>
+<td><code>Ctrl</code> + <code>R</code> and type the search term; Repeat <code>Ctrl</code> + <code>R</code> to loop through result</td>
+</tr>
+<tr>
+<td>Search the last remembered search term</td>
+<td><code>Ctrl</code> + <code>R</code> twice</td>
+</tr>
+<tr>
+<td>End the search at current history entry</td>
+<td><code>Ctrl</code> + <code>Y</code></td>
+</tr>
+<tr>
+<td>Cancel the search and restore original line</td>
+<td><code>Ctrl</code> + <code>G</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="misc">Misc</h3>
+<table>
+<thead>
+<tr>
+<th><strong>Function</strong></th>
+<th><strong>Shortcut</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Clear the screen/pane (when <code>Ctrl + L</code> won't work)</td>
+<td><code>⌘</code> + <code>K</code>  (I use this all the time)</td>
+</tr>
+<tr>
+<td>Broadcast command to all panes in window (nice when needed!)</td>
+<td><code>⌘</code> + <code>Alt</code> +  <code>I</code> (again to toggle)</td>
+</tr>
+<tr>
+<td>Find Cursor</td>
+<td><code>⌘</code> + <code>/</code>  <em>or use a theme or cursor shape that is easy to see</em></td>
+</tr>
+</tbody>
+</table>
+<h2 id="tmux">tmux</h2>
+<h3 id="pane-management">Pane Management</h3>
+<ul>
+<li>Split Pane Horizontally: <code>Ctrl + b, then "</code></li>
+<li>Split Pane Vertically: <code>Ctrl + b, then %</code></li>
+<li>Switch to x Pane: <code>Ctrl + b, then x-arrow</code></li>
+<li>Close Current Pane: <code>Ctrl + b, then x (then press y to confirm)</code></li>
+<li>(Switch to Next Pane: <code>Ctrl + b, then o)</code></li>
+</ul>
+<h3 id="window-management">Window Management</h3>
+<ul>
+<li>Create New Window: <code>Ctrl + b, then c</code></li>
+<li>Switch to Next Window: <code>Ctrl + b, then n</code></li>
+<li>Switch to Previous Window: <code>Ctrl + b, then p</code></li>
+<li>List Windows: <code>Ctrl + b, then w</code></li>
+<li>Rename Current Window: <code>Ctrl + b, then ,</code></li>
+</ul>
+<h3 id="session-management">Session Management</h3>
+<ul>
+<li>Detach from Session: <code>Ctrl + b, then d</code></li>
+<li>List Sessions: <code>tmux ls (outside of tmux)</code></li>
+<li>Attach to a Session: <code>tmux attach-session -t [session-name]</code></li>
+</ul>
+<h3 id="resizing-panes">Resizing Panes</h3>
+<ul>
+<li>Resize Pane Up: <code>Ctrl + b:resize-pane -U 10</code></li>
+<li>Resize Pane Down: <code>Ctrl + b:resize-pane -D 10</code></li>
+<li>Resize Pane Left: <code>Ctrl + b:resize-pane -L 10</code></li>
+<li>Resize Pane Right: <code>Ctrl + b:resize-pane -R 10</code></li>
+</ul>
+<h3 id="miscellaneous">Miscellaneous</h3>
+<ul>
+<li>Scroll Mode: <code>Ctrl + b, then [ (use arrow keys to scroll, q to exit scroll mode)</code></li>
+<li>Copy Mode: <code>Ctrl + b, then [ (enter copy mode for text selection)</code></li>
+<li>Paste from Buffer: <code>Ctrl + b, then ]</code></li>
+</ul>
+<hr />
+
+
+
+
+
+
+
+
+
+
+
+
+                
+  
+
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        
+
+<footer class="md-footer">
+  
+    <nav
+      class="md-footer__inner md-grid"
+      aria-label="footer.title"
+    >
+      
+        <a
+          href="../shortcuts_macos_vscode/"
+          class="md-footer__link md-footer__link--prev"
+          rel="prev"
+        >
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              Shortcuts macos vscode
+            </div>
+          </div>
+        </a>
+      
+      
+        <a
+          href="../webdev_snippets/"
+          class="md-footer__link md-footer__link--next"
+          rel="next"
+        >
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              Web Development Notes
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        Made with
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+          Material for MkDocs
+        </a>
+        with emoji by
+        <a href="https://github.com/twitter/twemoji" target="_blank" rel="noopener">
+          Twemoji
+        </a>
+      </div>
+      <div class="md-social">
+  
+</div>
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "..", "features": ["announce.dismiss", "content.action.edit", "content.action.view", "content.code.annotate", "content.code.copy", "content.tooltips", "header.autohide", "navigation.expand", "navigation.footer", "navigation.indexes", "navigation.sections", "navigation.tabs", "navigation.top", "navigation.tracking", "search.highlight", "search.share", "search.suggest", "toc.integrate"], "search": "../assets/javascripts/workers/search.f8cc74c7.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.f1b6f286.min.js"></script>
+      
+        <script src="../assets/pymdownx-extras/extra-loader-B5CKpNQx.js"></script>
+      
+    
+  </body>
+</html>

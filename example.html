@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Simple Example Webpage</title>
+    <style>
+        body {
+            background-color: #ffffff;
+            color: #000000;
+            font-family: Arial, sans-serif;
+            font-size: 16px;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            margin: 0 auto;
+            max-width: 800px;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        .content {
+            margin-top: 20px;
+        }
+
+        .content p {
+            margin-bottom: 10px;
+        }
+
+        .content a {
+            color: #0000ff;
+            text-decoration: none;
+        }
+
+        .content a:hover {
+            text-decoration: underline;
+        }
+
+        .content button {
+            background-color: #0000ff;
+            border: none;
+            border-radius: 5px;
+            color: #ffffff;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 10px;
+            padding: 10px;
+        }
+
+        .content button:hover {
+            background-color: #0000aa;
+        }
+
+        .content button:active {
+            background-color: #000055;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Simple Example Webpage</h1>
+        <div class="content">
+            <p>
+                This is a simple example webpage. It is written in HTML, CSS, and
+                JavaScript.
+            </p>
+            <p>
+                This is a link to
+                <a href="https://sfuller14.github.io/drawio/src/main/webapp/index.html" target="_blank">Github
+                    Pages</a>.
+            </p>
+            <button onclick="alert('Hello World!')">Click Me!</button>
+        </div>
+    </div>
+</body>
+
+</html>
