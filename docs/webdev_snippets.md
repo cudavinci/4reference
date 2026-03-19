@@ -1,201 +1,10 @@
 # Web Development Notes
 
-??? note "Web Development - Contents"
-	- [Web Development Notes](#web-development-notes)
-		- [HTML](#html)
-			- [Tags vs Attributes](#tags-vs-attributes)
-			- [Tags](#tags)
-		- [CSS](#css)
-			- [Selectors](#selectors)
-			- [Properties and Values](#properties-and-values)
-			- [CSS Flexbox](#css-flexbox)
-			- [CSS Grid](#css-grid)
-			- [Bootstrap](#bootstrap)
-		- [Example Webpage](#example-webpage)
-		- [JavaScript](#javascript)
-			- [JavaScript Basics](#javascript-basics)
-				- [How to run JavaScript code](#how-to-run-javascript-code)
-					- [In the browser](#in-the-browser)
-					- [In the terminal](#in-the-terminal)
-					- [In VS Code](#in-vs-code)
-				- [Printing to the Console](#printing-to-the-console)
-					- [Debugging in the console](#debugging-in-the-console)
-				- [Variable Declaration and Assignment](#variable-declaration-and-assignment)
-				- [Arrays](#arrays)
-					- [Declaration and Manipulation](#declaration-and-manipulation)
-					- [forEach Loops](#foreach-loops)
-					- [Array callback methods](#array-callback-methods)
-						- [Filtering Arrays](#filtering-arrays)
-						- [Searching arrays](#searching-arrays)
-						- [Mapping functions to arrays](#mapping-functions-to-arrays)
-						- [Array NON-callback methods](#array-non-callback-methods)
-						- [.reduce() method](#reduce-method)
-						- [.reduce() -- Walkthrough](#reduce----walkthrough)
-				- [Functions](#functions)
-						- [Callbacks (general)](#callbacks-general)
-				- [If-Statement syntax  in JavaScript](#if-statement-syntax--in-javascript)
-					- [General Syntax](#general-syntax)
-					- [If-else syntax:](#if-else-syntax)
-					- [If-else-if syntax:](#if-else-if-syntax)
-					- [Boolean Values in JavaScript](#boolean-values-in-javascript)
-					- [Try...Catch](#trycatch)
-					- [Try...Catch...Finally](#trycatchfinally)
-					- [Throw](#throw)
-					- [Try catch within Promise definition](#try-catch-within-promise-definition)
-					- [Comparison Operators in JavaScript](#comparison-operators-in-javascript)
-					- [Ternary Operator](#ternary-operator)
-					- [Switch Statements](#switch-statements)
-					- [Return Early Pattern for Functions](#return-early-pattern-for-functions)
-				- [!if-conditions](#if-conditions)
-					- [Falsy vs Nullish Values](#falsy-vs-nullish-values)
-					- [Optional Chaining](#optional-chaining)
-					- [Nullish Coalescing Operator](#nullish-coalescing-operator)
-					- [Object + Nullish Coalescing](#object--nullish-coalescing)
-				- [JavaScript Objects](#javascript-objects)
-					- [Updating Object Properties](#updating-object-properties)
-					- [Add New Properties to a JavaScript Object](#add-new-properties-to-a-javascript-object)
-					- [Delete Properties from a JavaScript Object](#delete-properties-from-a-javascript-object)
-					- [Accessing Object Properties with Variables](#accessing-object-properties-with-variables)
-					- [Object.keys()](#objectkeys)
-					- [Using Objects for Lookups](#using-objects-for-lookups)
-					- [Testing Objects for Properties](#testing-objects-for-properties)
-					- [Nested Objects](#nested-objects)
-					- [Accessing Nested Arrays](#accessing-nested-arrays)
-				- [Looping](#looping)
-					- [While Loops](#while-loops)
-					- [For Loops](#for-loops)
-					- [forEach Loops](#foreach-loops-1)
-					- [Iterate Through an Array with a For Loop](#iterate-through-an-array-with-a-for-loop)
-					- [Nesting For Loops](#nesting-for-loops)
-					- [Do...While Loops](#dowhile-loops)
-					- [Profile Lookup](#profile-lookup)
-				- [Constructor Functions](#constructor-functions)
-					- [Purpose](#purpose)
-					- [Syntax](#syntax)
-					- [Invoking a Constructor Function](#invoking-a-constructor-function)
-					- [Extending Constructors to Receive Arguments](#extending-constructors-to-receive-arguments)
-					- [Verify an Object's Constructor with instanceof](#verify-an-objects-constructor-with-instanceof)
-					- [Understand Own Properties](#understand-own-properties)
-					- [Use Prototype Properties to Reduce Duplicate Code](#use-prototype-properties-to-reduce-duplicate-code)
-					- [Iterate Over All Properties](#iterate-over-all-properties)
-				- [Object Methods](#object-methods)
-						- [Example](#example)
-				- [Built-In Functions: Random Numbers \& Int-to-String Conversion](#built-in-functions-random-numbers--int-to-string-conversion)
-					- [Generate Random Fractions with JavaScript](#generate-random-fractions-with-javascript)
-					- [Generate Random Whole Numbers with JavaScript](#generate-random-whole-numbers-with-javascript)
-					- [Generate Random Whole Numbers within a Range](#generate-random-whole-numbers-within-a-range)
-					- [Use the parseInt Function](#use-the-parseint-function)
-					- [Use the parseInt Function with a Radix](#use-the-parseint-function-with-a-radix)
-				- [Recursion](#recursion)
-					- [Sum first n array elements](#sum-first-n-array-elements)
-					- [Using recursion to create a countdown](#using-recursion-to-create-a-countdown)
-					- [Using recursion to create a range of numbers](#using-recursion-to-create-a-range-of-numbers)
-			- [Useful JavaScript Built-in Functions](#useful-javascript-built-in-functions)
-				- [Chaining Array and String methods to generate HTML text](#chaining-array-and-string-methods-to-generate-html-text)
-			- [ES6](#es6)
-				- [Use Arrow Functions to Write Concise Anonymous Functions](#use-arrow-functions-to-write-concise-anonymous-functions)
-					- [From functions to arrow functions](#from-functions-to-arrow-functions)
-				- [Implicit Return](#implicit-return)
-				- [More detail on arrow functions:](#more-detail-on-arrow-functions)
-				- [Write Arrow Functions with Parameters](#write-arrow-functions-with-parameters)
-				- [Implicit Return](#implicit-return-1)
-				- [Set Default Parameters for Your Functions](#set-default-parameters-for-your-functions)
-				- [Compare Scopes of the var and let Keywords](#compare-scopes-of-the-var-and-let-keywords)
-				- [Mutate an Array Declared with const](#mutate-an-array-declared-with-const)
-				- [Prevent Object Mutation](#prevent-object-mutation)
-				- [Use the Rest Parameter with Function Parameters](#use-the-rest-parameter-with-function-parameters)
-				- [Use the Spread Operator to Evaluate Arrays In-Place](#use-the-spread-operator-to-evaluate-arrays-in-place)
-				- [Rest syntax vs. Spread syntax](#rest-syntax-vs-spread-syntax)
-				- [Destructuring Assignment](#destructuring-assignment)
-				- [Use Destructuring Assignment to Assign Variables from Objects](#use-destructuring-assignment-to-assign-variables-from-objects)
-				- [Use Destructuring Assignment to Pass an Object as a Function's Parameters](#use-destructuring-assignment-to-pass-an-object-as-a-functions-parameters)
-				- [Create Strings using Template Literals](#create-strings-using-template-literals)
-				- [Write Concise Object Literal Declarations Using Object Property Shorthand](#write-concise-object-literal-declarations-using-object-property-shorthand)
-				- [Write Concise Declarative Functions with ES6](#write-concise-declarative-functions-with-es6)
-				- [Use class Syntax to Define a Constructor Function](#use-class-syntax-to-define-a-constructor-function)
-				- [Use getters and setters to Control Access to an Object](#use-getters-and-setters-to-control-access-to-an-object)
-				- [Create a Module Script](#create-a-module-script)
-				- [Use export to Share a Code Block](#use-export-to-share-a-code-block)
-		- [The DOM](#the-dom)
-			- [Theory of the DOM](#theory-of-the-dom)
-			- [Tree Details](#tree-details)
-			- [Common Usage Patterns (JavaScript Interaction)](#common-usage-patterns-javascript-interaction)
-		- [The DOM (take 2)](#the-dom-take-2)
-			- [DOM Selection I](#dom-selection-i)
-					- [`document.querySelector("<CSS selector>")`](#documentqueryselectorcss-selector)
-					- [`Element.textContent`](#elementtextcontent)
-			- [DOM Selection II](#dom-selection-ii)
-					- [`document.querySelectorAll("<CSS-selector>")`](#documentqueryselectorallcss-selector)
-				- [NodeList](#nodelist)
-				- [Converting NodeList to Array](#converting-nodelist-to-array)
-		- [jQuery](#jquery)
-			- [Raison Detre](#raison-detre)
-			- [Common Usage Patterns](#common-usage-patterns)
-		- [Async Programming in JavaScript](#async-programming-in-javascript)
-			- [Theory of Async Programming](#theory-of-async-programming)
-			- [Promises](#promises)
-				- [Understanding Promises](#understanding-promises)
-				- [Syntax and Usage](#syntax-and-usage)
-				- [Promise States](#promise-states)
-				- [Promise Methods](#promise-methods)
-				- [Promise.all()](#promiseall)
-				- [Chaining Promises](#chaining-promises)
-			- [Callbacks (async)](#callbacks-async)
-				- [Understanding Callbacks](#understanding-callbacks)
-				- [Syntax and Basic Usage](#syntax-and-basic-usage)
-				- [Callback Hell and Its Avoidance](#callback-hell-and-its-avoidance)
-			- [Async/Await](#asyncawait)
-				- [Async Function](#async-function)
-				- [Await Keyword](#await-keyword)
-			- [Common Usage Patterns](#common-usage-patterns-1)
-			- [Event Loop](#event-loop)
-				- [Understanding the Event Loop](#understanding-the-event-loop)
-				- [Event Loop Phases](#event-loop-phases)
-				- [Event Loop Example](#event-loop-example)
-				- [Event Loop and Asynchronous Operations](#event-loop-and-asynchronous-operations)
-		- [Table of common built-in network request functions](#table-of-common-built-in-network-request-functions)
-		- [Introduction to React Framework](#introduction-to-react-framework)
-			- [Background and Theory](#background-and-theory)
-			- [Why React?](#why-react)
-			- [Basic Concepts](#basic-concepts)
-			- [Common Usage](#common-usage)
-			- [Intermediate Concepts](#intermediate-concepts)
-			- [React Common Libraries](#react-common-libraries)
-		- [Primer on TypeScript](#primer-on-typescript)
-			- [Examples of TypeScript](#examples-of-typescript)
-			- [TypeScript vs JavaScript](#typescript-vs-javascript)
-			- [TypeScript with React](#typescript-with-react)
-		- [Node.js and npm](#nodejs-and-npm)
-			- [Background and Theory of Node.js](#background-and-theory-of-nodejs)
-			- [Why Use Node.js?](#why-use-nodejs)
-			- [npm: Node Package Manager](#npm-node-package-manager)
-				- [Common npm Commands](#common-npm-commands)
-				- [package.json File](#packagejson-file)
-					- [Example package.json](#example-packagejson)
-		- [Introduction to Yarn](#introduction-to-yarn)
-			- [Why Use Yarn?](#why-use-yarn)
-			- [Common Yarn Commands](#common-yarn-commands)
-			- [yarn.lock File](#yarnlock-file)
-			- [Example usage in a project](#example-usage-in-a-project)
-		- [Redux](#redux)
-			- [Key Concepts of Redux:](#key-concepts-of-redux)
-			- [Why Use Redux?](#why-use-redux)
-			- [Use Cases for Redux:](#use-cases-for-redux)
-		- [Development Workflow for React Using VSCode and npm](#development-workflow-for-react-using-vscode-and-npm)
-			- [Setting Up a New React Project](#setting-up-a-new-react-project)
-			- [Development Process](#development-process)
-			- [Building and Deployment](#building-and-deployment)
-			- [Best Practices](#best-practices)
-			- [Conclusion](#conclusion)
-
 ---
 
 ## HTML
 
-??? note "HTML"
-	- [Tags vs Attributes](webdev_snippets.md#tags-vs-attributes)
-	- [Tags](webdev_snippets.md#tags)
-
+The language of champions.
 
 ### Tags vs Attributes
 
@@ -625,84 +434,6 @@ People like Bootstrap because it enables you to create responsive websites witho
 ---
 
 ## JavaScript
-
-??? note "JavaScript Basics"
-	- [How to run JavaScript code](webdev_snippets.md#how-to-run-javascript-code)
-		- [In the browser](webdev_snippets.md#in-the-browser)
-		- [In the terminal](webdev_snippets.md#in-the-terminal)
-		- [In VS Code](webdev_snippets.md#in-vs-code)
-	- [Printing, Variables, Arrays, Functions](webdev_snippets.md#printing-variables-arrays-functions)
-		- [Printing to the Console](webdev_snippets.md#printing-to-the-console)
-		- [Variable Declaration and Assignment](webdev_snippets.md#variable-declaration-and-assignment)
-		- [Array Declaration and Manipulation](webdev_snippets.md#array-declaration-and-manipulation)
-		- [Function Declaration and Calling](webdev_snippets.md#function-declaration-and-calling)
-	- [If-Statement syntax  in JavaScript](webdev_snippets.md#if-statement-syntax--in-javascript)
-		- [Syntax](webdev_snippets.md#syntax)
-		- [If-else syntax:](webdev_snippets.md#if-else-syntax)
-		- [If-else-if syntax:](webdev_snippets.md#if-else-if-syntax)
-		- [Boolean Values in JavaScript](webdev_snippets.md#boolean-values-in-javascript)
-		- [Comparison Operators in JavaScript](webdev_snippets.md#comparison-operators-in-javascript)
-		- [Ternary Operator](webdev_snippets.md#ternary-operator)
-		- [Switch Statements](webdev_snippets.md#switch-statements)
-		- [Return Early Pattern for Functions](webdev_snippets.md#return-early-pattern-for-functions)
-	- [JavaScript Objects](webdev_snippets.md#javascript-objects)
-		- [Updating Object Properties](webdev_snippets.md#updating-object-properties)
-		- [Add New Properties to a JavaScript Object](webdev_snippets.md#add-new-properties-to-a-javascript-object)
-		- [Delete Properties from a JavaScript Object](webdev_snippets.md#delete-properties-from-a-javascript-object)
-		- [Using Objects for Lookups](webdev_snippets.md#using-objects-for-lookups)
-		- [Testing Objects for Properties](webdev_snippets.md#testing-objects-for-properties)
-		- [Nested Objects](webdev_snippets.md#nested-objects)
-		- [Accessing Nested Arrays](webdev_snippets.md#accessing-nested-arrays)
-	- [Looping](webdev_snippets.md#looping)
-  		- [While Loops](webdev_snippets.md#while-loops)
-  		- [For Loops](webdev_snippets.md#for-loops)
-  		- [Iterate Through an Array with a For Loop](webdev_snippets.md#iterate-through-an-array-with-a-for-loop)
-  		- [Nesting For Loops](webdev_snippets.md#nesting-for-loops)
-  		- [Do...While Loops](webdev_snippets.md#dowhile-loops)
-  		- [Profile Lookup](webdev_snippets.md#profile-lookup)
-	- [Constructor Functions](webdev_snippets.md#constructor-functions)
-  		- [Purpose](webdev_snippets.md#purpose)
-  		- [Syntax](webdev_snippets.md#syntax-1)
-  		- [Invoking a Constructor Function](webdev_snippets.md#invoking-a-constructor-function)
-  		- [Extending Constructors to Receive Arguments](webdev_snippets.md#extending-constructors-to-receive-arguments)
-  		- [Verify an Object's Constructor with instanceof](webdev_snippets.md#verify-an-objects-constructor-with-instanceof)
-  		- [Understand Own Properties](webdev_snippets.md#understand-own-properties)
-  		- [Use Prototype Properties to Reduce Duplicate Code](webdev_snippets.md#use-prototype-properties-to-reduce-duplicate-code)
-  		- [Iterate Over All Properties](webdev_snippets.md#iterate-over-all-properties)
-	- [Methods](webdev_snippets.md#methods)
-  		- [Methods](webdev_snippets.md#methods-1)
-  		- [Example](webdev_snippets.md#example)
-	- [Built-In Functions: Random Numbers \& Int-to-String Conversion](webdev_snippets.md#built-in-functions-random-numbers--int-to-string-conversion)
-  		- [Generate Random Fractions with JavaScript](webdev_snippets.md#generate-random-fractions-with-javascript)
-  		- [Generate Random Whole Numbers with JavaScript](webdev_snippets.md#generate-random-whole-numbers-with-javascript)
-  		- [Generate Random Whole Numbers within a Range](webdev_snippets.md#generate-random-whole-numbers-within-a-range)
-  		- [Use the parseInt Function](webdev_snippets.md#use-the-parseint-function)
-  		- [Use the parseInt Function with a Radix](webdev_snippets.md#use-the-parseint-function-with-a-radix)
-	- [Recursion](webdev_snippets.md#recursion)
-  		- [Using recursion to create a countdown](webdev_snippets.md#using-recursion-to-create-a-countdown)
-  		- [Using recursion to create a range of numbers](webdev_snippets.md#using-recursion-to-create-a-range-of-numbers)
-	- [Useful JavaScript Built-in Functions](webdev_snippets.md#useful-javascript-built-in-functions)
-	- [ES6](webdev_snippets.md#es6)
-  		- [Use Arrow Functions to Write Concise Anonymous Functions](webdev_snippets.md#use-arrow-functions-to-write-concise-anonymous-functions)
-  		- [Write Arrow Functions with Parameters](webdev_snippets.md#write-arrow-functions-with-parameters)
-  		- [Set Default Parameters for Your Functions](webdev_snippets.md#set-default-parameters-for-your-functions)
-  		- [Compare Scopes of the var and let Keywords](webdev_snippets.md#compare-scopes-of-the-var-and-let-keywords)
-  		- [Mutate an Array Declared with const](webdev_snippets.md#mutate-an-array-declared-with-const)
-  		- [Prevent Object Mutation](webdev_snippets.md#prevent-object-mutation)
-  		- [Use the Rest Parameter with Function Parameters](webdev_snippets.md#use-the-rest-parameter-with-function-parameters)
-  		- [Use the Spread Operator to Evaluate Arrays In-Place](webdev_snippets.md#use-the-spread-operator-to-evaluate-arrays-in-place)
-  		- [Use Destructuring Assignment to Extract Values from Objects](webdev_snippets.md#use-destructuring-assignment-to-extract-values-from-objects)
-  		- [Use Destructuring Assignment to Assign Variables from Objects](webdev_snippets.md#use-destructuring-assignment-to-assign-variables-from-objects)
-  		- [Use Destructuring Assignment to Assign Variables from Arrays](webdev_snippets.md#use-destructuring-assignment-to-assign-variables-from-arrays)
-  		- [Destructuring via rest elements](webdev_snippets.md#destructuring-via-rest-elements)
-  		- [Use Destructuring Assignment to Pass an Object as a Function's Parameters](webdev_snippets.md#use-destructuring-assignment-to-pass-an-object-as-a-functions-parameters)
-  		- [Create Strings using Template Literals](webdev_snippets.md#create-strings-using-template-literals)
-  		- [Write Concise Object Literal Declarations Using Object Property Shorthand](webdev_snippets.md#write-concise-object-literal-declarations-using-object-property-shorthand)
-  		- [Write Concise Declarative Functions with ES6](webdev_snippets.md#write-concise-declarative-functions-with-es6)
-  		- [Use class Syntax to Define a Constructor Function](webdev_snippets.md#use-class-syntax-to-define-a-constructor-function)
-  		- [Use getters and setters to Control Access to an Object](webdev_snippets.md#use-getters-and-setters-to-control-access-to-an-object)
-  		- [Create a Module Script](webdev_snippets.md#create-a-module-script)
-  		- [Use export to Share a Code Block](webdev_snippets.md#use-export-to-share-a-code-block)
 
 ### JavaScript Basics
 
@@ -3079,10 +2810,7 @@ export { uppercaseString, lowercaseString };
 
 ## The DOM
 
-??? note "The DOM"
-    - [Theory of the DOM](webdev_snippets.md#theory-of-the-dom)
-    - [Tree Details](webdev_snippets.md#tree-details)
-    - [Common Usage Patterns (JavaScript Interaction)](webdev_snippets.md#common-usage-patterns-javascript-interaction)
+The DOM was invented by Dom Toretto.
 
 The Document Object Model (DOM) is a programming interface for HTML documents. It represents the page so that programs can change the document structure, style, and content. The DOM represents the document as nodes and objects. That way, programming languages can connect to the page.
 
@@ -3369,29 +3097,6 @@ jQuery syntax enables developers to write code that is shorter and simpler than 
 ---
 
 ## Async Programming in JavaScript
-
-??? note "Async in JavaScript"
-    - [Theory of Async Programming](webdev_snippets.md#theory-of-async-programming)
-    - [Promises](webdev_snippets.md#promises)
-    - [Understanding Promises](webdev_snippets.md#understanding-promises)
-    - [Syntax and Usage](webdev_snippets.md#syntax-and-usage)
-    - [Promise States](webdev_snippets.md#promise-states)
-    - [Promise Methods](webdev_snippets.md#promise-methods)
-    - [Promise.all()](webdev_snippets.md#promiseall)
-    - [Chaining Promises](webdev_snippets.md#chaining-promises)
-    - [Async/Await](webdev_snippets.md#asyncawait)
-    - [Async Function](webdev_snippets.md#async-function)
-    - [Await Keyword](webdev_snippets.md#await-keyword)
-    - [Common Usage Patterns](webdev_snippets.md#common-usage-patterns-1)
-    - [Callbacks](webdev_snippets.md#callbacks)
-    - [Understanding Callbacks](webdev_snippets.md#understanding-callbacks)
-    - [Syntax and Basic Usage](webdev_snippets.md#syntax-and-basic-usage)
-    - [Callback Hell and Its Avoidance](webdev_snippets.md#callback-hell-and-its-avoidance)
-    - [Event Loop](webdev_snippets.md#event-loop)
-    - [Understanding the Event Loop](webdev_snippets.md#understanding-the-event-loop)
-    - [Event Loop Phases](webdev_snippets.md#event-loop-phases)
-    - [Event Loop Example](webdev_snippets.md#event-loop-example)
-    - [Event Loop and Asynchronous Operations](webdev_snippets.md#event-loop-and-asynchronous-operations)
 
 Async programming in JavaScript is essential for handling tasks like network requests or timers without blocking the main thread. It keeps the application responsive by dealing with operations that complete in the future.
 
@@ -3895,14 +3600,6 @@ Note in the above that `alert()`, `confirm()`, and `prompt()` are not network re
 
 ## Introduction to React Framework
 
-??? note "React"
-      - [Background and Theory](webdev_snippets.md#background-and-theory)
-      - [Why React?](webdev_snippets.md#why-react)
-      - [Basic Concepts](webdev_snippets.md#basic-concepts)
-      - [Common Usage](webdev_snippets.md#common-usage)
-      - [Intermediate Concepts](webdev_snippets.md#intermediate-concepts)
-      - [React Common Libraries](webdev_snippets.md#react-common-libraries)
-
 React is a popular JavaScript library for building user interfaces, particularly for single-page applications. It allows developers to create large web applications that can change data, without reloading the page.
 
 ### Background and Theory
@@ -4212,12 +3909,6 @@ Redux is useful for managing the state of an application. It is commonly used wi
 
 ## Primer on TypeScript
 
-
-??? note "TypeScript"
-	- [Examples of TypeScript](webdev_snippets.md#examples-of-typescript)
-	- [TypeScript vs JavaScript](webdev_snippets.md#typescript-vs-javascript)
-	- [TypeScript with React](webdev_snippets.md#typescript-with-react)
-
 TypeScript is a superset of JavaScript that adds static type definitions. TypeScript code is transformed into JavaScript code via the TypeScript compiler or Babel.
 
 ### Examples of TypeScript
@@ -4314,14 +4005,6 @@ In particular, TypeScript is useful when working with React because it allows fo
 
 ## Node.js and npm
 
-??? note "Node"
-    - [Background and Theory of Node.js](webdev_snippets.md#background-and-theory-of-nodejs)
-    - [Why Use Node.js?](webdev_snippets.md#why-use-nodejs)
-    - [npm: Node Package Manager](webdev_snippets.md#npm-node-package-manager)
-    - [Common npm Commands](webdev_snippets.md#common-npm-commands)
-    - [package.json File](webdev_snippets.md#packagejson-file)
-    		- [Example package.json](webdev_snippets.md#example-packagejson)
-
 Node.js is an open-source, cross-platform JavaScript runtime environment that executes JavaScript code outside of a browser. npm (Node Package Manager) is the default package manager for Node.js, providing access to a large ecosystem of libraries.
 
 ### Background and Theory of Node.js
@@ -4379,12 +4062,6 @@ Node.js and npm are powerful tools for modern web development. Node.js's non-blo
 
 ## Introduction to Yarn
 
-??? note "Yarn"
-    - [Why Use Yarn?](webdev_snippets.md#why-use-yarn)
-    - [Common Yarn Commands](webdev_snippets.md#common-yarn-commands)
-    - [yarn.lock File](webdev_snippets.md#yarnlock-file)
-    - [Example usage in a project](webdev_snippets.md#example-usage-in-a-project)
-
 Yarn is a fast, reliable, and secure dependency management tool created by Facebook, Google, Exponent, and Tilde. It's an alternative to npm (Node Package Manager) and offers several advantages in terms of performance and ease of use.
 
 ### Why Use Yarn?
@@ -4419,11 +4096,6 @@ Yarn provides an efficient and secure way to manage project dependencies. It ens
 
 ## Redux
 
-??? note "Redux"
-    - [Key Concepts of Redux:](webdev_snippets.md#key-concepts-of-redux)
-    - [Why Use Redux?](webdev_snippets.md#why-use-redux)
-    - [Use Cases for Redux:](webdev_snippets.md#use-cases-for-redux)
-
 Redux is a popular JavaScript library for managing and centralizing the state of web applications. It is commonly used with libraries such as React and Angular but can be used with any other JavaScript framework or library. Redux provides a consistent way to manage state across an entire application, which can be particularly helpful in large or complex applications with many moving parts.
 
 ### Key Concepts of Redux:
@@ -4451,13 +4123,6 @@ Redux is not always necessary for smaller or simpler applications, as it introdu
 ---
 
 ## Development Workflow for React Using VSCode and npm
-
-??? note "Development Workflow"
-    - [Setting Up a New React Project](webdev_snippets.md#setting-up-a-new-react-project)
-    - [Development Process](webdev_snippets.md#development-process)
-    - [Building and Deployment](webdev_snippets.md#building-and-deployment)
-    - [Best Practices](webdev_snippets.md#best-practices)
-    - [Conclusion](webdev_snippets.md#conclusion)
 
 Creating a productive development workflow is crucial when working with React. This section covers setting up a React project, developing the application, and using VSCode and npm effectively.
 

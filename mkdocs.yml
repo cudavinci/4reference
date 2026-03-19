@@ -78,5 +78,5 @@ markdown_extensions:
       alternate_style: true
   - pymdownx.details
   - toc:
-      toc_depth: 3   # ← bumped from 2 → better granularity
+      toc_depth: 5
       permalink: true

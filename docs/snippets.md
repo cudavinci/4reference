@@ -1,66 +1,6 @@
 # Code Snippets
 
-??? note "Code Snippets - Contents"
-    - [Code Snippets](#code-snippets)
-      - [VSCode MacOS](#VSCode-macos)
-        - [Commands](#commands)
-      - [GIT](#git)
-        - [Commands](#commands)
-        - [less editor](#less-editor)
-        - [ghh CLI](#ghh-cli)
-      - [SHELL](#shell)
-        - [Shortcuts (zsh)](#shortcuts-zsh)
-        - [Core Commands](#core-commands)
-        - [Chaining Commands](#chaining-commands)
-        - [Explanation of `grep`](#explanation-of-grep)
-        - [Piping Commands](#piping-commands)
-        - [Help](#help)
-      - [Docker](#docker)
-      - [postgres (Mac)](#postgres-mac)
-        - [Table of Most Common Commands](#table-of-most-common-commands)
-      - [PYTHON](#python)
-        - [New OpenAI API (v 1.7.1)](#new-openai-api-v-171)
-          - [API Key](#api-key)
-          - [Models](#models)
-          - [Chat Completions](#chat-completions)
-          - [Token Counts](#token-counts)
-          - [JSON Mode](#json-mode)
-          - [Streaming Chat Completions](#streaming-chat-completions)
-          - [Function Calling](#function-calling)
-          - [Image Input Chat Completions](#image-input-chat-completions)
-            - [Multiple Images](#multiple-images)
-            - [Low or high fidelity image understanding](#low-or-high-fidelity-image-understanding)
-          - [Error Handling](#error-handling)
-          - [Rate limits](#rate-limits)
-        - [numpy](#numpy)
-          - [Reshaping](#reshaping)
-          - [Broadcasting](#broadcasting)
-      - [iTerm2](#iterm2)
-        - [Tabs and Windows](#tabs-and-windows)
-        - [My Favorite Shell Key Combos](#my-favorite-shell-key-combos)
-        - [Moving Faster](#moving-faster)
-        - [About keyboard shortcuts 💡](#about-keyboard-shortcuts-)
-        - [Copy and Paste with iTerm without using the mouse](#copy-and-paste-with-iterm-without-using-the-mouse)
-        - [Search the Command History](#search-the-command-history)
-        - [Misc](#misc)
-      - [tmux](#tmux)
-        - [Pane Management](#pane-management)
-        - [Window Management](#window-management)
-        - [Session Management](#session-management)
-        - [Resizing Panes](#resizing-panes)
-        - [Miscellaneous](#miscellaneous)
-
----
-
-## VSCode MacOS
-
-### Commands
-
-| Description | Command | 
-| :------ | :----------- |
-| Copilot Chat | `Shift + Cmd + C` |
-
----
+Welcome back.  
 
 ## GIT
 
@@ -403,9 +343,7 @@
 
 ---
 
-## postgres (Mac)
-
-### Table of Most Common Commands
+## postgres psql (Mac)
 
 | Action | Command |
 | --- | --- |
@@ -425,11 +363,9 @@
 
 ---
 
-## PYTHON
+## numpy
 
-### numpy
-
-#### Reshaping
+### Reshaping
 
 * The reshape() function takes a single tuple argument that specifies the new shape of the array
   * Used frequently to _add_ a dimension of when for libs like sklearn and keras (to the END of the shape tuple -- i.e. **right-padding with 1s**)
@@ -439,7 +375,7 @@
     * `data = data.reshape( (m_old, n_new)  )`
       * `data.shape == (m_old, n_new)` (e.g. `(1000, 1)`)
 
-#### Broadcasting
+### Broadcasting
 
 In formal LinAlg, arithmetic can only be performed when:  
 
@@ -476,7 +412,7 @@ So for example:
 
 ---
 
-## iTerm2
+## iTerm2 (this section copied from some dude on the internet)
 
 ### Tabs and Windows
 
@@ -506,7 +442,7 @@ Next Tab | `⌘`+ `Right Arrow`
 Go to Window | `⌘` + `Option` + `Number`
 
 
-### My Favorite Shell Key Combos (not me, some dude on the internet)
+### My Favorite Shell Key Combos
 
 These might be helpful to getting you faster with the shell.
 These are just common shell shortcuts unrelated to iTerm itelf.
@@ -542,7 +478,7 @@ Move to the end of line | `Ctrl` + `E` or `End` (End is fn+Right arrow)
 Moving by word on a line (this is a shell thing but passes through fine)| `Ctrl` + `Left/Right Arrow`
 Cursor Jump with Mouse (shell and vim - might depend on config) | `Option` + `Left Click`
 
-### About keyboard shortcuts 💡
+### About keyboard shortcuts
 > So, some keyboard shortcuts are Mac's.  For example fn+Left Arrow is the Home key.  On a fullsize Mac keyboard, there is a Home key.  Home will usually pass through to iTerm and the shell.  By shell, I mean zsh, bash or fish.  The shell is the program running inside of iTerm when you open iTerm.  If you launch `vim` or something, zsh/bash/fish is "gone" because vim is running.  So, it's complicated to explain when keys work and when they don't.
 >
 > For example, Home will work in zsh.  It will take you to the beginning of the line.  If your cursor is at the end of "three" in this below example
@@ -585,6 +521,8 @@ Cancel the search and restore original line | `Ctrl` + `G`
 Clear the screen/pane (when `Ctrl + L` won't work) | `⌘` + `K`  (I use this all the time)
 Broadcast command to all panes in window (nice when needed!) | `⌘` + `Alt` +  `I` (again to toggle)
 Find Cursor | `⌘` + `/`  _or use a theme or cursor shape that is easy to see_
+
+---
 
 ## vim
 

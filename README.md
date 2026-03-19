@@ -6,7 +6,7 @@
 
 [WebDev Snippets](https://cudavinci.github.io/4reference/webdev_snippets/)
 
-## Dev stuff maintz
+## Dev stuff
 
 ### Local preview
 ```bash
@@ -30,3 +30,11 @@ This:
 - publishes to: https://cudavinci.github.io/4reference/
 
 alohamora
+
+### venv
+
+pyenv local 3.12.13
+python3 -m venv .venv
+source .venv/bin/activate
+pip install --upgrade pip setuptools wheel
+pip install -r base_requirements.txt
