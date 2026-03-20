@@ -70,6 +70,8 @@ nav:
   - Home: index.md
   - Code Snippets: snippets.md
   - Web Development: webdev_snippets.md
+  - Book Summaries: book_summaries.md
+  - Notes: notes.md
 
 markdown_extensions:
   - admonition

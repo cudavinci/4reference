@@ -6,3 +6,5 @@ Syntax notes and code snippets I always forget.
 
 - [Code Snippets](snippets.md)
 - [Web Development Notes](webdev_snippets.md)
+- [Book Summaries](book_summaries.md)
+- [Notes](notes.md)
