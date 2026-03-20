@@ -4,6 +4,12 @@ site_author: Sean Fuller
 site_description: >-
   Notes and code snippets
 
+extra_css:
+  - stylesheets/extra.css
+
+extra_javascript:
+  - javascripts/extra.js
+
 plugins:
   - search
   - mkdocs_pymdownx_material_extras
