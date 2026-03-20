@@ -38,3 +38,13 @@ python3 -m venv .venv # only do this once
 source .venv/bin/activate
 pip install --upgrade pip setuptools wheel # only do this once
 pip install -r base_requirements.txt # only do this once
+
+### Formatting fixer scripts
+
+```shell
+# Check only (useful in CI) — exits 1 if issues found
+python3 scripts/fix_list_spacing.py --check
+
+# Fix in-place
+python3 scripts/fix_list_spacing.py
+```

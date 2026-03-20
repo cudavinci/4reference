@@ -1,6 +1,12 @@
-# Cloud Migration Framework for Python Apps: Shared Drive / Excel → S3 or PostgreSQL, AutoSys/.jil → Airflow, On-Prem → EKS
+## Cloud Migration Playbook: On-Prem Python Apps → AWS EKS
 
-## Executive Summary
+Cloud Migration Framework for Python Apps: Shared Drive / Excel → S3 or PostgreSQL, AutoSys/.jil → Airflow, On-Prem → EKS
+
+---
+
+## Chat:
+
+### Executive Summary
 
 Your proposed migration shape is sound:
 
@@ -20,9 +26,9 @@ In other words: **do not frame this as S3 _or_ Postgres unless your workloads ar
 
 ---
 
-# 1. The Core Decision: S3 vs PostgreSQL
+### 1. The Core Decision: S3 vs PostgreSQL
 
-## Recommended decision rule
+#### Recommended decision rule
 
 Use **PostgreSQL** when the data is:
 
@@ -45,7 +51,7 @@ Use **S3** when the data is:
 - a convenient interchange boundary between systems
 - something users still genuinely need in file form
 
-## Practical enterprise recommendation
+#### Practical enterprise recommendation
 
 For your case, I would generally model the future state as:
 
@@ -67,7 +73,7 @@ For your case, I would generally model the future state as:
   - artifacts that need retention
   - large staged inputs/outputs between jobs when file format still makes sense
 
-## Anti-pattern to avoid
+#### Anti-pattern to avoid
 
 Do **not** simply replace “shared drive Excel files” with “S3 Excel files” and call the migration complete unless there is a strong business reason those files must remain files. That usually preserves the same fragility with better infrastructure.
 
@@ -79,7 +85,7 @@ A better pattern is:
 
 ---
 
-# 2. Decision Matrix
+### 2. Decision Matrix
 
 | Question | Lean PostgreSQL | Lean S3 |
 |---|---|---|
@@ -98,9 +104,9 @@ If some current Excel files are really “deliverables” or “externally suppl
 
 ---
 
-# 3. Suggested Target Architecture
+### 3. Suggested Target Architecture
 
-## Control plane
+#### Control plane
 
 - **Airflow** for orchestration
 - **Git-based DAG deployment**
@@ -108,7 +114,7 @@ If some current Excel files are really “deliverables” or “externally suppl
 - **Secrets Manager / Kubernetes secrets / IRSA-based access**
 - **CloudWatch / Splunk / central logging** for logs and alerts
 
-## Data plane
+#### Data plane
 
 - **Postgres** for operational state and structured business data
 - **S3** for file/object storage
@@ -117,7 +123,7 @@ If some current Excel files are really “deliverables” or “externally suppl
   - **Lambda only where it is clearly useful**, not because Airflow requires it
   - **SQS/EventBridge** later if event-driven triggers become useful
 
-## Workload execution pattern
+#### Workload execution pattern
 
 Each legacy job becomes:
 
@@ -131,9 +137,9 @@ Each legacy job becomes:
 
 ---
 
-# 4. Airflow Thoughts for Your Situation
+### 4. Airflow Thoughts for Your Situation
 
-## Does Airflow require Lambda?
+#### Does Airflow require Lambda?
 
 No. Airflow does **not** require Lambda.
 
@@ -145,11 +151,11 @@ For your setup, the more natural fit is usually:
 
 Lambda can still be useful for very small auxiliary tasks, but it is not the default answer for Python batch pipelines with dependencies, file movement, validation, database I/O, and email sending.
 
-## What likely fits best
+#### What likely fits best
 
 You likely want one of these:
 
-### Option A: Self-managed Airflow on EKS
+##### Option A: Self-managed Airflow on EKS
 Best if:
 
 - your team is already comfortable with EKS/Kubernetes
@@ -157,14 +163,14 @@ Best if:
 - you already operate platform components in-cluster
 - custom dependencies/images are common
 
-### Option B: Amazon MWAA
+##### Option B: Amazon MWAA
 Best if:
 
 - you want less operational burden for Airflow itself
 - you can live within the managed service shape
 - your org prefers managed services over operating Airflow directly
 
-### My default lean for you
+##### My default lean for you
 
 Because you already operate EKS and seem comfortable with containerized Python services, **Airflow on EKS is a very reasonable default**, especially if your jobs already package cleanly into Docker images.
 
@@ -172,9 +178,9 @@ That said, if your team does **not** want another stateful platform to own, **MW
 
 ---
 
-# 5. Migration Strategy: The Safest Way
+### 5. Migration Strategy: The Safest Way
 
-## Phase 0: Inventory and classify everything
+#### Phase 0: Inventory and classify everything
 
 Before touching storage, create a migration inventory.
 
@@ -208,7 +214,7 @@ Also classify each file as one of:
 
 This inventory will make the S3/Postgres decision much clearer.
 
-## Phase 1: Define target contracts, not just target infrastructure
+#### Phase 1: Define target contracts, not just target infrastructure
 
 For each dataset/job boundary, define:
 
@@ -223,7 +229,7 @@ For each dataset/job boundary, define:
 
 This is the point where many teams save months of pain. Migrating unclear job boundaries into Airflow just recreates legacy ambiguity in a nicer UI.
 
-## Phase 2: Add dual-write to current on-prem production
+#### Phase 2: Add dual-write to current on-prem production
 
 Your idea here is very good.
 
@@ -244,7 +250,7 @@ Examples:
 - each run has a unique `run_id`
 - reconciliation checks compare row counts/hashes/business aggregates
 
-## Phase 3: Build cloud-native readers first
+#### Phase 3: Build cloud-native readers first
 
 Before cutting over the whole pipeline:
 
@@ -254,7 +260,7 @@ Before cutting over the whole pipeline:
 
 This reduces cutover risk dramatically.
 
-## Phase 4: Replace orchestration
+#### Phase 4: Replace orchestration
 
 Only after storage and job contracts are stable:
 
@@ -263,7 +269,7 @@ Only after storage and job contracts are stable:
 - keep tasks small and observable
 - avoid giant PythonOperators that hide all logic in one step
 
-## Phase 5: Controlled cutover
+#### Phase 5: Controlled cutover
 
 Cut over in this order:
 
@@ -274,7 +280,7 @@ Cut over in this order:
 5. shared-drive writes downgraded to fallback only
 6. shared-drive dependency removed
 
-## Phase 6: Decommission legacy paths
+#### Phase 6: Decommission legacy paths
 
 Only after:
 
@@ -285,23 +291,23 @@ Only after:
 
 ---
 
-# 6. Strong Recommendation: Use a “Bronze / Silver / Gold” Data Mindset Even If You Do Not Call It That
+### 6. Strong Recommendation: Use a “Bronze / Silver / Gold” Data Mindset Even If You Do Not Call It That
 
 A simple pattern:
 
-## Bronze
+#### Bronze
 - raw source files exactly as received
 - stored in S3
 - immutable
 - timestamped / versioned
 
-## Silver
+#### Silver
 - parsed, cleaned, validated structured data
 - stored in Postgres
 - standardized schema
 - business rules applied
 
-## Gold
+#### Gold
 - curated outputs for applications, reports, emails, APIs
 - could live in Postgres, S3, or both depending on consumer needs
 
@@ -309,11 +315,11 @@ This helps avoid conflating “input artifact preservation” with “operationa
 
 ---
 
-# 7. What to Do About Excel Specifically
+### 7. What to Do About Excel Specifically
 
-## Split Excel use cases into 3 buckets
+#### Split Excel use cases into 3 buckets
 
-### A. Excel as human-maintained configuration
+##### A. Excel as human-maintained configuration
 Examples:
 
 - mappings
@@ -328,13 +334,13 @@ Recommendation:
 - in the short term, allow controlled upload of Excel → validation → Postgres load
 - preserve original file in S3
 
-### B. Excel as system-generated intermediate data
+##### B. Excel as system-generated intermediate data
 Recommendation:
 
 - eliminate this
 - replace with Postgres tables or Parquet/CSV in S3 as appropriate
 
-### C. Excel as final user deliverable
+##### C. Excel as final user deliverable
 Recommendation:
 
 - keep generating it if users genuinely need it
@@ -344,9 +350,9 @@ Recommendation:
 
 ---
 
-# 8. Postgres Design Guidance
+### 8. Postgres Design Guidance
 
-## Use Postgres for operational truth, but design it intentionally
+#### Use Postgres for operational truth, but design it intentionally
 
 Good practices:
 
@@ -358,26 +364,26 @@ Good practices:
 - make soft-delete / active flags explicit where needed
 - store original raw payload references for traceability
 
-## Common table patterns
+#### Common table patterns
 
-### Reference/config tables
+##### Reference/config tables
 - relatively small
 - business-managed
 - may come from spreadsheets initially
 
-### Staging tables
+##### Staging tables
 - one load/run at a time
 - used for validation and reconciliation
 - truncated/partitioned as appropriate
 
-### Current-state tables
+##### Current-state tables
 - latest active state used by applications
 
-### History/audit tables
+##### History/audit tables
 - append-only or slowly changing
 - critical for migration validation and rollback confidence
 
-## Avoid
+#### Avoid
 
 - giant JSONB dumping-ground designs unless the data is truly semi-structured
 - over-normalization that makes simple batch processes painful
@@ -385,9 +391,9 @@ Good practices:
 
 ---
 
-# 9. S3 Design Guidance
+### 9. S3 Design Guidance
 
-## Treat S3 as an object store with conventions
+#### Treat S3 as an object store with conventions
 
 Use consistent key structure, for example:
 
@@ -397,7 +403,7 @@ or
 
 `domain/dataset/version=1/business_date=YYYY-MM-DD/run_id=.../artifact.parquet`
 
-## Recommended S3 usage
+#### Recommended S3 usage
 
 - raw inbound files
 - source Excel preservation
@@ -407,7 +413,7 @@ or
 - large extracts
 - archival snapshots
 
-## Add these from day 1
+#### Add these from day 1
 
 - bucket versioning where appropriate
 - lifecycle rules
@@ -418,9 +424,9 @@ or
 
 ---
 
-# 10. Airflow DAG Design Principles for This Migration
+### 10. Airflow DAG Design Principles for This Migration
 
-## Make tasks represent business boundaries
+#### Make tasks represent business boundaries
 
 Good task boundaries:
 
@@ -436,7 +442,7 @@ Bad task boundary:
 
 - one monolithic Python function that does all of the above
 
-## Favor idempotent tasks
+#### Favor idempotent tasks
 
 A rerun should not create corrupt duplication or inconsistent state.
 
@@ -448,7 +454,7 @@ Use:
 - “already processed?” checks
 - write temp then promote patterns for files
 
-## Separate orchestration from business logic
+#### Separate orchestration from business logic
 
 Airflow should orchestrate, not contain all the logic.
 
@@ -458,7 +464,7 @@ Preferred pattern:
 - Airflow task invokes a clear entrypoint
 - the same code can be run locally, in tests, or by Airflow
 
-## Support backfills explicitly
+#### Support backfills explicitly
 
 Every job should define:
 
@@ -470,9 +476,9 @@ Every job should define:
 
 ---
 
-# 11. Translating AutoSys/.jil to Airflow
+### 11. Translating AutoSys/.jil to Airflow
 
-## Do not do a 1:1 mechanical translation blindly
+#### Do not do a 1:1 mechanical translation blindly
 
 AutoSys jobs often encode years of operational behavior implicitly. Before converting, extract:
 
@@ -485,7 +491,7 @@ AutoSys jobs often encode years of operational behavior implicitly. Before conve
 - late-arrival handling
 - manual rerun procedures
 
-## What to preserve explicitly in Airflow
+#### What to preserve explicitly in Airflow
 
 - start conditions
 - task dependencies
@@ -496,7 +502,7 @@ AutoSys jobs often encode years of operational behavior implicitly. Before conve
 - timeouts
 - catchup/backfill behavior
 
-## Good migration pattern
+#### Good migration pattern
 
 For each `.jil` job:
 
@@ -508,9 +514,9 @@ For each `.jil` job:
 
 ---
 
-# 12. EKS Execution Model Recommendation
+### 12. EKS Execution Model Recommendation
 
-## Recommended shape
+#### Recommended shape
 
 - Airflow scheduler/webserver/triggerer as platform components
 - task execution in isolated pods or containers
@@ -518,11 +524,11 @@ For each `.jil` job:
 - environment config via secrets/configmaps/IRSA
 - logs centralized outside the pod lifecycle
 
-## Why this fits your environment
+#### Why this fits your environment
 
 Your team already works with EKS and containerized Python services. That lowers adoption risk compared with introducing an entirely new compute model just for orchestration.
 
-## Where Lambda may still help
+#### Where Lambda may still help
 
 Only for narrow cases like:
 
@@ -535,9 +541,9 @@ It is not the natural home for heavier Python batch jobs that do file parsing, D
 
 ---
 
-# 13. Email Sender Scripts in the Future State
+### 13. Email Sender Scripts in the Future State
 
-## Treat email as an output step, not embedded side-effect chaos
+#### Treat email as an output step, not embedded side-effect chaos
 
 Standardize email sending:
 
@@ -547,7 +553,7 @@ Standardize email sending:
 - one template system if needed
 - attachments or links generated deterministically
 
-## Better pattern
+#### Better pattern
 
 Instead of many ad hoc scripts:
 
@@ -557,7 +563,7 @@ Instead of many ad hoc scripts:
 - log success/failure in Postgres
 - keep recipient config in table/config, not hardcoded in scripts
 
-## For attachments
+#### For attachments
 
 Prefer:
 
@@ -567,11 +573,11 @@ Prefer:
 
 ---
 
-# 14. Testing Strategy for the Migration
+### 14. Testing Strategy for the Migration
 
-## You need 4 testing layers
+#### You need 4 testing layers
 
-### 1. Unit tests
+##### 1. Unit tests
 For:
 
 - parsing
@@ -581,7 +587,7 @@ For:
 - path/key generation
 - schema mapping
 
-### 2. Integration tests
+##### 2. Integration tests
 For:
 
 - Postgres reads/writes
@@ -589,7 +595,7 @@ For:
 - Airflow task entrypoints
 - secret/config wiring
 
-### 3. Reconciliation tests
+##### 3. Reconciliation tests
 Most important for migration:
 
 - old vs new row counts
@@ -598,7 +604,7 @@ Most important for migration:
 - sampled record diffs
 - generated file comparisons
 
-### 4. Operational tests
+##### 4. Operational tests
 For:
 
 - reruns
@@ -608,15 +614,15 @@ For:
 - concurrent runs
 - timeout/retry behavior
 
-## Golden rule
+#### Golden rule
 
 For migration work, **reconciliation tests are often more important than pure unit-test coverage**.
 
 ---
 
-# 15. Observability and Supportability
+### 15. Observability and Supportability
 
-## Add run metadata early
+#### Add run metadata early
 
 Have a central run log table with fields like:
 
@@ -635,7 +641,7 @@ Have a central run log table with fields like:
 - `orchestrator` (autosys / airflow)
 - `env`
 
-## Capture enough metadata to answer:
+#### Capture enough metadata to answer:
 
 - what ran?
 - what inputs were used?
@@ -645,7 +651,7 @@ Have a central run log table with fields like:
 - can I replay it?
 - who was notified?
 
-## Alerts
+#### Alerts
 
 At minimum, alert on:
 
@@ -658,9 +664,9 @@ At minimum, alert on:
 
 ---
 
-# 16. Security / Access Model
+### 16. Security / Access Model
 
-## Remove shared-drive assumptions completely
+#### Remove shared-drive assumptions completely
 
 Legacy code often assumes:
 
@@ -677,7 +683,7 @@ In cloud, standardize around:
 - bucket/table/schema-specific access
 - auditable service identities
 
-## Specific things to check during refactor
+#### Specific things to check during refactor
 
 - hardcoded UNC paths
 - hardcoded usernames/passwords
@@ -687,24 +693,24 @@ In cloud, standardize around:
 
 ---
 
-# 17. Refactoring Pattern for the Python Apps
+### 17. Refactoring Pattern for the Python Apps
 
-## Split each app into layers
+#### Split each app into layers
 
 A good target structure:
 
-### domain layer
+##### domain layer
 - business rules
 - transformations
 - validation
 
-### infrastructure layer
+##### infrastructure layer
 - S3 repository
 - Postgres repository
 - email client
 - config loader
 
-### orchestration layer
+##### orchestration layer
 - CLI / job entrypoint
 - Airflow task wrapper
 
@@ -715,7 +721,7 @@ This makes the same logic reusable across:
 - Airflow future state
 - tests
 
-## Recommended short-term interface pattern
+#### Recommended short-term interface pattern
 
 Introduce interfaces/adapters like:
 
@@ -735,17 +741,17 @@ That lets you migrate incrementally without rewriting everything at once.
 
 ---
 
-# 18. A Practical “Both Sides Live at Once” Pattern
+### 18. A Practical “Both Sides Live at Once” Pattern
 
 This is probably the highest-leverage implementation shape for you.
 
-## Current state
+#### Current state
 - AutoSys orchestrates
 - app reads shared drive
 - app writes shared drive
 - email sent
 
-## Transitional state
+#### Transitional state
 - AutoSys still orchestrates
 - app reads legacy source
 - app writes legacy output
@@ -754,7 +760,7 @@ This is probably the highest-leverage implementation shape for you.
 - email sent
 - downstream cloud readers validate in shadow mode
 
-## Future state
+#### Future state
 - Airflow orchestrates
 - app reads Postgres/S3
 - app writes Postgres/S3
@@ -764,34 +770,34 @@ This is probably the highest-leverage implementation shape for you.
 
 ---
 
-# 19. How to Decide “S3-first” vs “Postgres-first” Per App
+### 19. How to Decide “S3-first” vs “Postgres-first” Per App
 
-## Pick Postgres-first when
+#### Pick Postgres-first when
 - Excel is effectively a table
 - downstream jobs read slices/subsets
 - multiple jobs share current state
 - correctness matters more than preserving exact file layout
 - you expect APIs/UI/processes to consume the data later
 
-## Pick S3-first when
+#### Pick S3-first when
 - the app is mostly file transfer / report generation
 - files are the real artifact
 - preserving exact original files matters
 - the next step is still human/manual consumption
 - the data is large but not operationally queried much
 
-## Pick hybrid when
+#### Pick hybrid when
 - you need both file preservation and structured consumption
 
 This hybrid case will be common.
 
 ---
 
-# 20. Rollback Planning
+### 20. Rollback Planning
 
 Every migration workstream should define rollback before cutover.
 
-## Minimum rollback questions
+#### Minimum rollback questions
 
 - if Airflow orchestration fails, can AutoSys resume?
 - if Postgres load succeeds but downstream transform fails, what is rerun behavior?
@@ -799,7 +805,7 @@ Every migration workstream should define rollback before cutover.
 - if email sends before commit, can users receive false signals?
 - can a failed cloud run be replayed from preserved raw input?
 
-## Good rollback pattern
+#### Good rollback pattern
 
 - raw inputs preserved in S3
 - target writes are idempotent/upsert-safe
@@ -809,9 +815,9 @@ Every migration workstream should define rollback before cutover.
 
 ---
 
-# 21. Suggested Work Plan
+### 21. Suggested Work Plan
 
-## Workstream 1: Discovery / inventory
+#### Workstream 1: Discovery / inventory
 Deliverables:
 
 - job inventory
@@ -819,7 +825,7 @@ Deliverables:
 - dependency map
 - classification of each Excel/file usage
 
-## Workstream 2: Storage decision + standards
+#### Workstream 2: Storage decision + standards
 Deliverables:
 
 - S3 conventions
@@ -827,7 +833,7 @@ Deliverables:
 - naming/versioning/idempotency standards
 - run metadata model
 
-## Workstream 3: Refactor shared libraries
+#### Workstream 3: Refactor shared libraries
 Deliverables:
 
 - storage adapters
@@ -836,14 +842,14 @@ Deliverables:
 - validation framework
 - reconciliation utilities
 
-## Workstream 4: Dual-write implementation in on-prem prod
+#### Workstream 4: Dual-write implementation in on-prem prod
 Deliverables:
 
 - safe dual-write
 - row/file reconciliation
 - monitoring
 
-## Workstream 5: Cloud-native execution
+#### Workstream 5: Cloud-native execution
 Deliverables:
 
 - Docker images
@@ -851,7 +857,7 @@ Deliverables:
 - Airflow DAGs
 - lower-env validation
 
-## Workstream 6: Cutover and decommission
+#### Workstream 6: Cutover and decommission
 Deliverables:
 
 - runbook
@@ -861,11 +867,11 @@ Deliverables:
 
 ---
 
-# 22. Concrete Recommendation for Your Team
+### 22. Concrete Recommendation for Your Team
 
 If I were guiding this effort, I would recommend the following default policy:
 
-## Default policy
+#### Default policy
 
 - **Postgres is the system of record for structured operational data**
 - **S3 is the system of record for raw files and generated artifacts**
@@ -876,7 +882,7 @@ If I were guiding this effort, I would recommend the following default policy:
 - **Dual-write + reconciliation is mandatory before cutover**
 - **Every migrated job must be idempotent and replayable**
 
-## Why this is the right bias
+#### Why this is the right bias
 
 It reduces:
 
@@ -898,9 +904,9 @@ And it increases:
 
 ---
 
-# 23. Risks to Watch Closely
+### 23. Risks to Watch Closely
 
-## Biggest technical risks
+#### Biggest technical risks
 
 - migrating path/file assumptions without redesigning data contracts
 - preserving Excel too deep into the architecture
@@ -912,7 +918,7 @@ And it increases:
 - not standardizing email behavior
 - weak observability around cutover
 
-## Biggest organizational risks
+#### Biggest organizational risks
 
 - trying to migrate orchestration and storage and code structure all at once
 - doing app-by-app rewrites without common migration standards
@@ -921,7 +927,7 @@ And it increases:
 
 ---
 
-# 24. Final Bottom Line
+### 24. Final Bottom Line
 
 For your situation, the most robust approach is:
 
@@ -936,25 +942,374 @@ If you do this well, you will not just “move jobs to the cloud”; you will re
 
 ---
 
-# 25. Small Appendix: Quick Answers to the Specific Questions You Raised
+### 25. Small Appendix: Quick Answers to the Specific Questions You Raised
 
-## “Should we use S3 and keep the file-based approach or go entirely to Postgres?”
+#### “Should we use S3 and keep the file-based approach or go entirely to Postgres?”
 Usually **neither extreme**. Use:
 
 - **Postgres for structured operational truth**
 - **S3 for file artifacts and raw/archive layers**
 
-## “Should we put S3 put/Postgres insert logic into the on-prem production pipeline first?”
+#### “Should we put S3 put/Postgres insert logic into the on-prem production pipeline first?”
 Yes. That is one of the safest ways to migrate, provided:
 
 - writes are idempotent
 - reconciliation is built in
 - legacy outputs remain unchanged during validation
 
-## “Does Airflow require Lambdas?”
+#### “Does Airflow require Lambdas?”
 No. For your team, **Airflow on EKS** or **MWAA** is the more natural framing.
 
-## “What about apps with an email sender script at the end?”
+#### “What about apps with an email sender script at the end?”
 Standardize email as a reusable service/module and treat it as a final task in the workflow, with logging and deterministic artifacts.
 
 ---
+
+## Claude:
+
+### Context & Assumptions
+
+- **Current state**: Python apps on-prem, orchestrated via AutoSys (`.jil` files), reading/writing Excel files on a shared network drive.
+- **Target state**: Apps containerized on EKS, orchestrated by a modern scheduler, file-based I/O replaced with cloud-native storage.
+- **Constraints**: Migration must not disrupt on-prem production. Dual-write period required.
+- **Team**: Small (3 people) — operational complexity matters.
+
+---
+
+### 1. Storage Decision: S3 vs. Postgres (vs. Both)
+
+This isn't binary. The right answer depends on *what the Excel files actually represent*.
+
+#### Use Postgres When:
+- The data is **tabular and queried relationally** (joins, filters, aggregations).
+- Downstream consumers need **partial reads** (e.g., "give me just the rows for strategy X").
+- You need **transactional guarantees** (ACID) — e.g., a portfolio snapshot that must be atomically consistent.
+- Multiple apps read/write the **same logical dataset**.
+- You want to eliminate parsing logic (openpyxl/xlrd) from every consumer.
+
+#### Use S3 When:
+- The file is a **report artifact** — something generated, stored, and later retrieved whole (e.g., a PDF, a client-facing Excel, a CSV dump).
+- The data is **large and append-only** (e.g., tick data, logs).
+- You need to **preserve the original file format** for compliance or audit trail.
+- The consumer is a human or an external system that expects a file.
+
+#### Recommended Hybrid Pattern
+```
+┌─────────────────────────────────────────────────────┐
+│  Python App                                         │
+│                                                     │
+│  Structured data (positions, signals, weights)      │
+│       → Postgres (via SQLAlchemy / asyncpg)         │
+│                                                     │
+│  Report artifacts (client Excel, PDF tearsheets)    │
+│       → S3 (via boto3)                              │
+│                                                     │
+│  Raw inputs that must be preserved as-is            │
+│       → S3 (with metadata tags for lineage)         │
+└─────────────────────────────────────────────────────┘
+```
+
+#### Postgres Specifics
+- Use **RDS Postgres** (not Aurora) unless you need multi-AZ read replicas — RDS is simpler and cheaper for your scale.
+- Use **SQLAlchemy Core** (not ORM) for insert/query — you're doing data engineering, not web app modeling.
+- Schema-per-domain is cleaner than one big schema. E.g., `signals.*`, `portfolio.*`, `reporting.*`.
+- For time-series-heavy workloads, consider the `timescaledb` extension on RDS.
+
+#### S3 Specifics
+- Use a consistent key convention: `s3://{bucket}/{app_name}/{run_date}/{filename}`.
+- Enable **versioning** on the bucket — it's free insurance.
+- Use **Parquet** instead of CSV/Excel for any machine-consumed tabular data on S3. It's columnar, compressed, and pandas/polars read it natively.
+- Tag objects with metadata: `run_id`, `git_sha`, `environment`.
+
+---
+
+### 2. The Dual-Write Migration Strategy
+
+This is the key architectural insight: **add cloud writes to the existing on-prem pipeline first, then migrate consumers.**
+
+#### Phase 1: Dual-Write (On-Prem Stays Primary)
+```
+┌──────────────┐     ┌──────────────────┐     ┌──────────────┐
+│  AutoSys      │────▶│  Python App      │────▶│  Network     │
+│  (unchanged)  │     │  (modified)      │     │  Drive       │
+└──────────────┘     │                  │     └──────────────┘
+                     │  + new code:     │
+                     │  ├─ S3 put       │────▶  S3
+                     │  └─ PG insert    │────▶  Postgres
+                     └──────────────────┘
+```
+
+Implementation guidance:
+
+- **Wrap the new writes in try/except.** Cloud write failures should log and alert but NOT fail the on-prem job during this phase. The network drive is still the source of truth.
+- **Add a reconciliation check**: after each run, compare row counts / checksums between the network drive file and the cloud target. Log discrepancies.
+- **Use a feature flag** (even a simple env var `CLOUD_WRITE_ENABLED=true`) so you can toggle this per-app without redeploying.
+```python
+import os
+import logging
+
+logger = logging.getLogger(__name__)
+
+def write_results(df, legacy_path, s3_key=None, pg_table=None):
+    """Write to legacy network drive, optionally dual-write to cloud."""
+    ## Legacy write (always)
+    df.to_excel(legacy_path, index=False)
+
+    if os.getenv("CLOUD_WRITE_ENABLED", "false").lower() == "true":
+        if s3_key:
+            try:
+                _write_to_s3(df, s3_key)
+            except Exception:
+                logger.exception(f"S3 write failed for {s3_key}")
+
+        if pg_table:
+            try:
+                _write_to_postgres(df, pg_table)
+            except Exception:
+                logger.exception(f"Postgres write failed for {pg_table}")
+```
+
+#### Phase 2: Cloud Consumer Development (Feature Branch)
+
+- Build the cloud version of each app on a feature branch.
+- The cloud version reads from S3/Postgres instead of the network drive.
+- Run both in parallel. Compare outputs. This is your integration test.
+
+#### Phase 3: Cutover
+
+- Flip the orchestrator from AutoSys to Airflow/Prefect/CronJob.
+- The cloud app is now primary. The network drive write can be removed (or kept temporarily for rollback comfort).
+- Decommission on-prem jobs one by one.
+
+---
+
+### 3. Orchestration: Airflow vs. Prefect vs. EKS CronJobs
+
+#### Option A: Airflow on EKS (Helm Chart + KubernetesExecutor)
+
+**How it works**: Airflow scheduler and webserver run as persistent deployments on EKS. Each task in a DAG spins up an ephemeral pod (KubernetesExecutor). You do NOT need Lambdas.
+
+**Pros**:
+
+- Industry standard. Huge ecosystem of operators and providers.
+- Excellent for complex DAGs with branching, retries, SLAs, and cross-DAG dependencies.
+- Good visibility via the web UI (Gantt charts, task logs, run history).
+
+**Cons**:
+
+- Operationally heavy for a 3-person team. The Airflow metadata DB (Postgres), scheduler, webserver, and workers all need care and feeding.
+- DAG authoring has a learning curve. The execution model (DAG parsing, XComs, task serialization) has real gotchas.
+- Helm chart upgrades can be painful.
+
+**Verdict**: Probably overkill for your current team size and workload, but correct if you expect significant growth in workflow complexity or team size within 12 months.
+
+#### Option B: Self-Hosted Prefect on EKS ← Recommended
+
+**How it works**: Prefect server (or Prefect Cloud — free tier is generous) provides the UI, scheduling, and API. A Prefect worker runs on EKS and picks up scheduled flow runs, executing them as Kubernetes Jobs.
+
+**Pros**:
+
+- Flows are just decorated Python functions. No DAG parsing quirks.
+- The Kubernetes worker pattern is clean: each flow run = a K8s Job with its own pod.
+- Much lighter operationally than Airflow. The server is a single container + Postgres.
+- Native support for retries, caching, parameterized runs, notifications.
+- If you use Prefect Cloud, you eliminate the self-hosted server entirely and just run the worker on EKS.
+
+**Cons**:
+
+- Smaller community than Airflow (though growing fast).
+- If self-hosting, you still need to run Prefect server + its Postgres DB.
+- Cross-flow dependencies are doable but less elegant than Airflow's DAG-level tooling.
+
+**Self-hosted deployment sketch** (Helm on EKS):
+```yaml
+## prefect-server: Deployment
+## - image: prefecthq/prefect:3-python3.11
+## - command: prefect server start --host 0.0.0.0
+## - requires: Postgres (RDS or in-cluster)
+## - expose via internal ALB or ClusterIP
+
+## prefect-worker: Deployment
+## - image: prefecthq/prefect:3-python3.11
+## - command: prefect worker start --pool default --type kubernetes
+## - needs RBAC to create Jobs in the target namespace
+```
+
+**Prefect flow example**:
+```python
+from prefect import flow, task
+from prefect.tasks import task_input_hash
+from datetime import timedelta
+
+@task(retries=2, retry_delay_seconds=30)
+def extract_data(source: str) -> pd.DataFrame:
+    ...
+
+@task(cache_key_fn=task_input_hash, cache_expiration=timedelta(hours=1))
+def transform(df: pd.DataFrame) -> pd.DataFrame:
+    ...
+
+@task
+def load_to_postgres(df: pd.DataFrame, table: str):
+    ...
+
+@task
+def send_completion_email(recipients: list[str], report_s3_key: str):
+    ...
+
+@flow(name="daily-portfolio-pipeline", log_prints=True)
+def daily_pipeline(run_date: str):
+    raw = extract_data("s3://bucket/inputs/...")
+    transformed = transform(raw)
+    load_to_postgres(transformed, "portfolio.daily_snapshot")
+    send_completion_email(["team@invesco.com"], "s3://bucket/reports/...")
+```
+
+#### Option C: EKS CronJobs
+
+**How it works**: Kubernetes-native CronJob resources. Each job is a pod that runs on a schedule.
+
+**Pros**:
+
+- Zero additional infrastructure. It's built into Kubernetes.
+- Dead simple for single-step scheduled tasks.
+- You already know K8s.
+
+**Cons**:
+
+- No UI for monitoring (unless you add something like k9s or a dashboard).
+- Multi-step workflows require manual chaining (e.g., Job A triggers Job B via a script or by hitting an API). This gets messy fast.
+- No built-in retry with backoff, alerting, or run history.
+- Cross-job dependencies are DIY.
+
+**Verdict**: Good for simple "run this script at 6am" jobs. Not suitable as your primary orchestrator if you have multi-step workflows with dependencies — which you do, per your description of the AutoSys setup.
+
+#### Recommendation
+
+**Start with Prefect Cloud** (free tier: 3 users, unlimited flows). Deploy a single Kubernetes worker on EKS. This gives you:
+
+- Near-zero ops overhead (no self-hosted server to manage).
+- A proper UI for monitoring and debugging.
+- Native K8s Job execution.
+- A path to self-hosting later if you outgrow the free tier or need data residency.
+
+If Prefect Cloud is a non-starter due to compliance (data leaving the VPC), self-host Prefect server on EKS backed by your RDS Postgres instance.
+
+---
+
+### 4. Handling the Email Sender Scripts
+
+Common pattern: the last step in many of your pipelines sends an email with results/reports.
+
+#### Options (in order of preference)
+
+1. **Amazon SES (Simple Email Service)**: Cheapest, most reliable for transactional email from within AWS. Use the `boto3` SES client. You'll need to verify sender domains/addresses.
+
+2. **SMTP relay via your existing Exchange/O365**: If Invesco has an internal SMTP relay, you can keep using `smtplib` — just update the SMTP host and ensure EKS pods can reach it (VPC peering or transit gateway to corp network).
+
+3. **Prefect notifications**: Prefect has built-in notification blocks (email, Slack, Teams). Good for "pipeline succeeded/failed" alerts. Less suitable for rich HTML reports with attachments.
+
+#### Migration approach for email steps
+```python
+## Abstract the email sending behind an interface so you can swap implementations
+from abc import ABC, abstractmethod
+
+class EmailSender(ABC):
+    @abstractmethod
+    def send(self, to: list[str], subject: str, body: str,
+             attachments: list[str] | None = None): ...
+
+class SESEmailSender(EmailSender):
+    def send(self, to, subject, body, attachments=None):
+        ## boto3 SES implementation
+        ...
+
+class SMTPEmailSender(EmailSender):
+    def send(self, to, subject, body, attachments=None):
+        ## smtplib implementation (legacy)
+        ...
+
+## Factory based on environment
+def get_email_sender() -> EmailSender:
+    if os.getenv("EMAIL_BACKEND", "smtp") == "ses":
+        return SESEmailSender()
+    return SMTPEmailSender()
+```
+
+---
+
+### 5. Containerization Checklist
+
+For each Python app being migrated:
+
+- [ ] **Dockerfile**: Multi-stage build. Use `python:3.11-slim` as the runtime base. Pin all dependency versions.
+- [ ] **Dependencies**: Freeze with `pip-compile` (pip-tools) or `uv`. Do not rely on `pip install -r requirements.txt` with unpinned versions.
+- [ ] **Configuration**: All environment-specific config (DB connection strings, S3 bucket names, email recipients) via environment variables. Use Kubernetes Secrets for credentials, ConfigMaps for non-sensitive config.
+- [ ] **Logging**: Structured JSON logging to stdout. EKS + CloudWatch Logs or Fluent Bit will handle collection.
+- [ ] **Health checks**: Not needed for batch jobs (they run to completion). But if any app is a long-running service, add liveness/readiness probes.
+- [ ] **Resource requests/limits**: Set CPU and memory requests based on profiling the on-prem runs. Start conservative and adjust.
+
+#### Dockerfile template
+```dockerfile
+FROM python:3.11-slim AS builder
+WORKDIR /app
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+FROM python:3.11-slim
+WORKDIR /app
+COPY --from=builder /usr/local/lib/python3.11/site-packages /usr/local/lib/python3.11/site-packages
+COPY --from=builder /usr/local/bin /usr/local/bin
+COPY . .
+ENTRYPOINT ["python", "main.py"]
+```
+
+---
+
+### 6. Migration Sequencing
+
+Don't migrate everything at once. Prioritize by a combination of business impact and technical simplicity.
+
+#### Suggested ordering heuristic
+
+| Priority | Characteristics | Example |
+|----------|----------------|---------|
+| **Wave 1** | Simple (single-step, no downstream dependents), low business risk | Internal monitoring scripts, data quality checks |
+| **Wave 2** | Multi-step but well-understood, moderate business importance | Daily portfolio snapshot pipelines |
+| **Wave 3** | Complex DAGs, many dependencies, high business criticality | End-of-day processing, client reporting |
+
+For each app in each wave:
+
+1. Add dual-write logic (Phase 1).
+2. Deploy to EKS on feature branch. Run in parallel with on-prem for 1–2 weeks.
+3. Compare outputs (automated reconciliation).
+4. Cut over orchestration.
+5. Monitor for 1 week.
+6. Decommission on-prem job.
+
+---
+
+### 7. Key Risks & Mitigations
+
+| Risk | Mitigation |
+|------|-----------|
+| Network drive data differs from cloud copy during dual-write | Automated reconciliation checks after each run; alert on mismatch |
+| EKS pod can't reach on-prem resources during transition | VPC peering / transit gateway to corp network; test connectivity early |
+| Credential management across on-prem and cloud | AWS Secrets Manager + External Secrets Operator for K8s; rotate on cutover |
+| Team bandwidth (3 people, ongoing BAU + migration) | Wave-based approach; don't parallelize waves; timebox each wave |
+| Rollback needed after cutover | Keep on-prem AutoSys jobs dormant (not deleted) for 30 days post-cutover |
+
+---
+
+### 8. Quick Reference: AutoSys → Prefect Mapping
+
+| AutoSys Concept | Prefect Equivalent |
+|----------------|-------------------|
+| `.jil` job definition | `@flow` decorated Python function |
+| Box job (container for sub-jobs) | Flow containing multiple `@task` calls |
+| `condition: success(job_a)` | Task dependencies via return values (Prefect handles this natively) |
+| `start_times` | Prefect schedule (cron, interval, or RRule) |
+| `std_out_file` / `std_err_file` | Prefect UI logs (stdout captured automatically) |
+| `alarm_if_fail` | Prefect automations (trigger notifications on failure) |
+| `profile` / `owner` | Work pool + deployment labels |
+| Machine/agent targeting | Kubernetes work pool with node selectors |
