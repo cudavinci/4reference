@@ -2,7 +2,7 @@
    Material's default grid max-width is 61rem (~976px).
    Raise it so content fills a widescreen monitor.                          */
 .md-grid {
-  max-width: 1600px;
+  max-width: 1800px;
 }
 
 /* ─── Sidebar toggle button ────────────────────────────────────────────────

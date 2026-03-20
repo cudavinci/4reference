@@ -82,6 +82,7 @@ nav:
     - pytest: books/pytest.md
     - Python Packaging: books/python_packaging.md
     - Selenium Testing: books/selenium_testing.md
+    - API Design Patterns: books/api_design_patterns.md
     - Serious Python: books/serious_python.md
     - TDD with Python: books/tdd_python.md
     - Architecture Patterns: books/arch_patterns_python.md
