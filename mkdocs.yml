@@ -70,7 +70,15 @@ nav:
   - Home: index.md
   - Code Snippets: snippets.md
   - Web Development: webdev_snippets.md
-  - Book Summaries: book_summaries.md
+  - Book Summaries:
+    - books/index.md
+    - TDD with Python: books/tdd_python.md
+    - pytest: books/pytest.md
+    - Architecture Patterns: books/arch_patterns_python.md
+    - Crafting TDD: books/crafting_tdd_python.md
+    - Refactoring: books/refactoring.md
+    - Data Engineering: books/fundamentals_data_engineering.md
+    - Airflow: books/data_pipelines_airflow.md
   - Notes: notes.md
 
 markdown_extensions:
