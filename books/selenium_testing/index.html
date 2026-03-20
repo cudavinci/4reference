@@ -1,0 +1,3725 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Notes and code snippets">
+      
+      
+        <meta name="author" content="Sean Fuller">
+      
+      
+        <link rel="canonical" href="https://cudavinci.github.io/4reference/books/selenium_testing/">
+      
+      
+        <link rel="prev" href="../python_packaging/">
+      
+      
+        <link rel="next" href="../api_design_patterns/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Selenium Testing - My Snippets & Notes</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+
+      
+    
+<script src="../../assets/pymdownx-extras/material-extra-theme-2ek1P7jT.js" type="text/javascript"></script>
+<script src="../../assets/pymdownx-extras/material-extra-3rdparty-BUCF4rjN.js" type="text/javascript"></script>
+
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+      <link rel="stylesheet" href="../../assets/pymdownx-extras/extra-c6ab11540a.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="dracula" data-md-color-primary="#f8f8f2" data-md-color-accent="#bd93f9">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#python-testing-with-selenium" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+
+<header class="md-header" data-md-component="header">
+  <nav
+    class="md-header__inner md-grid"
+    aria-label="header.title"
+  >
+    <a
+      href="https://cudavinci.github.io/4reference/"
+      title="My Snippets &amp; Notes"
+      class="md-header__button md-logo"
+      aria-label="My Snippets & Notes"
+    >
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            My Snippets & Notes
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Selenium Testing
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    <div class="md-header__options">
+      <div class="md-header-nav__scheme md-header-nav__button md-source__icon md-icon">
+          <a
+            href="javascript:toggleScheme();"
+            title="Light mode"
+            class="light-mode"
+          >
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+          </a>
+          <a
+            href="javascript:toggleScheme();"
+            title="Dark mode"
+            class="dark-mode"
+          >
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+          </a>
+          <a
+            href="javascript:toggleScheme();"
+            title="System preference"
+            class="system-mode"
+          >
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M7.5 2c-1.79 1.15-3 3.18-3 5.5s1.21 4.35 3.03 5.5C4.46 13 2 10.54 2 7.5A5.5 5.5 0 0 1 7.5 2m11.57 1.5 1.43 1.43L4.93 20.5 3.5 19.07zm-6.18 2.43L11.41 5 9.97 6l.42-1.7L9 3.24l1.75-.12.58-1.65L12 3.1l1.73.03-1.35 1.13zm-3.3 3.61-1.16-.73-1.12.78.34-1.32-1.09-.83 1.36-.09.45-1.29.51 1.27 1.36.03-1.05.87zM19 13.5a5.5 5.5 0 0 1-5.5 5.5c-1.22 0-2.35-.4-3.26-1.07l7.69-7.69c.67.91 1.07 2.04 1.07 3.26m-4.4 6.58 2.77-1.15-.24 3.35zm4.33-2.7 1.15-2.77 2.2 2.54zm1.15-4.96-1.14-2.78 3.34.24zM9.63 18.93l2.77 1.15-2.53 2.19z"/></svg>
+          </a>
+           <a
+            href="javascript:toggleScheme();"
+            title="Unknown scheme"
+            class="unknown-mode"
+          >
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m15.07 11.25-.9.92C13.45 12.89 13 13.5 13 15h-2v-.5c0-1.11.45-2.11 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41a2 2 0 0 0-2-2 2 2 0 0 0-2 2H8a4 4 0 0 1 4-4 4 4 0 0 1 4 4 3.2 3.2 0 0 1-.93 2.25M13 19h-2v-2h2M12 2A10 10 0 0 0 2 12a10 10 0 0 0 10 10 10 10 0 0 0 10-10c0-5.53-4.5-10-10-10"/></svg>
+          </a>
+      </div>
+    </div>
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../snippets/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Code Snippets
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../webdev_snippets/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Web Development
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Book Summaries
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../notes/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Notes
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--lifted md-nav--integrated" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="My Snippets &amp; Notes" class="md-nav__button md-logo" aria-label="My Snippets & Notes" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    My Snippets & Notes
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../snippets/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Code Snippets
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../webdev_snippets/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Web Development
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Book Summaries
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4" id="__nav_4_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Book Summaries
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../crafting_tdd_python/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Crafting TDD
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../pytest/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    pytest
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../python_packaging/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Python Packaging
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Selenium Testing
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Selenium Testing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#chapter-1-getting-started" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chapter 1: Getting Started
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Chapter 1: Getting Started">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Overview
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#selenium-components" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Selenium Components
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#selenium-webdriver-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Selenium WebDriver Architecture
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#python-setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Python Setup
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#key-driver-methods" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Key Driver Methods
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get-vs-navigate" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        get() vs navigate()
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#chapter-2-locating-elements" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chapter 2: Locating Elements
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Chapter 2: Locating Elements">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#why-locators-matter" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why Locators Matter
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#locator-strategies" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Locator Strategies
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#id-locator" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ID Locator
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#name-locator" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Name Locator
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#xpath-locator" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        XPath Locator
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="XPath Locator">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#xpath-syntax" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        XPath Syntax
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#xpath-with-logical-operators" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        XPath with Logical Operators
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#xpath-functions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        XPath Functions
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#xpath-axes-13-methods-for-dom-traversal" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        XPath Axes (13 methods for DOM traversal)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#css-selector-locator" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CSS Selector Locator
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="CSS Selector Locator">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#css-selector-syntax" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CSS Selector Syntax
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#link-text-and-partial-link-text" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Link Text and Partial Link Text
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tag-name-locator" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tag Name Locator
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#class-name-locator" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Class Name Locator
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#chapter-3-mouse-and-keyboard-actions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chapter 3: Mouse and Keyboard Actions
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Chapter 3: Mouse and Keyboard Actions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#actionchains" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ActionChains
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mouse-actions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mouse Actions
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Mouse Actions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#click" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        click()
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#double_click" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        double_click()
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#context_click-right-click" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        context_click() (right-click)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#click_and_hold" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        click_and_hold()
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#drag_and_drop" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        drag_and_drop()
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#drag_and_drop_by_offset" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        drag_and_drop_by_offset()
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#move_to_element-hover" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        move_to_element() (hover)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#release" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        release()
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#keyboard-actions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Keyboard Actions
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Keyboard Actions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#key_down-key_up" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        key_down() / key_up()
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#send_keys-send_keys_to_element" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        send_keys() / send_keys_to_element()
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#common-keys-constants" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Common Keys Constants
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pause" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        pause()
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reset_actions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        reset_actions()
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#chapter-4-web-elements" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chapter 4: Web Elements
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Chapter 4: Web Elements">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-is-a-web-element" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What Is a Web Element?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#key-webelement-properties-and-methods" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Key WebElement Properties and Methods
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#web-tables" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Web Tables
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#date-pickers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Date Pickers
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#chapter-5-navigation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chapter 5: Navigation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Chapter 5: Navigation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#navigating-with-hyperlinks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Navigating with Hyperlinks
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#testing-hyperlinks-broken-link-checker" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Testing Hyperlinks (Broken Link Checker)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#http-status-code-categories" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        HTTP Status Code Categories
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#checking-for-broken-images" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Checking for Broken Images
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#browser-navigation-methods" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Browser Navigation Methods
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#chapter-6-buttons-checkboxes-and-radio-buttons" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chapter 6: Buttons, Checkboxes, and Radio Buttons
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Chapter 6: Buttons, Checkboxes, and Radio Buttons">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#button-types" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Button Types
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#clicking-buttons" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Clicking Buttons
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#checkboxes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Checkboxes
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#radio-buttons" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Radio Buttons
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#buttonelement-assertion-methods" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Button/Element Assertion Methods
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#select-dropdown-lists" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Select (Dropdown) Lists
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Select (Dropdown) Lists">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#single-select" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Single Select
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#multiple-select" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Multiple Select
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#chapter-7-frames-and-textboxes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chapter 7: Frames and Textboxes
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Chapter 7: Frames and Textboxes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#frames-and-iframes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Frames and iFrames
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Frames and iFrames">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#switching-to-a-frame" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Switching to a Frame
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#switching-back" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Switching Back
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nested-frames" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Nested Frames
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#frames-with-explicit-waits" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Frames with Explicit Waits
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#textboxes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Textboxes
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Textboxes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#single-line-input" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Single-Line Input
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#multi-line-textarea" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Multi-Line Textarea
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#common-input-attributes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Common Input Attributes
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#chapter-8-assertions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chapter 8: Assertions
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Chapter 8: Assertions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-are-assertions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What Are Assertions?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#unittest-assertion-methods" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        unittest Assertion Methods
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="unittest Assertion Methods">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#boolean-assertions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Boolean Assertions
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#equality-assertions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Equality Assertions
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#identity-assertions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Identity Assertions
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#type-assertions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Type Assertions
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#comparison-assertions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Comparison Assertions
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#membership-assertions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Membership Assertions
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#collection-assertions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Collection Assertions
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#practical-selenium-assertion-examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Practical Selenium Assertion Examples
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#test-outcomes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Test Outcomes
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#chapter-9-exceptions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chapter 9: Exceptions
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Chapter 9: Exceptions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#common-selenium-exceptions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Common Selenium Exceptions
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exception-handling-in-tests" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exception Handling in Tests
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#best-practices" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Best Practices
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#chapter-10-waits" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chapter 10: Waits
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Chapter 10: Waits">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#why-waits-are-needed" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why Waits Are Needed
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#implicit-wait" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Implicit Wait
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#explicit-wait" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Explicit Wait
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#expected-conditions-ec" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Expected Conditions (EC)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fluent-wait" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fluent Wait
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#custom-wait-conditions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Custom Wait Conditions
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#implicit-vs-explicit-best-practices" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Implicit vs Explicit: Best Practices
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#chapter-11-page-object-model-pom" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chapter 11: Page Object Model (POM)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Chapter 11: Page Object Model (POM)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-is-pom" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What Is POM?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#why-pom" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why POM?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pom-file-structure" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        POM File Structure
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pom-implementation-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        POM Implementation Example
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pom-limitations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        POM Limitations
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#chapter-12-unittest-framework" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chapter 12: unittest Framework
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Chapter 12: unittest Framework">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#unittest-overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        unittest Overview
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#test-case-structure" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Test Case Structure
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fixture-hierarchy-execution-order" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fixture Hierarchy (Execution Order)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#test-execution-order" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Test Execution Order
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#running-tests" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Running Tests
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#screenshots-in-tests" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Screenshots in Tests
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#capturing-screenshots-on-failure" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Capturing Screenshots on Failure
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#test-suites" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Test Suites
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#alternative-python-testing-tools-comparison" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Alternative Python Testing Tools (Comparison)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#appendix-quick-reference" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Appendix: Quick Reference
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Appendix: Quick Reference">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#minimal-selenium-test-template" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Minimal Selenium Test Template
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#locator-strategy-decision-guide" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Locator Strategy Decision Guide
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api_design_patterns/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API Design Patterns
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../serious_python/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Serious Python
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tdd_python/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    TDD with Python
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../arch_patterns_python/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture Patterns
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../refactoring/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Refactoring
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../fundamentals_data_engineering/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Data Engineering
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../data_pipelines_airflow/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Airflow
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../fastapi_cookbook/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    FastAPI Cookbook
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../notes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Notes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+  
+                  
+
+
+
+<h1 id="python-testing-with-selenium">Python Testing with Selenium<a class="headerlink" href="#python-testing-with-selenium" title="Permanent link">&para;</a></h1>
+<p><strong>Sujay Raghavendra — Apress, 2021</strong></p>
+<hr />
+<h2 id="chapter-1-getting-started">Chapter 1: Getting Started<a class="headerlink" href="#chapter-1-getting-started" title="Permanent link">&para;</a></h2>
+<h3 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Selenium</strong> is an open-source tool for automating web browsers, primarily used for testing web applications</li>
+<li>Supports multiple languages (Python, Java, C#, Ruby, JavaScript, Kotlin) and browsers (Firefox, Chrome, Safari, Edge, Opera)</li>
+<li>Originated in 2004 by Jason Huggins at ThoughtWorks; name is a play on a competitor named "Mercury" (selenium is a cure for mercury poisoning)</li>
+</ul>
+<h3 id="selenium-components">Selenium Components<a class="headerlink" href="#selenium-components" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Selenium IDE</strong>: Browser extension for record-and-playback test creation (Firefox/Chrome); exports to multiple languages</li>
+<li><strong>Selenium RC (Remote Control)</strong>: Deprecated predecessor to WebDriver; injected JavaScript into browsers via a server proxy</li>
+<li><strong>Selenium WebDriver</strong>: Current standard — communicates directly with the browser via native APIs; no intermediary server needed</li>
+<li><strong>Selenium Grid</strong>: Runs tests in parallel across multiple machines/browsers; uses a hub-node architecture</li>
+</ul>
+<h3 id="selenium-webdriver-architecture">Selenium WebDriver Architecture<a class="headerlink" href="#selenium-webdriver-architecture" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Language Bindings</strong> → <strong>JSON Wire Protocol</strong> → <strong>Browser Drivers</strong> → <strong>Browsers</strong></li>
+<li>The JSON Wire Protocol uses a REST API (HTTP methods: GET, POST, DELETE) to pass commands between bindings and drivers</li>
+<li>Each browser has its own driver executable (geckodriver, chromedriver, etc.)</li>
+</ul>
+<h3 id="python-setup">Python Setup<a class="headerlink" href="#python-setup" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># Install selenium</span>
+<span class="n">pip</span> <span class="n">install</span> <span class="n">selenium</span>
+
+<span class="c1"># Basic driver instantiation</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">selenium</span><span class="w"> </span><span class="kn">import</span> <span class="n">webdriver</span>
+<span class="n">driver</span> <span class="o">=</span> <span class="n">webdriver</span><span class="o">.</span><span class="n">Firefox</span><span class="p">()</span>          <span class="c1"># requires geckodriver on PATH</span>
+<span class="n">driver</span> <span class="o">=</span> <span class="n">webdriver</span><span class="o">.</span><span class="n">Chrome</span><span class="p">()</span>           <span class="c1"># requires chromedriver on PATH</span>
+<span class="n">driver</span> <span class="o">=</span> <span class="n">webdriver</span><span class="o">.</span><span class="n">Safari</span><span class="p">()</span>           <span class="c1"># built-in on macOS</span>
+<span class="n">driver</span> <span class="o">=</span> <span class="n">webdriver</span><span class="o">.</span><span class="n">Edge</span><span class="p">()</span>             <span class="c1"># requires msedgedriver</span>
+<span class="n">driver</span> <span class="o">=</span> <span class="n">webdriver</span><span class="o">.</span><span class="n">Opera</span><span class="p">()</span>            <span class="c1"># requires operadriver</span>
+</code></pre></div>
+<h3 id="key-driver-methods">Key Driver Methods<a class="headerlink" href="#key-driver-methods" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="n">driver</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;https://example.com&quot;</span><span class="p">)</span>     <span class="c1"># navigate to URL</span>
+<span class="n">driver</span><span class="o">.</span><span class="n">current_url</span>                     <span class="c1"># get current URL</span>
+<span class="n">driver</span><span class="o">.</span><span class="n">title</span>                           <span class="c1"># get page title</span>
+<span class="n">driver</span><span class="o">.</span><span class="n">page_source</span>                     <span class="c1"># get full HTML source</span>
+<span class="n">driver</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>                         <span class="c1"># close current tab/window</span>
+<span class="n">driver</span><span class="o">.</span><span class="n">quit</span><span class="p">()</span>                          <span class="c1"># close all windows and end session</span>
+</code></pre></div>
+<h3 id="get-vs-navigate"><code>get()</code> vs <code>navigate()</code><a class="headerlink" href="#get-vs-navigate" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>driver.get(url)</code> — loads a new page, waits for <code>onload</code> to fire</li>
+<li><code>driver.navigate().to(url)</code> — (Java-style) does not wait for full load; not commonly used in Python</li>
+<li>In Python, navigation is done via <code>driver.back()</code>, <code>driver.forward()</code>, <code>driver.refresh()</code></li>
+</ul>
+<hr />
+<h2 id="chapter-2-locating-elements">Chapter 2: Locating Elements<a class="headerlink" href="#chapter-2-locating-elements" title="Permanent link">&para;</a></h2>
+<h3 id="why-locators-matter">Why Locators Matter<a class="headerlink" href="#why-locators-matter" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Every interaction in Selenium requires first <em>locating</em> a web element on the page</li>
+<li>Selenium provides <strong>8 locator strategies</strong>, each with a single-element and multiple-element variant</li>
+</ul>
+<h3 id="locator-strategies">Locator Strategies<a class="headerlink" href="#locator-strategies" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Strategy</th>
+<th>Single Element</th>
+<th>Multiple Elements</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ID</td>
+<td><code>find_element_by_id('val')</code></td>
+<td><code>find_elements_by_id('val')</code></td>
+</tr>
+<tr>
+<td>Name</td>
+<td><code>find_element_by_name('val')</code></td>
+<td><code>find_elements_by_name('val')</code></td>
+</tr>
+<tr>
+<td>XPath</td>
+<td><code>find_element_by_xpath('expr')</code></td>
+<td><code>find_elements_by_xpath('expr')</code></td>
+</tr>
+<tr>
+<td>CSS Selector</td>
+<td><code>find_element_by_css_selector('sel')</code></td>
+<td><code>find_elements_by_css_selector('sel')</code></td>
+</tr>
+<tr>
+<td>Link Text</td>
+<td><code>find_element_by_link_text('text')</code></td>
+<td><code>find_elements_by_link_text('text')</code></td>
+</tr>
+<tr>
+<td>Partial Link Text</td>
+<td><code>find_element_by_partial_link_text('t')</code></td>
+<td><code>find_elements_by_partial_link_text('t')</code></td>
+</tr>
+<tr>
+<td>Tag Name</td>
+<td><code>find_element_by_tag_name('tag')</code></td>
+<td><code>find_elements_by_tag_name('tag')</code></td>
+</tr>
+<tr>
+<td>Class Name</td>
+<td><code>find_element_by_class_name('cls')</code></td>
+<td><code>find_elements_by_class_name('cls')</code></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>Note:</strong> The <code>find_element_by_*</code> methods are deprecated in Selenium 4+. Modern usage:
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">selenium.webdriver.common.by</span><span class="w"> </span><span class="kn">import</span> <span class="n">By</span>
+<span class="n">driver</span><span class="o">.</span><span class="n">find_element</span><span class="p">(</span><span class="n">By</span><span class="o">.</span><span class="n">ID</span><span class="p">,</span> <span class="s1">&#39;value&#39;</span><span class="p">)</span>
+<span class="n">driver</span><span class="o">.</span><span class="n">find_elements</span><span class="p">(</span><span class="n">By</span><span class="o">.</span><span class="n">XPATH</span><span class="p">,</span> <span class="s1">&#39;//div&#39;</span><span class="p">)</span>
+</code></pre></div></p>
+</blockquote>
+<h3 id="id-locator">ID Locator<a class="headerlink" href="#id-locator" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Fastest and most reliable — IDs should be unique per page</li>
+<li><code>find_element_by_id('username')</code> targets <code>&lt;input id="username"&gt;</code></li>
+<li>Returns <code>NoSuchElementException</code> if not found</li>
+</ul>
+<h3 id="name-locator">Name Locator<a class="headerlink" href="#name-locator" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Targets the <code>name</code> attribute; not guaranteed unique</li>
+<li><code>find_element_by_name('email')</code> targets <code>&lt;input name="email"&gt;</code></li>
+<li><code>find_elements_by_name()</code> returns a list when multiple elements share the same name</li>
+</ul>
+<h3 id="xpath-locator">XPath Locator<a class="headerlink" href="#xpath-locator" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Most flexible and powerful; can navigate entire DOM tree</li>
+<li><strong>Absolute XPath</strong>: starts from root <code>/html/body/div[1]/form/input[2]</code> — brittle, breaks with DOM changes</li>
+<li><strong>Relative XPath</strong>: starts with <code>//</code> — more robust</li>
+</ul>
+<h4 id="xpath-syntax">XPath Syntax<a class="headerlink" href="#xpath-syntax" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code>//tagname[@attribute=&#39;value&#39;]
+</code></pre></div>
+<h4 id="xpath-with-logical-operators">XPath with Logical Operators<a class="headerlink" href="#xpath-with-logical-operators" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="c1"># AND — both conditions must be true</span>
+<span class="n">driver</span><span class="o">.</span><span class="n">find_element_by_xpath</span><span class="p">(</span><span class="s2">&quot;//input[@id=&#39;user&#39; and @name=&#39;username&#39;]&quot;</span><span class="p">)</span>
+
+<span class="c1"># OR — either condition can be true</span>
+<span class="n">driver</span><span class="o">.</span><span class="n">find_element_by_xpath</span><span class="p">(</span><span class="s2">&quot;//input[@id=&#39;user&#39; or @name=&#39;username&#39;]&quot;</span><span class="p">)</span>
+</code></pre></div>
+<h4 id="xpath-functions">XPath Functions<a class="headerlink" href="#xpath-functions" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="c1"># contains() — partial attribute match</span>
+<span class="n">driver</span><span class="o">.</span><span class="n">find_element_by_xpath</span><span class="p">(</span><span class="s2">&quot;//input[contains(@id, &#39;user&#39;)]&quot;</span><span class="p">)</span>
+
+<span class="c1"># text() — match visible text content</span>
+<span class="n">driver</span><span class="o">.</span><span class="n">find_element_by_xpath</span><span class="p">(</span><span class="s2">&quot;//label[text()=&#39;Username&#39;]&quot;</span><span class="p">)</span>
+
+<span class="c1"># starts-with() — attribute prefix match</span>
+<span class="n">driver</span><span class="o">.</span><span class="n">find_element_by_xpath</span><span class="p">(</span><span class="s2">&quot;//input[starts-with(@id, &#39;user&#39;)]&quot;</span><span class="p">)</span>
+</code></pre></div>
+<h4 id="xpath-axes-13-methods-for-dom-traversal">XPath Axes (13 methods for DOM traversal)<a class="headerlink" href="#xpath-axes-13-methods-for-dom-traversal" title="Permanent link">&para;</a></h4>
+<ul>
+<li><code>ancestor</code> — all ancestors up to root</li>
+<li><code>ancestor-or-self</code> — ancestors including current node</li>
+<li><code>child</code> — direct children</li>
+<li><code>descendant</code> — all children/grandchildren/etc.</li>
+<li><code>descendant-or-self</code> — descendants including current node</li>
+<li><code>following</code> — everything after the closing tag</li>
+<li><code>following-sibling</code> — siblings after current node</li>
+<li><code>parent</code> — direct parent</li>
+<li><code>preceding</code> — everything before the opening tag</li>
+<li><code>preceding-sibling</code> — siblings before current node</li>
+<li><code>self</code> — the current node</li>
+<li><code>attribute</code> — all attributes of the current node</li>
+<li><code>namespace</code> — namespace nodes</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="c1"># Example: find parent of an element</span>
+<span class="n">driver</span><span class="o">.</span><span class="n">find_element_by_xpath</span><span class="p">(</span><span class="s2">&quot;//input[@id=&#39;user&#39;]/parent::div&quot;</span><span class="p">)</span>
+
+<span class="c1"># Example: find following sibling</span>
+<span class="n">driver</span><span class="o">.</span><span class="n">find_element_by_xpath</span><span class="p">(</span><span class="s2">&quot;//label[@id=&#39;lbl&#39;]/following-sibling::input&quot;</span><span class="p">)</span>
+</code></pre></div>
+<h3 id="css-selector-locator">CSS Selector Locator<a class="headerlink" href="#css-selector-locator" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Generally faster than XPath in most browsers</li>
+<li>Cannot traverse upward in the DOM (no parent selection)</li>
+</ul>
+<h4 id="css-selector-syntax">CSS Selector Syntax<a class="headerlink" href="#css-selector-syntax" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="c1"># By ID (#)</span>
+<span class="n">driver</span><span class="o">.</span><span class="n">find_element_by_css_selector</span><span class="p">(</span><span class="s2">&quot;#username&quot;</span><span class="p">)</span>
+
+<span class="c1"># By Class (.)</span>
+<span class="n">driver</span><span class="o">.</span><span class="n">find_element_by_css_selector</span><span class="p">(</span><span class="s2">&quot;.form-control&quot;</span><span class="p">)</span>
+
+<span class="c1"># By Attribute</span>
+<span class="n">driver</span><span class="o">.</span><span class="n">find_element_by_css_selector</span><span class="p">(</span><span class="s2">&quot;input[name=&#39;email&#39;]&quot;</span><span class="p">)</span>
+
+<span class="c1"># Substring matching</span>
+<span class="n">driver</span><span class="o">.</span><span class="n">find_element_by_css_selector</span><span class="p">(</span><span class="s2">&quot;input[id^=&#39;user&#39;]&quot;</span><span class="p">)</span>   <span class="c1"># starts with</span>
+<span class="n">driver</span><span class="o">.</span><span class="n">find_element_by_css_selector</span><span class="p">(</span><span class="s2">&quot;input[id$=&#39;name&#39;]&quot;</span><span class="p">)</span>   <span class="c1"># ends with</span>
+<span class="n">driver</span><span class="o">.</span><span class="n">find_element_by_css_selector</span><span class="p">(</span><span class="s2">&quot;input[id*=&#39;ser&#39;]&quot;</span><span class="p">)</span>    <span class="c1"># contains</span>
+
+<span class="c1"># Direct child (&gt;)</span>
+<span class="n">driver</span><span class="o">.</span><span class="n">find_element_by_css_selector</span><span class="p">(</span><span class="s2">&quot;form &gt; input&quot;</span><span class="p">)</span>
+
+<span class="c1"># nth-of-type</span>
+<span class="n">driver</span><span class="o">.</span><span class="n">find_element_by_css_selector</span><span class="p">(</span><span class="s2">&quot;input:nth-of-type(2)&quot;</span><span class="p">)</span>
+
+<span class="c1"># Inner text (non-standard, limited support)</span>
+<span class="n">driver</span><span class="o">.</span><span class="n">find_element_by_css_selector</span><span class="p">(</span><span class="s2">&quot;a:contains(&#39;Login&#39;)&quot;</span><span class="p">)</span>
+</code></pre></div>
+<h3 id="link-text-and-partial-link-text">Link Text and Partial Link Text<a class="headerlink" href="#link-text-and-partial-link-text" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Only works on <code>&lt;a&gt;</code> (anchor) elements
+<div class="highlight"><pre><span></span><code><span class="c1"># Exact match of visible link text</span>
+<span class="n">driver</span><span class="o">.</span><span class="n">find_element_by_link_text</span><span class="p">(</span><span class="s2">&quot;Click Here&quot;</span><span class="p">)</span>
+
+<span class="c1"># Partial match</span>
+<span class="n">driver</span><span class="o">.</span><span class="n">find_element_by_partial_link_text</span><span class="p">(</span><span class="s2">&quot;Click&quot;</span><span class="p">)</span>
+</code></pre></div></li>
+</ul>
+<h3 id="tag-name-locator">Tag Name Locator<a class="headerlink" href="#tag-name-locator" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Locates by HTML tag — useful when few elements of that tag exist
+<div class="highlight"><pre><span></span><code><span class="n">driver</span><span class="o">.</span><span class="n">find_element_by_tag_name</span><span class="p">(</span><span class="s2">&quot;h1&quot;</span><span class="p">)</span>
+<span class="n">driver</span><span class="o">.</span><span class="n">find_elements_by_tag_name</span><span class="p">(</span><span class="s2">&quot;a&quot;</span><span class="p">)</span>  <span class="c1"># all links on page</span>
+</code></pre></div></li>
+</ul>
+<h3 id="class-name-locator">Class Name Locator<a class="headerlink" href="#class-name-locator" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Targets the <code>class</code> attribute</li>
+<li>Compound classes (e.g., <code>class="btn btn-primary"</code>) must be targeted one class at a time
+<div class="highlight"><pre><span></span><code><span class="n">driver</span><span class="o">.</span><span class="n">find_element_by_class_name</span><span class="p">(</span><span class="s2">&quot;btn-primary&quot;</span><span class="p">)</span>
+</code></pre></div></li>
+</ul>
+<hr />
+<h2 id="chapter-3-mouse-and-keyboard-actions">Chapter 3: Mouse and Keyboard Actions<a class="headerlink" href="#chapter-3-mouse-and-keyboard-actions" title="Permanent link">&para;</a></h2>
+<h3 id="actionchains">ActionChains<a class="headerlink" href="#actionchains" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>ActionChains</strong> queue up a series of input actions and execute them in order via <code>.perform()</code></li>
+<li>Import: <code>from selenium.webdriver.common.action_chains import ActionChains</code></li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="n">actions</span> <span class="o">=</span> <span class="n">ActionChains</span><span class="p">(</span><span class="n">driver</span><span class="p">)</span>
+<span class="n">actions</span><span class="o">.</span><span class="n">move_to_element</span><span class="p">(</span><span class="n">element</span><span class="p">)</span><span class="o">.</span><span class="n">click</span><span class="p">()</span><span class="o">.</span><span class="n">perform</span><span class="p">()</span>
+</code></pre></div>
+<h3 id="mouse-actions">Mouse Actions<a class="headerlink" href="#mouse-actions" title="Permanent link">&para;</a></h3>
+<h4 id="click">click()<a class="headerlink" href="#click" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="n">ActionChains</span><span class="p">(</span><span class="n">driver</span><span class="p">)</span><span class="o">.</span><span class="n">click</span><span class="p">(</span><span class="n">element</span><span class="p">)</span><span class="o">.</span><span class="n">perform</span><span class="p">()</span>
+<span class="c1"># or simply</span>
+<span class="n">element</span><span class="o">.</span><span class="n">click</span><span class="p">()</span>
+</code></pre></div>
+<h4 id="double_click">double_click()<a class="headerlink" href="#double_click" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="n">ActionChains</span><span class="p">(</span><span class="n">driver</span><span class="p">)</span><span class="o">.</span><span class="n">double_click</span><span class="p">(</span><span class="n">element</span><span class="p">)</span><span class="o">.</span><span class="n">perform</span><span class="p">()</span>
+</code></pre></div>
+<h4 id="context_click-right-click">context_click() (right-click)<a class="headerlink" href="#context_click-right-click" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="n">ActionChains</span><span class="p">(</span><span class="n">driver</span><span class="p">)</span><span class="o">.</span><span class="n">context_click</span><span class="p">(</span><span class="n">element</span><span class="p">)</span><span class="o">.</span><span class="n">perform</span><span class="p">()</span>
+</code></pre></div>
+<h4 id="click_and_hold">click_and_hold()<a class="headerlink" href="#click_and_hold" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="n">ActionChains</span><span class="p">(</span><span class="n">driver</span><span class="p">)</span><span class="o">.</span><span class="n">click_and_hold</span><span class="p">(</span><span class="n">element</span><span class="p">)</span><span class="o">.</span><span class="n">perform</span><span class="p">()</span>
+</code></pre></div>
+<h4 id="drag_and_drop">drag_and_drop()<a class="headerlink" href="#drag_and_drop" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="c1"># Drag source element to target element</span>
+<span class="n">ActionChains</span><span class="p">(</span><span class="n">driver</span><span class="p">)</span><span class="o">.</span><span class="n">drag_and_drop</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="n">target</span><span class="p">)</span><span class="o">.</span><span class="n">perform</span><span class="p">()</span>
+</code></pre></div>
+<h4 id="drag_and_drop_by_offset">drag_and_drop_by_offset()<a class="headerlink" href="#drag_and_drop_by_offset" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="c1"># Drag element by pixel offset (x, y)</span>
+<span class="n">ActionChains</span><span class="p">(</span><span class="n">driver</span><span class="p">)</span><span class="o">.</span><span class="n">drag_and_drop_by_offset</span><span class="p">(</span><span class="n">element</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">50</span><span class="p">)</span><span class="o">.</span><span class="n">perform</span><span class="p">()</span>
+</code></pre></div>
+<h4 id="move_to_element-hover">move_to_element() (hover)<a class="headerlink" href="#move_to_element-hover" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="n">ActionChains</span><span class="p">(</span><span class="n">driver</span><span class="p">)</span><span class="o">.</span><span class="n">move_to_element</span><span class="p">(</span><span class="n">element</span><span class="p">)</span><span class="o">.</span><span class="n">perform</span><span class="p">()</span>
+</code></pre></div>
+<h4 id="release">release()<a class="headerlink" href="#release" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="c1"># Release a held click</span>
+<span class="n">ActionChains</span><span class="p">(</span><span class="n">driver</span><span class="p">)</span><span class="o">.</span><span class="n">click_and_hold</span><span class="p">(</span><span class="n">element</span><span class="p">)</span><span class="o">.</span><span class="n">release</span><span class="p">()</span><span class="o">.</span><span class="n">perform</span><span class="p">()</span>
+</code></pre></div>
+<h3 id="keyboard-actions">Keyboard Actions<a class="headerlink" href="#keyboard-actions" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Import: <code>from selenium.webdriver.common.keys import Keys</code></li>
+</ul>
+<h4 id="key_down-key_up">key_down() / key_up()<a class="headerlink" href="#key_down-key_up" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="c1"># Hold Shift while typing</span>
+<span class="n">ActionChains</span><span class="p">(</span><span class="n">driver</span><span class="p">)</span><span class="o">.</span><span class="n">key_down</span><span class="p">(</span><span class="n">Keys</span><span class="o">.</span><span class="n">SHIFT</span><span class="p">)</span><span class="o">.</span><span class="n">send_keys</span><span class="p">(</span><span class="s2">&quot;hello&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">key_up</span><span class="p">(</span><span class="n">Keys</span><span class="o">.</span><span class="n">SHIFT</span><span class="p">)</span><span class="o">.</span><span class="n">perform</span><span class="p">()</span>
+<span class="c1"># Result: &quot;HELLO&quot;</span>
+</code></pre></div>
+<h4 id="send_keys-send_keys_to_element">send_keys() / send_keys_to_element()<a class="headerlink" href="#send_keys-send_keys_to_element" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="c1"># send_keys acts on the focused element</span>
+<span class="n">ActionChains</span><span class="p">(</span><span class="n">driver</span><span class="p">)</span><span class="o">.</span><span class="n">send_keys</span><span class="p">(</span><span class="s2">&quot;some text&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">perform</span><span class="p">()</span>
+
+<span class="c1"># send_keys_to_element targets a specific element</span>
+<span class="n">ActionChains</span><span class="p">(</span><span class="n">driver</span><span class="p">)</span><span class="o">.</span><span class="n">send_keys_to_element</span><span class="p">(</span><span class="n">element</span><span class="p">,</span> <span class="s2">&quot;text&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">perform</span><span class="p">()</span>
+</code></pre></div>
+<h4 id="common-keys-constants">Common Keys Constants<a class="headerlink" href="#common-keys-constants" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="n">Keys</span><span class="o">.</span><span class="n">ENTER</span><span class="p">,</span> <span class="n">Keys</span><span class="o">.</span><span class="n">RETURN</span><span class="p">,</span> <span class="n">Keys</span><span class="o">.</span><span class="n">TAB</span><span class="p">,</span> <span class="n">Keys</span><span class="o">.</span><span class="n">ESCAPE</span>
+<span class="n">Keys</span><span class="o">.</span><span class="n">BACKSPACE</span><span class="p">,</span> <span class="n">Keys</span><span class="o">.</span><span class="n">DELETE</span>
+<span class="n">Keys</span><span class="o">.</span><span class="n">ARROW_UP</span><span class="p">,</span> <span class="n">Keys</span><span class="o">.</span><span class="n">ARROW_DOWN</span><span class="p">,</span> <span class="n">Keys</span><span class="o">.</span><span class="n">ARROW_LEFT</span><span class="p">,</span> <span class="n">Keys</span><span class="o">.</span><span class="n">ARROW_RIGHT</span>
+<span class="n">Keys</span><span class="o">.</span><span class="n">SHIFT</span><span class="p">,</span> <span class="n">Keys</span><span class="o">.</span><span class="n">CONTROL</span><span class="p">,</span> <span class="n">Keys</span><span class="o">.</span><span class="n">ALT</span><span class="p">,</span> <span class="n">Keys</span><span class="o">.</span><span class="n">COMMAND</span>
+<span class="n">Keys</span><span class="o">.</span><span class="n">HOME</span><span class="p">,</span> <span class="n">Keys</span><span class="o">.</span><span class="n">END</span><span class="p">,</span> <span class="n">Keys</span><span class="o">.</span><span class="n">PAGE_UP</span><span class="p">,</span> <span class="n">Keys</span><span class="o">.</span><span class="n">PAGE_DOWN</span>
+<span class="n">Keys</span><span class="o">.</span><span class="n">F1</span> <span class="n">through</span> <span class="n">Keys</span><span class="o">.</span><span class="n">F12</span>
+</code></pre></div>
+<h4 id="pause">pause()<a class="headerlink" href="#pause" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="c1"># Pause between actions (seconds)</span>
+<span class="n">ActionChains</span><span class="p">(</span><span class="n">driver</span><span class="p">)</span><span class="o">.</span><span class="n">click</span><span class="p">(</span><span class="n">el1</span><span class="p">)</span><span class="o">.</span><span class="n">pause</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">click</span><span class="p">(</span><span class="n">el2</span><span class="p">)</span><span class="o">.</span><span class="n">perform</span><span class="p">()</span>
+</code></pre></div>
+<h4 id="reset_actions">reset_actions()<a class="headerlink" href="#reset_actions" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="c1"># Clear all queued actions</span>
+<span class="n">actions</span> <span class="o">=</span> <span class="n">ActionChains</span><span class="p">(</span><span class="n">driver</span><span class="p">)</span>
+<span class="n">actions</span><span class="o">.</span><span class="n">click</span><span class="p">(</span><span class="n">element</span><span class="p">)</span>
+<span class="n">actions</span><span class="o">.</span><span class="n">reset_actions</span><span class="p">()</span>  <span class="c1"># clears the queue</span>
+</code></pre></div>
+<hr />
+<h2 id="chapter-4-web-elements">Chapter 4: Web Elements<a class="headerlink" href="#chapter-4-web-elements" title="Permanent link">&para;</a></h2>
+<h3 id="what-is-a-web-element">What Is a Web Element?<a class="headerlink" href="#what-is-a-web-element" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Any HTML component on a page: text fields, buttons, links, dropdowns, images, etc.</li>
+<li>In Selenium, interacting with an element requires first locating it, then calling methods on the returned <code>WebElement</code> object</li>
+</ul>
+<h3 id="key-webelement-properties-and-methods">Key WebElement Properties and Methods<a class="headerlink" href="#key-webelement-properties-and-methods" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="n">element</span><span class="o">.</span><span class="n">text</span>                    <span class="c1"># visible text content</span>
+<span class="n">element</span><span class="o">.</span><span class="n">tag_name</span>                <span class="c1"># HTML tag name (e.g., &#39;input&#39;, &#39;div&#39;)</span>
+<span class="n">element</span><span class="o">.</span><span class="n">size</span>                    <span class="c1"># dict with &#39;height&#39; and &#39;width&#39;</span>
+<span class="n">element</span><span class="o">.</span><span class="n">location</span>                <span class="c1"># dict with &#39;x&#39; and &#39;y&#39; pixel coordinates</span>
+<span class="n">element</span><span class="o">.</span><span class="n">rect</span>                    <span class="c1"># combined: x, y, height, width</span>
+<span class="n">element</span><span class="o">.</span><span class="n">is_displayed</span><span class="p">()</span>          <span class="c1"># True if visible</span>
+<span class="n">element</span><span class="o">.</span><span class="n">is_enabled</span><span class="p">()</span>            <span class="c1"># True if interactable</span>
+<span class="n">element</span><span class="o">.</span><span class="n">is_selected</span><span class="p">()</span>           <span class="c1"># True if checked/selected (checkboxes, radios)</span>
+<span class="n">element</span><span class="o">.</span><span class="n">get_attribute</span><span class="p">(</span><span class="s1">&#39;href&#39;</span><span class="p">)</span>   <span class="c1"># get any HTML attribute value</span>
+<span class="n">element</span><span class="o">.</span><span class="n">get_property</span><span class="p">(</span><span class="s1">&#39;value&#39;</span><span class="p">)</span>   <span class="c1"># get DOM property (e.g., current input value)</span>
+<span class="n">element</span><span class="o">.</span><span class="n">value_of_css_property</span><span class="p">(</span><span class="s1">&#39;color&#39;</span><span class="p">)</span>  <span class="c1"># get computed CSS property</span>
+<span class="n">element</span><span class="o">.</span><span class="n">screenshot</span><span class="p">(</span><span class="s1">&#39;el.png&#39;</span><span class="p">)</span>    <span class="c1"># screenshot of just this element</span>
+</code></pre></div>
+<h3 id="web-tables">Web Tables<a class="headerlink" href="#web-tables" title="Permanent link">&para;</a></h3>
+<ul>
+<li>HTML tables use <code>&lt;table&gt;</code>, <code>&lt;thead&gt;</code>, <code>&lt;tbody&gt;</code>, <code>&lt;tr&gt;</code>, <code>&lt;th&gt;</code>, <code>&lt;td&gt;</code></li>
+<li>Access cells via XPath indexing:
+<div class="highlight"><pre><span></span><code><span class="c1"># Get value of row 2, column 3</span>
+<span class="n">cell</span> <span class="o">=</span> <span class="n">driver</span><span class="o">.</span><span class="n">find_element_by_xpath</span><span class="p">(</span><span class="s2">&quot;//table[@id=&#39;t1&#39;]/tbody/tr[2]/td[3]&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">cell</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
+
+<span class="c1"># Count rows</span>
+<span class="n">rows</span> <span class="o">=</span> <span class="n">driver</span><span class="o">.</span><span class="n">find_elements_by_xpath</span><span class="p">(</span><span class="s2">&quot;//table[@id=&#39;t1&#39;]/tbody/tr&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">rows</span><span class="p">))</span>
+
+<span class="c1"># Iterate entire table</span>
+<span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">rows</span><span class="p">:</span>
+    <span class="n">cells</span> <span class="o">=</span> <span class="n">row</span><span class="o">.</span><span class="n">find_elements_by_tag_name</span><span class="p">(</span><span class="s2">&quot;td&quot;</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">cell</span> <span class="ow">in</span> <span class="n">cells</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">cell</span><span class="o">.</span><span class="n">text</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s2">&quot; | &quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">()</span>
+</code></pre></div></li>
+</ul>
+<h3 id="date-pickers">Date Pickers<a class="headerlink" href="#date-pickers" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Common patterns: text input with calendar popup, native <code>&lt;input type="date"&gt;</code>, JavaScript widget
+<div class="highlight"><pre><span></span><code><span class="c1"># Direct value injection via JavaScript for stubborn date pickers</span>
+<span class="n">driver</span><span class="o">.</span><span class="n">execute_script</span><span class="p">(</span>
+    <span class="s2">&quot;document.getElementById(&#39;datepicker&#39;).value = &#39;2021-03-15&#39;&quot;</span>
+<span class="p">)</span>
+
+<span class="c1"># Or via send_keys</span>
+<span class="n">date_input</span> <span class="o">=</span> <span class="n">driver</span><span class="o">.</span><span class="n">find_element_by_id</span><span class="p">(</span><span class="s2">&quot;datepicker&quot;</span><span class="p">)</span>
+<span class="n">date_input</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+<span class="n">date_input</span><span class="o">.</span><span class="n">send_keys</span><span class="p">(</span><span class="s2">&quot;03/15/2021&quot;</span><span class="p">)</span>
+</code></pre></div></li>
+</ul>
+<hr />
+<h2 id="chapter-5-navigation">Chapter 5: Navigation<a class="headerlink" href="#chapter-5-navigation" title="Permanent link">&para;</a></h2>
+<h3 id="navigating-with-hyperlinks">Navigating with Hyperlinks<a class="headerlink" href="#navigating-with-hyperlinks" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># By link text</span>
+<span class="n">driver</span><span class="o">.</span><span class="n">find_element_by_link_text</span><span class="p">(</span><span class="s2">&quot;About Us&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">click</span><span class="p">()</span>
+
+<span class="c1"># By partial link text</span>
+<span class="n">driver</span><span class="o">.</span><span class="n">find_element_by_partial_link_text</span><span class="p">(</span><span class="s2">&quot;About&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">click</span><span class="p">()</span>
+
+<span class="c1"># By XPath</span>
+<span class="n">driver</span><span class="o">.</span><span class="n">find_element_by_xpath</span><span class="p">(</span><span class="s2">&quot;//a[@href=&#39;/about&#39;]&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">click</span><span class="p">()</span>
+
+<span class="c1"># By CSS selector</span>
+<span class="n">driver</span><span class="o">.</span><span class="n">find_element_by_css_selector</span><span class="p">(</span><span class="s2">&quot;a[href=&#39;/about&#39;]&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">click</span><span class="p">()</span>
+
+<span class="c1"># Nth link on the page</span>
+<span class="n">links</span> <span class="o">=</span> <span class="n">driver</span><span class="o">.</span><span class="n">find_elements_by_tag_name</span><span class="p">(</span><span class="s2">&quot;a&quot;</span><span class="p">)</span>
+<span class="n">links</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">click</span><span class="p">()</span>  <span class="c1"># click the 4th link (0-indexed)</span>
+</code></pre></div>
+<h3 id="testing-hyperlinks-broken-link-checker">Testing Hyperlinks (Broken Link Checker)<a class="headerlink" href="#testing-hyperlinks-broken-link-checker" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">requests</span>
+
+<span class="n">links</span> <span class="o">=</span> <span class="n">driver</span><span class="o">.</span><span class="n">find_elements_by_tag_name</span><span class="p">(</span><span class="s2">&quot;a&quot;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">link</span> <span class="ow">in</span> <span class="n">links</span><span class="p">:</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="n">link</span><span class="o">.</span><span class="n">get_attribute</span><span class="p">(</span><span class="s2">&quot;href&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">url</span><span class="p">:</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">allow_redirects</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">response</span><span class="o">.</span><span class="n">status_code</span> <span class="o">&gt;=</span> <span class="mi">400</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;BROKEN: </span><span class="si">{</span><span class="n">url</span><span class="si">}</span><span class="s2"> → </span><span class="si">{</span><span class="n">response</span><span class="o">.</span><span class="n">status_code</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;OK: </span><span class="si">{</span><span class="n">url</span><span class="si">}</span><span class="s2"> → </span><span class="si">{</span><span class="n">response</span><span class="o">.</span><span class="n">status_code</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">except</span> <span class="n">requests</span><span class="o">.</span><span class="n">exceptions</span><span class="o">.</span><span class="n">RequestException</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;ERROR: </span><span class="si">{</span><span class="n">url</span><span class="si">}</span><span class="s2"> → </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</code></pre></div>
+<h3 id="http-status-code-categories">HTTP Status Code Categories<a class="headerlink" href="#http-status-code-categories" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>1xx</strong>: Informational</li>
+<li><strong>2xx</strong>: Success (200 OK, 201 Created)</li>
+<li><strong>3xx</strong>: Redirection (301 Moved Permanently, 302 Found)</li>
+<li><strong>4xx</strong>: Client Error (400 Bad Request, 403 Forbidden, 404 Not Found)</li>
+<li><strong>5xx</strong>: Server Error (500 Internal Server Error, 503 Service Unavailable)</li>
+</ul>
+<h3 id="checking-for-broken-images">Checking for Broken Images<a class="headerlink" href="#checking-for-broken-images" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="n">images</span> <span class="o">=</span> <span class="n">driver</span><span class="o">.</span><span class="n">find_elements_by_tag_name</span><span class="p">(</span><span class="s2">&quot;img&quot;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">img</span> <span class="ow">in</span> <span class="n">images</span><span class="p">:</span>
+    <span class="c1"># Check naturalWidth — broken images have width 0</span>
+    <span class="n">is_loaded</span> <span class="o">=</span> <span class="n">driver</span><span class="o">.</span><span class="n">execute_script</span><span class="p">(</span>
+        <span class="s2">&quot;return arguments[0].naturalWidth &gt; 0&quot;</span><span class="p">,</span> <span class="n">img</span>
+    <span class="p">)</span>
+    <span class="n">src</span> <span class="o">=</span> <span class="n">img</span><span class="o">.</span><span class="n">get_attribute</span><span class="p">(</span><span class="s2">&quot;src&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">is_loaded</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;BROKEN IMAGE: </span><span class="si">{</span><span class="n">src</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</code></pre></div>
+<h3 id="browser-navigation-methods">Browser Navigation Methods<a class="headerlink" href="#browser-navigation-methods" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="n">driver</span><span class="o">.</span><span class="n">back</span><span class="p">()</span>       <span class="c1"># browser back button</span>
+<span class="n">driver</span><span class="o">.</span><span class="n">forward</span><span class="p">()</span>    <span class="c1"># browser forward button</span>
+<span class="n">driver</span><span class="o">.</span><span class="n">refresh</span><span class="p">()</span>    <span class="c1"># reload current page</span>
+</code></pre></div>
+<hr />
+<h2 id="chapter-6-buttons-checkboxes-and-radio-buttons">Chapter 6: Buttons, Checkboxes, and Radio Buttons<a class="headerlink" href="#chapter-6-buttons-checkboxes-and-radio-buttons" title="Permanent link">&para;</a></h2>
+<h3 id="button-types">Button Types<a class="headerlink" href="#button-types" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Default button</strong>: <code>&lt;button&gt;Click Me&lt;/button&gt;</code> or <code>&lt;input type="button" value="Click"&gt;</code></li>
+<li><strong>Submit button</strong>: <code>&lt;input type="submit" value="Submit"&gt;</code> — submits the parent form</li>
+<li><strong>Image button</strong>: <code>&lt;input type="image" src="btn.png"&gt;</code> — acts as a submit with an image</li>
+<li><strong>Reset button</strong>: <code>&lt;input type="reset"&gt;</code> — resets form fields to defaults</li>
+</ul>
+<h3 id="clicking-buttons">Clicking Buttons<a class="headerlink" href="#clicking-buttons" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># Standard click</span>
+<span class="n">driver</span><span class="o">.</span><span class="n">find_element_by_id</span><span class="p">(</span><span class="s2">&quot;submitBtn&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">click</span><span class="p">()</span>
+
+<span class="c1"># Submit a form directly (on any element inside the form)</span>
+<span class="n">driver</span><span class="o">.</span><span class="n">find_element_by_id</span><span class="p">(</span><span class="s2">&quot;myForm&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">submit</span><span class="p">()</span>
+
+<span class="c1"># Using JavaScript for elements obscured by overlays</span>
+<span class="n">driver</span><span class="o">.</span><span class="n">execute_script</span><span class="p">(</span><span class="s2">&quot;arguments[0].click();&quot;</span><span class="p">,</span> <span class="n">button_element</span><span class="p">)</span>
+</code></pre></div>
+<h3 id="checkboxes">Checkboxes<a class="headerlink" href="#checkboxes" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="n">checkbox</span> <span class="o">=</span> <span class="n">driver</span><span class="o">.</span><span class="n">find_element_by_id</span><span class="p">(</span><span class="s2">&quot;agree&quot;</span><span class="p">)</span>
+
+<span class="c1"># Check if currently selected</span>
+<span class="k">if</span> <span class="ow">not</span> <span class="n">checkbox</span><span class="o">.</span><span class="n">is_selected</span><span class="p">():</span>
+    <span class="n">checkbox</span><span class="o">.</span><span class="n">click</span><span class="p">()</span>  <span class="c1"># check it</span>
+
+<span class="c1"># Uncheck</span>
+<span class="k">if</span> <span class="n">checkbox</span><span class="o">.</span><span class="n">is_selected</span><span class="p">():</span>
+    <span class="n">checkbox</span><span class="o">.</span><span class="n">click</span><span class="p">()</span>  <span class="c1"># uncheck it</span>
+
+<span class="c1"># Count selected checkboxes</span>
+<span class="n">checkboxes</span> <span class="o">=</span> <span class="n">driver</span><span class="o">.</span><span class="n">find_elements_by_css_selector</span><span class="p">(</span><span class="s2">&quot;input[type=&#39;checkbox&#39;]&quot;</span><span class="p">)</span>
+<span class="n">selected</span> <span class="o">=</span> <span class="p">[</span><span class="n">cb</span> <span class="k">for</span> <span class="n">cb</span> <span class="ow">in</span> <span class="n">checkboxes</span> <span class="k">if</span> <span class="n">cb</span><span class="o">.</span><span class="n">is_selected</span><span class="p">()]</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">selected</span><span class="p">)</span><span class="si">}</span><span class="s2"> of </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">checkboxes</span><span class="p">)</span><span class="si">}</span><span class="s2"> checked&quot;</span><span class="p">)</span>
+</code></pre></div>
+<h3 id="radio-buttons">Radio Buttons<a class="headerlink" href="#radio-buttons" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># Select a radio button by value</span>
+<span class="n">radios</span> <span class="o">=</span> <span class="n">driver</span><span class="o">.</span><span class="n">find_elements_by_name</span><span class="p">(</span><span class="s2">&quot;gender&quot;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">radio</span> <span class="ow">in</span> <span class="n">radios</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">radio</span><span class="o">.</span><span class="n">get_attribute</span><span class="p">(</span><span class="s2">&quot;value&quot;</span><span class="p">)</span> <span class="o">==</span> <span class="s2">&quot;male&quot;</span><span class="p">:</span>
+        <span class="n">radio</span><span class="o">.</span><span class="n">click</span><span class="p">()</span>
+        <span class="k">break</span>
+
+<span class="c1"># Check which radio is selected</span>
+<span class="k">for</span> <span class="n">radio</span> <span class="ow">in</span> <span class="n">radios</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">radio</span><span class="o">.</span><span class="n">is_selected</span><span class="p">():</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Selected: </span><span class="si">{</span><span class="n">radio</span><span class="o">.</span><span class="n">get_attribute</span><span class="p">(</span><span class="s1">&#39;value&#39;</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</code></pre></div>
+<h3 id="buttonelement-assertion-methods">Button/Element Assertion Methods<a class="headerlink" href="#buttonelement-assertion-methods" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="n">element</span><span class="o">.</span><span class="n">is_displayed</span><span class="p">()</span>   <span class="c1"># visible on page?</span>
+<span class="n">element</span><span class="o">.</span><span class="n">is_enabled</span><span class="p">()</span>     <span class="c1"># not disabled?</span>
+<span class="n">element</span><span class="o">.</span><span class="n">is_selected</span><span class="p">()</span>    <span class="c1"># checked/selected? (checkboxes, radios, options)</span>
+<span class="n">element</span><span class="o">.</span><span class="n">get_attribute</span><span class="p">(</span><span class="s2">&quot;class&quot;</span><span class="p">)</span>  <span class="c1"># read any attribute</span>
+</code></pre></div>
+<h3 id="select-dropdown-lists">Select (Dropdown) Lists<a class="headerlink" href="#select-dropdown-lists" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Import: <code>from selenium.webdriver.support.select import Select</code></li>
+</ul>
+<h4 id="single-select">Single Select<a class="headerlink" href="#single-select" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="n">dropdown</span> <span class="o">=</span> <span class="n">Select</span><span class="p">(</span><span class="n">driver</span><span class="o">.</span><span class="n">find_element_by_id</span><span class="p">(</span><span class="s2">&quot;country&quot;</span><span class="p">))</span>
+
+<span class="n">dropdown</span><span class="o">.</span><span class="n">select_by_visible_text</span><span class="p">(</span><span class="s2">&quot;United States&quot;</span><span class="p">)</span>
+<span class="n">dropdown</span><span class="o">.</span><span class="n">select_by_value</span><span class="p">(</span><span class="s2">&quot;us&quot;</span><span class="p">)</span>
+<span class="n">dropdown</span><span class="o">.</span><span class="n">select_by_index</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>  <span class="c1"># 0-indexed</span>
+
+<span class="c1"># Get currently selected option</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">dropdown</span><span class="o">.</span><span class="n">first_selected_option</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
+
+<span class="c1"># Get all options</span>
+<span class="k">for</span> <span class="n">option</span> <span class="ow">in</span> <span class="n">dropdown</span><span class="o">.</span><span class="n">options</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">option</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
+</code></pre></div>
+<h4 id="multiple-select">Multiple Select<a class="headerlink" href="#multiple-select" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="n">multi</span> <span class="o">=</span> <span class="n">Select</span><span class="p">(</span><span class="n">driver</span><span class="o">.</span><span class="n">find_element_by_id</span><span class="p">(</span><span class="s2">&quot;languages&quot;</span><span class="p">))</span>
+
+<span class="n">multi</span><span class="o">.</span><span class="n">select_by_visible_text</span><span class="p">(</span><span class="s2">&quot;Python&quot;</span><span class="p">)</span>
+<span class="n">multi</span><span class="o">.</span><span class="n">select_by_visible_text</span><span class="p">(</span><span class="s2">&quot;JavaScript&quot;</span><span class="p">)</span>
+
+<span class="c1"># Get all selected</span>
+<span class="k">for</span> <span class="n">opt</span> <span class="ow">in</span> <span class="n">multi</span><span class="o">.</span><span class="n">all_selected_options</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">opt</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
+
+<span class="c1"># Deselect</span>
+<span class="n">multi</span><span class="o">.</span><span class="n">deselect_by_visible_text</span><span class="p">(</span><span class="s2">&quot;Python&quot;</span><span class="p">)</span>
+<span class="n">multi</span><span class="o">.</span><span class="n">deselect_by_value</span><span class="p">(</span><span class="s2">&quot;js&quot;</span><span class="p">)</span>
+<span class="n">multi</span><span class="o">.</span><span class="n">deselect_by_index</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">multi</span><span class="o">.</span><span class="n">deselect_all</span><span class="p">()</span>
+</code></pre></div>
+<blockquote>
+<p><strong>Note:</strong> <code>deselect_*</code> methods only work on <code>&lt;select multiple&gt;</code> elements. Calling them on a single-select raises <code>NotImplementedError</code>.</p>
+</blockquote>
+<hr />
+<h2 id="chapter-7-frames-and-textboxes">Chapter 7: Frames and Textboxes<a class="headerlink" href="#chapter-7-frames-and-textboxes" title="Permanent link">&para;</a></h2>
+<h3 id="frames-and-iframes">Frames and iFrames<a class="headerlink" href="#frames-and-iframes" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Frame</strong>: <code>&lt;frame&gt;</code> (deprecated HTML4) — divides window into sections</li>
+<li><strong>iFrame</strong>: <code>&lt;iframe&gt;</code> — embeds another HTML document within the current page</li>
+<li>Selenium can only interact with elements inside one frame at a time; you must explicitly switch</li>
+</ul>
+<h4 id="switching-to-a-frame">Switching to a Frame<a class="headerlink" href="#switching-to-a-frame" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="c1"># By ID or Name attribute</span>
+<span class="n">driver</span><span class="o">.</span><span class="n">switch_to</span><span class="o">.</span><span class="n">frame</span><span class="p">(</span><span class="s2">&quot;frame_id&quot;</span><span class="p">)</span>
+<span class="n">driver</span><span class="o">.</span><span class="n">switch_to</span><span class="o">.</span><span class="n">frame</span><span class="p">(</span><span class="s2">&quot;frame_name&quot;</span><span class="p">)</span>
+
+<span class="c1"># By index (0-based)</span>
+<span class="n">driver</span><span class="o">.</span><span class="n">switch_to</span><span class="o">.</span><span class="n">frame</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>  <span class="c1"># first frame on the page</span>
+
+<span class="c1"># By WebElement</span>
+<span class="n">frame_el</span> <span class="o">=</span> <span class="n">driver</span><span class="o">.</span><span class="n">find_element_by_xpath</span><span class="p">(</span><span class="s2">&quot;//iframe[@class=&#39;content&#39;]&quot;</span><span class="p">)</span>
+<span class="n">driver</span><span class="o">.</span><span class="n">switch_to</span><span class="o">.</span><span class="n">frame</span><span class="p">(</span><span class="n">frame_el</span><span class="p">)</span>
+</code></pre></div>
+<h4 id="switching-back">Switching Back<a class="headerlink" href="#switching-back" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="c1"># Back to the main (top-level) document</span>
+<span class="n">driver</span><span class="o">.</span><span class="n">switch_to</span><span class="o">.</span><span class="n">default_content</span><span class="p">()</span>
+
+<span class="c1"># Back to the parent frame (one level up)</span>
+<span class="n">driver</span><span class="o">.</span><span class="n">switch_to</span><span class="o">.</span><span class="n">parent_frame</span><span class="p">()</span>
+</code></pre></div>
+<h4 id="nested-frames">Nested Frames<a class="headerlink" href="#nested-frames" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="c1"># To interact with a nested frame: switch sequentially</span>
+<span class="n">driver</span><span class="o">.</span><span class="n">switch_to</span><span class="o">.</span><span class="n">frame</span><span class="p">(</span><span class="s2">&quot;outer_frame&quot;</span><span class="p">)</span>
+<span class="n">driver</span><span class="o">.</span><span class="n">switch_to</span><span class="o">.</span><span class="n">frame</span><span class="p">(</span><span class="s2">&quot;inner_frame&quot;</span><span class="p">)</span>
+<span class="c1"># ... interact with inner frame elements ...</span>
+<span class="n">driver</span><span class="o">.</span><span class="n">switch_to</span><span class="o">.</span><span class="n">default_content</span><span class="p">()</span>  <span class="c1"># back to top</span>
+</code></pre></div>
+<h4 id="frames-with-explicit-waits">Frames with Explicit Waits<a class="headerlink" href="#frames-with-explicit-waits" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">selenium.webdriver.support.ui</span><span class="w"> </span><span class="kn">import</span> <span class="n">WebDriverWait</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">selenium.webdriver.support</span><span class="w"> </span><span class="kn">import</span> <span class="n">expected_conditions</span> <span class="k">as</span> <span class="n">EC</span>
+
+<span class="c1"># Wait until frame is available, then switch</span>
+<span class="n">WebDriverWait</span><span class="p">(</span><span class="n">driver</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span><span class="o">.</span><span class="n">until</span><span class="p">(</span>
+    <span class="n">EC</span><span class="o">.</span><span class="n">frame_to_be_available_and_switch_to_it</span><span class="p">(</span><span class="s2">&quot;frame_id&quot;</span><span class="p">)</span>
+<span class="p">)</span>
+</code></pre></div>
+<h3 id="textboxes">Textboxes<a class="headerlink" href="#textboxes" title="Permanent link">&para;</a></h3>
+<h4 id="single-line-input">Single-Line Input<a class="headerlink" href="#single-line-input" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="n">textbox</span> <span class="o">=</span> <span class="n">driver</span><span class="o">.</span><span class="n">find_element_by_id</span><span class="p">(</span><span class="s2">&quot;username&quot;</span><span class="p">)</span>
+<span class="n">textbox</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>                  <span class="c1"># clear existing text</span>
+<span class="n">textbox</span><span class="o">.</span><span class="n">send_keys</span><span class="p">(</span><span class="s2">&quot;my_user&quot;</span><span class="p">)</span>    <span class="c1"># type into the field</span>
+
+<span class="c1"># Read current value</span>
+<span class="n">current_val</span> <span class="o">=</span> <span class="n">textbox</span><span class="o">.</span><span class="n">get_property</span><span class="p">(</span><span class="s2">&quot;value&quot;</span><span class="p">)</span>
+<span class="c1"># Note: .text returns empty string for input fields; use get_property(&#39;value&#39;)</span>
+</code></pre></div>
+<h4 id="multi-line-textarea">Multi-Line Textarea<a class="headerlink" href="#multi-line-textarea" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="n">textarea</span> <span class="o">=</span> <span class="n">driver</span><span class="o">.</span><span class="n">find_element_by_id</span><span class="p">(</span><span class="s2">&quot;comments&quot;</span><span class="p">)</span>
+<span class="n">textarea</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+<span class="n">textarea</span><span class="o">.</span><span class="n">send_keys</span><span class="p">(</span><span class="s2">&quot;Line 1</span><span class="se">\n</span><span class="s2">Line 2</span><span class="se">\n</span><span class="s2">Line 3&quot;</span><span class="p">)</span>
+</code></pre></div>
+<h4 id="common-input-attributes">Common Input Attributes<a class="headerlink" href="#common-input-attributes" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="n">textbox</span><span class="o">.</span><span class="n">get_attribute</span><span class="p">(</span><span class="s2">&quot;placeholder&quot;</span><span class="p">)</span>   <span class="c1"># placeholder text</span>
+<span class="n">textbox</span><span class="o">.</span><span class="n">get_attribute</span><span class="p">(</span><span class="s2">&quot;maxlength&quot;</span><span class="p">)</span>     <span class="c1"># max allowed characters</span>
+<span class="n">textbox</span><span class="o">.</span><span class="n">get_attribute</span><span class="p">(</span><span class="s2">&quot;type&quot;</span><span class="p">)</span>          <span class="c1"># text, password, email, etc.</span>
+<span class="n">textbox</span><span class="o">.</span><span class="n">get_attribute</span><span class="p">(</span><span class="s2">&quot;readonly&quot;</span><span class="p">)</span>      <span class="c1"># None if not readonly</span>
+<span class="n">textbox</span><span class="o">.</span><span class="n">get_attribute</span><span class="p">(</span><span class="s2">&quot;disabled&quot;</span><span class="p">)</span>      <span class="c1"># &quot;true&quot; if disabled</span>
+</code></pre></div>
+<hr />
+<h2 id="chapter-8-assertions">Chapter 8: Assertions<a class="headerlink" href="#chapter-8-assertions" title="Permanent link">&para;</a></h2>
+<h3 id="what-are-assertions">What Are Assertions?<a class="headerlink" href="#what-are-assertions" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Assertion</strong>: a check that verifies an expected condition is true; if false, the test fails</li>
+<li>In Python Selenium testing, assertions come from the <code>unittest</code> module</li>
+<li>Assertions are the mechanism by which a test becomes a <em>test</em> (as opposed to just a script)</li>
+</ul>
+<h3 id="unittest-assertion-methods">unittest Assertion Methods<a class="headerlink" href="#unittest-assertion-methods" title="Permanent link">&para;</a></h3>
+<h4 id="boolean-assertions">Boolean Assertions<a class="headerlink" href="#boolean-assertions" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">unittest</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">TestExample</span><span class="p">(</span><span class="n">unittest</span><span class="o">.</span><span class="n">TestCase</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_booleans</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">(</span><span class="n">expr</span><span class="p">)</span>        <span class="c1"># passes if expr is truthy</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertFalse</span><span class="p">(</span><span class="n">expr</span><span class="p">)</span>       <span class="c1"># passes if expr is falsy</span>
+</code></pre></div>
+<h4 id="equality-assertions">Equality Assertions<a class="headerlink" href="#equality-assertions" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>          <span class="c1"># a == b</span>
+<span class="bp">self</span><span class="o">.</span><span class="n">assertNotEqual</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>       <span class="c1"># a != b</span>
+</code></pre></div>
+<h4 id="identity-assertions">Identity Assertions<a class="headerlink" href="#identity-assertions" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="bp">self</span><span class="o">.</span><span class="n">assertIs</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>             <span class="c1"># a is b (same object)</span>
+<span class="bp">self</span><span class="o">.</span><span class="n">assertIsNot</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>          <span class="c1"># a is not b</span>
+<span class="bp">self</span><span class="o">.</span><span class="n">assertIsNone</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>            <span class="c1"># a is None</span>
+<span class="bp">self</span><span class="o">.</span><span class="n">assertIsNotNone</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>         <span class="c1"># a is not None</span>
+</code></pre></div>
+<h4 id="type-assertions">Type Assertions<a class="headerlink" href="#type-assertions" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="bp">self</span><span class="o">.</span><span class="n">assertIsInstance</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span>       <span class="c1"># isinstance(a, list)</span>
+<span class="bp">self</span><span class="o">.</span><span class="n">assertNotIsInstance</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span>     <span class="c1"># not isinstance(a, str)</span>
+</code></pre></div>
+<h4 id="comparison-assertions">Comparison Assertions<a class="headerlink" href="#comparison-assertions" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="bp">self</span><span class="o">.</span><span class="n">assertGreater</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>        <span class="c1"># a &gt; b</span>
+<span class="bp">self</span><span class="o">.</span><span class="n">assertGreaterEqual</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>   <span class="c1"># a &gt;= b</span>
+<span class="bp">self</span><span class="o">.</span><span class="n">assertLess</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>           <span class="c1"># a &lt; b</span>
+<span class="bp">self</span><span class="o">.</span><span class="n">assertLessEqual</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>      <span class="c1"># a &lt;= b</span>
+</code></pre></div>
+<h4 id="membership-assertions">Membership Assertions<a class="headerlink" href="#membership-assertions" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="bp">self</span><span class="o">.</span><span class="n">assertIn</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>             <span class="c1"># a in b</span>
+<span class="bp">self</span><span class="o">.</span><span class="n">assertNotIn</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>          <span class="c1"># a not in b</span>
+</code></pre></div>
+<h4 id="collection-assertions">Collection Assertions<a class="headerlink" href="#collection-assertions" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="bp">self</span><span class="o">.</span><span class="n">assertListEqual</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>
+<span class="bp">self</span><span class="o">.</span><span class="n">assertTupleEqual</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+<span class="bp">self</span><span class="o">.</span><span class="n">assertSetEqual</span><span class="p">({</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">},</span> <span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">})</span>
+<span class="bp">self</span><span class="o">.</span><span class="n">assertDictEqual</span><span class="p">({</span><span class="s2">&quot;a&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">},</span> <span class="p">{</span><span class="s2">&quot;a&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">})</span>
+</code></pre></div>
+<h3 id="practical-selenium-assertion-examples">Practical Selenium Assertion Examples<a class="headerlink" href="#practical-selenium-assertion-examples" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">TestLogin</span><span class="p">(</span><span class="n">unittest</span><span class="o">.</span><span class="n">TestCase</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">setUp</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">driver</span> <span class="o">=</span> <span class="n">webdriver</span><span class="o">.</span><span class="n">Firefox</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">driver</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;https://example.com/login&quot;</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_page_title</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">driver</span><span class="o">.</span><span class="n">title</span><span class="p">,</span> <span class="s2">&quot;Login Page&quot;</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_element_present</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">elem</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">driver</span><span class="o">.</span><span class="n">find_element_by_id</span><span class="p">(</span><span class="s2">&quot;username&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">(</span><span class="n">elem</span><span class="o">.</span><span class="n">is_displayed</span><span class="p">())</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_button_enabled</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">btn</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">driver</span><span class="o">.</span><span class="n">find_element_by_id</span><span class="p">(</span><span class="s2">&quot;submit&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">(</span><span class="n">btn</span><span class="o">.</span><span class="n">is_enabled</span><span class="p">())</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_url_after_login</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># ... perform login steps ...</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertIn</span><span class="p">(</span><span class="s2">&quot;/dashboard&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">driver</span><span class="o">.</span><span class="n">current_url</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">tearDown</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">driver</span><span class="o">.</span><span class="n">quit</span><span class="p">()</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">unittest</span><span class="o">.</span><span class="n">main</span><span class="p">()</span>
+</code></pre></div>
+<h3 id="test-outcomes">Test Outcomes<a class="headerlink" href="#test-outcomes" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Pass (OK)</strong>: all assertions passed</li>
+<li><strong>Fail</strong>: an assertion evaluated to False — <code>AssertionError</code> raised</li>
+<li><strong>Error</strong>: an unexpected exception occurred during the test (not an assertion failure)</li>
+</ul>
+<hr />
+<h2 id="chapter-9-exceptions">Chapter 9: Exceptions<a class="headerlink" href="#chapter-9-exceptions" title="Permanent link">&para;</a></h2>
+<h3 id="common-selenium-exceptions">Common Selenium Exceptions<a class="headerlink" href="#common-selenium-exceptions" title="Permanent link">&para;</a></h3>
+<ul>
+<li>All Selenium exceptions inherit from <code>selenium.common.exceptions.WebDriverException</code></li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Exception</th>
+<th>Cause</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>NoSuchElementException</code></td>
+<td>Element not found with given locator</td>
+</tr>
+<tr>
+<td><code>StaleElementReferenceException</code></td>
+<td>Element is no longer attached to the DOM (page refreshed/changed)</td>
+</tr>
+<tr>
+<td><code>ElementNotInteractableException</code></td>
+<td>Element exists but cannot be interacted with (hidden, overlapping)</td>
+</tr>
+<tr>
+<td><code>ElementClickInterceptedException</code></td>
+<td>Another element is covering the target element</td>
+</tr>
+<tr>
+<td><code>ElementNotVisibleException</code></td>
+<td>Element is present in DOM but not visible</td>
+</tr>
+<tr>
+<td><code>ElementNotSelectableException</code></td>
+<td>Trying to select a non-selectable element</td>
+</tr>
+<tr>
+<td><code>TimeoutException</code></td>
+<td>Explicit wait condition not met within timeout</td>
+</tr>
+<tr>
+<td><code>NoSuchFrameException</code></td>
+<td>Frame not found for switch_to</td>
+</tr>
+<tr>
+<td><code>NoSuchWindowException</code></td>
+<td>Window/tab not found for switch_to</td>
+</tr>
+<tr>
+<td><code>NoAlertPresentException</code></td>
+<td>No alert dialog open when expected</td>
+</tr>
+<tr>
+<td><code>InvalidSelectorException</code></td>
+<td>Malformed XPath/CSS selector</td>
+</tr>
+<tr>
+<td><code>InvalidElementStateException</code></td>
+<td>Element state doesn't allow the requested operation</td>
+</tr>
+<tr>
+<td><code>MoveTargetOutOfBoundsException</code></td>
+<td>ActionChains target is outside the viewport</td>
+</tr>
+<tr>
+<td><code>UnexpectedAlertPresentException</code></td>
+<td>An unexpected alert is blocking interaction</td>
+</tr>
+<tr>
+<td><code>ConnectionClosedException</code></td>
+<td>Browser connection lost (crash, manual close)</td>
+</tr>
+<tr>
+<td><code>InsecureCertificateException</code></td>
+<td>Site has an invalid SSL certificate</td>
+</tr>
+<tr>
+<td><code>NoSuchAttributeException</code></td>
+<td>Requested attribute doesn't exist on the element</td>
+</tr>
+<tr>
+<td><code>NoSuchCookieException</code></td>
+<td>Cookie not found by name</td>
+</tr>
+<tr>
+<td><code>SessionNotCreatedException</code></td>
+<td>WebDriver session could not be started</td>
+</tr>
+<tr>
+<td><code>ScreenshotException</code></td>
+<td>Screenshot capture failed</td>
+</tr>
+</tbody>
+</table>
+<h3 id="exception-handling-in-tests">Exception Handling in Tests<a class="headerlink" href="#exception-handling-in-tests" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">selenium.common.exceptions</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+    <span class="n">NoSuchElementException</span><span class="p">,</span>
+    <span class="n">TimeoutException</span><span class="p">,</span>
+    <span class="n">StaleElementReferenceException</span>
+<span class="p">)</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">TestWithExceptions</span><span class="p">(</span><span class="n">unittest</span><span class="o">.</span><span class="n">TestCase</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_element_exists</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">element</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">driver</span><span class="o">.</span><span class="n">find_element_by_id</span><span class="p">(</span><span class="s2">&quot;maybe_missing&quot;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">(</span><span class="n">element</span><span class="o">.</span><span class="n">is_displayed</span><span class="p">())</span>
+        <span class="k">except</span> <span class="n">NoSuchElementException</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">fail</span><span class="p">(</span><span class="s2">&quot;Expected element #maybe_missing was not found in the DOM&quot;</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_stale_element_retry</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">element</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">driver</span><span class="o">.</span><span class="n">find_element_by_id</span><span class="p">(</span><span class="s2">&quot;dynamic&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">driver</span><span class="o">.</span><span class="n">refresh</span><span class="p">()</span>  <span class="c1"># element reference is now stale</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">element</span><span class="o">.</span><span class="n">click</span><span class="p">()</span>
+        <span class="k">except</span> <span class="n">StaleElementReferenceException</span><span class="p">:</span>
+            <span class="c1"># Re-locate after refresh</span>
+            <span class="n">element</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">driver</span><span class="o">.</span><span class="n">find_element_by_id</span><span class="p">(</span><span class="s2">&quot;dynamic&quot;</span><span class="p">)</span>
+            <span class="n">element</span><span class="o">.</span><span class="n">click</span><span class="p">()</span>
+</code></pre></div>
+<h3 id="best-practices">Best Practices<a class="headerlink" href="#best-practices" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Use explicit waits instead of catching <code>NoSuchElementException</code> in loops</li>
+<li>Catch specific exceptions, not bare <code>except:</code> or <code>except Exception:</code></li>
+<li>Use <code>try/except</code> in tests when you want custom failure messages or recovery logic</li>
+<li><code>StaleElementReferenceException</code> usually means you need to re-locate the element</li>
+</ul>
+<hr />
+<h2 id="chapter-10-waits">Chapter 10: Waits<a class="headerlink" href="#chapter-10-waits" title="Permanent link">&para;</a></h2>
+<h3 id="why-waits-are-needed">Why Waits Are Needed<a class="headerlink" href="#why-waits-are-needed" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Web pages load asynchronously — elements may not be immediately available</li>
+<li>Without waits, tests will fail with <code>NoSuchElementException</code> on slow-loading elements</li>
+<li>Three strategies: <strong>implicit waits</strong>, <strong>explicit waits</strong>, and <strong>fluent waits</strong></li>
+</ul>
+<h3 id="implicit-wait">Implicit Wait<a class="headerlink" href="#implicit-wait" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Sets a global timeout for all <code>find_element</code> calls</li>
+<li>If element isn't found immediately, Selenium polls the DOM until timeout expires</li>
+<li>Set once, applies to all subsequent find operations for that driver session
+<div class="highlight"><pre><span></span><code><span class="n">driver</span> <span class="o">=</span> <span class="n">webdriver</span><span class="o">.</span><span class="n">Firefox</span><span class="p">()</span>
+<span class="n">driver</span><span class="o">.</span><span class="n">implicitly_wait</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>  <span class="c1"># wait up to 10 seconds for any element lookup</span>
+<span class="n">driver</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;https://example.com&quot;</span><span class="p">)</span>
+<span class="c1"># This will wait up to 10s if #dynamic doesn&#39;t exist yet</span>
+<span class="n">element</span> <span class="o">=</span> <span class="n">driver</span><span class="o">.</span><span class="n">find_element_by_id</span><span class="p">(</span><span class="s2">&quot;dynamic&quot;</span><span class="p">)</span>
+</code></pre></div></li>
+<li><strong>Drawback</strong>: applies uniformly — can slow down tests that legitimately need to verify element absence</li>
+</ul>
+<h3 id="explicit-wait">Explicit Wait<a class="headerlink" href="#explicit-wait" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Waits for a <em>specific condition</em> to be met, with a per-call timeout</li>
+<li>More granular and preferred over implicit waits</li>
+<li>Uses <code>WebDriverWait</code> + <code>expected_conditions</code></li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">selenium.webdriver.support.ui</span><span class="w"> </span><span class="kn">import</span> <span class="n">WebDriverWait</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">selenium.webdriver.support</span><span class="w"> </span><span class="kn">import</span> <span class="n">expected_conditions</span> <span class="k">as</span> <span class="n">EC</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">selenium.webdriver.common.by</span><span class="w"> </span><span class="kn">import</span> <span class="n">By</span>
+
+<span class="c1"># Wait up to 10s for element to be clickable</span>
+<span class="n">element</span> <span class="o">=</span> <span class="n">WebDriverWait</span><span class="p">(</span><span class="n">driver</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span><span class="o">.</span><span class="n">until</span><span class="p">(</span>
+    <span class="n">EC</span><span class="o">.</span><span class="n">element_to_be_clickable</span><span class="p">((</span><span class="n">By</span><span class="o">.</span><span class="n">ID</span><span class="p">,</span> <span class="s2">&quot;submitBtn&quot;</span><span class="p">))</span>
+<span class="p">)</span>
+<span class="n">element</span><span class="o">.</span><span class="n">click</span><span class="p">()</span>
+</code></pre></div>
+<h3 id="expected-conditions-ec">Expected Conditions (EC)<a class="headerlink" href="#expected-conditions-ec" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Condition</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>title_is("Title")</code></td>
+<td>Page title equals exactly</td>
+</tr>
+<tr>
+<td><code>title_contains("Part")</code></td>
+<td>Page title contains substring</td>
+</tr>
+<tr>
+<td><code>url_contains("/dashboard")</code></td>
+<td>Current URL contains substring</td>
+</tr>
+<tr>
+<td><code>url_to_be("https://...")</code></td>
+<td>Current URL equals exactly</td>
+</tr>
+<tr>
+<td><code>url_changes("https://old")</code></td>
+<td>URL has changed from given value</td>
+</tr>
+<tr>
+<td><code>presence_of_element_located(loc)</code></td>
+<td>Element exists in DOM (may not be visible)</td>
+</tr>
+<tr>
+<td><code>visibility_of_element_located(loc)</code></td>
+<td>Element is visible on page</td>
+</tr>
+<tr>
+<td><code>visibility_of(element)</code></td>
+<td>Given WebElement is visible</td>
+</tr>
+<tr>
+<td><code>invisibility_of_element_located(loc)</code></td>
+<td>Element is not visible or not present</td>
+</tr>
+<tr>
+<td><code>element_to_be_clickable(loc)</code></td>
+<td>Element is visible and enabled</td>
+</tr>
+<tr>
+<td><code>staleness_of(element)</code></td>
+<td>Element is no longer attached to DOM</td>
+</tr>
+<tr>
+<td><code>text_to_be_present_in_element(loc, txt)</code></td>
+<td>Element's <code>.text</code> contains given text</td>
+</tr>
+<tr>
+<td><code>text_to_be_present_in_element_value(loc, txt)</code></td>
+<td>Element's <code>value</code> attribute contains text</td>
+</tr>
+<tr>
+<td><code>frame_to_be_available_and_switch_to_it(loc)</code></td>
+<td>Frame is available and driver switches to it</td>
+</tr>
+<tr>
+<td><code>alert_is_present()</code></td>
+<td>An alert dialog is open</td>
+</tr>
+<tr>
+<td><code>element_to_be_selected(element)</code></td>
+<td>Element is selected</td>
+</tr>
+<tr>
+<td><code>element_located_to_be_selected(loc)</code></td>
+<td>Located element is selected</td>
+</tr>
+<tr>
+<td><code>number_of_windows_to_be(n)</code></td>
+<td>Exactly n windows are open</td>
+</tr>
+<tr>
+<td><code>new_window_is_opened(handles)</code></td>
+<td>A new window has opened since given handles</td>
+</tr>
+</tbody>
+</table>
+<h3 id="fluent-wait">Fluent Wait<a class="headerlink" href="#fluent-wait" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Like explicit wait but allows customization of polling interval and which exceptions to ignore
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">selenium.webdriver.support.ui</span><span class="w"> </span><span class="kn">import</span> <span class="n">WebDriverWait</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">selenium.common.exceptions</span><span class="w"> </span><span class="kn">import</span> <span class="n">NoSuchElementException</span><span class="p">,</span> <span class="n">ElementNotVisibleException</span>
+
+<span class="n">wait</span> <span class="o">=</span> <span class="n">WebDriverWait</span><span class="p">(</span>
+    <span class="n">driver</span><span class="p">,</span>
+    <span class="n">timeout</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span>
+    <span class="n">poll_frequency</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>  <span class="c1"># check every 2 seconds (default is 0.5)</span>
+    <span class="n">ignored_exceptions</span><span class="o">=</span><span class="p">[</span><span class="n">NoSuchElementException</span><span class="p">,</span> <span class="n">ElementNotVisibleException</span><span class="p">]</span>
+<span class="p">)</span>
+<span class="n">element</span> <span class="o">=</span> <span class="n">wait</span><span class="o">.</span><span class="n">until</span><span class="p">(</span><span class="n">EC</span><span class="o">.</span><span class="n">visibility_of_element_located</span><span class="p">((</span><span class="n">By</span><span class="o">.</span><span class="n">ID</span><span class="p">,</span> <span class="s2">&quot;slow_element&quot;</span><span class="p">)))</span>
+</code></pre></div></li>
+</ul>
+<h3 id="custom-wait-conditions">Custom Wait Conditions<a class="headerlink" href="#custom-wait-conditions" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># Using a lambda</span>
+<span class="n">element</span> <span class="o">=</span> <span class="n">WebDriverWait</span><span class="p">(</span><span class="n">driver</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span><span class="o">.</span><span class="n">until</span><span class="p">(</span>
+    <span class="k">lambda</span> <span class="n">d</span><span class="p">:</span> <span class="n">d</span><span class="o">.</span><span class="n">find_element_by_id</span><span class="p">(</span><span class="s2">&quot;loaded&quot;</span><span class="p">)</span> <span class="k">if</span> <span class="n">d</span><span class="o">.</span><span class="n">find_element_by_id</span><span class="p">(</span><span class="s2">&quot;loaded&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">text</span> <span class="o">!=</span> <span class="s2">&quot;&quot;</span> <span class="k">else</span> <span class="kc">False</span>
+<span class="p">)</span>
+
+<span class="c1"># Using a callable class</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">element_has_text</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">locator</span><span class="p">,</span> <span class="n">text</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">locator</span> <span class="o">=</span> <span class="n">locator</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="n">text</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">driver</span><span class="p">):</span>
+        <span class="n">element</span> <span class="o">=</span> <span class="n">driver</span><span class="o">.</span><span class="n">find_element</span><span class="p">(</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">locator</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">text</span> <span class="ow">in</span> <span class="n">element</span><span class="o">.</span><span class="n">text</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">element</span>
+        <span class="k">return</span> <span class="kc">False</span>
+
+<span class="n">element</span> <span class="o">=</span> <span class="n">WebDriverWait</span><span class="p">(</span><span class="n">driver</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span><span class="o">.</span><span class="n">until</span><span class="p">(</span>
+    <span class="n">element_has_text</span><span class="p">((</span><span class="n">By</span><span class="o">.</span><span class="n">ID</span><span class="p">,</span> <span class="s2">&quot;status&quot;</span><span class="p">),</span> <span class="s2">&quot;Complete&quot;</span><span class="p">)</span>
+<span class="p">)</span>
+</code></pre></div>
+<h3 id="implicit-vs-explicit-best-practices">Implicit vs Explicit: Best Practices<a class="headerlink" href="#implicit-vs-explicit-best-practices" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Do not mix</strong> implicit and explicit waits — can cause unpredictable timeout behavior</li>
+<li>Prefer explicit waits for most cases (more precise, self-documenting)</li>
+<li>If you must use implicit waits, keep them short (2-5 seconds)</li>
+</ul>
+<hr />
+<h2 id="chapter-11-page-object-model-pom">Chapter 11: Page Object Model (POM)<a class="headerlink" href="#chapter-11-page-object-model-pom" title="Permanent link">&para;</a></h2>
+<h3 id="what-is-pom">What Is POM?<a class="headerlink" href="#what-is-pom" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Page Object Model</strong> is a design pattern that creates an object-oriented representation of each web page</li>
+<li>Each page gets its own class encapsulating locators and interactions</li>
+<li>Test scripts call page object methods instead of directly using Selenium APIs</li>
+</ul>
+<h3 id="why-pom">Why POM?<a class="headerlink" href="#why-pom" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Reduces duplication</strong>: locators defined once, reused across tests</li>
+<li><strong>Improves maintenance</strong>: if the UI changes, only the page object needs updating</li>
+<li><strong>Shorter test cases</strong>: test methods read like high-level user stories</li>
+<li><strong>Reusability</strong>: page objects can be shared across test suites</li>
+</ul>
+<h3 id="pom-file-structure">POM File Structure<a class="headerlink" href="#pom-file-structure" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>project/
+├── tests/
+│   └── test_login.py       # Test cases
+├── pages/
+│   └── login_page.py       # Page object (locators + actions)
+├── elements/
+│   └── base_elements.py    # Reusable element wrappers (optional)
+└── locators/
+    └── login_locators.py   # Locator constants
+</code></pre></div>
+<h3 id="pom-implementation-example">POM Implementation Example<a class="headerlink" href="#pom-implementation-example" title="Permanent link">&para;</a></h3>
+<p><strong>locators/login_locators.py</strong>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">selenium.webdriver.common.by</span><span class="w"> </span><span class="kn">import</span> <span class="n">By</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">LoginPageLocators</span><span class="p">:</span>
+    <span class="n">USERNAME</span> <span class="o">=</span> <span class="p">(</span><span class="n">By</span><span class="o">.</span><span class="n">ID</span><span class="p">,</span> <span class="s2">&quot;username&quot;</span><span class="p">)</span>
+    <span class="n">PASSWORD</span> <span class="o">=</span> <span class="p">(</span><span class="n">By</span><span class="o">.</span><span class="n">ID</span><span class="p">,</span> <span class="s2">&quot;password&quot;</span><span class="p">)</span>
+    <span class="n">LOGIN_BTN</span> <span class="o">=</span> <span class="p">(</span><span class="n">By</span><span class="o">.</span><span class="n">ID</span><span class="p">,</span> <span class="s2">&quot;loginBtn&quot;</span><span class="p">)</span>
+    <span class="n">ERROR_MSG</span> <span class="o">=</span> <span class="p">(</span><span class="n">By</span><span class="o">.</span><span class="n">CSS_SELECTOR</span><span class="p">,</span> <span class="s2">&quot;.error-message&quot;</span><span class="p">)</span>
+</code></pre></div></p>
+<p><strong>pages/login_page.py</strong>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">locators.login_locators</span><span class="w"> </span><span class="kn">import</span> <span class="n">LoginPageLocators</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">LoginPage</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">driver</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">driver</span> <span class="o">=</span> <span class="n">driver</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">enter_username</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">username</span><span class="p">):</span>
+        <span class="n">field</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">driver</span><span class="o">.</span><span class="n">find_element</span><span class="p">(</span><span class="o">*</span><span class="n">LoginPageLocators</span><span class="o">.</span><span class="n">USERNAME</span><span class="p">)</span>
+        <span class="n">field</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+        <span class="n">field</span><span class="o">.</span><span class="n">send_keys</span><span class="p">(</span><span class="n">username</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">enter_password</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">password</span><span class="p">):</span>
+        <span class="n">field</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">driver</span><span class="o">.</span><span class="n">find_element</span><span class="p">(</span><span class="o">*</span><span class="n">LoginPageLocators</span><span class="o">.</span><span class="n">PASSWORD</span><span class="p">)</span>
+        <span class="n">field</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+        <span class="n">field</span><span class="o">.</span><span class="n">send_keys</span><span class="p">(</span><span class="n">password</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">click_login</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">driver</span><span class="o">.</span><span class="n">find_element</span><span class="p">(</span><span class="o">*</span><span class="n">LoginPageLocators</span><span class="o">.</span><span class="n">LOGIN_BTN</span><span class="p">)</span><span class="o">.</span><span class="n">click</span><span class="p">()</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_error_message</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">driver</span><span class="o">.</span><span class="n">find_element</span><span class="p">(</span><span class="o">*</span><span class="n">LoginPageLocators</span><span class="o">.</span><span class="n">ERROR_MSG</span><span class="p">)</span><span class="o">.</span><span class="n">text</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">login</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">username</span><span class="p">,</span> <span class="n">password</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">enter_username</span><span class="p">(</span><span class="n">username</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">enter_password</span><span class="p">(</span><span class="n">password</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">click_login</span><span class="p">()</span>
+</code></pre></div></p>
+<p><strong>tests/test_login.py</strong>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">unittest</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">selenium</span><span class="w"> </span><span class="kn">import</span> <span class="n">webdriver</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pages.login_page</span><span class="w"> </span><span class="kn">import</span> <span class="n">LoginPage</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">TestLogin</span><span class="p">(</span><span class="n">unittest</span><span class="o">.</span><span class="n">TestCase</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">setUp</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">driver</span> <span class="o">=</span> <span class="n">webdriver</span><span class="o">.</span><span class="n">Firefox</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">driver</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;https://example.com/login&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">login_page</span> <span class="o">=</span> <span class="n">LoginPage</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">driver</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_valid_login</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">login_page</span><span class="o">.</span><span class="n">login</span><span class="p">(</span><span class="s2">&quot;admin&quot;</span><span class="p">,</span> <span class="s2">&quot;password123&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertIn</span><span class="p">(</span><span class="s2">&quot;/dashboard&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">driver</span><span class="o">.</span><span class="n">current_url</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_invalid_login_shows_error</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">login_page</span><span class="o">.</span><span class="n">login</span><span class="p">(</span><span class="s2">&quot;bad_user&quot;</span><span class="p">,</span> <span class="s2">&quot;wrong_pass&quot;</span><span class="p">)</span>
+        <span class="n">error</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">login_page</span><span class="o">.</span><span class="n">get_error_message</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">error</span><span class="p">,</span> <span class="s2">&quot;Invalid credentials&quot;</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">tearDown</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">driver</span><span class="o">.</span><span class="n">quit</span><span class="p">()</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">unittest</span><span class="o">.</span><span class="n">main</span><span class="p">()</span>
+</code></pre></div></p>
+<h3 id="pom-limitations">POM Limitations<a class="headerlink" href="#pom-limitations" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Initial setup time</strong>: more files and structure upfront</li>
+<li><strong>Requires discipline</strong>: team must consistently follow the pattern</li>
+<li><strong>Fixed model</strong>: changes to page structure require updating the corresponding page object</li>
+<li><strong>Overhead for small projects</strong>: may be excessive for simple one-off scripts</li>
+</ul>
+<hr />
+<h2 id="chapter-12-unittest-framework">Chapter 12: unittest Framework<a class="headerlink" href="#chapter-12-unittest-framework" title="Permanent link">&para;</a></h2>
+<h3 id="unittest-overview">unittest Overview<a class="headerlink" href="#unittest-overview" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Python's built-in testing framework (inspired by JUnit)</li>
+<li>Part of the standard library — no installation required</li>
+<li>Key concepts: <strong>TestCase</strong>, <strong>test fixtures</strong>, <strong>test suites</strong>, <strong>test runner</strong></li>
+</ul>
+<h3 id="test-case-structure">Test Case Structure<a class="headerlink" href="#test-case-structure" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">unittest</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">selenium</span><span class="w"> </span><span class="kn">import</span> <span class="n">webdriver</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">TestSearchFeature</span><span class="p">(</span><span class="n">unittest</span><span class="o">.</span><span class="n">TestCase</span><span class="p">):</span>
+
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">setUpClass</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Runs once before all tests in this class.&quot;&quot;&quot;</span>
+        <span class="bp">cls</span><span class="o">.</span><span class="n">driver</span> <span class="o">=</span> <span class="n">webdriver</span><span class="o">.</span><span class="n">Firefox</span><span class="p">()</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">setUp</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Runs before each individual test method.&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">driver</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;https://example.com&quot;</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_search_valid_term</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Test methods must start with &#39;test_&#39;.&quot;&quot;&quot;</span>
+        <span class="c1"># ... test logic ...</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">driver</span><span class="o">.</span><span class="n">title</span><span class="p">,</span> <span class="s2">&quot;Search Results&quot;</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_search_empty_term</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># ... test logic ...</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertIn</span><span class="p">(</span><span class="s2">&quot;error&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">driver</span><span class="o">.</span><span class="n">page_source</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">tearDown</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Runs after each individual test method.&quot;&quot;&quot;</span>
+        <span class="k">pass</span>  <span class="c1"># e.g., clear cookies, reset state</span>
+
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">tearDownClass</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Runs once after all tests in this class.&quot;&quot;&quot;</span>
+        <span class="bp">cls</span><span class="o">.</span><span class="n">driver</span><span class="o">.</span><span class="n">quit</span><span class="p">()</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">unittest</span><span class="o">.</span><span class="n">main</span><span class="p">()</span>
+</code></pre></div>
+<h3 id="fixture-hierarchy-execution-order">Fixture Hierarchy (Execution Order)<a class="headerlink" href="#fixture-hierarchy-execution-order" title="Permanent link">&para;</a></h3>
+<ol>
+<li><code>setUpModule()</code> — once before all classes in the module</li>
+<li><code>setUpClass()</code> — once before all tests in a class (<code>@classmethod</code>)</li>
+<li><code>setUp()</code> — before each test method</li>
+<li><code>test_*()</code> — the actual test</li>
+<li><code>tearDown()</code> — after each test method</li>
+<li><code>tearDownClass()</code> — once after all tests in a class (<code>@classmethod</code>)</li>
+<li><code>tearDownModule()</code> — once after all classes in the module</li>
+</ol>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">setUpModule</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Module setup — runs once at the very start&quot;</span><span class="p">)</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">tearDownModule</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Module teardown — runs once at the very end&quot;</span><span class="p">)</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">TestExample</span><span class="p">(</span><span class="n">unittest</span><span class="o">.</span><span class="n">TestCase</span><span class="p">):</span>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">setUpClass</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Class setup — once per class&quot;</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">setUp</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Test setup — before each test&quot;</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_alpha</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Running test_alpha&quot;</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_beta</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Running test_beta&quot;</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">tearDown</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Test teardown — after each test&quot;</span><span class="p">)</span>
+
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">tearDownClass</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Class teardown — once per class&quot;</span><span class="p">)</span>
+</code></pre></div>
+<h3 id="test-execution-order">Test Execution Order<a class="headerlink" href="#test-execution-order" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Tests run in <strong>alphabetical order</strong> by method name within each class</li>
+<li><code>test_alpha</code> runs before <code>test_beta</code></li>
+<li>Tests should be <strong>independent</strong> — never rely on execution order</li>
+</ul>
+<h3 id="running-tests">Running Tests<a class="headerlink" href="#running-tests" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># Run all tests in a file</span>
+python<span class="w"> </span>-m<span class="w"> </span>unittest<span class="w"> </span>test_login.py
+
+<span class="c1"># Run a specific test class</span>
+python<span class="w"> </span>-m<span class="w"> </span>unittest<span class="w"> </span>test_login.TestLogin
+
+<span class="c1"># Run a specific test method</span>
+python<span class="w"> </span>-m<span class="w"> </span>unittest<span class="w"> </span>test_login.TestLogin.test_valid_login
+
+<span class="c1"># Verbose output</span>
+python<span class="w"> </span>-m<span class="w"> </span>unittest<span class="w"> </span>-v<span class="w"> </span>test_login.py
+
+<span class="c1"># Auto-discover tests (finds test_*.py files)</span>
+python<span class="w"> </span>-m<span class="w"> </span>unittest<span class="w"> </span>discover<span class="w"> </span>-s<span class="w"> </span>tests/<span class="w"> </span>-p<span class="w"> </span><span class="s2">&quot;test_*.py&quot;</span>
+</code></pre></div>
+<h3 id="screenshots-in-tests">Screenshots in Tests<a class="headerlink" href="#screenshots-in-tests" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">TestWithScreenshots</span><span class="p">(</span><span class="n">unittest</span><span class="o">.</span><span class="n">TestCase</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_capture_page</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">driver</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;https://example.com&quot;</span><span class="p">)</span>
+
+        <span class="c1"># Save screenshot to file</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">driver</span><span class="o">.</span><span class="n">save_screenshot</span><span class="p">(</span><span class="s2">&quot;screenshot.png&quot;</span><span class="p">)</span>
+
+        <span class="c1"># Alternative method — returns True/False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">driver</span><span class="o">.</span><span class="n">get_screenshot_as_file</span><span class="p">(</span><span class="s2">&quot;page.png&quot;</span><span class="p">)</span>
+
+        <span class="c1"># Get as base64 string (useful for reports)</span>
+        <span class="n">b64_img</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">driver</span><span class="o">.</span><span class="n">get_screenshot_as_base64</span><span class="p">()</span>
+
+        <span class="c1"># Get as PNG binary</span>
+        <span class="n">png_bytes</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">driver</span><span class="o">.</span><span class="n">get_screenshot_as_png</span><span class="p">()</span>
+</code></pre></div>
+<h3 id="capturing-screenshots-on-failure">Capturing Screenshots on Failure<a class="headerlink" href="#capturing-screenshots-on-failure" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">TestWithFailureScreenshots</span><span class="p">(</span><span class="n">unittest</span><span class="o">.</span><span class="n">TestCase</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">tearDown</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># Check if the test failed</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;_outcome&#39;</span><span class="p">):</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_outcome</span><span class="o">.</span><span class="n">result</span>
+            <span class="k">if</span> <span class="n">result</span> <span class="ow">and</span> <span class="n">result</span><span class="o">.</span><span class="n">failures</span> <span class="ow">or</span> <span class="n">result</span><span class="o">.</span><span class="n">errors</span><span class="p">:</span>
+                <span class="n">test_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_testMethodName</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">driver</span><span class="o">.</span><span class="n">save_screenshot</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;failure_</span><span class="si">{</span><span class="n">test_name</span><span class="si">}</span><span class="s2">.png&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">driver</span><span class="o">.</span><span class="n">quit</span><span class="p">()</span>
+</code></pre></div>
+<h3 id="test-suites">Test Suites<a class="headerlink" href="#test-suites" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># Create a custom suite</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">suite</span><span class="p">():</span>
+    <span class="n">test_suite</span> <span class="o">=</span> <span class="n">unittest</span><span class="o">.</span><span class="n">TestSuite</span><span class="p">()</span>
+    <span class="n">test_suite</span><span class="o">.</span><span class="n">addTest</span><span class="p">(</span><span class="n">TestLogin</span><span class="p">(</span><span class="s2">&quot;test_valid_login&quot;</span><span class="p">))</span>
+    <span class="n">test_suite</span><span class="o">.</span><span class="n">addTest</span><span class="p">(</span><span class="n">TestLogin</span><span class="p">(</span><span class="s2">&quot;test_invalid_login_shows_error&quot;</span><span class="p">))</span>
+    <span class="n">test_suite</span><span class="o">.</span><span class="n">addTest</span><span class="p">(</span><span class="n">TestSearch</span><span class="p">(</span><span class="s2">&quot;test_search_valid_term&quot;</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">test_suite</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">runner</span> <span class="o">=</span> <span class="n">unittest</span><span class="o">.</span><span class="n">TextTestRunner</span><span class="p">(</span><span class="n">verbosity</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">runner</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">suite</span><span class="p">())</span>
+</code></pre></div>
+<h3 id="alternative-python-testing-tools-comparison">Alternative Python Testing Tools (Comparison)<a class="headerlink" href="#alternative-python-testing-tools-comparison" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Tool</th>
+<th>Key Feature</th>
+<th>Use Case</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>unittest</strong></td>
+<td>Built-in, class-based, JUnit-style</td>
+<td>Standard test structure with fixtures</td>
+</tr>
+<tr>
+<td><strong>pytest</strong></td>
+<td>Minimal boilerplate, powerful fixtures, plugins</td>
+<td>Most popular; preferred for new projects</td>
+</tr>
+<tr>
+<td><strong>doctest</strong></td>
+<td>Tests embedded in docstrings</td>
+<td>Simple function-level examples</td>
+</tr>
+<tr>
+<td><strong>nose2</strong></td>
+<td>Extends unittest with auto-discovery</td>
+<td>Legacy projects using unittest</td>
+</tr>
+<tr>
+<td><strong>Robot Framework</strong></td>
+<td>Keyword-driven, non-programmer friendly</td>
+<td>Acceptance testing, BDD-style</td>
+</tr>
+<tr>
+<td><strong>Testify</strong></td>
+<td>Extends unittest with additional features</td>
+<td>Advanced fixture management</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="appendix-quick-reference">Appendix: Quick Reference<a class="headerlink" href="#appendix-quick-reference" title="Permanent link">&para;</a></h2>
+<h3 id="minimal-selenium-test-template">Minimal Selenium Test Template<a class="headerlink" href="#minimal-selenium-test-template" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">unittest</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">selenium</span><span class="w"> </span><span class="kn">import</span> <span class="n">webdriver</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">selenium.webdriver.common.by</span><span class="w"> </span><span class="kn">import</span> <span class="n">By</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">selenium.webdriver.support.ui</span><span class="w"> </span><span class="kn">import</span> <span class="n">WebDriverWait</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">selenium.webdriver.support</span><span class="w"> </span><span class="kn">import</span> <span class="n">expected_conditions</span> <span class="k">as</span> <span class="n">EC</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">TestTemplate</span><span class="p">(</span><span class="n">unittest</span><span class="o">.</span><span class="n">TestCase</span><span class="p">):</span>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">setUpClass</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
+        <span class="bp">cls</span><span class="o">.</span><span class="n">driver</span> <span class="o">=</span> <span class="n">webdriver</span><span class="o">.</span><span class="n">Firefox</span><span class="p">()</span>
+        <span class="bp">cls</span><span class="o">.</span><span class="n">driver</span><span class="o">.</span><span class="n">implicitly_wait</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_example</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">driver</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;https://example.com&quot;</span><span class="p">)</span>
+        <span class="n">heading</span> <span class="o">=</span> <span class="n">WebDriverWait</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">driver</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span><span class="o">.</span><span class="n">until</span><span class="p">(</span>
+            <span class="n">EC</span><span class="o">.</span><span class="n">visibility_of_element_located</span><span class="p">((</span><span class="n">By</span><span class="o">.</span><span class="n">TAG_NAME</span><span class="p">,</span> <span class="s2">&quot;h1&quot;</span><span class="p">))</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">heading</span><span class="o">.</span><span class="n">text</span><span class="p">,</span> <span class="s2">&quot;Example Domain&quot;</span><span class="p">)</span>
+
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">tearDownClass</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
+        <span class="bp">cls</span><span class="o">.</span><span class="n">driver</span><span class="o">.</span><span class="n">quit</span><span class="p">()</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">unittest</span><span class="o">.</span><span class="n">main</span><span class="p">()</span>
+</code></pre></div>
+<h3 id="locator-strategy-decision-guide">Locator Strategy Decision Guide<a class="headerlink" href="#locator-strategy-decision-guide" title="Permanent link">&para;</a></h3>
+<ol>
+<li><strong>Has a unique <code>id</code>?</strong> → Use <code>By.ID</code></li>
+<li><strong>Has a unique <code>name</code>?</strong> → Use <code>By.NAME</code></li>
+<li><strong>Is a link with known text?</strong> → Use <code>By.LINK_TEXT</code> or <code>By.PARTIAL_LINK_TEXT</code></li>
+<li><strong>Can be targeted by CSS?</strong> → Use <code>By.CSS_SELECTOR</code> (faster than XPath)</li>
+<li><strong>Needs DOM traversal or complex logic?</strong> → Use <code>By.XPATH</code></li>
+<li><strong>Last resort</strong> → <code>By.TAG_NAME</code> or <code>By.CLASS_NAME</code></li>
+</ol>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+  
+
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        
+
+<footer class="md-footer">
+  
+    <nav
+      class="md-footer__inner md-grid"
+      aria-label="footer.title"
+    >
+      
+        <a
+          href="../python_packaging/"
+          class="md-footer__link md-footer__link--prev"
+          rel="prev"
+        >
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              Python Packaging
+            </div>
+          </div>
+        </a>
+      
+      
+        <a
+          href="../api_design_patterns/"
+          class="md-footer__link md-footer__link--next"
+          rel="next"
+        >
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              API Design Patterns
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        Made with
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+          Material for MkDocs
+        </a>
+        with emoji by
+        <a href="https://github.com/twitter/twemoji" target="_blank" rel="noopener">
+          Twemoji
+        </a>
+      </div>
+      
+<div class="md-social">
+  
+</div>
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["announce.dismiss", "content.action.edit", "content.action.view", "content.code.annotate", "content.code.copy", "content.tooltips", "header.autohide", "navigation.expand", "navigation.footer", "navigation.indexes", "navigation.instant", "navigation.sections", "navigation.tabs", "navigation.top", "navigation.tracking", "search.highlight", "search.share", "search.suggest", "toc.follow", "toc.integrate"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../../javascripts/extra.js"></script>
+      
+        <script src="../../assets/pymdownx-extras/extra-loader-B5CKpNQx.js"></script>
+      
+    
+  </body>
+</html>

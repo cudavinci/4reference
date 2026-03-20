@@ -1,0 +1,3090 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Notes and code snippets">
+      
+      
+        <meta name="author" content="Sean Fuller">
+      
+      
+        <link rel="canonical" href="https://cudavinci.github.io/4reference/books/python_packaging/">
+      
+      
+        <link rel="prev" href="../pytest/">
+      
+      
+        <link rel="next" href="../selenium_testing/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Python Packaging - My Snippets & Notes</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+
+      
+    
+<script src="../../assets/pymdownx-extras/material-extra-theme-2ek1P7jT.js" type="text/javascript"></script>
+<script src="../../assets/pymdownx-extras/material-extra-3rdparty-BUCF4rjN.js" type="text/javascript"></script>
+
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+      <link rel="stylesheet" href="../../assets/pymdownx-extras/extra-c6ab11540a.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="dracula" data-md-color-primary="#f8f8f2" data-md-color-accent="#bd93f9">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#publishing-python-packages" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+
+<header class="md-header" data-md-component="header">
+  <nav
+    class="md-header__inner md-grid"
+    aria-label="header.title"
+  >
+    <a
+      href="https://cudavinci.github.io/4reference/"
+      title="My Snippets &amp; Notes"
+      class="md-header__button md-logo"
+      aria-label="My Snippets & Notes"
+    >
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            My Snippets & Notes
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Python Packaging
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    <div class="md-header__options">
+      <div class="md-header-nav__scheme md-header-nav__button md-source__icon md-icon">
+          <a
+            href="javascript:toggleScheme();"
+            title="Light mode"
+            class="light-mode"
+          >
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+          </a>
+          <a
+            href="javascript:toggleScheme();"
+            title="Dark mode"
+            class="dark-mode"
+          >
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+          </a>
+          <a
+            href="javascript:toggleScheme();"
+            title="System preference"
+            class="system-mode"
+          >
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M7.5 2c-1.79 1.15-3 3.18-3 5.5s1.21 4.35 3.03 5.5C4.46 13 2 10.54 2 7.5A5.5 5.5 0 0 1 7.5 2m11.57 1.5 1.43 1.43L4.93 20.5 3.5 19.07zm-6.18 2.43L11.41 5 9.97 6l.42-1.7L9 3.24l1.75-.12.58-1.65L12 3.1l1.73.03-1.35 1.13zm-3.3 3.61-1.16-.73-1.12.78.34-1.32-1.09-.83 1.36-.09.45-1.29.51 1.27 1.36.03-1.05.87zM19 13.5a5.5 5.5 0 0 1-5.5 5.5c-1.22 0-2.35-.4-3.26-1.07l7.69-7.69c.67.91 1.07 2.04 1.07 3.26m-4.4 6.58 2.77-1.15-.24 3.35zm4.33-2.7 1.15-2.77 2.2 2.54zm1.15-4.96-1.14-2.78 3.34.24zM9.63 18.93l2.77 1.15-2.53 2.19z"/></svg>
+          </a>
+           <a
+            href="javascript:toggleScheme();"
+            title="Unknown scheme"
+            class="unknown-mode"
+          >
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m15.07 11.25-.9.92C13.45 12.89 13 13.5 13 15h-2v-.5c0-1.11.45-2.11 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41a2 2 0 0 0-2-2 2 2 0 0 0-2 2H8a4 4 0 0 1 4-4 4 4 0 0 1 4 4 3.2 3.2 0 0 1-.93 2.25M13 19h-2v-2h2M12 2A10 10 0 0 0 2 12a10 10 0 0 0 10 10 10 10 0 0 0 10-10c0-5.53-4.5-10-10-10"/></svg>
+          </a>
+      </div>
+    </div>
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../snippets/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Code Snippets
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../webdev_snippets/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Web Development
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Book Summaries
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../notes/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Notes
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--lifted md-nav--integrated" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="My Snippets &amp; Notes" class="md-nav__button md-logo" aria-label="My Snippets & Notes" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    My Snippets & Notes
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../snippets/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Code Snippets
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../webdev_snippets/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Web Development
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Book Summaries
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4" id="__nav_4_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Book Summaries
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../crafting_tdd_python/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Crafting TDD
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../pytest/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    pytest
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Python Packaging
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Python Packaging
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#part-1-foundations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Part 1: Foundations
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Part 1: Foundations">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#chapter-1-the-what-and-why-of-python-packages" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chapter 1: The What and Why of Python Packages
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Chapter 1: The What and Why of Python Packages">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-is-a-package" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What Is a Package?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#how-packaging-helps-you" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How Packaging Helps You
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-packaging-lifecycle" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Packaging Lifecycle
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cohesion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cohesion
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#encapsulation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Encapsulation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ownership-and-maintenance" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ownership and Maintenance
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#loose-coupling" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Loose Coupling
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#composition" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Composition
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#chapter-2-preparing-for-package-development" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chapter 2: Preparing for Package Development
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Chapter 2: Preparing for Package Development">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#managing-python-versions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Managing Python Versions
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#virtual-environments" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Virtual Environments
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-pip-package-manager" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The pip Package Manager
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#chapter-3-the-anatomy-of-a-minimal-package" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chapter 3: The Anatomy of a Minimal Package
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Chapter 3: The Anatomy of a Minimal Package">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-package-directory-structure" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Package Directory Structure
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-build-system" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Build System
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pyprojecttoml" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        pyproject.toml
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#setupcfg" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        setup.cfg
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#manifestin" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        MANIFEST.in
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#building-distributions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Building Distributions
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#setuppy-legacy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        setup.py (Legacy)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#part-2-creating-a-viable-package" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Part 2: Creating a Viable Package
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Part 2: Creating a Viable Package">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#chapter-4-handling-package-dependencies-entry-points-and-extensions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chapter 4: Handling Package Dependencies, Entry Points, and Extensions
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Chapter 4: Handling Package Dependencies, Entry Points, and Extensions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#dependencies" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Dependencies
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#entry-points" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Entry Points
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#c-extensions-with-cython" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        C Extensions with Cython
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#binary-wheel-filename-anatomy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Binary Wheel Filename Anatomy
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#chapter-5-testing-your-package" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chapter 5: Testing Your Package
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Chapter 5: Testing Your Package">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#why-test" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why Test?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pytest-fundamentals" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        pytest Fundamentals
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pytest-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        pytest Configuration
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#happy-path-and-unhappy-path-testing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Happy Path and Unhappy Path Testing
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parametrized-testing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Parametrized Testing
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#test-coverage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Test Coverage
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pytest-randomly" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        pytest-randomly
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#strict-markers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Strict Markers
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#chapter-6-automating-testing-and-quality-assurance" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chapter 6: Automating Testing and Quality Assurance
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Chapter 6: Automating Testing and Quality Assurance">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#tox" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        tox
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#named-environments" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Named Environments
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parallel-execution" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Parallel Execution
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#type-checking-with-mypy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Type Checking with mypy
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#code-formatting-with-black" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Code Formatting with black
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#linting-with-flake8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Linting with flake8
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#alternative-tools" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Alternative Tools
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pyupgrade" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        pyupgrade
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pre-commit-hooks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        pre-commit Hooks
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#part-3-going-public" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Part 3: Going Public
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Part 3: Going Public">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#chapter-7-setting-up-a-ci-pipeline" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chapter 7: Setting Up a CI Pipeline
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Chapter 7: Setting Up a CI Pipeline">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#github-actions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GitHub Actions
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#workflow-structure" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Workflow Structure
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#strategy-matrix" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Strategy Matrix
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cibuildwheel" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        cibuildwheel
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#publishing-to-pypi" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Publishing to PyPI
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#chapter-8-documentation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chapter 8: Documentation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Chapter 8: Documentation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sphinx" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sphinx
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sphinx-apidoc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        sphinx-apidoc
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sphinx-extensions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sphinx Extensions
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sphinx-autobuild" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        sphinx-autobuild
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#restructuredtext-basics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        reStructuredText Basics
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#read-the-docs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Read the Docs
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-diataxis-documentation-framework" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Diátaxis Documentation Framework
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#documentation-best-practices" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Documentation Best Practices
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#chapter-9-versioning-and-dependency-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chapter 9: Versioning and Dependency Management
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Chapter 9: Versioning and Dependency Management">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#semantic-versioning-semver" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Semantic Versioning (SemVer)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#calendar-versioning-calver" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Calendar Versioning (CalVer)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#single-sourcing-the-version" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Single-Sourcing the Version
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#direct-vs-indirect-dependencies" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Direct vs. Indirect Dependencies
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dependency-hell-and-diamond-dependencies" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Dependency Hell and Diamond Dependencies
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pep-440-version-specifiers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PEP 440 Version Specifiers
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#github-dependency-graph-and-dependabot" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GitHub Dependency Graph and Dependabot
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#part-4-the-long-haul" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Part 4: The Long Haul
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Part 4: The Long Haul">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#chapter-10-scaling-and-solidifying-your-project" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chapter 10: Scaling and Solidifying Your Project
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Chapter 10: Scaling and Solidifying Your Project">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cookiecutter" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        cookiecutter
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#namespace-packages" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Namespace Packages
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#private-package-repositories" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Private Package Repositories
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#chapter-11-building-a-community" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chapter 11: Building a Community
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Chapter 11: Building a Community">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-readme-as-value-proposition" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The README as Value Proposition
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-user-funnel" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The User Funnel
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#code-of-conduct" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Code of Conduct
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#architectural-decision-records-adrs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Architectural Decision Records (ADRs)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#project-management-with-github" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Project Management with GitHub
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#appendices" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Appendices
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Appendices">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#appendix-a-installing-asdf-and-python-launcher" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Appendix A: Installing asdf and python-launcher
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#appendix-b-installing-pipx-and-build-tools" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Appendix B: Installing pipx and Build Tools
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../selenium_testing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Selenium Testing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api_design_patterns/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API Design Patterns
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../serious_python/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Serious Python
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tdd_python/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    TDD with Python
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../arch_patterns_python/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture Patterns
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../refactoring/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Refactoring
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../fundamentals_data_engineering/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Data Engineering
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../data_pipelines_airflow/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Airflow
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../fastapi_cookbook/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    FastAPI Cookbook
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../notes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Notes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+  
+                  
+
+
+
+<h1 id="publishing-python-packages">Publishing Python Packages<a class="headerlink" href="#publishing-python-packages" title="Permanent link">&para;</a></h1>
+<p><em>by Dane Hillard (Manning, 2023)</em></p>
+<hr />
+<h2 id="part-1-foundations">Part 1: Foundations<a class="headerlink" href="#part-1-foundations" title="Permanent link">&para;</a></h2>
+<h3 id="chapter-1-the-what-and-why-of-python-packages">Chapter 1: The What and Why of Python Packages<a class="headerlink" href="#chapter-1-the-what-and-why-of-python-packages" title="Permanent link">&para;</a></h3>
+<h4 id="what-is-a-package">What Is a Package?<a class="headerlink" href="#what-is-a-package" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Import package</strong>: A directory of Python modules that can be imported (contains <code>__init__.py</code>). Provides a namespace for organizing related code.</li>
+<li><strong>Distribution package</strong>: An archive of one or more import packages intended for installation (e.g., a <code>.whl</code> or <code>.tar.gz</code> file). This is what you upload to PyPI.</li>
+<li>The PyPA (Python Packaging Authority) uses these terms to disambiguate. "Package" in casual use often means either.</li>
+</ul>
+<h4 id="how-packaging-helps-you">How Packaging Helps You<a class="headerlink" href="#how-packaging-helps-you" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Package manager</strong>: A tool that automates installing, upgrading, and removing packages (e.g., <code>pip</code>).</li>
+<li><strong>Software repository</strong>: A centralized location for storing and distributing packages (e.g., PyPI — the Python Package Index at https://pypi.org).</li>
+<li>Publishing to PyPI makes code available to the entire Python ecosystem via <code>pip install &lt;package&gt;</code>.</li>
+</ul>
+<h4 id="the-packaging-lifecycle">The Packaging Lifecycle<a class="headerlink" href="#the-packaging-lifecycle" title="Permanent link">&para;</a></h4>
+<ol>
+<li>Write code</li>
+<li>Add packaging metadata and configuration</li>
+<li>Build distributions (source and/or wheel)</li>
+<li>Publish to a repository (PyPI)</li>
+<li>Others install via <code>pip</code></li>
+</ol>
+<h4 id="cohesion">Cohesion<a class="headerlink" href="#cohesion" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Cohesion</strong>: The degree to which elements of a module belong together.</li>
+<li>High cohesion = module does one thing well. Functions and classes in a module should be tightly related.</li>
+<li>Low cohesion = module is a grab-bag of unrelated functionality (anti-pattern).</li>
+</ul>
+<h4 id="encapsulation">Encapsulation<a class="headerlink" href="#encapsulation" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Encapsulation</strong>: Hiding internal implementation details and exposing only the intended public interface.</li>
+<li>In Python: use leading underscores (<code>_private_func</code>) for private APIs, expose public names via <code>__init__.py</code>.</li>
+<li>Encapsulation lets you refactor internals without breaking consumers.</li>
+</ul>
+<h4 id="ownership-and-maintenance">Ownership and Maintenance<a class="headerlink" href="#ownership-and-maintenance" title="Permanent link">&para;</a></h4>
+<ul>
+<li>Packaging code gives you ownership boundaries — a clear line between your library and its consumers.</li>
+<li>Versioned releases communicate stability and change.</li>
+</ul>
+<h4 id="loose-coupling">Loose Coupling<a class="headerlink" href="#loose-coupling" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Loose coupling</strong>: Minimizing dependencies between components so changes in one don't cascade to others.</li>
+<li>Tightly coupled code is fragile — a change in one module breaks many others.</li>
+<li>Prefer passing data/interfaces over reaching into another module's internals.</li>
+</ul>
+<h4 id="composition">Composition<a class="headerlink" href="#composition" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Composition</strong>: Building complex behavior by combining simple, focused components rather than deep inheritance hierarchies.</li>
+<li>Favor composition over inheritance — it's more flexible and promotes loose coupling.</li>
+<li>Small, focused packages that compose together are easier to test, maintain, and reuse.</li>
+</ul>
+<hr />
+<h3 id="chapter-2-preparing-for-package-development">Chapter 2: Preparing for Package Development<a class="headerlink" href="#chapter-2-preparing-for-package-development" title="Permanent link">&para;</a></h3>
+<h4 id="managing-python-versions">Managing Python Versions<a class="headerlink" href="#managing-python-versions" title="Permanent link">&para;</a></h4>
+<ul>
+<li>Multiple Python versions may coexist on a system. Use tools like <code>asdf</code> or <code>pyenv</code> to manage them.</li>
+<li><strong>python-launcher</strong> (<code>py</code> command): A cross-platform tool to select Python versions. <code>py -3.11</code> runs Python 3.11.</li>
+<li>Respects <code>PY_PYTHON</code> environment variable for default version.</li>
+<li>See Appendix A for installation.</li>
+</ul>
+<h4 id="virtual-environments">Virtual Environments<a class="headerlink" href="#virtual-environments" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Virtual environment</strong>: An isolated Python environment with its own <code>site-packages</code> directory, preventing dependency conflicts between projects.</li>
+<li>Create with:
+  <div class="highlight"><pre><span></span><code>python<span class="w"> </span>-m<span class="w"> </span>venv<span class="w"> </span>venv/
+</code></pre></div></li>
+<li>Activate:
+  <div class="highlight"><pre><span></span><code><span class="c1"># macOS/Linux</span>
+<span class="nb">source</span><span class="w"> </span>venv/bin/activate
+<span class="c1"># Windows</span>
+venv<span class="se">\S</span>cripts<span class="se">\a</span>ctivate.bat
+</code></pre></div></li>
+<li><strong><code>site-packages</code></strong>: The directory where <code>pip install</code> places installed packages. A venv has its own, separate from the system Python.</li>
+<li>Always use virtual environments for project development to isolate dependencies.</li>
+</ul>
+<h4 id="the-pip-package-manager">The <code>pip</code> Package Manager<a class="headerlink" href="#the-pip-package-manager" title="Permanent link">&para;</a></h4>
+<ul>
+<li><code>pip</code> is Python's standard package manager.</li>
+<li><code>pip install &lt;package&gt;</code> fetches from PyPI and installs into the active environment's <code>site-packages</code>.</li>
+<li><code>pip install --upgrade pip</code> to keep pip current.</li>
+<li><code>pip list</code> shows installed packages; <code>pip freeze</code> outputs <code>requirements.txt</code> format.</li>
+</ul>
+<hr />
+<h3 id="chapter-3-the-anatomy-of-a-minimal-package">Chapter 3: The Anatomy of a Minimal Package<a class="headerlink" href="#chapter-3-the-anatomy-of-a-minimal-package" title="Permanent link">&para;</a></h3>
+<h4 id="the-package-directory-structure">The Package Directory Structure<a class="headerlink" href="#the-package-directory-structure" title="Permanent link">&para;</a></h4>
+<ul>
+<li>Recommended <strong>src layout</strong>:
+  <div class="highlight"><pre><span></span><code>my-project/
+├── src/
+│   └── my_package/
+│       └── __init__.py
+├── tests/
+│   └── test_my_package.py
+├── pyproject.toml
+├── setup.cfg
+└── README.md
+</code></pre></div></li>
+<li>The <code>src/</code> layout prevents accidentally importing the local source tree during testing (forces installation).</li>
+<li><code>__init__.py</code> marks a directory as a Python import package and can expose the package's public API.</li>
+</ul>
+<h4 id="the-build-system">The Build System<a class="headerlink" href="#the-build-system" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Build frontend</strong>: A tool the user runs to trigger a build (e.g., <code>build</code>, <code>pip</code>).</li>
+<li><strong>Build backend</strong>: The tool that does the actual work of building distributions (e.g., <code>setuptools</code>, <code>flit-core</code>, <code>hatchling</code>, <code>poetry-core</code>).</li>
+<li>The build frontend reads <code>pyproject.toml</code> to discover the build backend.</li>
+</ul>
+<h4 id="pyprojecttoml"><code>pyproject.toml</code><a class="headerlink" href="#pyprojecttoml" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>PEP 517/518</strong>: Standardized how to declare build dependencies.</li>
+<li>Minimal <code>pyproject.toml</code>:
+  <div class="highlight"><pre><span></span><code><span class="k">[build-system]</span>
+<span class="n">requires</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;setuptools&gt;=67.6.0&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;wheel&quot;</span><span class="p">]</span>
+<span class="n">build-backend</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;setuptools.build_meta&quot;</span>
+</code></pre></div></li>
+<li><code>requires</code>: List of packages needed to build (installed in an isolated environment).</li>
+<li><code>build-backend</code>: Dotted path to the backend's entry point.</li>
+</ul>
+<h4 id="setupcfg"><code>setup.cfg</code><a class="headerlink" href="#setupcfg" title="Permanent link">&para;</a></h4>
+<ul>
+<li>Declarative configuration for <code>setuptools</code> (preferred over <code>setup.py</code> for static metadata).</li>
+<li>Key sections:</li>
+</ul>
+<h5 id="metadata"><code>[metadata]</code><a class="headerlink" href="#metadata" title="Permanent link">&para;</a></h5>
+<div class="highlight"><pre><span></span><code><span class="k">[metadata]</span>
+<span class="na">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">my-package</span>
+<span class="na">version</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">0.1.0</span>
+<span class="na">description</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">A short summary</span>
+<span class="na">long_description</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">file: README.md</span>
+<span class="na">long_description_content_type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">text/markdown</span>
+<span class="na">license</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">MIT</span>
+<span class="na">url</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">https://github.com/user/my-package</span>
+<span class="na">author</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">Your Name</span>
+<span class="na">author_email</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">you@example.com</span>
+<span class="na">classifiers</span><span class="w"> </span><span class="o">=</span>
+<span class="w">    </span><span class="na">Development Status</span><span class="w"> </span><span class="o">:</span><span class="s">: 3 - Alpha</span>
+<span class="w">    </span><span class="na">License</span><span class="w"> </span><span class="o">:</span><span class="s">: OSI Approved :: MIT License</span>
+<span class="w">    </span><span class="na">Programming Language</span><span class="w"> </span><span class="o">:</span><span class="s">: Python :: 3</span>
+</code></pre></div>
+<ul>
+<li><code>long_description = file: README.md</code> reads the README as the PyPI description page.</li>
+<li><strong>Classifiers</strong>: Standardized tags for categorizing packages on PyPI (must match PyPI's accepted list).</li>
+</ul>
+<h5 id="options-source-code-discovery"><code>[options]</code> — Source Code Discovery<a class="headerlink" href="#options-source-code-discovery" title="Permanent link">&para;</a></h5>
+<div class="highlight"><pre><span></span><code><span class="k">[options]</span>
+<span class="na">package_dir</span><span class="w"> </span><span class="o">=</span>
+<span class="w">    </span><span class="o">=</span><span class="w"> </span><span class="s">src</span>
+<span class="na">packages</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">find:</span>
+<span class="na">python_requires</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&gt;=3.9</span>
+
+<span class="k">[options.packages.find]</span>
+<span class="na">where</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">src</span>
+</code></pre></div>
+<ul>
+<li><code>package_dir = = src</code> tells setuptools the root of packages is <code>src/</code>.</li>
+<li><code>packages = find:</code> auto-discovers all packages under <code>src/</code>.</li>
+<li><code>python_requires</code> constrains supported Python versions.</li>
+</ul>
+<h4 id="manifestin">MANIFEST.in<a class="headerlink" href="#manifestin" title="Permanent link">&para;</a></h4>
+<ul>
+<li>Controls which non-Python files are included in source distributions (sdist).</li>
+<li>Directives:
+  <div class="highlight"><pre><span></span><code>include LICENSE
+recursive-include src *.txt *.rst
+global-include *.png
+graft docs
+</code></pre></div></li>
+<li><code>include</code>: Add specific files</li>
+<li><code>recursive-include</code>: Add matching files within a directory tree</li>
+<li><code>global-include</code>: Add matching files anywhere</li>
+<li><code>graft</code>: Add an entire directory tree</li>
+</ul>
+<h4 id="building-distributions">Building Distributions<a class="headerlink" href="#building-distributions" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code>python<span class="w"> </span>-m<span class="w"> </span>build
+</code></pre></div>
+<ul>
+<li>Produces two artifacts in <code>dist/</code>:</li>
+<li><strong>Source distribution (sdist)</strong>: <code>.tar.gz</code> — contains raw source code. Requires a build step on install.</li>
+<li><strong>Wheel (bdist_wheel)</strong>: <code>.whl</code> — a pre-built distribution. Faster to install, no build step needed.</li>
+</ul>
+<h4 id="setuppy-legacy"><code>setup.py</code> (Legacy)<a class="headerlink" href="#setuppy-legacy" title="Permanent link">&para;</a></h4>
+<ul>
+<li>The older imperative approach to configuration. Still needed for:</li>
+<li><strong>C extensions</strong> via Cython</li>
+<li>Dynamic build logic</li>
+<li>Example for Cython:
+  <div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">setuptools</span><span class="w"> </span><span class="kn">import</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">Cython.Build</span><span class="w"> </span><span class="kn">import</span> <span class="n">cythonize</span>
+
+<span class="n">setup</span><span class="p">(</span><span class="n">ext_modules</span><span class="o">=</span><span class="n">cythonize</span><span class="p">(</span><span class="s2">&quot;src/my_package/*.pyx&quot;</span><span class="p">))</span>
+</code></pre></div></li>
+</ul>
+<hr />
+<h2 id="part-2-creating-a-viable-package">Part 2: Creating a Viable Package<a class="headerlink" href="#part-2-creating-a-viable-package" title="Permanent link">&para;</a></h2>
+<h3 id="chapter-4-handling-package-dependencies-entry-points-and-extensions">Chapter 4: Handling Package Dependencies, Entry Points, and Extensions<a class="headerlink" href="#chapter-4-handling-package-dependencies-entry-points-and-extensions" title="Permanent link">&para;</a></h3>
+<h4 id="dependencies">Dependencies<a class="headerlink" href="#dependencies" title="Permanent link">&para;</a></h4>
+<ul>
+<li>Declared in <code>setup.cfg</code> under <code>[options]</code>:
+  <div class="highlight"><pre><span></span><code><span class="k">[options]</span>
+<span class="na">install_requires</span><span class="w"> </span><span class="o">=</span>
+<span class="w">    </span><span class="na">requests&gt;</span><span class="o">=</span><span class="s">2.28.0,&lt;3</span>
+<span class="w">    </span><span class="na">pyyaml&gt;</span><span class="o">=</span><span class="s">6.0</span>
+</code></pre></div></li>
+<li><strong>Loose version specifiers</strong>: Use lower bounds and (optionally) upper bounds. Avoid pinning to exact versions in libraries — that causes conflicts downstream.</li>
+<li><code>&gt;=1.1.0,&lt;2</code> means "at least 1.1.0, but less than 2.0.0" (compatible with semver major version).</li>
+</ul>
+<h4 id="entry-points">Entry Points<a class="headerlink" href="#entry-points" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Entry points</strong> let packages register CLI commands or plugin interfaces.</li>
+<li>Declared in <code>setup.cfg</code>:
+  <div class="highlight"><pre><span></span><code><span class="k">[options.entry_points]</span>
+<span class="na">console_scripts</span><span class="w"> </span><span class="o">=</span>
+<span class="w">    </span><span class="na">my-cli</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">my_package.cli:main</span>
+</code></pre></div></li>
+<li>After install, <code>my-cli</code> is available as a shell command that calls <code>my_package.cli.main()</code>.</li>
+<li>Entry points are also used for plugin systems (e.g., <code>my_package.plugins</code> group).</li>
+</ul>
+<h4 id="c-extensions-with-cython">C Extensions with Cython<a class="headerlink" href="#c-extensions-with-cython" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Cython</strong>: A superset of Python that compiles to C for performance. Files use <code>.pyx</code> extension.</li>
+<li>Requires <code>setup.py</code> with <code>cythonize()</code> for compilation.</li>
+<li>Produces <strong>binary wheels</strong> — platform-specific.</li>
+</ul>
+<h4 id="binary-wheel-filename-anatomy">Binary Wheel Filename Anatomy<a class="headerlink" href="#binary-wheel-filename-anatomy" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code>my_package-1.0.0-cp311-cp311-manylinux_2_17_x86_64.whl
+</code></pre></div>
+<ul>
+<li><code>{package}-{version}-{python_tag}-{abi_tag}-{platform_tag}.whl</code></li>
+<li><strong>Python tag</strong>: e.g., <code>cp311</code> = CPython 3.11</li>
+<li><strong>ABI tag</strong>: Application Binary Interface compatibility</li>
+<li><strong>Platform tag</strong>: e.g., <code>manylinux_2_17_x86_64</code>, <code>macosx_11_0_arm64</code>, <code>win_amd64</code></li>
+<li>Pure-Python wheels use <code>py3-none-any</code> (any Python 3, no ABI dependency, any platform).</li>
+</ul>
+<hr />
+<h3 id="chapter-5-testing-your-package">Chapter 5: Testing Your Package<a class="headerlink" href="#chapter-5-testing-your-package" title="Permanent link">&para;</a></h3>
+<h4 id="why-test">Why Test?<a class="headerlink" href="#why-test" title="Permanent link">&para;</a></h4>
+<ul>
+<li>Tests provide confidence that code works as expected.</li>
+<li>Tests enable refactoring — you can change internals and verify behavior is preserved.</li>
+<li>Tests serve as documentation of intended behavior.</li>
+</ul>
+<h4 id="pytest-fundamentals">pytest Fundamentals<a class="headerlink" href="#pytest-fundamentals" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>pytest</strong>: The de facto standard Python testing framework.</li>
+<li><strong>Test discovery</strong> conventions:</li>
+<li>Files named <code>test_*.py</code> or <code>*_test.py</code></li>
+<li>Classes prefixed with <code>Test</code></li>
+<li>Functions/methods prefixed with <code>test_</code></li>
+<li>Basic test:
+  <div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">test_addition</span><span class="p">():</span>
+    <span class="k">assert</span> <span class="mi">1</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">==</span> <span class="mi">2</span>
+</code></pre></div></li>
+<li>Run tests:
+  <div class="highlight"><pre><span></span><code>python<span class="w"> </span>-m<span class="w"> </span>pytest
+</code></pre></div></li>
+</ul>
+<h4 id="pytest-configuration">pytest Configuration<a class="headerlink" href="#pytest-configuration" title="Permanent link">&para;</a></h4>
+<ul>
+<li>In <code>setup.cfg</code>:
+  <div class="highlight"><pre><span></span><code><span class="k">[tool:pytest]</span>
+<span class="na">testpaths</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">tests</span>
+</code></pre></div></li>
+<li>Or in <code>pyproject.toml</code>:
+  <div class="highlight"><pre><span></span><code><span class="k">[tool.pytest.ini_options]</span>
+<span class="n">testpaths</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;tests&quot;</span><span class="p">]</span>
+</code></pre></div></li>
+</ul>
+<h4 id="happy-path-and-unhappy-path-testing">Happy Path and Unhappy Path Testing<a class="headerlink" href="#happy-path-and-unhappy-path-testing" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Happy path</strong>: Testing expected, normal usage — inputs are valid, everything works.</li>
+<li><strong>Unhappy path</strong>: Testing edge cases, invalid inputs, error conditions — verifying the code fails gracefully.</li>
+<li>Both are essential for robust packages.</li>
+</ul>
+<h4 id="parametrized-testing">Parametrized Testing<a class="headerlink" href="#parametrized-testing" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong><code>@pytest.mark.parametrize</code></strong>: Run the same test with multiple input/output combinations.
+  <div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">pytest</span>
+
+<span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">parametrize</span><span class="p">(</span><span class="s2">&quot;input_val,expected&quot;</span><span class="p">,</span> <span class="p">[</span>
+    <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span>
+    <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span>
+    <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
+    <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">),</span>
+<span class="p">])</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">test_double</span><span class="p">(</span><span class="n">input_val</span><span class="p">,</span> <span class="n">expected</span><span class="p">):</span>
+    <span class="k">assert</span> <span class="n">input_val</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">==</span> <span class="n">expected</span>
+</code></pre></div></li>
+<li>Reduces boilerplate when testing many cases with the same logic.</li>
+</ul>
+<h4 id="test-coverage">Test Coverage<a class="headerlink" href="#test-coverage" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong><code>pytest-cov</code></strong>: Plugin that measures code coverage during test runs.
+  <div class="highlight"><pre><span></span><code>python<span class="w"> </span>-m<span class="w"> </span>pytest<span class="w"> </span>--cov<span class="o">=</span>my_package
+</code></pre></div></li>
+<li>Configuration in <code>setup.cfg</code>:
+  <div class="highlight"><pre><span></span><code><span class="k">[coverage:run]</span>
+<span class="na">branch</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">True</span>
+
+<span class="k">[coverage:report]</span>
+<span class="na">show_missing</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">True</span>
+<span class="na">skip_covered</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">True</span>
+
+<span class="k">[coverage:paths]</span>
+<span class="na">source</span><span class="w"> </span><span class="o">=</span>
+<span class="w">    </span><span class="na">src/my_package</span>
+<span class="w">    </span><span class="na">*/site-packages/my_package</span>
+</code></pre></div></li>
+<li><strong>Branch coverage</strong> (<code>branch = True</code>): Ensures both branches of conditionals are tested, not just line coverage.</li>
+<li><code>show_missing = True</code>: Shows which lines lack coverage.</li>
+<li><code>skip_covered = True</code>: Hides fully-covered files from the report for readability.</li>
+<li><strong>Coverage thresholds</strong>:
+  <div class="highlight"><pre><span></span><code>python<span class="w"> </span>-m<span class="w"> </span>pytest<span class="w"> </span>--cov<span class="o">=</span>my_package<span class="w"> </span>--cov-fail-under<span class="o">=</span><span class="m">80</span>
+</code></pre></div>
+  Fails the test run if coverage drops below the threshold.</li>
+</ul>
+<h4 id="pytest-randomly">pytest-randomly<a class="headerlink" href="#pytest-randomly" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong><code>pytest-randomly</code></strong>: Randomizes the order of test execution.</li>
+<li>Purpose: Exposes <strong>stateful test dependencies</strong> — tests that only pass because of the order they run in.</li>
+<li>Seeds are printed so failures can be reproduced with <code>--randomly-seed=&lt;seed&gt;</code>.</li>
+</ul>
+<h4 id="strict-markers">Strict Markers<a class="headerlink" href="#strict-markers" title="Permanent link">&para;</a></h4>
+<ul>
+<li><code>--strict-markers</code>: Makes pytest error on unregistered markers (catches typos like <code>@pytest.mark.skiip</code>).</li>
+<li><code>xfail_strict = True</code>: Makes <code>@pytest.mark.xfail</code> tests fail if they unexpectedly pass (ensures you remove the marker when the bug is fixed).</li>
+<li>Register custom markers in <code>setup.cfg</code>:
+  <div class="highlight"><pre><span></span><code><span class="k">[tool:pytest]</span>
+<span class="na">markers</span><span class="w"> </span><span class="o">=</span>
+<span class="w">    </span><span class="na">slow</span><span class="o">:</span><span class="w"> </span><span class="s">marks tests as slow</span>
+</code></pre></div></li>
+</ul>
+<hr />
+<h3 id="chapter-6-automating-testing-and-quality-assurance">Chapter 6: Automating Testing and Quality Assurance<a class="headerlink" href="#chapter-6-automating-testing-and-quality-assurance" title="Permanent link">&para;</a></h3>
+<h4 id="tox">tox<a class="headerlink" href="#tox" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>tox</strong>: A tool for automating testing across multiple Python environments in isolation.</li>
+<li>Configuration in <code>setup.cfg</code>:
+  <div class="highlight"><pre><span></span><code><span class="k">[tox:tox]</span>
+<span class="na">isolated_build</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">True</span>
+<span class="na">envlist</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">py39,py310,py311</span>
+
+<span class="k">[testenv]</span>
+<span class="na">deps</span><span class="w"> </span><span class="o">=</span>
+<span class="w">    </span><span class="na">pytest</span>
+<span class="w">    </span><span class="na">pytest-cov</span>
+<span class="w">    </span><span class="na">pytest-randomly</span>
+<span class="na">commands</span><span class="w"> </span><span class="o">=</span>
+<span class="w">    </span><span class="na">python -m pytest {posargs}</span>
+</code></pre></div></li>
+<li><code>isolated_build = True</code>: Required for src layout packages — builds the package in an isolated environment before testing.</li>
+<li><code>envlist</code>: Defines which Python versions/environments to test against.</li>
+<li><code>{posargs}</code>: Passes through any additional command-line arguments.</li>
+</ul>
+<h4 id="named-environments">Named Environments<a class="headerlink" href="#named-environments" title="Permanent link">&para;</a></h4>
+<ul>
+<li>Custom environments for specific tasks (linting, type checking, etc.):
+  <div class="highlight"><pre><span></span><code><span class="k">[testenv:lint]</span>
+<span class="na">skip_install</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">True</span>
+<span class="na">deps</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">flake8</span>
+<span class="na">commands</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">flake8 src/ tests/</span>
+
+<span class="k">[testenv:typecheck]</span>
+<span class="na">deps</span><span class="w"> </span><span class="o">=</span>
+<span class="w">    </span><span class="na">mypy</span>
+<span class="w">    </span><span class="na">{[testenv]deps}</span>
+<span class="na">commands</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">mypy src/</span>
+</code></pre></div></li>
+<li><code>skip_install = True</code>: Don't install the package (useful for tools that don't need it).</li>
+<li><code>{[testenv]deps}</code>: Reference dependencies from another section to avoid repetition.</li>
+</ul>
+<h4 id="parallel-execution">Parallel Execution<a class="headerlink" href="#parallel-execution" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code>tox<span class="w"> </span>-p
+</code></pre></div>
+<ul>
+<li>Runs all environments in parallel for faster feedback.</li>
+</ul>
+<h4 id="type-checking-with-mypy">Type Checking with mypy<a class="headerlink" href="#type-checking-with-mypy" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>mypy</strong>: Static type checker for Python.</li>
+<li>Configuration in <code>setup.cfg</code>:
+  <div class="highlight"><pre><span></span><code><span class="k">[mypy]</span>
+<span class="na">python_version</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">3.11</span>
+<span class="na">warn_unused_configs</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">True</span>
+<span class="na">show_error_context</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">True</span>
+<span class="na">pretty</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">True</span>
+<span class="na">namespace_packages</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">True</span>
+<span class="na">check_untyped_defs</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">True</span>
+</code></pre></div></li>
+<li><strong><code>py.typed</code> marker file</strong>: A zero-byte file placed in your package directory (e.g., <code>src/my_package/py.typed</code>) that signals to type checkers that the package includes inline type annotations. Must be declared in <code>MANIFEST.in</code>.</li>
+</ul>
+<h4 id="code-formatting-with-black">Code Formatting with black<a class="headerlink" href="#code-formatting-with-black" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>black</strong>: An opinionated, deterministic code formatter ("The Uncompromising Code Formatter").</li>
+<li>Configuration in <code>pyproject.toml</code>:
+  <div class="highlight"><pre><span></span><code><span class="k">[tool.black]</span>
+<span class="n">line-length</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">79</span>
+<span class="n">target-version</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;py39&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;py310&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;py311&quot;</span><span class="p">]</span>
+</code></pre></div></li>
+<li>Key behaviors:</li>
+<li>Reformats code to a canonical style — no configuration wars.</li>
+<li>Uses trailing commas to reduce diff noise.</li>
+<li>Preserves AST (abstract syntax tree) — formatting never changes code behavior.</li>
+</ul>
+<h4 id="linting-with-flake8">Linting with flake8<a class="headerlink" href="#linting-with-flake8" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>flake8</strong>: A wrapper around three tools:</li>
+<li><strong>pyflakes</strong>: Detects logical errors (unused imports, undefined names)</li>
+<li><strong>pycodestyle</strong>: Checks PEP 8 style compliance</li>
+<li><strong>mccabe</strong>: Measures cyclomatic complexity</li>
+<li><strong>flake8-bugbear</strong>: A popular plugin that catches additional common bugs and design issues.</li>
+<li>Configuration in <code>setup.cfg</code>:
+  <div class="highlight"><pre><span></span><code><span class="k">[flake8]</span>
+<span class="na">max-line-length</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">79</span>
+<span class="na">extend-ignore</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">E203</span>
+<span class="na">per-file-ignores</span><span class="w"> </span><span class="o">=</span>
+<span class="w">    </span><span class="na">__init__.py</span><span class="o">:</span><span class="s">F401</span>
+</code></pre></div></li>
+<li><code>E203</code> is ignored for compatibility with black's formatting of slices.</li>
+<li><code>F401</code> in <code>__init__.py</code> suppresses "imported but unused" for public re-exports.</li>
+</ul>
+<h4 id="alternative-tools">Alternative Tools<a class="headerlink" href="#alternative-tools" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>Category</th>
+<th>Tools</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Type checkers</td>
+<td><code>pyright</code>, <code>pyre</code>, <code>pytype</code></td>
+</tr>
+<tr>
+<td>Formatters</td>
+<td><code>autopep8</code>, <code>yapf</code></td>
+</tr>
+<tr>
+<td>Linters</td>
+<td><code>pylint</code>, <code>prospector</code>, <code>bandit</code> (security), <code>vulture</code> (dead code)</td>
+</tr>
+</tbody>
+</table>
+<h4 id="pyupgrade">pyupgrade<a class="headerlink" href="#pyupgrade" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>pyupgrade</strong>: Automatically modernizes Python syntax for newer versions.</li>
+<li>Example: Converts <code>dict()</code> to <code>{}</code>, old-style string formatting to f-strings, <code>typing.List</code> to <code>list</code>, etc.</li>
+<li>AST-safe — only changes syntax, never behavior.</li>
+<li>Typically run as a pre-commit hook.</li>
+</ul>
+<h4 id="pre-commit-hooks">pre-commit Hooks<a class="headerlink" href="#pre-commit-hooks" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>pre-commit</strong>: A framework for managing and running Git pre-commit hooks.</li>
+<li>Configuration in <code>.pre-commit-config.yaml</code>:
+  <div class="highlight"><pre><span></span><code><span class="nt">repos</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">repo</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://github.com/pre-commit/pre-commit-hooks</span>
+<span class="w">    </span><span class="nt">rev</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">v4.4.0</span>
+<span class="w">    </span><span class="nt">hooks</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">trailing-whitespace</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">end-of-file-fixer</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">repo</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://github.com/psf/black</span>
+<span class="w">    </span><span class="nt">rev</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;23.3.0&quot;</span>
+<span class="w">    </span><span class="nt">hooks</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">black</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">repo</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://github.com/asottile/pyupgrade</span>
+<span class="w">    </span><span class="nt">rev</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">v3.4.0</span>
+<span class="w">    </span><span class="nt">hooks</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pyupgrade</span>
+<span class="w">        </span><span class="nt">args</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;--py39-plus&quot;</span><span class="p p-Indicator">]</span>
+</code></pre></div></li>
+<li>Install hooks: <code>pre-commit install</code></li>
+<li>Run on all files: <code>pre-commit run --all-files</code></li>
+<li>Hooks run automatically on <code>git commit</code>, catching issues before they enter the repo.</li>
+</ul>
+<hr />
+<h2 id="part-3-going-public">Part 3: Going Public<a class="headerlink" href="#part-3-going-public" title="Permanent link">&para;</a></h2>
+<h3 id="chapter-7-setting-up-a-ci-pipeline">Chapter 7: Setting Up a CI Pipeline<a class="headerlink" href="#chapter-7-setting-up-a-ci-pipeline" title="Permanent link">&para;</a></h3>
+<h4 id="github-actions">GitHub Actions<a class="headerlink" href="#github-actions" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>GitHub Actions</strong>: CI/CD platform built into GitHub.</li>
+<li>Workflows live in <code>.github/workflows/*.yml</code>.</li>
+<li>Key concepts:</li>
+<li><strong>Trigger</strong>: Event that starts a workflow (e.g., <code>push</code>, <code>pull_request</code>)</li>
+<li><strong>Job</strong>: A set of steps that run on a single runner</li>
+<li><strong>Step</strong>: An individual task (run a command or use an action)</li>
+<li><strong>Runner</strong>: The virtual machine that executes a job (e.g., <code>ubuntu-latest</code>)</li>
+</ul>
+<h4 id="workflow-structure">Workflow Structure<a class="headerlink" href="#workflow-structure" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">CI</span>
+<span class="nt">on</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">push</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">branches</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">main</span><span class="p p-Indicator">]</span>
+<span class="w">  </span><span class="nt">pull_request</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">branches</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">main</span><span class="p p-Indicator">]</span>
+
+<span class="nt">jobs</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">test</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">runs-on</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ubuntu-latest</span>
+<span class="w">    </span><span class="nt">strategy</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">matrix</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">python-version</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;3.9&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;3.10&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;3.11&quot;</span><span class="p p-Indicator">]</span>
+<span class="w">    </span><span class="nt">steps</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">actions/checkout@v3</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">actions/setup-python@v4</span>
+<span class="w">        </span><span class="nt">with</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">python-version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${{ matrix.python-version }}</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pip install tox</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">tox -e py</span>
+</code></pre></div>
+<h4 id="strategy-matrix">Strategy Matrix<a class="headerlink" href="#strategy-matrix" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong><code>strategy.matrix</code></strong>: Runs the job multiple times with different configurations.</li>
+<li>Common use: testing across multiple Python versions and operating systems.</li>
+<li><strong><code>${{ matrix.python-version }}</code></strong>: Expression syntax for referencing matrix variables.</li>
+</ul>
+<h4 id="cibuildwheel">cibuildwheel<a class="headerlink" href="#cibuildwheel" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>cibuildwheel</strong>: A tool for building binary wheels across Linux, macOS, and Windows in CI.</li>
+<li>Handles the complexity of cross-platform C extension compilation.</li>
+<li>Typically used as a GitHub Actions step for packages with native extensions.</li>
+</ul>
+<h4 id="publishing-to-pypi">Publishing to PyPI<a class="headerlink" href="#publishing-to-pypi" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>twine</strong>: The standard tool for uploading distributions to PyPI.
+  <div class="highlight"><pre><span></span><code>twine<span class="w"> </span>upload<span class="w"> </span>dist/*
+</code></pre></div></li>
+<li>Uses <strong>API tokens</strong> for authentication (preferred over username/password).</li>
+<li>Automated publishing via GitHub Actions:
+  <div class="highlight"><pre><span></span><code><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pypa/gh-action-pypi-publish@1.5.0</span>
+<span class="w">  </span><span class="nt">with</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">password</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${{ secrets.PYPI_API_TOKEN }}</span>
+</code></pre></div></li>
+<li><strong>Tag-based triggers</strong>: Publish only when a version tag is pushed:
+  <div class="highlight"><pre><span></span><code><span class="nt">on</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">push</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">tags</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;v*&quot;</span>
+</code></pre></div></li>
+</ul>
+<hr />
+<h3 id="chapter-8-documentation">Chapter 8: Documentation<a class="headerlink" href="#chapter-8-documentation" title="Permanent link">&para;</a></h3>
+<h4 id="sphinx">Sphinx<a class="headerlink" href="#sphinx" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Sphinx</strong>: The standard documentation generator for Python projects.</li>
+<li>Builds HTML (and other formats) from reStructuredText (<code>.rst</code>) source files.</li>
+<li>Run:
+  <div class="highlight"><pre><span></span><code>sphinx-build<span class="w"> </span>-b<span class="w"> </span>html<span class="w"> </span>docs/<span class="w"> </span>docs/_build/html
+</code></pre></div></li>
+</ul>
+<h4 id="sphinx-apidoc">sphinx-apidoc<a class="headerlink" href="#sphinx-apidoc" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong><code>sphinx-apidoc</code></strong>: Auto-generates <code>.rst</code> stubs from Python docstrings.
+  <div class="highlight"><pre><span></span><code>sphinx-apidoc<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--force<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--implicit-namespaces<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--module-first<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--separate<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-o<span class="w"> </span>docs/api/<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>src/my_package/
+</code></pre></div></li>
+<li><code>--force</code>: Overwrite existing files</li>
+<li><code>--implicit-namespaces</code>: Support PEP 420 namespace packages</li>
+<li><code>--module-first</code>: Place module docstring before submodule listing</li>
+<li><code>--separate</code>: Create a separate page per module</li>
+</ul>
+<h4 id="sphinx-extensions">Sphinx Extensions<a class="headerlink" href="#sphinx-extensions" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong><code>sphinx.ext.autodoc</code></strong>: Pulls docstrings from source code into documentation.</li>
+<li><strong><code>sphinx.ext.autodoc.typehints</code></strong>: Renders type annotations in the docs.</li>
+<li>Configured in <code>docs/conf.py</code>:
+  <div class="highlight"><pre><span></span><code><span class="n">extensions</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">&quot;sphinx.ext.autodoc&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;sphinx.ext.autodoc.typehints&quot;</span><span class="p">,</span>
+<span class="p">]</span>
+</code></pre></div></li>
+</ul>
+<h4 id="sphinx-autobuild">sphinx-autobuild<a class="headerlink" href="#sphinx-autobuild" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong><code>sphinx-autobuild</code></strong>: Watches for changes and auto-rebuilds docs with live reload.
+  <div class="highlight"><pre><span></span><code>sphinx-autobuild<span class="w"> </span>docs/<span class="w"> </span>docs/_build/html
+</code></pre></div></li>
+</ul>
+<h4 id="restructuredtext-basics">reStructuredText Basics<a class="headerlink" href="#restructuredtext-basics" title="Permanent link">&para;</a></h4>
+<ul>
+<li>reST is Sphinx's native markup language.</li>
+<li><strong><code>toctree</code> directive</strong>: Creates the documentation's table of contents / navigation tree:
+  <div class="highlight"><pre><span></span><code><span class="p">..</span> <span class="ow">toctree</span><span class="p">::</span>
+   <span class="nc">:maxdepth:</span> 2
+
+   getting-started
+   api/index
+   changelog
+</code></pre></div></li>
+</ul>
+<h4 id="read-the-docs">Read the Docs<a class="headerlink" href="#read-the-docs" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Read the Docs (RTD)</strong>: Free hosting for open-source documentation, integrated with GitHub.</li>
+<li>Configuration in <code>.readthedocs.yaml</code>:
+  <div class="highlight"><pre><span></span><code><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span>
+<span class="nt">build</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">os</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ubuntu-22.04</span>
+<span class="w">  </span><span class="nt">tools</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">python</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;3.11&quot;</span>
+<span class="nt">sphinx</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">configuration</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">docs/conf.py</span>
+<span class="nt">python</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">install</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">method</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pip</span>
+<span class="w">      </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">.</span>
+</code></pre></div></li>
+<li><strong><code>builder-inited</code> event hook</strong>: Run <code>sphinx-apidoc</code> automatically during RTD builds (since RTD doesn't run it by default):
+  <div class="highlight"><pre><span></span><code><span class="c1"># docs/conf.py</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">subprocess</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">run_apidoc</span><span class="p">(</span><span class="n">_</span><span class="p">):</span>
+    <span class="n">docs_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)</span>
+    <span class="n">subprocess</span><span class="o">.</span><span class="n">check_call</span><span class="p">([</span>
+        <span class="s2">&quot;sphinx-apidoc&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;--force&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;--implicit-namespaces&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;--module-first&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;--separate&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;-o&quot;</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">docs_dir</span><span class="p">,</span> <span class="s2">&quot;api&quot;</span><span class="p">),</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">docs_dir</span><span class="p">,</span> <span class="s2">&quot;..&quot;</span><span class="p">,</span> <span class="s2">&quot;src&quot;</span><span class="p">,</span> <span class="s2">&quot;my_package&quot;</span><span class="p">),</span>
+    <span class="p">])</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">setup</span><span class="p">(</span><span class="n">app</span><span class="p">):</span>
+    <span class="n">app</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s2">&quot;builder-inited&quot;</span><span class="p">,</span> <span class="n">run_apidoc</span><span class="p">)</span>
+</code></pre></div></li>
+<li>RTD can build documentation for pull requests for review.</li>
+</ul>
+<h4 id="the-diataxis-documentation-framework">The Diátaxis Documentation Framework<a class="headerlink" href="#the-diataxis-documentation-framework" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Diátaxis</strong>: A systematic framework for organizing technical documentation into four quadrants:</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Studying</th>
+<th>Working</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Practical</strong></td>
+<td><strong>Tutorials</strong> — Learning-oriented, guided lessons</td>
+<td><strong>How-to Guides</strong> — Task-oriented, step-by-step recipes</td>
+</tr>
+<tr>
+<td><strong>Theoretical</strong></td>
+<td><strong>Discussions/Explanations</strong> — Understanding-oriented, conceptual</td>
+<td><strong>Reference</strong> — Information-oriented, precise technical details</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>Each type serves a different user need. Good documentation includes all four.</li>
+</ul>
+<h4 id="documentation-best-practices">Documentation Best Practices<a class="headerlink" href="#documentation-best-practices" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>What to document</strong>: Public API, installation, quickstart, configuration, common patterns, migration guides.</li>
+<li><strong>Link over repetition</strong>: Use <strong>intersphinx</strong> to link to other projects' docs rather than duplicating content.</li>
+<li><strong>Consistent language</strong>: Use the same terms throughout. Avoid jargon where possible.</li>
+<li><strong>Empathetic writing</strong>: Don't assume prior knowledge. Avoid "simply" or "just".</li>
+<li><strong>Visual structure</strong>: Use headings, code blocks, and admonitions to guide the reader.</li>
+<li><strong>MyST</strong>: A Markdown-based alternative to reStructuredText for Sphinx — useful if your team prefers Markdown.</li>
+</ul>
+<hr />
+<h3 id="chapter-9-versioning-and-dependency-management">Chapter 9: Versioning and Dependency Management<a class="headerlink" href="#chapter-9-versioning-and-dependency-management" title="Permanent link">&para;</a></h3>
+<h4 id="semantic-versioning-semver">Semantic Versioning (SemVer)<a class="headerlink" href="#semantic-versioning-semver" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Semantic versioning</strong>: <code>MAJOR.MINOR.PATCH</code></li>
+<li><strong>MAJOR</strong>: Incremented for breaking/incompatible API changes</li>
+<li><strong>MINOR</strong>: Incremented for new features that are backward-compatible</li>
+<li><strong>PATCH</strong>: Incremented for backward-compatible bug fixes</li>
+<li>Example: <code>1.4.2</code> → <code>2.0.0</code> (breaking change), <code>1.4.2</code> → <code>1.5.0</code> (new feature), <code>1.4.2</code> → <code>1.4.3</code> (bug fix).</li>
+<li>Initial development uses <code>0.x.y</code> — the API is not considered stable.</li>
+</ul>
+<h4 id="calendar-versioning-calver">Calendar Versioning (CalVer)<a class="headerlink" href="#calendar-versioning-calver" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Calendar versioning</strong>: Uses dates instead of semantic meaning. E.g., <code>2023.03.15</code>.</li>
+<li>Useful for projects with time-based releases (e.g., Ubuntu <code>22.04</code>).</li>
+<li>Provides a predictable release timeline but doesn't communicate compatibility.</li>
+</ul>
+<h4 id="single-sourcing-the-version">Single-Sourcing the Version<a class="headerlink" href="#single-sourcing-the-version" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Problem</strong>: Version string defined in multiple places (setup.cfg, <code>__init__.py</code>, docs) leads to drift.</li>
+<li><strong>Preferred approach</strong> — use <code>importlib.metadata</code>:
+  <div class="highlight"><pre><span></span><code><span class="c1"># src/my_package/__init__.py</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">importlib.metadata</span><span class="w"> </span><span class="kn">import</span> <span class="n">version</span>
+
+<span class="n">__version__</span> <span class="o">=</span> <span class="n">version</span><span class="p">(</span><span class="s2">&quot;my-package&quot;</span><span class="p">)</span>
+</code></pre></div></li>
+<li>Reads the version from the installed package metadata (which comes from <code>setup.cfg</code>).</li>
+<li>Avoids the <code>__version__</code> attribute anti-pattern where it's manually maintained.</li>
+</ul>
+<h4 id="direct-vs-indirect-dependencies">Direct vs. Indirect Dependencies<a class="headerlink" href="#direct-vs-indirect-dependencies" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Direct dependency</strong>: A package your code imports directly (declared in <code>install_requires</code>).</li>
+<li><strong>Indirect (transitive) dependency</strong>: A package that one of your direct dependencies depends on. You don't declare these — they're resolved automatically.</li>
+<li><strong>Dependency graph</strong>: The full tree of direct and transitive dependencies.</li>
+</ul>
+<h4 id="dependency-hell-and-diamond-dependencies">Dependency Hell and Diamond Dependencies<a class="headerlink" href="#dependency-hell-and-diamond-dependencies" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Dependency hell</strong>: When conflicting version requirements between packages make resolution impossible.</li>
+<li><strong>Diamond dependency</strong>: A and B both depend on C, but require incompatible versions:
+  <div class="highlight"><pre><span></span><code>     Your Package
+      /       \
+  A (needs C&gt;=2)   B (needs C&lt;2)
+      \       /
+        C  ← conflict!
+</code></pre></div></li>
+<li>Mitigations: Use loose version specifiers in libraries, let the resolver find a compatible set.</li>
+</ul>
+<h4 id="pep-440-version-specifiers">PEP 440 Version Specifiers<a class="headerlink" href="#pep-440-version-specifiers" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>Specifier</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>==1.2.3</code></td>
+<td>Exact pin</td>
+</tr>
+<tr>
+<td><code>&gt;=1.2.0</code></td>
+<td>Lower bound only</td>
+</tr>
+<tr>
+<td><code>&gt;=1.2.0,&lt;2</code></td>
+<td>Lower and upper bound</td>
+</tr>
+<tr>
+<td><code>~=1.2.0</code></td>
+<td>Compatible release (&gt;=1.2.0, &lt;1.3.0)</td>
+</tr>
+<tr>
+<td><code>!=1.2.5</code></td>
+<td>Exclusion</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>For libraries</strong>: Use loose bounds (<code>&gt;=1.2.0,&lt;2</code>) — give consumers flexibility.</li>
+<li><strong>For applications</strong>: Pinning or tighter constraints may be appropriate (use <code>pip freeze</code> + <code>requirements.txt</code>).</li>
+</ul>
+<h4 id="github-dependency-graph-and-dependabot">GitHub Dependency Graph and Dependabot<a class="headerlink" href="#github-dependency-graph-and-dependabot" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>GitHub dependency graph</strong>: Visualizes your project's dependencies and flags known vulnerabilities.</li>
+<li><strong>Dependabot</strong>: Automated bot that:</li>
+<li>Opens PRs to fix security vulnerabilities in dependencies</li>
+<li>Opens PRs to keep dependencies updated</li>
+<li>Configuration in <code>.github/dependabot.yml</code>:
+  <div class="highlight"><pre><span></span><code><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span>
+<span class="nt">updates</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">package-ecosystem</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pip</span>
+<span class="w">    </span><span class="nt">directory</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;/&quot;</span>
+<span class="w">    </span><span class="nt">schedule</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">interval</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">weekly</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">package-ecosystem</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">github-actions</span>
+<span class="w">    </span><span class="nt">directory</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;/&quot;</span>
+<span class="w">    </span><span class="nt">schedule</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">interval</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">weekly</span>
+</code></pre></div></li>
+</ul>
+<hr />
+<h2 id="part-4-the-long-haul">Part 4: The Long Haul<a class="headerlink" href="#part-4-the-long-haul" title="Permanent link">&para;</a></h2>
+<h3 id="chapter-10-scaling-and-solidifying-your-project">Chapter 10: Scaling and Solidifying Your Project<a class="headerlink" href="#chapter-10-scaling-and-solidifying-your-project" title="Permanent link">&para;</a></h3>
+<h4 id="cookiecutter">cookiecutter<a class="headerlink" href="#cookiecutter" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>cookiecutter</strong>: A tool for creating projects from templates.</li>
+<li>Templates use <strong>Jinja2 placeholders</strong>: <code>{{cookiecutter.project_name}}</code>.</li>
+<li>Configuration in <code>cookiecutter.json</code>:
+  <div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;project_name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;my-project&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;package_name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;{{ cookiecutter.project_name.replace(&#39;-&#39;, &#39;_&#39;) }}&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;author&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Your Name&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;python_version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;3.11&quot;</span>
+<span class="p">}</span>
+</code></pre></div></li>
+<li>Usage:
+  <div class="highlight"><pre><span></span><code>cookiecutter<span class="w"> </span>https://github.com/user/my-template
+</code></pre></div></li>
+<li>Ensures consistency across multiple packages — all start with the same structure, CI config, linting setup, etc.</li>
+</ul>
+<h4 id="namespace-packages">Namespace Packages<a class="headerlink" href="#namespace-packages" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Namespace package</strong> (PEP 420): A package spread across multiple directories/distributions that share a common top-level namespace.</li>
+<li><strong>Key rule</strong>: The shared namespace directory must <strong>not</strong> contain an <code>__init__.py</code> file. This is what makes it "implicit."</li>
+<li>Example structure (two separate distributions sharing the <code>company</code> namespace):
+  <div class="highlight"><pre><span></span><code># Distribution 1: company-auth
+src/
+└── company/           # NO __init__.py here!
+    └── auth/
+        └── __init__.py
+
+# Distribution 2: company-billing
+src/
+└── company/           # NO __init__.py here!
+    └── billing/
+        └── __init__.py
+</code></pre></div></li>
+<li>In <code>setup.cfg</code>, use <code>find_namespace:</code> instead of <code>find:</code>:
+  <div class="highlight"><pre><span></span><code><span class="k">[options]</span>
+<span class="na">package_dir</span><span class="w"> </span><span class="o">=</span>
+<span class="w">    </span><span class="o">=</span><span class="w"> </span><span class="s">src</span>
+<span class="na">packages</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">find_namespace:</span>
+
+<span class="k">[options.packages.find]</span>
+<span class="na">where</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">src</span>
+</code></pre></div></li>
+<li>Use cases: Large organizations splitting a monolithic package into independently versioned/deployed sub-packages.</li>
+</ul>
+<h4 id="private-package-repositories">Private Package Repositories<a class="headerlink" href="#private-package-repositories" title="Permanent link">&para;</a></h4>
+<ul>
+<li>Not all packages should be public. Organizations often need private repositories.</li>
+<li><strong>pypiserver</strong>: A minimal PyPI-compatible server you can self-host.
+  <div class="highlight"><pre><span></span><code>pip<span class="w"> </span>install<span class="w"> </span>pypiserver
+pypi-server<span class="w"> </span>run<span class="w"> </span>-p<span class="w"> </span><span class="m">8080</span><span class="w"> </span>~/packages/
+</code></pre></div></li>
+<li><strong>Artifactory</strong>: Enterprise-grade artifact repository with PyPI support.</li>
+<li><strong>Uploading</strong> with twine:
+  <div class="highlight"><pre><span></span><code>twine<span class="w"> </span>upload<span class="w"> </span>--repository-url<span class="w"> </span>http://localhost:8080<span class="w"> </span>dist/*
+</code></pre></div></li>
+<li><strong>Installing</strong> from a private repo:
+  <div class="highlight"><pre><span></span><code>pip<span class="w"> </span>install<span class="w"> </span>--index-url<span class="w"> </span>http://localhost:8080/simple/<span class="w"> </span>my-package
+<span class="c1"># Or combine with PyPI:</span>
+pip<span class="w"> </span>install<span class="w"> </span>--extra-index-url<span class="w"> </span>http://localhost:8080/simple/<span class="w"> </span>my-package
+</code></pre></div></li>
+<li>tox environment for publishing:
+  <div class="highlight"><pre><span></span><code><span class="k">[testenv:publish]</span>
+<span class="na">skip_install</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">True</span>
+<span class="na">deps</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">twine</span>
+<span class="na">commands</span><span class="w"> </span><span class="o">=</span>
+<span class="w">    </span><span class="na">twine upload --repository-url {env</span><span class="o">:</span><span class="s">PYPI_URL} dist/*</span>
+</code></pre></div></li>
+</ul>
+<hr />
+<h3 id="chapter-11-building-a-community">Chapter 11: Building a Community<a class="headerlink" href="#chapter-11-building-a-community" title="Permanent link">&para;</a></h3>
+<h4 id="the-readme-as-value-proposition">The README as Value Proposition<a class="headerlink" href="#the-readme-as-value-proposition" title="Permanent link">&para;</a></h4>
+<ul>
+<li>The README is the first thing potential users see. It should answer:</li>
+<li><strong>What</strong> does this package do?</li>
+<li><strong>Why</strong> should I use it (over alternatives)?</li>
+<li><strong>How</strong> do I get started quickly?</li>
+<li>A great README converts browsers into users.</li>
+</ul>
+<h4 id="the-user-funnel">The User Funnel<a class="headerlink" href="#the-user-funnel" title="Permanent link">&para;</a></h4>
+<ul>
+<li>Users progress through stages of engagement:</li>
+<li><strong>Potential users</strong> → discover the package (README, search, word-of-mouth)</li>
+<li><strong>Users</strong> → install and use it (quickstart, tutorials)</li>
+<li><strong>Superusers</strong> → deeply invested, pushing boundaries (advanced docs, discussions)</li>
+<li><strong>Contributors</strong> → submit bug reports, PRs, documentation (contributing guide)</li>
+<li><strong>Maintainers</strong> → co-own the project (governance, commit access)</li>
+<li>Good documentation serves each stage differently.</li>
+</ul>
+<h4 id="code-of-conduct">Code of Conduct<a class="headerlink" href="#code-of-conduct" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Contributor Covenant</strong>: The most widely adopted open-source code of conduct.</li>
+<li>Sets expectations for respectful behavior in the community.</li>
+<li>Establishes enforcement mechanisms for violations.</li>
+<li>Signal to potential contributors that the project is welcoming and safe.</li>
+</ul>
+<h4 id="architectural-decision-records-adrs">Architectural Decision Records (ADRs)<a class="headerlink" href="#architectural-decision-records-adrs" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>ADR</strong>: A document capturing a significant architectural decision, its context, and consequences.</li>
+<li>Structure:</li>
+<li><strong>Title</strong>: Short description</li>
+<li><strong>Status</strong>: Proposed, accepted, deprecated, superseded</li>
+<li><strong>Context</strong>: What situation prompted this decision?</li>
+<li><strong>Decision</strong>: What was decided?</li>
+<li><strong>Consequences</strong>: What are the tradeoffs?</li>
+<li>Prevents re-litigating settled decisions and onboards new contributors faster.</li>
+</ul>
+<h4 id="project-management-with-github">Project Management with GitHub<a class="headerlink" href="#project-management-with-github" title="Permanent link">&para;</a></h4>
+<h5 id="github-projects">GitHub Projects<a class="headerlink" href="#github-projects" title="Permanent link">&para;</a></h5>
+<ul>
+<li><strong>GitHub Projects</strong>: Built-in kanban boards for tracking work.</li>
+<li>Columns typically: Backlog → In Progress → Review → Done.</li>
+</ul>
+<h5 id="labels">Labels<a class="headerlink" href="#labels" title="Permanent link">&para;</a></h5>
+<ul>
+<li>Use labels to communicate PR/issue status:</li>
+<li><code>bug</code>, <code>enhancement</code>, <code>documentation</code>, <code>good first issue</code>, <code>help wanted</code>, <code>breaking change</code>, etc.</li>
+<li>Labels help contributors find appropriate tasks.</li>
+</ul>
+<h5 id="changelogmd">CHANGELOG.md<a class="headerlink" href="#changelogmd" title="Permanent link">&para;</a></h5>
+<ul>
+<li><strong>CHANGELOG</strong>: A curated, human-readable file documenting notable changes per release.</li>
+<li>Follow the <strong>Keep a Changelog</strong> format (https://keepachangelog.com):
+  <div class="highlight"><pre><span></span><code><span class="gh"># Changelog</span>
+
+<span class="gu">## [Unreleased]</span>
+
+<span class="gu">## [1.1.0] - 2023-06-15</span>
+<span class="gu">### Added</span>
+<span class="k">-</span><span class="w"> </span>New authentication module
+
+<span class="gu">### Fixed</span>
+<span class="k">-</span><span class="w"> </span>Race condition in connection pooling
+
+<span class="gu">## [1.0.0] - 2023-05-01</span>
+<span class="gu">### Added</span>
+<span class="k">-</span><span class="w"> </span>Initial release
+</code></pre></div></li>
+<li>Categories: Added, Changed, Deprecated, Removed, Fixed, Security.</li>
+<li>The <code>[Unreleased]</code> section accumulates changes until the next release.</li>
+</ul>
+<h5 id="issue-and-pr-templates">Issue and PR Templates<a class="headerlink" href="#issue-and-pr-templates" title="Permanent link">&para;</a></h5>
+<ul>
+<li><strong>Issue templates</strong>: Standardize bug reports and feature requests with required fields.</li>
+<li><strong>PR template</strong> (<code>PULL_REQUEST_TEMPLATE.md</code>): Placed in <code>.github/</code> directory. Auto-populates PR descriptions with a checklist:
+  <div class="highlight"><pre><span></span><code><span class="gu">## Description</span>
+&lt;!-- What does this PR do? --&gt;
+
+<span class="gu">## Checklist</span>
+<span class="k">- [ ]</span> Tests added/updated
+<span class="k">- [ ]</span> Documentation updated
+<span class="k">- [ ]</span> CHANGELOG updated
+</code></pre></div></li>
+</ul>
+<hr />
+<h2 id="appendices">Appendices<a class="headerlink" href="#appendices" title="Permanent link">&para;</a></h2>
+<h3 id="appendix-a-installing-asdf-and-python-launcher">Appendix A: Installing asdf and python-launcher<a class="headerlink" href="#appendix-a-installing-asdf-and-python-launcher" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>asdf</strong>: A version manager that supports multiple languages/tools via plugins.
+  <div class="highlight"><pre><span></span><code>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/asdf-vm/asdf.git<span class="w"> </span>~/.asdf
+asdf<span class="w"> </span>plugin<span class="w"> </span>add<span class="w"> </span>python
+asdf<span class="w"> </span>install<span class="w"> </span>python<span class="w"> </span><span class="m">3</span>.11.4
+asdf<span class="w"> </span>global<span class="w"> </span>python<span class="w"> </span><span class="m">3</span>.11.4
+</code></pre></div></li>
+<li><strong>python-launcher</strong> (<code>py</code>): Cross-platform Python version selector.
+  <div class="highlight"><pre><span></span><code><span class="c1"># macOS</span>
+brew<span class="w"> </span>install<span class="w"> </span>python-launcher
+<span class="c1"># Usage</span>
+py<span class="w"> </span>-3.11<span class="w"> </span>-m<span class="w"> </span>pytest
+</code></pre></div></li>
+</ul>
+<h3 id="appendix-b-installing-pipx-and-build-tools">Appendix B: Installing pipx and Build Tools<a class="headerlink" href="#appendix-b-installing-pipx-and-build-tools" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>pipx</strong>: Installs Python CLI tools in isolated environments (prevents polluting global site-packages).
+  <div class="highlight"><pre><span></span><code>pip<span class="w"> </span>install<span class="w"> </span>pipx
+pipx<span class="w"> </span>ensurepath
+</code></pre></div></li>
+<li>Install tools via pipx:
+  <div class="highlight"><pre><span></span><code>pipx<span class="w"> </span>install<span class="w"> </span>build
+pipx<span class="w"> </span>install<span class="w"> </span>tox
+pipx<span class="w"> </span>install<span class="w"> </span>pre-commit
+pipx<span class="w"> </span>install<span class="w"> </span>cookiecutter
+</code></pre></div></li>
+<li>Each tool gets its own virtual environment but is available globally on <code>PATH</code>.</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+  
+
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        
+
+<footer class="md-footer">
+  
+    <nav
+      class="md-footer__inner md-grid"
+      aria-label="footer.title"
+    >
+      
+        <a
+          href="../pytest/"
+          class="md-footer__link md-footer__link--prev"
+          rel="prev"
+        >
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              pytest
+            </div>
+          </div>
+        </a>
+      
+      
+        <a
+          href="../selenium_testing/"
+          class="md-footer__link md-footer__link--next"
+          rel="next"
+        >
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              Selenium Testing
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        Made with
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+          Material for MkDocs
+        </a>
+        with emoji by
+        <a href="https://github.com/twitter/twemoji" target="_blank" rel="noopener">
+          Twemoji
+        </a>
+      </div>
+      
+<div class="md-social">
+  
+</div>
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["announce.dismiss", "content.action.edit", "content.action.view", "content.code.annotate", "content.code.copy", "content.tooltips", "header.autohide", "navigation.expand", "navigation.footer", "navigation.indexes", "navigation.instant", "navigation.sections", "navigation.tabs", "navigation.top", "navigation.tracking", "search.highlight", "search.share", "search.suggest", "toc.follow", "toc.integrate"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../../javascripts/extra.js"></script>
+      
+        <script src="../../assets/pymdownx-extras/extra-loader-B5CKpNQx.js"></script>
+      
+    
+  </body>
+</html>
