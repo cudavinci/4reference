@@ -36,6 +36,7 @@ def amount_for(a_performance: dict, play: dict) -> int:
 ```
 
 Each extraction follows the same rhythm:
+
 1. Identify a coherent block of code
 2. Extract it into its own function
 3. **Run the tests** after every change
@@ -161,6 +162,7 @@ def create_calculator(a_performance: dict, a_play: dict) -> PerformanceCalculato
 #### Chapter 1 Summary
 
 The entire refactoring follows a pattern:
+
 1. **Small steps** — each change is tiny, testable, and independently commitable
 2. **Tests after every change** — if something breaks, you know exactly which change caused it
 3. **Decompose → reorganize → replace conditionals with polymorphism**
@@ -213,6 +215,7 @@ More practically:
 #### Refactoring and Performance
 
 Refactoring can make code slower (e.g., splitting a loop), but it almost never matters. The approach:
+
 1. Write well-factored code without worrying about performance
 2. Profile to find the actual bottlenecks (usually a small fraction of the code)
 3. Optimize only those hotspots
@@ -375,6 +378,7 @@ def test_profit(asia):
 ```
 
 **Key principles:**
+
 - Each test should have its own fresh fixture — **never share mutable state between tests**. The `@pytest.fixture` mechanism provides a fresh copy for each test function.
 - Tests should be **isolated** from each other; running order shouldn't matter.
 
@@ -467,6 +471,7 @@ def print_details(invoice, outstanding):
 ```
 
 **Mechanics:**
+
 1. Create a new function named after the intent (what, not how)
 2. Copy the extracted code into the new function
 3. Check for local variables — pass them as parameters or return them
@@ -543,6 +548,7 @@ def circumference(radius):
 ```
 
 **Migration Mechanics (for published APIs or complex changes):**
+
 1. Extract the body into a new function with the desired signature
 2. Have the old function delegate to the new one
 3. Callers migrate one at a time
@@ -905,6 +911,7 @@ def found_person(people):
 **Motivation:** Move a function to the module/class where it's most used or where its context lives. Good modularity means related things are together.
 
 **Heuristics for where a function should live:**
+
 - What data does it reference most?
 - What other functions call it?
 - What functions does it call?
@@ -1847,6 +1854,7 @@ class Party:
 **Motivation:** Inheritance has limitations: a class can only vary on one axis, and it creates tight coupling between parent and child. Delegation provides the same behavior variation with more flexibility.
 
 **When to prefer delegation over inheritance:**
+
 - The object needs to vary on multiple independent axes
 - The "type" can change at runtime (you can swap a delegate, but you can't change an object's class)
 - You want to avoid coupling to the superclass's implementation

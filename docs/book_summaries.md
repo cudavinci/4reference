@@ -108,6 +108,7 @@ if __name__ == '__main__':
 | Slow, end-to-end | Fast, isolated |
 
 **Double-loop TDD workflow**:
+
 1. Write FT (outer loop) → fails
 2. Write unit test (inner loop) → fails
 3. Write minimal code → unit test passes
@@ -1242,6 +1243,7 @@ def test_sends_mail_to_address_from_post(self, mock_send_mail):
 ```
 
 **How `@patch` works**:
+
 1. Finds object at the dotted path (e.g., `accounts.views.send_mail`)
 2. Replaces it with a `Mock` object for the duration of the test
 3. Injects the mock as an extra argument to the test method
@@ -1616,6 +1618,7 @@ class ListPage:
 ```
 
 **Benefits**:
+
 - When HTML changes, update one place (the Page object), not every test
 - Tests read like narratives: `ListPage(self).add_list_item('Buy milk')`
 - Method chaining via `return self`
@@ -1656,6 +1659,7 @@ def test_can_share_a_list_with_another_user(self):
 ### Synthesis: What Do We Want from Our Tests, Anyway?
 
 Three goals:
+
 1. **Correctness**: Does the code work?
 2. **Clean, Maintainable Code**: Is the design good?
 3. **Productive Workflow**: Is the feedback loop fast enough?
@@ -2641,6 +2645,7 @@ pip install -e "./cards_proj/[test]"   # editable + optional test deps
 #### Debugging with pytest Flags
 
 **Test selection/ordering:**
+
 - `--lf` / `--last-failed` — rerun only failures
 - `--ff` / `--failed-first` — run all, failures first
 - `-x` / `--exitfirst` — stop after first failure
@@ -2649,11 +2654,13 @@ pip install -e "./cards_proj/[test]"   # editable + optional test deps
 - `--nf` / `--new-first` — order by file modification time
 
 **Output control:**
+
 - `-v` / `--verbose`
 - `--tb=[auto/long/short/line/native/no]`
 - `-l` / `--showlocals` — display local variables in tracebacks
 
 **Debugger:**
+
 - `--pdb` — drop into pdb at point of failure
 - `--trace` — drop into pdb at start of each test
 - `--pdbcls=IPython.terminal.debugger:TerminalPdb` — use IPython debugger
@@ -2698,6 +2705,7 @@ pip install pytest-cov     # or any plugin
 #### Exploring the Diversity of pytest Plugins
 
 **Test flow:**
+
 - **pytest-order** — specify run order via marker
 - **pytest-randomly** — randomize order (also seeds Faker/Factory Boy)
 - **pytest-repeat** — repeat tests N times (`--count=10`)
@@ -2705,21 +2713,25 @@ pip install pytest-cov     # or any plugin
 - **pytest-xdist** — parallel execution (`-n=auto`)
 
 **Output:**
+
 - **pytest-instafail** — show failures immediately
 - **pytest-sugar** — green checkmarks + progress bar
 - **pytest-html** — HTML test reports
 
 **Web:**
+
 - **pytest-selenium**, **pytest-splinter** — browser testing
 - **pytest-django**, **pytest-flask** — framework integration
 
 **Fake data:**
+
 - **Faker** — general fake data
 - **model-bakery** — Django model objects
 - **pytest-factoryboy** — Factory Boy fixtures
 - **pytest-mimesis** — faster alternative to Faker
 
 **Misc:**
+
 - **pytest-cov** — coverage
 - **pytest-benchmark** — timing benchmarks
 - **pytest-timeout** — enforce time limits
@@ -5399,6 +5411,7 @@ def amount_for(a_performance: dict, play: dict) -> int:
 ```
 
 Each extraction follows the same rhythm:
+
 1. Identify a coherent block of code
 2. Extract it into its own function
 3. **Run the tests** after every change
@@ -5524,6 +5537,7 @@ def create_calculator(a_performance: dict, a_play: dict) -> PerformanceCalculato
 ### Chapter 1 Summary
 
 The entire refactoring follows a pattern:
+
 1. **Small steps** — each change is tiny, testable, and independently commitable
 2. **Tests after every change** — if something breaks, you know exactly which change caused it
 3. **Decompose → reorganize → replace conditionals with polymorphism**
@@ -5576,6 +5590,7 @@ More practically:
 ### Refactoring and Performance
 
 Refactoring can make code slower (e.g., splitting a loop), but it almost never matters. The approach:
+
 1. Write well-factored code without worrying about performance
 2. Profile to find the actual bottlenecks (usually a small fraction of the code)
 3. Optimize only those hotspots
@@ -5738,6 +5753,7 @@ def test_profit(asia):
 ```
 
 **Key principles:**
+
 - Each test should have its own fresh fixture — **never share mutable state between tests**. The `@pytest.fixture` mechanism provides a fresh copy for each test function.
 - Tests should be **isolated** from each other; running order shouldn't matter.
 
@@ -5830,6 +5846,7 @@ def print_details(invoice, outstanding):
 ```
 
 **Mechanics:**
+
 1. Create a new function named after the intent (what, not how)
 2. Copy the extracted code into the new function
 3. Check for local variables — pass them as parameters or return them
@@ -5906,6 +5923,7 @@ def circumference(radius):
 ```
 
 **Migration Mechanics (for published APIs or complex changes):**
+
 1. Extract the body into a new function with the desired signature
 2. Have the old function delegate to the new one
 3. Callers migrate one at a time
@@ -6268,6 +6286,7 @@ def found_person(people):
 **Motivation:** Move a function to the module/class where it's most used or where its context lives. Good modularity means related things are together.
 
 **Heuristics for where a function should live:**
+
 - What data does it reference most?
 - What other functions call it?
 - What functions does it call?
@@ -7210,6 +7229,7 @@ class Party:
 **Motivation:** Inheritance has limitations: a class can only vary on one axis, and it creates tight coupling between parent and child. Delegation provides the same behavior variation with more flexibility.
 
 **When to prefer delegation over inheritance:**
+
 - The object needs to vary on multiple independent axes
 - The "type" can change at runtime (you can swap a delegate, but you can't change an object's class)
 - You want to avoid coupling to the superclass's implementation
@@ -8209,6 +8229,7 @@ GROUP BY portfolio_id;
 #### Techniques for Modeling Batch Analytical Data
 
 **Kimball (Dimensional Modeling)**
+
 - **Star schema**: Central fact table surrounded by dimension tables.
   - **Fact tables**: Quantitative measurements (transactions, events). Grain = level of detail per row.
   - **Dimension tables**: Descriptive attributes (who, what, when, where).
@@ -8228,10 +8249,12 @@ WHERE d.date = '2024-01-15';
 ```
 
 **Inmon (Corporate Information Factory)**
+
 - Top-down approach. Build a normalized enterprise data warehouse (3NF) first, then create dimensional data marts.
 - More rigorous, better for complex enterprises, but slower to build.
 
 **Data Vault**
+
 - Hybrid approach designed for agility and auditability.
 - Three entity types:
   - **Hubs**: Unique business keys.
@@ -8240,6 +8263,7 @@ WHERE d.date = '2024-01-15';
 - Insert-only (append-only), full auditability, parallelizable loading.
 
 **Wide Denormalized Tables**
+
 - Single flat table with many columns. Simple queries (no joins), but can be very wide.
 - Popular in data lake environments and for ML feature tables.
 
@@ -9562,6 +9586,7 @@ fetch = DockerOperator(
 ```
 
 **Docker workflow:**
+
 1. Developer writes Dockerfile + task script
 2. CI/CD builds image, pushes to registry (ECR)
 3. DAG references image by tag
@@ -9945,6 +9970,7 @@ airflow db clean      # delete old records (pass --clean-before-timestamp)
 ### 15.6 Capturing Logs
 
 **Three log types:**
+
 1. **API server logs** (web access/error)
 2. **Scheduler logs** (task scheduling decisions)
 3. **Task logs** (per task instance, per attempt)
@@ -10135,6 +10161,7 @@ helm upgrade --install airflow apache-airflow/airflow \
 ```
 
 **Pods created:**
+
 - `airflow-api-server` — Web UI
 - `airflow-scheduler` — Scheduling loop
 - `airflow-dag-processor` — DAG parsing

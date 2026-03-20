@@ -360,6 +360,7 @@ def test_start(cards_db):
       smoke: subset of tests
       exception: check for expected exceptions
   ```
+
 - Select: `pytest -m smoke`
 
 ##### Marking Files, Classes, and Parameters
@@ -486,6 +487,7 @@ pytest --cov=cards --cov-report=term-missing ch7  # show missed lines
   coverage run --source=cards -m pytest ch7
   coverage report --show-missing
   ```
+
 - `.coveragerc` config maps installed package paths to local source:
   ```ini
   [paths]
@@ -724,6 +726,7 @@ pip install -e "./cards_proj/[test]"   # editable + optional test deps
 ##### Debugging with pytest Flags
 
 **Test selection/ordering:**
+
 - `--lf` / `--last-failed` — rerun only failures
 - `--ff` / `--failed-first` — run all, failures first
 - `-x` / `--exitfirst` — stop after first failure
@@ -732,11 +735,13 @@ pip install -e "./cards_proj/[test]"   # editable + optional test deps
 - `--nf` / `--new-first` — order by file modification time
 
 **Output control:**
+
 - `-v` / `--verbose`
 - `--tb=[auto/long/short/line/native/no]`
 - `-l` / `--showlocals` — display local variables in tracebacks
 
 **Debugger:**
+
 - `--pdb` — drop into pdb at point of failure
 - `--trace` — drop into pdb at start of each test
 - `--pdbcls=IPython.terminal.debugger:TerminalPdb` — use IPython debugger
@@ -781,6 +786,7 @@ pip install pytest-cov     # or any plugin
 ##### Exploring the Diversity of pytest Plugins
 
 **Test flow:**
+
 - **pytest-order** — specify run order via marker
 - **pytest-randomly** — randomize order (also seeds Faker/Factory Boy)
 - **pytest-repeat** — repeat tests N times (`--count=10`)
@@ -788,21 +794,25 @@ pip install pytest-cov     # or any plugin
 - **pytest-xdist** — parallel execution (`-n=auto`)
 
 **Output:**
+
 - **pytest-instafail** — show failures immediately
 - **pytest-sugar** — green checkmarks + progress bar
 - **pytest-html** — HTML test reports
 
 **Web:**
+
 - **pytest-selenium**, **pytest-splinter** — browser testing
 - **pytest-django**, **pytest-flask** — framework integration
 
 **Fake data:**
+
 - **Faker** — general fake data
 - **model-bakery** — Django model objects
 - **pytest-factoryboy** — Factory Boy fixtures
 - **pytest-mimesis** — faster alternative to Faker
 
 **Misc:**
+
 - **pytest-cov** — coverage
 - **pytest-benchmark** — timing benchmarks
 - **pytest-timeout** — enforce time limits

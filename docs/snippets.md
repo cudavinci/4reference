@@ -313,6 +313,7 @@ Welcome back.
 
   CMD ["python3", "app.py"]
   ```
+
 - Simple docker-compose.yaml example:
   ```yaml
   version: "3.8"
@@ -321,6 +322,7 @@ Welcome back.
     app:
       build: .
       ports:
+
         - "5000:5000"
     db:
       image: postgres:13.3
@@ -329,8 +331,10 @@ Welcome back.
         POSTGRES_PASSWORD: postgres
         POSTGRES_DB: postgres
       ports:
+
         - "5432:5432"
   ```
+
 - Makefile example:
   ```makefile
   .PHONY: deploy
@@ -389,6 +393,7 @@ Specifically np (**which considers vectors as (n,) since it is row-oriented**) e
 2. **Right-to-left compares** the dimensions of the two arrays and ensures either
   a. The dimensions are equal **OR**
   b. At least one of the dimensions is 1
+
 3. If all dimensions pass, np **replicates** (_broadcast_) the smaller array along the dim(s) where it is 1 to match the shape of the larger array.
 
 **NOTE**: Broadcasting is not a copy operation. It is a view of the original array with the same data. This means that if you modify a broadcasted array, it modifies the original array.  

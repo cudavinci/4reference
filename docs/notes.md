@@ -323,17 +323,20 @@ Examples:
 - business overrides
 
 Recommendation:
+
 - move to **Postgres-backed config tables** with admin tooling later
 - in the short term, allow controlled upload of Excel → validation → Postgres load
 - preserve original file in S3
 
 ### B. Excel as system-generated intermediate data
 Recommendation:
+
 - eliminate this
 - replace with Postgres tables or Parquet/CSV in S3 as appropriate
 
 ### C. Excel as final user deliverable
 Recommendation:
+
 - keep generating it if users genuinely need it
 - write generated files to S3
 - optionally email link/attachment
@@ -570,6 +573,7 @@ Prefer:
 
 ### 1. Unit tests
 For:
+
 - parsing
 - transformations
 - validation logic
@@ -579,6 +583,7 @@ For:
 
 ### 2. Integration tests
 For:
+
 - Postgres reads/writes
 - S3 upload/download
 - Airflow task entrypoints
@@ -586,6 +591,7 @@ For:
 
 ### 3. Reconciliation tests
 Most important for migration:
+
 - old vs new row counts
 - hash totals
 - business aggregates
@@ -594,6 +600,7 @@ Most important for migration:
 
 ### 4. Operational tests
 For:
+
 - reruns
 - partial failure recovery
 - duplicate-trigger protection
@@ -806,6 +813,7 @@ Every migration workstream should define rollback before cutover.
 
 ## Workstream 1: Discovery / inventory
 Deliverables:
+
 - job inventory
 - file inventory
 - dependency map
@@ -813,6 +821,7 @@ Deliverables:
 
 ## Workstream 2: Storage decision + standards
 Deliverables:
+
 - S3 conventions
 - Postgres schema standards
 - naming/versioning/idempotency standards
@@ -820,6 +829,7 @@ Deliverables:
 
 ## Workstream 3: Refactor shared libraries
 Deliverables:
+
 - storage adapters
 - email utility
 - config/secrets loader
@@ -828,12 +838,14 @@ Deliverables:
 
 ## Workstream 4: Dual-write implementation in on-prem prod
 Deliverables:
+
 - safe dual-write
 - row/file reconciliation
 - monitoring
 
 ## Workstream 5: Cloud-native execution
 Deliverables:
+
 - Docker images
 - EKS runtime config
 - Airflow DAGs
@@ -841,6 +853,7 @@ Deliverables:
 
 ## Workstream 6: Cutover and decommission
 Deliverables:
+
 - runbook
 - rollback plan
 - support handoff
@@ -927,11 +940,13 @@ If you do this well, you will not just “move jobs to the cloud”; you will re
 
 ## “Should we use S3 and keep the file-based approach or go entirely to Postgres?”
 Usually **neither extreme**. Use:
+
 - **Postgres for structured operational truth**
 - **S3 for file artifacts and raw/archive layers**
 
 ## “Should we put S3 put/Postgres insert logic into the on-prem production pipeline first?”
 Yes. That is one of the safest ways to migrate, provided:
+
 - writes are idempotent
 - reconciliation is built in
 - legacy outputs remain unchanged during validation

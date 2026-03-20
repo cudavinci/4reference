@@ -108,6 +108,7 @@ if __name__ == '__main__':
 | Slow, end-to-end | Fast, isolated |
 
 **Double-loop TDD workflow**:
+
 1. Write FT (outer loop) → fails
 2. Write unit test (inner loop) → fails
 3. Write minimal code → unit test passes
@@ -1242,6 +1243,7 @@ def test_sends_mail_to_address_from_post(self, mock_send_mail):
 ```
 
 **How `@patch` works**:
+
 1. Finds object at the dotted path (e.g., `accounts.views.send_mail`)
 2. Replaces it with a `Mock` object for the duration of the test
 3. Injects the mock as an extra argument to the test method
@@ -1616,6 +1618,7 @@ class ListPage:
 ```
 
 **Benefits**:
+
 - When HTML changes, update one place (the Page object), not every test
 - Tests read like narratives: `ListPage(self).add_list_item('Buy milk')`
 - Method chaining via `return self`
@@ -1656,6 +1659,7 @@ def test_can_share_a_list_with_another_user(self):
 #### Synthesis: What Do We Want from Our Tests, Anyway?
 
 Three goals:
+
 1. **Correctness**: Does the code work?
 2. **Clean, Maintainable Code**: Is the design good?
 3. **Productive Workflow**: Is the feedback loop fast enough?

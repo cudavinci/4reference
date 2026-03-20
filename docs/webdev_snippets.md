@@ -18,14 +18,17 @@ The language of champions.
 		```html
 		<tag attributeNAME=attributeVALUE>tagCONTENT</tag>
 		```
+
 	* General syntax: 
 		```html
 		<tag attribute1="value1" attribute2="value2">content</tag>
 		```
+
 	* Example:
 		```html
 		<a href="https://www.google.com" target="_blank">Click here to go to Google</a>
 		```
+
 		* `<a>`...`</a>` is the TAG 
 			* Called an "anchor" tag -- i.e. a link
 		* `href` is an ATTRIBUTE of the `a` TAG
@@ -1717,6 +1720,7 @@ Long story short:
 
 So objects are like python dictionaries and constructor functions are like python class definitions.
 But objects created using constructor functions __ARE__ similar to python objects.
+
 * They are similar to python objects in that they can have methods and properties (and methods can be used to change properties)
 
 ##### Syntax
@@ -2327,12 +2331,14 @@ const isEven = function(n) {
 ```
 
 The key is that: 
+
 * if you exclude either the `function` keyword or the curly braces, you must exclude both. 
 * if you exclude both, you can exclude the `return` keyword and put everything on one line. 
 
 #### More detail on arrow functions:
 
 Recall - normal function definition in JavaScript:
+
 * Named function:
 	* Named functions can be called anywhere in the code
 	* E.g. `function myFunction() { ... }` or `function myFunction(param1, param2) { ... }` or:
@@ -2352,6 +2358,7 @@ function myFunction() {
 		...
 	}
 	```
+
 	* `const myFunction = function() { ... };` (function expression) is similar to `const myFunction = () => { ... };` (arrow function) but not identical
 		* `this` Behavior: In a traditional function (the first example), '*this*' refers to the context in which the function was called. In contrast, in an arrow function (the second example), '*this*' is lexically bound; it uses '*this*' from the surrounding code where the function is defined. This means that inside an arrow function, '*this*' refers to the context in which the arrow function was created, not where it is called.
 		* '*arguments* ' Object: Traditional functions provide an '*arguments*' object, which is an array-like object containing all the arguments passed to the function. Arrow functions do not have their own '*arguments*' object.
@@ -3091,6 +3098,7 @@ Let's take a look at some of the most common selectors:
 	```
 
 	`document.querySelector("#navbar")` is equivalent to `document.getElementById("navbar")`.  
+
 	* `document.querySelect("#<id>")` is preferred
 	* Never use `getElementsByTagName` or `getElementsByClassName`. 
 
@@ -3206,6 +3214,7 @@ NodeList
 #### NodeList
 
 A `NodeList` is an array-like object that contains a collection of DOM elements (e.g. all the elements that match the CSS selector you specified). 
+
 * If no elements match the CSS selector you specified, it will return an empty `NodeList` (i.e. a `NodeList` with a length of 0). 
 * This is not an array...
 * ...but is an array-like object. 
@@ -3295,12 +3304,15 @@ Promises are what underlie async in JS.
 
 A Promise is an object representing the completion or failure of an asynchronous operation. 
 A Promise can be in one of three states: pending, fulfilled, or rejected. 
+
 	* Managing the pending state is how the Promise object enables asynchronous operations to be handled in a synchronous-like manner/syntax.
 A Promise is created using the `new` keyword and contains a callback function with two parameters: `resolve` and `reject`. 
+
 	* The `resolve` and `reject` parameters are **functions** that are called to resolve or reject the Promise.
 		* They are generally called within an `if` statement that checks whether the asynchronous operation was successful or not.
 	* The Promise is resolved when the asynchronous operation is successful and rejected when it fails. 
 The Promise object has methods for handling resolved and rejected Promises: 
+
 * `.then()`:
 * `.catch()`
 * `.finally()`. 
@@ -3568,8 +3580,10 @@ add(1,2).then((result) => {
 async and await make asynchronous code easier to write and read (makes it look like synchronous code)  
 They are built on top of Promises and are syntactic sugar for Promises.  
 async declares an asynchronous function, returning a Promise.  
+
 * It is critical to remember that async functions always return a Promise.  
 await is used in an async function to wait for a Promise.  
+
 * It can only be used within an async function.  
 * await can be used to wait for any Promise-based function. For example:  
 
@@ -3582,6 +3596,7 @@ async function fetchData() {
 ```
 
 In the above, fetchData() is an async function that fetches data from an API.
+
 * await is used to wait for the fetch() Promise to resolve. (fetch() is a built-in JavaScript function for making network requests.)
 * await is also used to wait for the response.json() Promise to resolve. (response.json() is a built-in JavaScript function for parsing JSON data.)
 Here is the same example using .then():
@@ -3861,6 +3876,7 @@ React was developed by Facebook and is maintained by Facebook and a community of
 ### Common Usage
 
 React is commonly used for:
+
 - Single-Page Applications (SPA): React's powerful rendering capabilities and its efficient diff algorithms make it an ideal choice for SPAs.
 - Interactive User Interfaces: React's component structure allows for interactive and dynamic user interfaces with ease.
 - Complex Applications with Dynamic Data: The use of state and props in React makes it suitable for applications with complex and changing data.
@@ -3897,6 +3913,7 @@ React doesn't actually do this. It is done by a library called ReactDOM. ReactDO
 		);
 	}
 	```
+
 2. **React Router**: React Router is a collection of navigational components that compose declaratively with your application. React Router is a third-party library that allows you to handle routing in a web app, using dynamic routing, nested routes, and more.
 
 	```javascript
@@ -4018,13 +4035,16 @@ React doesn't actually do this. It is done by a library called ReactDOM. ReactDO
 	import { createStore } from 'redux'
 
 	/**
+
 	 * This is a reducer, a pure function with (state, action) => state signature.
 		* It describes how an action transforms the state into the next state.
 		*
+
 		* The shape of the state is up to you: it can be a primitive, an array, an object,
 		* or even an Immutable.js data structure. The only important part is that you should
 		* not mutate the state object, but return a new object if the state changes.
 		*
+
 		* In this example, we use a `switch` statement and strings, but you can use a helper that
 		* follows a different convention (such as function maps) if it makes sense for your
 		* project.
@@ -4354,6 +4374,7 @@ Creating a productive development workflow is crucial when working with React. T
 1. **Building the Application**:
 	 - Create a production build of your application by running:
 		 ```npm run build```
+
 			- This command bundles the React application in production mode and optimizes the build for the best performance.
 
 2. **Deployment**:

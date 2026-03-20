@@ -996,6 +996,7 @@ fetch = DockerOperator(
 ```
 
 **Docker workflow:**
+
 1. Developer writes Dockerfile + task script
 2. CI/CD builds image, pushes to registry (ECR)
 3. DAG references image by tag
@@ -1379,6 +1380,7 @@ airflow db clean      # delete old records (pass --clean-before-timestamp)
 #### 15.6 Capturing Logs
 
 **Three log types:**
+
 1. **API server logs** (web access/error)
 2. **Scheduler logs** (task scheduling decisions)
 3. **Task logs** (per task instance, per attempt)
@@ -1569,6 +1571,7 @@ helm upgrade --install airflow apache-airflow/airflow \
 ```
 
 **Pods created:**
+
 - `airflow-api-server` — Web UI
 - `airflow-scheduler` — Scheduling loop
 - `airflow-dag-processor` — DAG parsing

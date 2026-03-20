@@ -888,6 +888,7 @@ GROUP BY portfolio_id;
 ##### Techniques for Modeling Batch Analytical Data
 
 **Kimball (Dimensional Modeling)**
+
 - **Star schema**: Central fact table surrounded by dimension tables.
   - **Fact tables**: Quantitative measurements (transactions, events). Grain = level of detail per row.
   - **Dimension tables**: Descriptive attributes (who, what, when, where).
@@ -907,10 +908,12 @@ WHERE d.date = '2024-01-15';
 ```
 
 **Inmon (Corporate Information Factory)**
+
 - Top-down approach. Build a normalized enterprise data warehouse (3NF) first, then create dimensional data marts.
 - More rigorous, better for complex enterprises, but slower to build.
 
 **Data Vault**
+
 - Hybrid approach designed for agility and auditability.
 - Three entity types:
   - **Hubs**: Unique business keys.
@@ -919,6 +922,7 @@ WHERE d.date = '2024-01-15';
 - Insert-only (append-only), full auditability, parallelizable loading.
 
 **Wide Denormalized Tables**
+
 - Single flat table with many columns. Simple queries (no joins), but can be very wide.
 - Popular in data lake environments and for ML feature tables.
 
