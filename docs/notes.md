@@ -95,6 +95,7 @@ Optional only where truly needed:
 Fast, deterministic, isolated tests.
 
 Examples:
+
 - pure transformation logic
 - validation logic
 - serializers/parsers
@@ -103,6 +104,7 @@ Examples:
 - orchestration logic with dependencies mocked
 
 These should:
+
 - not hit network
 - not require a running DB/Redis/Kafka
 - not depend on AWS/EKS
@@ -112,6 +114,7 @@ These should:
 Tests around service boundaries and request/response contracts.
 
 Examples:
+
 - FastAPI route tests with `TestClient`
 - API schema validation
 - input/output payload shape tests
@@ -124,6 +127,7 @@ These are still PR-safe and usually fast.
 Tests with real or near-real dependencies.
 
 Examples:
+
 - PostgreSQL integration
 - Redis integration
 - Kafka/Redpanda integration
@@ -131,6 +135,7 @@ Examples:
 - startup wiring against realistic dependencies
 
 These may use:
+
 - docker service containers in CI
 - ephemeral test infra
 - test databases/topics/buckets
@@ -139,6 +144,7 @@ These may use:
 Minimal high-value checks against a deployed environment.
 
 Examples:
+
 - service starts
 - health endpoint works
 - one representative API call works
@@ -150,6 +156,7 @@ These should be small in number and high signal.
 Anything expensive enough that we do not want it on every PR.
 
 Examples:
+
 - large dataset tests
 - long-running integration tests
 - broad scenario matrices
@@ -230,6 +237,7 @@ Use:
 - `test_<thing>.py`
 
 Examples:
+
 - `test_health.py`
 - `test_trade_allocator.py`
 - `test_offer_serializer.py`
@@ -246,6 +254,7 @@ def test_post_trade_import_returns_401_payload_when_downstream_auth_fails():
 ```
 
 Avoid vague names like:
+
 - `test_1`
 - `test_basic`
 - `test_happy_path`
@@ -400,6 +409,7 @@ def db_session():
 ```
 
 Notes:
+
 - For true DB integration tests, use real Postgres in CI.
 - For unit tests, an in-memory DB or mocking is fine if it is genuinely testing logic rather than driver behavior.
 
@@ -478,6 +488,7 @@ def test_healthcheck_in_deployed_env():
 
 ##### PR pipeline
 Run:
+
 - `unit`
 - `contract`
 - optionally a very small subset of `integration` if fast/stable
@@ -492,6 +503,7 @@ pytest -m "unit or contract" \
 
 ##### Main branch pipeline
 Run:
+
 - `unit`
 - `contract`
 - `integration`
@@ -506,6 +518,7 @@ pytest -m "unit or contract or integration" \
 
 ##### Post-deploy smoke
 Run:
+
 - `smoke`
 
 Command:
@@ -518,6 +531,7 @@ pytest -m "smoke" \
 
 ##### Nightly
 Run:
+
 - `slow`
 - broader `integration`
 - `e2e` if applicable
@@ -537,6 +551,7 @@ requests
 ```
 
 Notes:
+
 - `pytest-xdist` is useful for speeding up large test suites
 - `pytest-cov` is useful later if we add coverage gating
 - `allure-pytest` writes Allure result files
@@ -573,6 +588,7 @@ We can use either `pytest.ini` or `pyproject.toml`. I prefer `pytest.ini` for vi
 ##### Why Allure
 Bitbucket/JUnit gives us pass/fail and machine-readable results.
 Allure gives us a cleaner UI for:
+
 - failed test drilldown
 - captured logs/details
 - attachments
@@ -659,6 +675,7 @@ chmod +x scripts/*.sh
 Below is an example `bitbucket-pipelines.yml` we can use as a starting point.
 
 Adjust:
+
 - image
 - caches
 - service containers
@@ -784,6 +801,7 @@ Every test step should emit:
 
 ##### Why upload Allure to S3?
 Because raw CI artifacts are okay, but S3 lets us:
+
 - keep reports around longer
 - share a stable link
 - browse failures after the build
@@ -870,6 +888,7 @@ The pipeline needs permission to upload to the bucket.
 How we do that depends on our Bitbucket/AWS setup.
 
 At a minimum the pipeline needs:
+
 - `s3:PutObject`
 - `s3:DeleteObject`
 - `s3:ListBucket`
@@ -877,6 +896,7 @@ At a minimum the pipeline needs:
 scoped to the relevant report prefix/bucket.
 
 If possible, keep the bucket private and expose reports via:
+
 - presigned URLs
 - CloudFront + auth
 - or internal-only access pattern
@@ -936,6 +956,7 @@ Recommended approach:
 ##### Phase 1
 Do not block on coverage yet.
 Just get:
+
 - real unit tests
 - real contract tests
 - stable PR gating
@@ -955,6 +976,7 @@ pytest -m "unit or contract" \
 
 ##### Phase 3
 Potential gate:
+
 - set a modest floor
 - or better: require coverage not to drop materially
 - or best: use diff coverage for changed files
@@ -1062,6 +1084,7 @@ Generate HTML and upload to S3
 Not dozens of filler tests
 
 Suggested starter set:
+
 - one core service unit test
 - one route contract test
 - one repo integration test
@@ -1182,6 +1205,7 @@ If we want something pragmatic that works well with our workflow, this is the se
 8. Keep test structure standardized across all repos.
 
 This gives us:
+
 - clean PR gating
 - better reviewer visibility
 - richer debugging when something fails
