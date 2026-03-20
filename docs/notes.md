@@ -1471,10 +1471,10 @@ Each pipeline run pushes its Allure report to S3 as a static site. Reports are k
 ##### S3 bucket setup (one-time)
 
 ```bash
-aws s3 mb s3://invesco-fi-test-reports --region us-east-1
+aws s3 mb s3://unnamed-company-fi-test-reports --region us-east-1
 
 ### enable static website hosting
-aws s3 website s3://invesco-fi-test-reports \
+aws s3 website s3://unnamed-company-fi-test-reports \
   --index-document index.html
 
 ### bucket policy: restrict to VPN/internal CIDR (adjust to your network)
@@ -1490,7 +1490,7 @@ set -euo pipefail
 REPO_SLUG="${BITBUCKET_REPO_SLUG}"
 BRANCH="${BITBUCKET_BRANCH}"
 BUILD_NUM="${BITBUCKET_BUILD_NUMBER}"
-S3_BUCKET="s3://invesco-fi-test-reports"
+S3_BUCKET="s3://unnamed-company-fi-test-reports"
 REPORT_PATH="${REPO_SLUG}/${BRANCH}/${BUILD_NUM}"
 
 echo "Uploading Allure report to ${S3_BUCKET}/${REPORT_PATH}/"
@@ -1498,7 +1498,7 @@ aws s3 sync allure-report/ "${S3_BUCKET}/${REPORT_PATH}/" \
   --delete \
   --cache-control "max-age=3600"
 
-REPORT_URL="http://invesco-fi-test-reports.s3-website-us-east-1.amazonaws.com/${REPORT_PATH}/index.html"
+REPORT_URL="http://unnamed-company-fi-test-reports.s3-website-us-east-1.amazonaws.com/${REPORT_PATH}/index.html"
 echo "Report URL: ${REPORT_URL}"
 
 ### export for downstream steps
@@ -3040,7 +3040,7 @@ def daily_pipeline(run_date: str):
     raw = extract_data("s3://bucket/inputs/...")
     transformed = transform(raw)
     load_to_postgres(transformed, "portfolio.daily_snapshot")
-    send_completion_email(["team@invesco.com"], "s3://bucket/reports/...")
+    send_completion_email(["team@unnamed-company.com"], "s3://bucket/reports/...")
 ```
 
 ##### Option C: EKS CronJobs
@@ -3083,7 +3083,7 @@ Common pattern: the last step in many of your pipelines sends an email with resu
 
 1. **Amazon SES (Simple Email Service)**: Cheapest, most reliable for transactional email from within AWS. Use the `boto3` SES client. You'll need to verify sender domains/addresses.
 
-2. **SMTP relay via your existing Exchange/O365**: If Invesco has an internal SMTP relay, you can keep using `smtplib` — just update the SMTP host and ensure EKS pods can reach it (VPC peering or transit gateway to corp network).
+2. **SMTP relay via your existing Exchange/O365**: If unnamed-company has an internal SMTP relay, you can keep using `smtplib` — just update the SMTP host and ensure EKS pods can reach it (VPC peering or transit gateway to corp network).
 
 3. **Prefect notifications**: Prefect has built-in notification blocks (email, Slack, Teams). Good for "pipeline succeeded/failed" alerts. Less suitable for rich HTML reports with attachments.
 
