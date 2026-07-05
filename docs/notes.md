@@ -2,6 +2,90 @@
 
 ---
 
+## How Postgres works  
+
+* A database is a program that arranges your data into fixed-size 8 KB pages stored in plain files on disk, and keeps the recently-used pages cached in RAM.   
+* When you write, it modifies the page in RAM and appends a description of the change to an on-disk journal (the WAL) — the journal write is what makes your commit durable, and the actual data files get updated lazily in the background.   
+* When you read, it either finds the page in RAM (fast) or fetches it from disk (slow), using indexes to figure out *which* pages to fetch instead of scanning everything.   
+* Concurrent users don't block each other because every row change creates a new version of the row rather than overwriting it, and each transaction simply filters for the versions it's allowed to see.   
+* Nearly every operational challenge — tuning, bloat, scaling, replication — is a downstream consequence of these five design choices.  
+    * Whenever a blog/publication mentions performance, translate the claim into "how many pages does this touch, and is the I/O sequential or random?" — nearly every database argument bottoms out there.  
+
+### Definitions list
+
+* **RAM vs. disk**: RAM is fast (~100ns access), small, and vanishes on power loss; disk is slow (~0.1–1ms+), huge, and permanent.  
+    * The entire architecture of a database is a negotiation between these two: keep hot data in RAM for speed, but get every committed change onto disk for safety, as cheaply as possible.  
+* **Sequential vs. random I/O**: Sequential I/O reads/writes bytes in order, one after another; random I/O jumps to arbitrary locations. Sequential is dramatically faster — on spinning disks 100x+, and still meaningfully faster on SSDs and cloud storage (EBS).  
+    * This asymmetry explains the WAL's existence: Postgres converts many random data-file writes into one sequential journal append. "How do I make this workload more sequential?" is a surprisingly general database optimization question.  
+* **Offset**: A position within a file or page, measured in bytes from the start.  
+    * Databases never "search" for data on disk — they compute exact offsets with arithmetic and jump straight there. Page 3 of a file is always at byte 3 × 8192.  
+* **Buffer**: A chunk of RAM that temporarily holds data on its way to or from disk, letting the system batch many small operations into fewer large ones.  
+    * Almost everything in a database passes through a buffer. When you see "buffer," think "staging area in RAM."  
+* **fsync**: The OS call that forces buffered data to actually reach physical disk, rather than sitting in the OS's own write cache. It's slow (a real disk round-trip) but it's the only true durability guarantee.  
+    * A Postgres COMMIT is, at its core, one fsync of the WAL. Write throughput is largely bounded by how many fsyncs your storage can do per second — which is why batching commits helps so much.  
+* **Page (block)**: The atomic unit of database I/O — a fixed 8 KB chunk. Postgres never reads or writes individual rows, only whole pages.  
+    * When reasoning about performance, count pages touched, not rows returned. One row from a cold page costs the same I/O as fifty rows from that page.  
+* **Heap**: A table's storage: a set of files that are just 8 KB pages laid end to end, with rows placed wherever there's free space, in no particular order.  
+    * "Heap" = "unordered pile." Since rows have no inherent order, anything that needs to find a specific row needs an address or an index.  
+* **Tuple**: A physical row version stored in a page — a ~23-byte header plus your column data. One logical row can have multiple tuples (old and new versions) due to MVCC.  
+    * "Row" is the logical concept; "tuple" is the physical bytes. The distinction matters exactly when versions pile up.  
+* **Header**: Fixed-format metadata bytes at the start of a structure describing what follows — pages have 24-byte headers, tuples have ~23-byte headers.  
+    * Headers are pure overhead but carry the machinery: the tuple header holds the MVCC visibility fields, the page header tracks free space. They're why on-disk size exceeds raw data size.  
+* **Slot (line pointer)**: A 4-byte entry in a page's table of contents mapping a slot number to a tuple's (offset, length) within that page. A row's permanent address is (page number, slot number).  
+    * The indirection layer that lets Postgres move bytes around inside a page without breaking anything that points at the row. Always present, index or not.  
+* **Shared buffers**: Postgres's page cache in RAM. Pages enter on first access and stay until evicted under memory pressure (roughly least-recently-used).  
+    * Your effective read performance is your cache hit rate. On RDS, remember there's a second cache below it — the OS page cache — so "disk reads" are often really memory reads.  
+* **WAL (write-ahead log)**: An append-only, sequential journal of every physical change, fsynced before a commit is acknowledged. Crash recovery = replay the journal.  
+    * The keystone trick: durability via one fast sequential write, letting slow random data-file writes be deferred. Also the raw feed for replication, PITR backups, and CDC — WAL volume is a scaling dimension in its own right.  
+* **Checkpoint**: The periodic event where all dirty (modified-in-RAM) pages get flushed to the data files, establishing a known-good position from which WAL before it can be recycled.  
+    * The moment "RAM catches up disk." Checkpoint frequency trades recovery time against I/O spikes — and each checkpoint triggers a wave of full-page writes that inflates WAL volume.  
+* **Transaction**: A group of operations that succeeds or fails as a unit, identified by a transaction ID (XID).  
+    * The unit of everything: durability (WAL flush at commit), visibility (MVCC snapshots), and isolation are all defined per-transaction.  
+* **Atomic**: All-or-nothing — an operation either fully happens or leaves no trace. The A in ACID.  
+    * Postgres achieves atomicity cheaply via MVCC: a rolled-back transaction's tuples simply stay invisible forever. Nothing gets "undone."  
+* **MVCC (multi-version concurrency control)**: Instead of locking or overwriting rows, every UPDATE/DELETE creates a new tuple version; readers filter for the versions visible to them. Readers never block writers and vice versa.  
+    * The source of Postgres's excellent concurrency *and* its most famous operational pain (bloat, vacuum). Also why updates are more expensive than inserts.  
+* **xmin / xmax**: Two fields in every tuple header: the XID that created this version, and the XID that deleted/superseded it (0 if live).  
+    * The entire visibility system reduces to comparing these two numbers against your snapshot. Everything else is bookkeeping.  
+* **Snapshot**: A transaction's frozen view of which other transactions had committed when it started — used to decide which tuple versions it can see.  
+    * "Consistent reads" aren't achieved by copying data, just by filtering versions through this list. Nearly free to take, which is why they're everywhere.  
+* **Vacuum**: The background process (autovacuum) that reclaims space from dead tuples — versions no active snapshot can ever need — and performs other hygiene (freezing old XIDs, updating stats).  
+    * The tax MVCC collects. Update-heavy tables need vacuum to keep pace or they bloat; append-only tables (like your FIX data) largely dodge this.  
+* **Bloat**: Dead tuples and unreclaimed free space inflating tables and indexes beyond their live data size.  
+    * The symptom to monitor on any update/delete-heavy table. Once severe, it's expensive to undo (VACUUM FULL rewrites the table under a lock).  
+* **Index**: A separate, ordered data structure mapping column values to row addresses (page, slot), letting queries jump to relevant pages instead of scanning the whole heap.  
+    * Not free: every index must be updated on every insert, consumes disk, and generates WAL. Index accumulation is a classic silent write-throughput killer.  
+* **B-tree**: The default index type — a shallow, wide tree of pages, sorted by key, ~3–4 levels deep even for millions of rows. Great for equality and range lookups on selective values.  
+    * Think "phone book with a table of contents." The upper levels stay hot in cache; size scales with row count, which is why B-trees on huge tables get expensive.  
+* **BRIN index**: A tiny index storing only min/max values per *range of pages*, effective when data is physically ordered by the column (like timestamps in append-only tables).  
+    * Megabytes where a B-tree would be gigabytes. The right default for timestamp columns on timeseries tables — a page-skipping map rather than a row locator.  
+* **OLTP**: Online transaction processing — many small, fast reads and writes touching few rows each. What row-oriented storage like Postgres is built for.  
+    * Your order flow, position updates, reference data lookups.  
+* **OLAP**: Online analytical processing — few, large queries scanning millions of rows, usually aggregating a handful of columns. Column-oriented systems (Snowflake) are built for this.  
+    * The mismatch to internalize: an OLAP scan through a row store drags every column of every row through RAM just to sum one of them.  
+* **LTAP / HTAP**: Marketing-adjacent terms for systems trying to serve both OLTP and OLAP on one dataset, typically by decoupling storage from compute or maintaining dual row/column formats.  
+    * The Databricks post's thesis. Your Postgres+Snowflake split is the traditional manual version of the same idea.  
+* **Normalization (1NF/2NF/3NF)**: Progressive rules for eliminating data redundancy. Loosely — 1NF: atomic values, no repeating groups; 2NF: every column depends on the whole key; 3NF: no column depends on another non-key column. Shorthand: "every fact stored exactly once, dependent on the key, the whole key, and nothing but the key."  
+    * Normalize for OLTP correctness (one fact, one place, no update anomalies); denormalize for OLAP speed (avoid joins on huge scans). Storing FIX messages as JSONB blobs is deliberate denormalization — fine, since they're immutable.  
+* **Partitioning**: Splitting one logical table into multiple physical child tables (e.g., one per week) *within* the same database. Queries automatically skip irrelevant partitions; old data drops instantly via DROP PARTITION.  
+    * The first and usually only "big data" tool you need. Solves retention, index size, and vacuum granularity in one move. Do it before the table gets big.  
+* **Sharding**: Splitting a table across multiple *separate database servers*, each owning a subset of rows. Adds cross-shard queries, distributed transactions, and rebalancing as permanent complexity.  
+    * A last resort for write throughput exceeding one machine, not a size problem. A rule of thumb: if partitioning + tiering can solve it, sharding is the wrong answer.  
+* **Replication**: Continuously streaming the primary's WAL to standby servers that replay it, yielding read replicas and failover targets.  
+    * Elegant consequence of WAL's design — a replica is just crash recovery that never stops. But replicas replay *all* WAL, so heavy write bursts cause replica lag.  
+* **CAP theorem**: A distributed system facing a network partition must choose between consistency (everyone sees the same data) and availability (everyone gets an answer).  
+    * Mostly irrelevant to single-node Postgres; becomes real the moment you add replicas — e.g., a read replica serving slightly stale data is choosing availability over consistency.  
+* **TOAST** *(Postgres-specific)*: The mechanism that compresses column values over ~2 KB and stores them out-of-line in a companion table. The only compression Postgres does.  
+    * Where your JSONB payloads live. Switching the compression algorithm to lz4 is a cheap win on newer versions.  
+* **Process-per-connection** *(Postgres-specific)*: Each client connection gets its own OS process, costing real memory (~5–10 MB+ each).  
+    * Why connection pooling (pgBouncer / RDS Proxy) is essentially mandatory at scale, and why "just open more connections" degrades rather than helps.  
+* **Transaction ID wraparound** *(Postgres-specific)*: XIDs are 32-bit counters that eventually wrap; vacuum must "freeze" old tuples before that happens or the database force-stops to protect itself.  
+    * The reason autovacuum runs even on your append-only tables, and the one Postgres failure mode worth knowing exists even if you never hit it. Monitor via table age on high-churn databases.  
+* **Query planner / EXPLAIN**: The cost-based optimizer that chooses how to execute each query (which indexes, which join strategies), guided by statistics that autovacuum's ANALYZE step collects.  
+    * `EXPLAIN (ANALYZE, BUFFERS)` is the single most useful diagnostic command in Postgres — it shows you exactly which plan ran and how many pages it touched.  
+
+---
+
 ## Testing Approach
 
 ### Chat: 
