@@ -84,6 +84,12 @@
 * **Query planner / EXPLAIN**: The cost-based optimizer that chooses how to execute each query (which indexes, which join strategies), guided by statistics that autovacuum's ANALYZE step collects.  
     * `EXPLAIN (ANALYZE, BUFFERS)` is the single most useful diagnostic command in Postgres — it shows you exactly which plan ran and how many pages it touched.  
 
+### Good articles about postgres/db internals. 
+
+1. [DEV Community post by Pritesh Surana](https://dev.to/priteshsurana/postgresql-internals-inside-the-storage-engine-1bhm) traces an INSERT and SELECT through Postgres's heap and WAL step by step with real schema.  Walks through WAL record creation, shared buffer behavior, B-tree traversal, checkpointing, and MVCC visibility — all on a concrete example with actual page counts and I/O costs. From 4/26.  
+2. [Tiger Data post](https://www.tigerdata.com/blog/mvcc-feature-youre-paying-for-but-not-using) makes the argument that MVCC is a feature you're paying for but not using on append-only workloads, quantifying the overhead: every heap tuple carries a 23-byte header, and at 100K inserts/sec you're writing 250–350 MB/sec of actual I/O for 100 MB/sec of application data — a 3–5x write amplification ratio that isn't configuration, it's the cost of the storage model. It's a TimescaleDB pitch at the end, but the analysis of why Postgres's row-oriented MVCC storage is expensive for append-heavy timeseries is useful context for reasoning about storing market data.  
+3. [InterDB "Internals of PostgreSQL" site](https://www.interdb.jp/pg/pgsql01/03.html) covers heap table structure with the actual C struct field names and byte-level detail — page headers, line pointer layout, TIDs, TOAST chunking. It's more reference than blog post, but it's what the Postgres community generally points to as the canonical deep dive.  
+  
 ---
 
 ## Testing Approach
