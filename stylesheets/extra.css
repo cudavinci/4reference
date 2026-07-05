@@ -1,0 +1,52 @@
+/* ─── Wider layout ─────────────────────────────────────────────────────────
+   Material's default grid max-width is 61rem (~976px).
+   Raise it so content fills a widescreen monitor.                          */
+.md-grid {
+  max-width: 1800px;
+}
+
+/* ─── Sidebar toggle button ────────────────────────────────────────────────
+   Fixed button in the bottom-left corner.                                  */
+#sidebar-toggle {
+  position: fixed;
+  bottom: 1.25rem;
+  left: 1.25rem;
+  z-index: 200;
+  width: 2.25rem;
+  height: 2.25rem;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--md-primary-fg-color);
+  color: var(--md-primary-bg-color);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.35);
+  opacity: 0.6;
+  transition: opacity 0.2s, background 0.2s;
+}
+#sidebar-toggle:hover {
+  opacity: 1;
+}
+#sidebar-toggle svg {
+  width: 1.1rem;
+  height: 1.1rem;
+  fill: currentColor;
+}
+
+/* ─── Hidden-nav state ─────────────────────────────────────────────────────
+   When <body> has .nav-hidden, collapse the left nav sidebar and let the
+   content + TOC sidebar expand to fill the space.                          */
+body.nav-hidden .md-sidebar--primary {
+  width: 0;
+  min-width: 0;
+  overflow: hidden;
+  transition: width 0.25s ease;
+}
+body.nav-hidden .md-main__inner {
+  padding-left: 0;
+}
+.md-sidebar--primary {
+  transition: width 0.25s ease;
+}

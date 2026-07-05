@@ -1,0 +1,3421 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Notes and code snippets">
+      
+      
+        <meta name="author" content="Sean Fuller">
+      
+      
+        <link rel="canonical" href="https://cudavinci.github.io/4reference/books/crafting_tdd_python/">
+      
+      
+        <link rel="prev" href="../">
+      
+      
+        <link rel="next" href="../pytest/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Crafting TDD - My Snippets & Notes</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+
+      
+    
+<script src="../../assets/pymdownx-extras/material-extra-theme-2ek1P7jT.js" type="text/javascript"></script>
+<script src="../../assets/pymdownx-extras/material-extra-3rdparty-BUCF4rjN.js" type="text/javascript"></script>
+
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+      <link rel="stylesheet" href="../../assets/pymdownx-extras/extra-c6ab11540a.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="dracula" data-md-color-primary="#f8f8f2" data-md-color-accent="#bd93f9">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#book4-crafting-test-driven-software-with-python-summary" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+
+<header class="md-header" data-md-component="header">
+  <nav
+    class="md-header__inner md-grid"
+    aria-label="header.title"
+  >
+    <a
+      href="https://cudavinci.github.io/4reference/"
+      title="My Snippets &amp; Notes"
+      class="md-header__button md-logo"
+      aria-label="My Snippets & Notes"
+    >
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            My Snippets & Notes
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Crafting TDD
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    <div class="md-header__options">
+      <div class="md-header-nav__scheme md-header-nav__button md-source__icon md-icon">
+          <a
+            href="javascript:toggleScheme();"
+            title="Light mode"
+            class="light-mode"
+          >
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+          </a>
+          <a
+            href="javascript:toggleScheme();"
+            title="Dark mode"
+            class="dark-mode"
+          >
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+          </a>
+          <a
+            href="javascript:toggleScheme();"
+            title="System preference"
+            class="system-mode"
+          >
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M7.5 2c-1.79 1.15-3 3.18-3 5.5s1.21 4.35 3.03 5.5C4.46 13 2 10.54 2 7.5A5.5 5.5 0 0 1 7.5 2m11.57 1.5 1.43 1.43L4.93 20.5 3.5 19.07zm-6.18 2.43L11.41 5 9.97 6l.42-1.7L9 3.24l1.75-.12.58-1.65L12 3.1l1.73.03-1.35 1.13zm-3.3 3.61-1.16-.73-1.12.78.34-1.32-1.09-.83 1.36-.09.45-1.29.51 1.27 1.36.03-1.05.87zM19 13.5a5.5 5.5 0 0 1-5.5 5.5c-1.22 0-2.35-.4-3.26-1.07l7.69-7.69c.67.91 1.07 2.04 1.07 3.26m-4.4 6.58 2.77-1.15-.24 3.35zm4.33-2.7 1.15-2.77 2.2 2.54zm1.15-4.96-1.14-2.78 3.34.24zM9.63 18.93l2.77 1.15-2.53 2.19z"/></svg>
+          </a>
+           <a
+            href="javascript:toggleScheme();"
+            title="Unknown scheme"
+            class="unknown-mode"
+          >
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m15.07 11.25-.9.92C13.45 12.89 13 13.5 13 15h-2v-.5c0-1.11.45-2.11 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41a2 2 0 0 0-2-2 2 2 0 0 0-2 2H8a4 4 0 0 1 4-4 4 4 0 0 1 4 4 3.2 3.2 0 0 1-.93 2.25M13 19h-2v-2h2M12 2A10 10 0 0 0 2 12a10 10 0 0 0 10 10 10 10 0 0 0 10-10c0-5.53-4.5-10-10-10"/></svg>
+          </a>
+      </div>
+    </div>
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../snippets/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Code Snippets
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../webdev_snippets/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Web Development
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Book Summaries
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../notes/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Notes
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--lifted md-nav--integrated" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="My Snippets &amp; Notes" class="md-nav__button md-logo" aria-label="My Snippets & Notes" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    My Snippets & Notes
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../snippets/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Code Snippets
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../webdev_snippets/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Web Development
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Book Summaries
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4" id="__nav_4_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Book Summaries
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Crafting TDD
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Crafting TDD
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#part-1-past-and-present-of-test-driven-development" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Part 1: Past and Present of Test-Driven Development
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#chapter-1-getting-started-with-software-testing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chapter 1: Getting Started with Software Testing
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Chapter 1: Getting Started with Software Testing">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#why-software-testing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why software testing?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#types-of-software-tests" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Types of software tests
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-testing-pyramid" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The testing pyramid
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#testing-in-python" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Testing in Python
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#arrange-act-assert-pattern" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Arrange, Act, Assert pattern
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#test-discovery-in-pytest" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Test discovery in pytest
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#chapter-2-test-doubles-with-a-chat-application" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chapter 2: Test Doubles with a Chat Application
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Chapter 2: Test Doubles with a Chat Application">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-are-test-doubles" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What are test doubles?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#types-of-test-doubles" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Types of test doubles
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Types of test doubles">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fakes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fakes
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stubs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Stubs
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#spies" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Spies
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mocks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mocks
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#unittestmock-key-features" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        unittest.mock key features
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dependency-injection-for-testability" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Dependency injection for testability
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#chapter-3-test-driven-development-while-creating-a-todo-list" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chapter 3: Test-Driven Development while Creating a TODO List
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Chapter 3: Test-Driven Development while Creating a TODO List">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-tdd-cycle-red-green-refactor" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The TDD cycle: Red → Green → Refactor
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#starting-with-a-failing-test" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Starting with a failing test
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#making-it-pass-with-minimum-code" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Making it pass with minimum code
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#refactoring" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Refactoring
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#key-tdd-principles" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Key TDD principles
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#chapter-4-scaling-the-test-suite" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chapter 4: Scaling the Test Suite
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Chapter 4: Scaling the Test Suite">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#organizing-tests-into-directories" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Organizing tests into directories
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#continuous-integration-ci" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Continuous Integration (CI)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#running-tests-in-the-cloud" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Running tests in the cloud
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#performance-tests-benchmarks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Performance tests &amp; benchmarks
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pytestini-setupcfg-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        pytest.ini / setup.cfg configuration
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#part-2-crafting-quality-code-with-pytest" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Part 2: Crafting Quality Code with PyTest
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#chapter-5-introduction-to-pytest" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chapter 5: Introduction to PyTest
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Chapter 5: Introduction to PyTest">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#why-pytest-over-unittest" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why PyTest over unittest
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#writing-tests-with-pytest" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Writing tests with PyTest
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pytest-assertions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PyTest assertions
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pytest-fixtures" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PyTest fixtures
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fixture-scopes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fixture scopes
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#conftestpy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        conftest.py
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parametrize-running-a-test-with-multiple-inputs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Parametrize — running a test with multiple inputs
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#markers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Markers
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#useful-cli-options" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Useful CLI options
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#chapter-6-dynamic-and-parametric-fixtures-and-test-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chapter 6: Dynamic and Parametric Fixtures and Test Configuration
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Chapter 6: Dynamic and Parametric Fixtures and Test Configuration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#dynamic-fixtures-with-request" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Dynamic fixtures with request
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pytest_addoption-custom-cli-options" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        pytest_addoption — custom CLI options
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#temporary-directories-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Temporary directories &amp; files
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#capsys-capturing-stdoutstderr" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        capsys — capturing stdout/stderr
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#monkeypatch-temporarily-modifying-objects" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        monkeypatch — temporarily modifying objects
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#chapter-7-acceptance-testing-with-bdd" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chapter 7: Acceptance Testing with BDD
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Chapter 7: Acceptance Testing with BDD">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-is-bdd" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What is BDD?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pytest-bdd-bdd-plugin-for-pytest" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        pytest-bdd — BDD plugin for pytest
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="pytest-bdd — BDD plugin for pytest">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#feature-files-feature" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Feature files (.feature)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-definitions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step definitions
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#key-gherkin-keywords" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Key Gherkin keywords
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#chapter-8-pytest-essential-plugins" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chapter 8: PyTest Essential Plugins
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Chapter 8: PyTest Essential Plugins">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pytest-cov-code-coverage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        pytest-cov — code coverage
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="pytest-cov — code coverage">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#coveralls-coverage-as-a-service" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Coveralls — coverage as a service
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pytest-benchmark-performance-benchmarking" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        pytest-benchmark — performance benchmarking
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="pytest-benchmark — performance benchmarking">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#comparing-benchmark-runs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Comparing benchmark runs
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#flaky-retry-unstable-tests" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        flaky — retry unstable tests
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pytest-testmon-smart-test-selection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        pytest-testmon — smart test selection
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pytest-xdist-parallel-test-execution" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        pytest-xdist — parallel test execution
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#chapter-9-managing-test-environments-with-tox" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chapter 9: Managing Test Environments with Tox
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Chapter 9: Managing Test Environments with Tox">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#introducing-tox" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Introducing Tox
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Introducing Tox">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#toxini-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        tox.ini configuration
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#testing-multiple-python-versions-with-tox" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Testing multiple Python versions with Tox
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#using-environments-for-more-than-python-versions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Using environments for more than Python versions
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#using-tox-with-travis-ci" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Using Tox with Travis CI
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#part-3-testing-for-the-web" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Part 3: Testing for the Web
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#chapter-10-testing-documentation-and-property-based-testing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chapter 10: Testing Documentation and Property-Based Testing
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Chapter 10: Testing Documentation and Property-Based Testing">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#testing-documentation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Testing documentation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Testing documentation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sphinx-setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sphinx setup
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#autoclass-directive-code-based-reference" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        autoclass directive — code-based reference
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#testcode-testoutput-verified-user-guides" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        testcode / testoutput — verified user guides
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#property-based-testing-with-hypothesis" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Property-based testing with Hypothesis
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Property-based testing with Hypothesis">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#key-concept-strategies" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Key concept: strategies
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#composite-strategies" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Composite strategies
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hypothesis-finds-edge-cases-automatically" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Hypothesis finds edge cases automatically
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#chapter-11-testing-for-the-web-wsgi-versus-http" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chapter 11: Testing for the Web: WSGI versus HTTP
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Chapter 11: Testing for the Web: WSGI versus HTTP">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#testing-http-clients" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Testing HTTP clients
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Testing HTTP clients">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#using-real-http-slow-fragile" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Using real HTTP (slow, fragile)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#requests-mock-mock-http-responses-without-network" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        requests-mock — mock HTTP responses without network
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#testing-wsgi-with-webtest" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Testing WSGI with WebTest
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Testing WSGI with WebTest">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#wsgi-basics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        WSGI basics
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#webtest-test-wsgi-apps-without-a-server" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        WebTest — test WSGI apps without a server
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dependency-injection-for-dual-testing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Dependency injection for dual testing
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#using-webtest-with-web-frameworks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Using WebTest with web frameworks
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#writing-django-tests-with-djangos-test-client" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Writing Django tests with Django's test client
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#chapter-12-end-to-end-testing-with-the-robot-framework" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chapter 12: End-to-End Testing with the Robot Framework
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Chapter 12: End-to-End Testing with the Robot Framework">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#introducing-the-robot-framework" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Introducing the Robot Framework
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Introducing the Robot Framework">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#robot-file-structure" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        .robot file structure
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#testing-with-web-browsers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Testing with web browsers
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#recording-the-execution-of-tests" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Recording the execution of tests
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#testing-with-headless-browsers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Testing with headless browsers
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#testing-multiple-browsers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Testing multiple browsers
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#extending-the-robot-framework" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Extending the Robot Framework
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Extending the Robot Framework">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#adding-custom-keywords-in-robot-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Adding custom keywords (in .robot files)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#extending-robot-from-python" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Extending Robot from Python
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#library-scoping" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Library scoping
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#quick-reference-libraries-introduced" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Quick Reference: Libraries Introduced
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../pytest/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    pytest
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../python_packaging/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Python Packaging
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../selenium_testing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Selenium Testing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api_design_patterns/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API Design Patterns
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../serious_python/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Serious Python
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tdd_python/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    TDD with Python
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../arch_patterns_python/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture Patterns
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../refactoring/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Refactoring
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../fundamentals_data_engineering/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Data Engineering
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../data_pipelines_airflow/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Airflow
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../fastapi_cookbook/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    FastAPI Cookbook
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../notes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Notes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+  
+                  
+
+
+
+<h1 id="book4-crafting-test-driven-software-with-python-summary">Book4 - Crafting Test-Driven Software with Python — Summary<a class="headerlink" href="#book4-crafting-test-driven-software-with-python-summary" title="Permanent link">&para;</a></h1>
+<p><strong>Author:</strong> Alessandro Molina | <strong>Publisher:</strong> Packt (2021)</p>
+<hr />
+<h3 id="part-1-past-and-present-of-test-driven-development">Part 1: Past and Present of Test-Driven Development<a class="headerlink" href="#part-1-past-and-present-of-test-driven-development" title="Permanent link">&para;</a></h3>
+<hr />
+<h2 id="chapter-1-getting-started-with-software-testing">Chapter 1: Getting Started with Software Testing<a class="headerlink" href="#chapter-1-getting-started-with-software-testing" title="Permanent link">&para;</a></h2>
+<h3 id="why-software-testing">Why software testing?<a class="headerlink" href="#why-software-testing" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Software testing verifies that code behaves as expected before shipping</li>
+<li>Catches bugs early, reduces cost of fixes, enables safe refactoring</li>
+<li>Tests act as living documentation of expected behavior</li>
+</ul>
+<h3 id="types-of-software-tests">Types of software tests<a class="headerlink" href="#types-of-software-tests" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Unit tests</strong> — test a single function/class in isolation; fast, numerous</li>
+<li><strong>Integration/Functional tests</strong> — test multiple components working together</li>
+<li><strong>Acceptance/End-to-End tests</strong> — test the whole system from user's perspective</li>
+<li><strong>Black-box tests</strong> — test without knowledge of internals (input → expected output)</li>
+<li><strong>White-box tests</strong> — test with knowledge of internals (verify paths/branches)</li>
+</ul>
+<h3 id="the-testing-pyramid">The testing pyramid<a class="headerlink" href="#the-testing-pyramid" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Bottom (most tests): <strong>Unit tests</strong> — fast, cheap, isolated</li>
+<li>Middle: <strong>Integration tests</strong> — moderate speed, test component interaction</li>
+<li>Top (fewest tests): <strong>E2E/Acceptance tests</strong> — slow, expensive, test full workflows</li>
+<li>Inverted pyramid = anti-pattern (too many slow tests, too few fast ones)</li>
+</ul>
+<h3 id="testing-in-python">Testing in Python<a class="headerlink" href="#testing-in-python" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Python stdlib includes <code>unittest</code> module (xUnit-style)</li>
+<li><strong><code>pytest</code></strong> is the de facto standard third-party framework (used throughout book)</li>
+<li><strong><code>pip install pytest</code></strong></li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="c1"># unittest style</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">unittest</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">TestExample</span><span class="p">(</span><span class="n">unittest</span><span class="o">.</span><span class="n">TestCase</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_addition</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+
+<span class="c1"># pytest style (simpler — just use assert)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">test_addition</span><span class="p">():</span>
+    <span class="k">assert</span> <span class="mi">1</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">==</span> <span class="mi">2</span>
+</code></pre></div>
+<h3 id="arrange-act-assert-pattern">Arrange, Act, Assert pattern<a class="headerlink" href="#arrange-act-assert-pattern" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">test_something</span><span class="p">():</span>
+    <span class="c1"># Arrange — set up preconditions</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>
+
+    <span class="c1"># Act — perform the action under test</span>
+    <span class="n">data</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
+
+    <span class="c1"># Assert — verify expected outcome</span>
+    <span class="k">assert</span> <span class="n">data</span> <span class="o">==</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
+</code></pre></div>
+<h3 id="test-discovery-in-pytest">Test discovery in pytest<a class="headerlink" href="#test-discovery-in-pytest" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Files must be named <code>test_*.py</code> or <code>*_test.py</code></li>
+<li>Test functions must start with <code>test_</code></li>
+<li>Test classes must start with <code>Test</code> (no <code>__init__</code>)</li>
+<li>Run with: <code>$ pytest</code> (auto-discovers tests)</li>
+<li>Verbose: <code>$ pytest -v</code></li>
+</ul>
+<hr />
+<h2 id="chapter-2-test-doubles-with-a-chat-application">Chapter 2: Test Doubles with a Chat Application<a class="headerlink" href="#chapter-2-test-doubles-with-a-chat-application" title="Permanent link">&para;</a></h2>
+<h3 id="what-are-test-doubles">What are test doubles?<a class="headerlink" href="#what-are-test-doubles" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Test double</strong> = generic term for any object that replaces a real dependency in tests</li>
+<li>Needed when real dependencies are slow, unreliable, or have side effects (I/O, network, DB)</li>
+</ul>
+<h3 id="types-of-test-doubles">Types of test doubles<a class="headerlink" href="#types-of-test-doubles" title="Permanent link">&para;</a></h3>
+<h4 id="fakes">Fakes<a class="headerlink" href="#fakes" title="Permanent link">&para;</a></h4>
+<ul>
+<li>Simplified working implementations (e.g., in-memory DB instead of real DB)</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="c1"># Real dependency</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">DatabaseStorage</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">save</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+        <span class="c1"># writes to actual database</span>
+        <span class="o">...</span>
+
+<span class="c1"># Fake — functional but simplified</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">FakeStorage</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_data</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">save</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+</code></pre></div>
+<h4 id="stubs">Stubs<a class="headerlink" href="#stubs" title="Permanent link">&para;</a></h4>
+<ul>
+<li>Return pre-configured responses; don't have real logic</li>
+<li>Replace a component to control what the system-under-test sees</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">StubConnection</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">recv</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s2">&quot;Hello&quot;</span>  <span class="c1"># always returns this, no real network</span>
+</code></pre></div>
+<h4 id="spies">Spies<a class="headerlink" href="#spies" title="Permanent link">&para;</a></h4>
+<ul>
+<li>Record how they were called (args, call count) for later verification</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">SpyConnection</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sent_messages</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">send</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">msg</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sent_messages</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+
+<span class="c1"># In test:</span>
+<span class="n">spy</span> <span class="o">=</span> <span class="n">SpyConnection</span><span class="p">()</span>
+<span class="n">chat</span><span class="o">.</span><span class="n">broadcast</span><span class="p">(</span><span class="s2">&quot;hi&quot;</span><span class="p">,</span> <span class="n">spy</span><span class="p">)</span>
+<span class="k">assert</span> <span class="s2">&quot;hi&quot;</span> <span class="ow">in</span> <span class="n">spy</span><span class="o">.</span><span class="n">sent_messages</span>
+</code></pre></div>
+<h4 id="mocks">Mocks<a class="headerlink" href="#mocks" title="Permanent link">&para;</a></h4>
+<ul>
+<li>Pre-programmed with expectations; verify interactions happened correctly</li>
+<li><strong><code>unittest.mock</code></strong> — Python stdlib mocking library</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">unittest.mock</span><span class="w"> </span><span class="kn">import</span> <span class="n">Mock</span>
+
+<span class="n">mock_conn</span> <span class="o">=</span> <span class="n">Mock</span><span class="p">()</span>
+<span class="n">mock_conn</span><span class="o">.</span><span class="n">recv</span><span class="o">.</span><span class="n">return_value</span> <span class="o">=</span> <span class="s2">&quot;Hello&quot;</span>
+
+<span class="n">result</span> <span class="o">=</span> <span class="n">mock_conn</span><span class="o">.</span><span class="n">recv</span><span class="p">()</span>
+<span class="k">assert</span> <span class="n">result</span> <span class="o">==</span> <span class="s2">&quot;Hello&quot;</span>
+<span class="n">mock_conn</span><span class="o">.</span><span class="n">recv</span><span class="o">.</span><span class="n">assert_called_once</span><span class="p">()</span>
+</code></pre></div>
+<h3 id="unittestmock-key-features"><code>unittest.mock</code> key features<a class="headerlink" href="#unittestmock-key-features" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">unittest.mock</span><span class="w"> </span><span class="kn">import</span> <span class="n">Mock</span><span class="p">,</span> <span class="n">patch</span><span class="p">,</span> <span class="n">MagicMock</span>
+
+<span class="c1"># Mock — generic mock object</span>
+<span class="n">m</span> <span class="o">=</span> <span class="n">Mock</span><span class="p">()</span>
+<span class="n">m</span><span class="o">.</span><span class="n">some_method</span><span class="o">.</span><span class="n">return_value</span> <span class="o">=</span> <span class="mi">42</span>
+<span class="n">m</span><span class="o">.</span><span class="n">some_method</span><span class="p">()</span>  <span class="c1"># returns 42</span>
+<span class="n">m</span><span class="o">.</span><span class="n">some_method</span><span class="o">.</span><span class="n">assert_called_once</span><span class="p">()</span>
+
+<span class="c1"># side_effect — raise exception or call function</span>
+<span class="n">m</span><span class="o">.</span><span class="n">method</span><span class="o">.</span><span class="n">side_effect</span> <span class="o">=</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;boom&quot;</span><span class="p">)</span>
+
+<span class="c1"># patch — temporarily replace an object</span>
+<span class="k">with</span> <span class="n">patch</span><span class="p">(</span><span class="s2">&quot;module.ClassName&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">MockClass</span><span class="p">:</span>
+    <span class="n">instance</span> <span class="o">=</span> <span class="n">MockClass</span><span class="o">.</span><span class="n">return_value</span>
+    <span class="n">instance</span><span class="o">.</span><span class="n">method</span><span class="o">.</span><span class="n">return_value</span> <span class="o">=</span> <span class="s2">&quot;fake&quot;</span>
+
+<span class="c1"># patch as decorator</span>
+<span class="nd">@patch</span><span class="p">(</span><span class="s2">&quot;module.function_name&quot;</span><span class="p">)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">test_something</span><span class="p">(</span><span class="n">mock_func</span><span class="p">):</span>
+    <span class="n">mock_func</span><span class="o">.</span><span class="n">return_value</span> <span class="o">=</span> <span class="s2">&quot;mocked&quot;</span>
+</code></pre></div>
+<h3 id="dependency-injection-for-testability">Dependency injection for testability<a class="headerlink" href="#dependency-injection-for-testability" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Pass dependencies as constructor args instead of hardcoding them</li>
+<li>Makes it trivial to swap real implementations for test doubles</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">ChatClient</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">connection</span><span class="p">):</span>  <span class="c1"># inject dependency</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_connection</span> <span class="o">=</span> <span class="n">connection</span>
+
+<span class="c1"># In production:</span>
+<span class="n">client</span> <span class="o">=</span> <span class="n">ChatClient</span><span class="p">(</span><span class="n">RealConnection</span><span class="p">(</span><span class="s2">&quot;server.com&quot;</span><span class="p">))</span>
+
+<span class="c1"># In tests:</span>
+<span class="n">client</span> <span class="o">=</span> <span class="n">ChatClient</span><span class="p">(</span><span class="n">FakeConnection</span><span class="p">())</span>
+</code></pre></div>
+<hr />
+<h2 id="chapter-3-test-driven-development-while-creating-a-todo-list">Chapter 3: Test-Driven Development while Creating a TODO List<a class="headerlink" href="#chapter-3-test-driven-development-while-creating-a-todo-list" title="Permanent link">&para;</a></h2>
+<h3 id="the-tdd-cycle-red-green-refactor">The TDD cycle: Red → Green → Refactor<a class="headerlink" href="#the-tdd-cycle-red-green-refactor" title="Permanent link">&para;</a></h3>
+<ol>
+<li><strong>Red</strong> — Write a failing test for the next piece of functionality</li>
+<li><strong>Green</strong> — Write the minimum code to make the test pass</li>
+<li><strong>Refactor</strong> — Clean up the code while keeping tests green</li>
+<li>Repeat</li>
+</ol>
+<h3 id="starting-with-a-failing-test">Starting with a failing test<a class="headerlink" href="#starting-with-a-failing-test" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># Write the test FIRST — it should fail (Red)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">test_add_todo</span><span class="p">():</span>
+    <span class="n">app</span> <span class="o">=</span> <span class="n">TodoApp</span><span class="p">()</span>
+    <span class="n">app</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">&quot;Buy groceries&quot;</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="n">app</span><span class="o">.</span><span class="n">todos</span> <span class="o">==</span> <span class="p">[(</span><span class="s2">&quot;Buy groceries&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)]</span>
+</code></pre></div>
+<h3 id="making-it-pass-with-minimum-code">Making it pass with minimum code<a class="headerlink" href="#making-it-pass-with-minimum-code" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># Write just enough to pass (Green)</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">TodoApp</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">todos</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">add</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">todos</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">item</span><span class="p">,</span> <span class="kc">False</span><span class="p">))</span>
+</code></pre></div>
+<h3 id="refactoring">Refactoring<a class="headerlink" href="#refactoring" title="Permanent link">&para;</a></h3>
+<ul>
+<li>After green, improve code structure without changing behavior</li>
+<li>Tests give confidence that refactoring didn't break anything</li>
+</ul>
+<h3 id="key-tdd-principles">Key TDD principles<a class="headerlink" href="#key-tdd-principles" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Never write production code without a failing test</li>
+<li>Write only enough test to fail (one assertion at a time)</li>
+<li>Write only enough code to pass the current failing test</li>
+<li>Tests guide the design — they are a first-class citizen</li>
+</ul>
+<hr />
+<h2 id="chapter-4-scaling-the-test-suite">Chapter 4: Scaling the Test Suite<a class="headerlink" href="#chapter-4-scaling-the-test-suite" title="Permanent link">&para;</a></h2>
+<h3 id="organizing-tests-into-directories">Organizing tests into directories<a class="headerlink" href="#organizing-tests-into-directories" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>project/
+├── src/
+│   └── mypackage/
+│       └── __init__.py
+├── tests/
+│   ├── unit/
+│   ├── functional/
+│   └── acceptance/
+└── setup.py
+</code></pre></div>
+<h3 id="continuous-integration-ci">Continuous Integration (CI)<a class="headerlink" href="#continuous-integration-ci" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>CI</strong> = automatically run tests on every commit/push</li>
+<li>Book uses <strong>Travis CI</strong> as example (<code>.travis.yml</code>)</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="nt">language</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">python</span>
+<span class="nt">python</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;3.7&quot;</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;3.8&quot;</span>
+<span class="nt">install</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;pip</span><span class="nv"> </span><span class="s">install</span><span class="nv"> </span><span class="s">-e</span><span class="nv"> </span><span class="s">src&quot;</span>
+<span class="nt">script</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;python</span><span class="nv"> </span><span class="s">-m</span><span class="nv"> </span><span class="s">unittest</span><span class="nv"> </span><span class="s">discover</span><span class="nv"> </span><span class="s">tests</span><span class="nv"> </span><span class="s">-v&quot;</span>
+</code></pre></div>
+<h3 id="running-tests-in-the-cloud">Running tests in the cloud<a class="headerlink" href="#running-tests-in-the-cloud" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Push to GitHub → Travis CI picks up → runs test suite → reports pass/fail</li>
+<li>Badge in README shows build status</li>
+</ul>
+<h3 id="performance-tests-benchmarks">Performance tests &amp; benchmarks<a class="headerlink" href="#performance-tests-benchmarks" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">unittest</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">time</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">TestPerformance</span><span class="p">(</span><span class="n">unittest</span><span class="o">.</span><span class="n">TestCase</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_operation_speed</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">start</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+        <span class="c1"># ... operation ...</span>
+        <span class="n">elapsed</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">start</span>
+        <span class="k">assert</span> <span class="n">elapsed</span> <span class="o">&lt;</span> <span class="mf">1.0</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;Too slow: </span><span class="si">{</span><span class="n">elapsed</span><span class="si">}</span><span class="s2">s&quot;</span>
+</code></pre></div>
+<h3 id="pytestini-setupcfg-configuration"><code>pytest.ini</code> / <code>setup.cfg</code> configuration<a class="headerlink" href="#pytestini-setupcfg-configuration" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># pytest.ini</span>
+<span class="k">[pytest]</span>
+<span class="na">testpaths</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">tests</span>
+<span class="na">addopts</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">-v</span>
+</code></pre></div>
+<hr />
+<h3 id="part-2-crafting-quality-code-with-pytest">Part 2: Crafting Quality Code with PyTest<a class="headerlink" href="#part-2-crafting-quality-code-with-pytest" title="Permanent link">&para;</a></h3>
+<hr />
+<h2 id="chapter-5-introduction-to-pytest">Chapter 5: Introduction to PyTest<a class="headerlink" href="#chapter-5-introduction-to-pytest" title="Permanent link">&para;</a></h2>
+<h3 id="why-pytest-over-unittest">Why PyTest over unittest<a class="headerlink" href="#why-pytest-over-unittest" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Simpler syntax — plain <code>assert</code> instead of <code>self.assertEqual()</code></li>
+<li>Better output on failures (shows values, diffs)</li>
+<li>Powerful fixture system (vs setUp/tearDown)</li>
+<li>Rich plugin ecosystem</li>
+<li><strong><code>pip install pytest</code></strong></li>
+</ul>
+<h3 id="writing-tests-with-pytest">Writing tests with PyTest<a class="headerlink" href="#writing-tests-with-pytest" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># No class needed, no imports needed for basic tests</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">test_addition</span><span class="p">():</span>
+    <span class="k">assert</span> <span class="mi">1</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">==</span> <span class="mi">2</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">test_string</span><span class="p">():</span>
+    <span class="k">assert</span> <span class="s2">&quot;hello&quot;</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;HELLO&quot;</span>
+
+<span class="c1"># Can still use classes (no inheritance required)</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">TestMath</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_multiply</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">assert</span> <span class="mi">3</span> <span class="o">*</span> <span class="mi">4</span> <span class="o">==</span> <span class="mi">12</span>
+</code></pre></div>
+<h3 id="pytest-assertions">PyTest assertions<a class="headerlink" href="#pytest-assertions" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># pytest rewrites assert statements for rich failure messages</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">test_list</span><span class="p">():</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
+    <span class="k">assert</span> <span class="n">result</span> <span class="o">==</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">]</span>
+    <span class="c1"># E  assert [1, 2, 3] == [1, 2, 4]</span>
+    <span class="c1"># E    At index 2 diff: 3 != 4</span>
+
+<span class="c1"># Testing exceptions</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pytest</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">test_raises</span><span class="p">():</span>
+    <span class="k">with</span> <span class="n">pytest</span><span class="o">.</span><span class="n">raises</span><span class="p">(</span><span class="ne">ValueError</span><span class="p">):</span>
+        <span class="nb">int</span><span class="p">(</span><span class="s2">&quot;not_a_number&quot;</span><span class="p">)</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">test_raises_match</span><span class="p">():</span>
+    <span class="k">with</span> <span class="n">pytest</span><span class="o">.</span><span class="n">raises</span><span class="p">(</span><span class="ne">ValueError</span><span class="p">,</span> <span class="n">match</span><span class="o">=</span><span class="s2">&quot;invalid literal&quot;</span><span class="p">):</span>
+        <span class="nb">int</span><span class="p">(</span><span class="s2">&quot;abc&quot;</span><span class="p">)</span>
+</code></pre></div>
+<h3 id="pytest-fixtures">PyTest fixtures<a class="headerlink" href="#pytest-fixtures" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Fixture</strong> = a function that provides test data or setup/teardown logic</li>
+<li>Declared with <code>@pytest.fixture</code> decorator</li>
+<li>Injected by name into test function arguments</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">pytest</span>
+
+<span class="nd">@pytest</span><span class="o">.</span><span class="n">fixture</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">sample_list</span><span class="p">():</span>
+    <span class="k">return</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">test_length</span><span class="p">(</span><span class="n">sample_list</span><span class="p">):</span>
+    <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">sample_list</span><span class="p">)</span> <span class="o">==</span> <span class="mi">3</span>
+
+<span class="c1"># Fixture with teardown (using yield)</span>
+<span class="nd">@pytest</span><span class="o">.</span><span class="n">fixture</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">db_connection</span><span class="p">():</span>
+    <span class="n">conn</span> <span class="o">=</span> <span class="n">create_connection</span><span class="p">()</span>
+    <span class="k">yield</span> <span class="n">conn</span>          <span class="c1"># test runs here</span>
+    <span class="n">conn</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>        <span class="c1"># teardown after test</span>
+</code></pre></div>
+<h3 id="fixture-scopes">Fixture scopes<a class="headerlink" href="#fixture-scopes" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="nd">@pytest</span><span class="o">.</span><span class="n">fixture</span><span class="p">(</span><span class="n">scope</span><span class="o">=</span><span class="s2">&quot;function&quot;</span><span class="p">)</span>   <span class="c1"># default — per test function</span>
+<span class="nd">@pytest</span><span class="o">.</span><span class="n">fixture</span><span class="p">(</span><span class="n">scope</span><span class="o">=</span><span class="s2">&quot;class&quot;</span><span class="p">)</span>      <span class="c1"># once per test class</span>
+<span class="nd">@pytest</span><span class="o">.</span><span class="n">fixture</span><span class="p">(</span><span class="n">scope</span><span class="o">=</span><span class="s2">&quot;module&quot;</span><span class="p">)</span>     <span class="c1"># once per test module</span>
+<span class="nd">@pytest</span><span class="o">.</span><span class="n">fixture</span><span class="p">(</span><span class="n">scope</span><span class="o">=</span><span class="s2">&quot;session&quot;</span><span class="p">)</span>    <span class="c1"># once per entire test session</span>
+</code></pre></div>
+<h3 id="conftestpy">conftest.py<a class="headerlink" href="#conftestpy" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Special file for sharing fixtures across multiple test files</li>
+<li>Pytest auto-discovers <code>conftest.py</code> files</li>
+<li>Can exist at any level of the test directory hierarchy</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="c1"># tests/conftest.py — available to ALL tests</span>
+<span class="nd">@pytest</span><span class="o">.</span><span class="n">fixture</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">app</span><span class="p">():</span>
+    <span class="k">return</span> <span class="n">Application</span><span class="p">()</span>
+</code></pre></div>
+<h3 id="parametrize-running-a-test-with-multiple-inputs">Parametrize — running a test with multiple inputs<a class="headerlink" href="#parametrize-running-a-test-with-multiple-inputs" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">parametrize</span><span class="p">(</span><span class="s2">&quot;input,expected&quot;</span><span class="p">,</span> <span class="p">[</span>
+    <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
+    <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span>
+    <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">9</span><span class="p">),</span>
+<span class="p">])</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">test_square</span><span class="p">(</span><span class="nb">input</span><span class="p">,</span> <span class="n">expected</span><span class="p">):</span>
+    <span class="k">assert</span> <span class="nb">input</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">==</span> <span class="n">expected</span>
+</code></pre></div>
+<h3 id="markers">Markers<a class="headerlink" href="#markers" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">slow</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">test_big_computation</span><span class="p">():</span>
+    <span class="o">...</span>
+
+<span class="c1"># Run only slow tests:    $ pytest -m slow</span>
+<span class="c1"># Skip slow tests:        $ pytest -m &quot;not slow&quot;</span>
+
+<span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">skip</span><span class="p">(</span><span class="n">reason</span><span class="o">=</span><span class="s2">&quot;not implemented yet&quot;</span><span class="p">)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">test_future_feature</span><span class="p">():</span>
+    <span class="o">...</span>
+
+<span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">skipif</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">platform</span> <span class="o">==</span> <span class="s2">&quot;win32&quot;</span><span class="p">,</span> <span class="n">reason</span><span class="o">=</span><span class="s2">&quot;Unix only&quot;</span><span class="p">)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">test_unix_feature</span><span class="p">():</span>
+    <span class="o">...</span>
+</code></pre></div>
+<h3 id="useful-cli-options">Useful CLI options<a class="headerlink" href="#useful-cli-options" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>pytest<span class="w"> </span>-v<span class="w">                   </span><span class="c1"># verbose output</span>
+pytest<span class="w"> </span>-s<span class="w">                   </span><span class="c1"># show print statements (no capture)</span>
+pytest<span class="w"> </span>-x<span class="w">                   </span><span class="c1"># stop on first failure</span>
+pytest<span class="w"> </span>--lf<span class="w">                 </span><span class="c1"># re-run only last failed tests</span>
+pytest<span class="w"> </span>-k<span class="w"> </span><span class="s2">&quot;test_add&quot;</span><span class="w">        </span><span class="c1"># run tests matching keyword expression</span>
+pytest<span class="w"> </span>--tb<span class="o">=</span>short<span class="w">           </span><span class="c1"># shorter tracebacks</span>
+</code></pre></div>
+<hr />
+<h2 id="chapter-6-dynamic-and-parametric-fixtures-and-test-configuration">Chapter 6: Dynamic and Parametric Fixtures and Test Configuration<a class="headerlink" href="#chapter-6-dynamic-and-parametric-fixtures-and-test-configuration" title="Permanent link">&para;</a></h2>
+<h3 id="dynamic-fixtures-with-request">Dynamic fixtures with <code>request</code><a class="headerlink" href="#dynamic-fixtures-with-request" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="nd">@pytest</span><span class="o">.</span><span class="n">fixture</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">dynamic_fixture</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+    <span class="c1"># request.param gives the parametrized value</span>
+    <span class="k">return</span> <span class="n">request</span><span class="o">.</span><span class="n">param</span> <span class="o">*</span> <span class="mi">2</span>
+
+<span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">parametrize</span><span class="p">(</span><span class="s2">&quot;dynamic_fixture&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="n">indirect</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">test_doubled</span><span class="p">(</span><span class="n">dynamic_fixture</span><span class="p">):</span>
+    <span class="k">assert</span> <span class="n">dynamic_fixture</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">6</span><span class="p">]</span>
+</code></pre></div>
+<h3 id="pytest_addoption-custom-cli-options"><code>pytest_addoption</code> — custom CLI options<a class="headerlink" href="#pytest_addoption-custom-cli-options" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># conftest.py</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">pytest_addoption</span><span class="p">(</span><span class="n">parser</span><span class="p">):</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">addoption</span><span class="p">(</span>
+        <span class="s2">&quot;--env&quot;</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s2">&quot;store&quot;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s2">&quot;test&quot;</span><span class="p">,</span>
+        <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Environment to run tests against&quot;</span>
+    <span class="p">)</span>
+
+<span class="nd">@pytest</span><span class="o">.</span><span class="n">fixture</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">env</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">request</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">getoption</span><span class="p">(</span><span class="s2">&quot;--env&quot;</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>pytest<span class="w"> </span>--env<span class="o">=</span>staging
+</code></pre></div>
+<h3 id="temporary-directories-files">Temporary directories &amp; files<a class="headerlink" href="#temporary-directories-files" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># tmp_path — built-in fixture (pathlib.Path)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">test_write_file</span><span class="p">(</span><span class="n">tmp_path</span><span class="p">):</span>
+    <span class="n">f</span> <span class="o">=</span> <span class="n">tmp_path</span> <span class="o">/</span> <span class="s2">&quot;test.txt&quot;</span>
+    <span class="n">f</span><span class="o">.</span><span class="n">write_text</span><span class="p">(</span><span class="s2">&quot;hello&quot;</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="n">f</span><span class="o">.</span><span class="n">read_text</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;hello&quot;</span>
+
+<span class="c1"># tmp_path_factory — session-scoped</span>
+<span class="nd">@pytest</span><span class="o">.</span><span class="n">fixture</span><span class="p">(</span><span class="n">scope</span><span class="o">=</span><span class="s2">&quot;session&quot;</span><span class="p">)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">shared_dir</span><span class="p">(</span><span class="n">tmp_path_factory</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">tmp_path_factory</span><span class="o">.</span><span class="n">mktemp</span><span class="p">(</span><span class="s2">&quot;data&quot;</span><span class="p">)</span>
+</code></pre></div>
+<h3 id="capsys-capturing-stdoutstderr">capsys — capturing stdout/stderr<a class="headerlink" href="#capsys-capturing-stdoutstderr" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">test_print</span><span class="p">(</span><span class="n">capsys</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;hello&quot;</span><span class="p">)</span>
+    <span class="n">captured</span> <span class="o">=</span> <span class="n">capsys</span><span class="o">.</span><span class="n">readouterr</span><span class="p">()</span>
+    <span class="k">assert</span> <span class="n">captured</span><span class="o">.</span><span class="n">out</span> <span class="o">==</span> <span class="s2">&quot;hello</span><span class="se">\n</span><span class="s2">&quot;</span>
+</code></pre></div>
+<h3 id="monkeypatch-temporarily-modifying-objects">monkeypatch — temporarily modifying objects<a class="headerlink" href="#monkeypatch-temporarily-modifying-objects" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">test_env_var</span><span class="p">(</span><span class="n">monkeypatch</span><span class="p">):</span>
+    <span class="n">monkeypatch</span><span class="o">.</span><span class="n">setenv</span><span class="p">(</span><span class="s2">&quot;API_KEY&quot;</span><span class="p">,</span> <span class="s2">&quot;test123&quot;</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">&quot;API_KEY&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;test123&quot;</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">test_patch_function</span><span class="p">(</span><span class="n">monkeypatch</span><span class="p">):</span>
+    <span class="n">monkeypatch</span><span class="o">.</span><span class="n">setattr</span><span class="p">(</span><span class="s2">&quot;module.expensive_call&quot;</span><span class="p">,</span> <span class="k">lambda</span><span class="p">:</span> <span class="s2">&quot;mocked&quot;</span><span class="p">)</span>
+</code></pre></div>
+<hr />
+<h2 id="chapter-7-acceptance-testing-with-bdd">Chapter 7: Acceptance Testing with BDD<a class="headerlink" href="#chapter-7-acceptance-testing-with-bdd" title="Permanent link">&para;</a></h2>
+<h3 id="what-is-bdd">What is BDD?<a class="headerlink" href="#what-is-bdd" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Behavior-Driven Development (BDD)</strong> = extension of TDD that uses natural language to describe behavior</li>
+<li>Tests are written in <strong>Gherkin</strong> syntax (Given/When/Then)</li>
+<li>Bridges gap between developers and non-technical stakeholders</li>
+</ul>
+<h3 id="pytest-bdd-bdd-plugin-for-pytest"><code>pytest-bdd</code> — BDD plugin for pytest<a class="headerlink" href="#pytest-bdd-bdd-plugin-for-pytest" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong><code>pip install pytest-bdd</code></strong></li>
+</ul>
+<h4 id="feature-files-feature">Feature files (<code>.feature</code>)<a class="headerlink" href="#feature-files-feature" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="c"># features/contacts.feature</span>
+<span class="k">Feature:</span><span class="nf"> Contact management</span>
+<span class="nf">  As a user I want to manage my contacts</span>
+
+<span class="nf">  </span><span class="k">Scenario:</span><span class="nf"> Add a contact</span>
+<span class="k">    Given </span><span class="nf">I have an empty contact book</span>
+<span class="nf">    </span><span class="k">When </span><span class="nf">I add a contact &quot;</span><span class="s">Alice</span><span class="nf">&quot; with number &quot;</span><span class="s">1234567890</span><span class="nf">&quot;</span>
+<span class="nf">    </span><span class="k">Then </span><span class="nf">I should have </span><span class="s">1</span><span class="nf"> contact</span>
+<span class="nf">    </span><span class="k">And </span><span class="nf">the contact &quot;</span><span class="s">Alice</span><span class="nf">&quot; should exist</span>
+</code></pre></div>
+<h4 id="step-definitions">Step definitions<a class="headerlink" href="#step-definitions" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">pytest_bdd</span><span class="w"> </span><span class="kn">import</span> <span class="n">scenario</span><span class="p">,</span> <span class="n">given</span><span class="p">,</span> <span class="n">when</span><span class="p">,</span> <span class="n">then</span><span class="p">,</span> <span class="n">parsers</span>
+
+<span class="nd">@scenario</span><span class="p">(</span><span class="s2">&quot;contacts.feature&quot;</span><span class="p">,</span> <span class="s2">&quot;Add a contact&quot;</span><span class="p">)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">test_add_contact</span><span class="p">():</span>
+    <span class="k">pass</span>
+
+<span class="nd">@given</span><span class="p">(</span><span class="s2">&quot;I have an empty contact book&quot;</span><span class="p">)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">empty_app</span><span class="p">():</span>
+    <span class="k">return</span> <span class="n">Application</span><span class="p">()</span>
+
+<span class="nd">@when</span><span class="p">(</span><span class="n">parsers</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="s1">&#39;I add a contact &quot;</span><span class="si">{name}</span><span class="s1">&quot; with number &quot;</span><span class="si">{number}</span><span class="s1">&quot;&#39;</span><span class="p">))</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">add_contact</span><span class="p">(</span><span class="n">empty_app</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">number</span><span class="p">):</span>
+    <span class="n">empty_app</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;contacts add </span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">number</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="nd">@then</span><span class="p">(</span><span class="n">parsers</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="s2">&quot;I should have </span><span class="si">{count:d}</span><span class="s2"> contact&quot;</span><span class="p">))</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">check_count</span><span class="p">(</span><span class="n">empty_app</span><span class="p">,</span> <span class="n">count</span><span class="p">):</span>
+    <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">empty_app</span><span class="o">.</span><span class="n">_contacts</span><span class="p">)</span> <span class="o">==</span> <span class="n">count</span>
+</code></pre></div>
+<h4 id="key-gherkin-keywords">Key Gherkin keywords<a class="headerlink" href="#key-gherkin-keywords" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Given</strong> — preconditions / initial context</li>
+<li><strong>When</strong> — action performed</li>
+<li><strong>Then</strong> — expected outcome / assertion</li>
+<li><strong>And</strong> — additional step (inherits type of preceding keyword)</li>
+<li><strong>Scenario Outline</strong> + <strong>Examples</strong> — parametrized scenarios</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="k">Scenario Outline:</span><span class="nf"> Add multiple contacts</span>
+<span class="k">  Given </span><span class="nf">I have an empty contact book</span>
+<span class="nf">  </span><span class="k">When </span><span class="nf">I add a contact &quot;</span><span class="nv">&lt;name&gt;</span><span class="nf">&quot; with number &quot;</span><span class="nv">&lt;number&gt;</span><span class="nf">&quot;</span>
+<span class="nf">  </span><span class="k">Then </span><span class="nf">I should have </span><span class="s">1</span><span class="nf"> contact</span>
+
+<span class="nf">  </span><span class="k">Examples:</span>
+<span class="k">    |</span><span class="nv"> name</span><span class="k">  |</span><span class="nv"> number</span><span class="k">     |</span>
+<span class="k">    |</span><span class="s"> Alice</span><span class="k"> |</span><span class="s"> 1234567890</span><span class="k"> |</span>
+<span class="k">    |</span><span class="s"> Bob</span><span class="k">   |</span><span class="s"> 0987654321</span><span class="k"> |</span>
+</code></pre></div>
+<hr />
+<h2 id="chapter-8-pytest-essential-plugins">Chapter 8: PyTest Essential Plugins<a class="headerlink" href="#chapter-8-pytest-essential-plugins" title="Permanent link">&para;</a></h2>
+<h3 id="pytest-cov-code-coverage"><code>pytest-cov</code> — code coverage<a class="headerlink" href="#pytest-cov-code-coverage" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong><code>pip install pytest-cov</code></strong></li>
+<li>Uses <code>coverage.py</code> under the hood</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="c1"># Basic coverage report</span>
+$<span class="w"> </span>pytest<span class="w"> </span>--cov<span class="o">=</span>mypackage
+
+<span class="c1"># Show which lines are not covered</span>
+$<span class="w"> </span>pytest<span class="w"> </span>--cov<span class="o">=</span>mypackage<span class="w"> </span>--cov-report<span class="o">=</span>term-missing
+
+<span class="c1"># Output:</span>
+<span class="c1"># Name                    Stmts  Miss  Cover  Missing</span>
+<span class="c1"># mypackage/__init__.py      48     1    98%    68</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="c1"># Exclude lines from coverage</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.</span><span class="w"> </span><span class="kn">import</span> <span class="n">main</span>  <span class="c1"># pragma: no cover</span>
+<span class="n">main</span><span class="p">()</span>  <span class="c1"># pragma: no cover</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="c1"># pytest.ini — auto-run coverage every time</span>
+<span class="k">[pytest]</span>
+<span class="na">addopts</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">--cov=contacts --cov-report=term-missing</span>
+</code></pre></div>
+<h4 id="coveralls-coverage-as-a-service">Coveralls — coverage as a service<a class="headerlink" href="#coveralls-coverage-as-a-service" title="Permanent link">&para;</a></h4>
+<ul>
+<li>Integrates with CI (Travis CI) to track coverage trends over time</li>
+<li><strong><code>pip install coveralls</code></strong></li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="c1"># .travis.yml</span>
+<span class="nt">after_success</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">coveralls</span>
+</code></pre></div>
+<h3 id="pytest-benchmark-performance-benchmarking"><code>pytest-benchmark</code> — performance benchmarking<a class="headerlink" href="#pytest-benchmark-performance-benchmarking" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong><code>pip install pytest-benchmark</code></strong></li>
+<li>Provides a <code>benchmark</code> fixture</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">contacts</span><span class="w"> </span><span class="kn">import</span> <span class="n">Application</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">test_loading</span><span class="p">(</span><span class="n">benchmark</span><span class="p">):</span>
+    <span class="n">app</span> <span class="o">=</span> <span class="n">Application</span><span class="p">()</span>
+    <span class="n">app</span><span class="o">.</span><span class="n">_contacts</span> <span class="o">=</span> <span class="p">[(</span><span class="sa">f</span><span class="s2">&quot;Name </span><span class="si">{</span><span class="n">n</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot;number&quot;</span><span class="p">)</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1000</span><span class="p">)]</span>
+    <span class="n">app</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+
+    <span class="n">benchmark</span><span class="p">(</span><span class="n">app</span><span class="o">.</span><span class="n">load</span><span class="p">)</span>  <span class="c1"># benchmarks the app.load call</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>pytest<span class="w"> </span>-v<span class="w"> </span>benchmarks
+<span class="c1"># Reports: Min, Max, Mean, OPS (Kops/s), Rounds</span>
+</code></pre></div>
+<h4 id="comparing-benchmark-runs">Comparing benchmark runs<a class="headerlink" href="#comparing-benchmark-runs" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="c1"># Save benchmarks and compare against previous</span>
+$<span class="w"> </span>pytest<span class="w"> </span>--benchmark-autosave<span class="w"> </span>--benchmark-compare
+
+<span class="c1"># Profile bottlenecks</span>
+$<span class="w"> </span>pytest<span class="w"> </span>--benchmark-cprofile<span class="o">=</span>tottime
+</code></pre></div>
+<h3 id="flaky-retry-unstable-tests"><code>flaky</code> — retry unstable tests<a class="headerlink" href="#flaky-retry-unstable-tests" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong><code>pip install flaky</code></strong></li>
+<li>For tests that sometimes fail due to timing, concurrency, external services</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">flaky</span><span class="w"> </span><span class="kn">import</span> <span class="n">flaky</span>
+
+<span class="nd">@flaky</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">test_appender</span><span class="p">():</span>
+    <span class="n">l</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">flaky_appender</span><span class="p">(</span><span class="n">l</span><span class="p">,</span> <span class="nb">range</span><span class="p">(</span><span class="mi">7000</span><span class="p">))</span>
+    <span class="k">assert</span> <span class="n">l</span> <span class="o">==</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">7000</span><span class="p">))</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="c1"># Detect flakiness</span>
+$<span class="w"> </span>pytest<span class="w"> </span>test_flaky.py<span class="w"> </span>--force-flaky<span class="w"> </span>--min-passes<span class="o">=</span><span class="m">10</span><span class="w"> </span>--max-runs<span class="o">=</span><span class="m">10</span>
+
+<span class="c1"># Control retries</span>
+$<span class="w"> </span>pytest<span class="w"> </span>--max-runs<span class="o">=</span><span class="m">3</span>
+</code></pre></div>
+<h3 id="pytest-testmon-smart-test-selection"><code>pytest-testmon</code> — smart test selection<a class="headerlink" href="#pytest-testmon-smart-test-selection" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong><code>pip install pytest-testmon</code></strong></li>
+<li>Builds a dependency graph between code and tests</li>
+<li>On subsequent runs, only re-runs tests affected by code changes</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="c1"># First run — builds relationship graph</span>
+$<span class="w"> </span>pytest<span class="w"> </span>--testmon
+
+<span class="c1"># After changing code — only runs affected tests</span>
+$<span class="w"> </span>pytest<span class="w"> </span>--testmon
+<span class="c1"># collected 16 items / 14 deselected / 2 selected</span>
+</code></pre></div>
+<ul>
+<li>Caveat: can't detect changes to config files, data files, or databases</li>
+</ul>
+<h3 id="pytest-xdist-parallel-test-execution"><code>pytest-xdist</code> — parallel test execution<a class="headerlink" href="#pytest-xdist-parallel-test-execution" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong><code>pip install pytest-xdist</code></strong></li>
+<li>Distributes tests across multiple CPU workers</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="c1"># Run with 2 workers</span>
+$<span class="w"> </span>pytest<span class="w"> </span>-n<span class="w"> </span><span class="m">2</span>
+
+<span class="c1"># Auto-detect CPU count</span>
+$<span class="w"> </span>pytest<span class="w"> </span>-n<span class="w"> </span>auto
+</code></pre></div>
+<ul>
+<li>Tests must be <strong>isolated</strong> (no shared state) for parallel execution</li>
+<li>Benchmarks are unreliable in parallel mode — use <code>--ignore benchmarks</code></li>
+</ul>
+<hr />
+<h2 id="chapter-9-managing-test-environments-with-tox">Chapter 9: Managing Test Environments with Tox<a class="headerlink" href="#chapter-9-managing-test-environments-with-tox" title="Permanent link">&para;</a></h2>
+<h3 id="introducing-tox">Introducing Tox<a class="headerlink" href="#introducing-tox" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Tox</strong> = virtual environment manager for testing</li>
+<li>Automates: create venvs, install deps, run test commands</li>
+<li><strong><code>pip install tox</code></strong></li>
+</ul>
+<h4 id="toxini-configuration"><code>tox.ini</code> configuration<a class="headerlink" href="#toxini-configuration" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="k">[tox]</span>
+<span class="na">setupdir</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">./src</span>
+
+<span class="k">[testenv]</span>
+<span class="na">deps</span><span class="w"> </span><span class="o">=</span>
+<span class="w">    </span><span class="na">pytest</span><span class="w"> </span><span class="o">=</span><span class="s">= 6.0.2</span>
+<span class="w">    </span><span class="na">pytest-bdd</span><span class="w"> </span><span class="o">=</span><span class="s">= 3.4.0</span>
+<span class="w">    </span><span class="na">flaky</span><span class="w"> </span><span class="o">=</span><span class="s">= 3.7.0</span>
+<span class="w">    </span><span class="na">pytest-benchmark</span><span class="w"> </span><span class="o">=</span><span class="s">= 3.2.3</span>
+<span class="w">    </span><span class="na">pytest-cov</span><span class="w"> </span><span class="o">=</span><span class="s">= 2.10.1</span>
+<span class="na">commands</span><span class="w"> </span><span class="o">=</span>
+<span class="w">    </span><span class="na">pytest --cov</span><span class="o">=</span><span class="s">contacts {posargs}</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="c1"># Run all environments</span>
+$<span class="w"> </span>tox
+
+<span class="c1"># Pass extra args to pytest</span>
+$<span class="w"> </span>tox<span class="w"> </span>--<span class="w"> </span>./tests<span class="w"> </span>-k<span class="w"> </span>load
+
+<span class="c1"># Run specific environment</span>
+$<span class="w"> </span>tox<span class="w"> </span>-e<span class="w"> </span>benchmarks
+</code></pre></div>
+<h3 id="testing-multiple-python-versions-with-tox">Testing multiple Python versions with Tox<a class="headerlink" href="#testing-multiple-python-versions-with-tox" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="k">[tox]</span>
+<span class="na">setupdir</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">./src</span>
+<span class="na">envlist</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">py37, py38, py39</span>
+
+<span class="k">[testenv]</span>
+<span class="na">deps</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">...</span>
+<span class="na">commands</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">pytest --cov=contacts --benchmark-skip {posargs}</span>
+
+<span class="c1"># Per-version overrides</span>
+<span class="k">[testenv:py27]</span>
+<span class="na">deps</span><span class="w"> </span><span class="o">=</span>
+<span class="w">    </span><span class="na">pytest</span><span class="w"> </span><span class="o">=</span><span class="s">= 4.6.11</span>
+<span class="w">    </span><span class="na">...</span>
+</code></pre></div>
+<h3 id="using-environments-for-more-than-python-versions">Using environments for more than Python versions<a class="headerlink" href="#using-environments-for-more-than-python-versions" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># Separate benchmarks environment (not in envlist)</span>
+<span class="k">[testenv:benchmarks]</span>
+<span class="na">commands</span><span class="w"> </span><span class="o">=</span>
+<span class="w">    </span><span class="na">pytest --no-cov ./benchmarks {posargs}</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>tox<span class="w"> </span>-e<span class="w"> </span>benchmarks<span class="w">  </span><span class="c1"># explicitly run benchmarks</span>
+</code></pre></div>
+<h3 id="using-tox-with-travis-ci">Using Tox with Travis CI<a class="headerlink" href="#using-tox-with-travis-ci" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong><code>pip install tox-travis</code></strong> — bridges Tox and Travis</li>
+<li><code>tox-travis</code> reuses Travis's Python instead of installing it twice</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="c1"># .travis.yml</span>
+<span class="nt">language</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">python</span>
+<span class="nt">python</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3.7</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3.8</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3.9</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nightly</span>
+<span class="nt">install</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;pip</span><span class="nv"> </span><span class="s">install</span><span class="nv"> </span><span class="s">tox-travis&quot;</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;pip</span><span class="nv"> </span><span class="s">install</span><span class="nv"> </span><span class="s">coveralls&quot;</span>
+<span class="nt">script</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;tox&quot;</span>
+<span class="nt">after_success</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">coveralls</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;tox</span><span class="nv"> </span><span class="s">-e</span><span class="nv"> </span><span class="s">benchmarks&quot;</span>
+</code></pre></div>
+<hr />
+<h3 id="part-3-testing-for-the-web">Part 3: Testing for the Web<a class="headerlink" href="#part-3-testing-for-the-web" title="Permanent link">&para;</a></h3>
+<hr />
+<h2 id="chapter-10-testing-documentation-and-property-based-testing">Chapter 10: Testing Documentation and Property-Based Testing<a class="headerlink" href="#chapter-10-testing-documentation-and-property-based-testing" title="Permanent link">&para;</a></h2>
+<h3 id="testing-documentation">Testing documentation<a class="headerlink" href="#testing-documentation" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Documentation rots when code changes but docs don't</li>
+<li><strong><code>doctest</code></strong> + <strong>Sphinx</strong> can verify code examples in docs actually run</li>
+</ul>
+<h4 id="sphinx-setup">Sphinx setup<a class="headerlink" href="#sphinx-setup" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong><code>pip install sphinx</code></strong></li>
+</ul>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>sphinx-quickstart<span class="w"> </span>docs<span class="w"> </span>--ext-doctest<span class="w"> </span>--ext-autodoc
+</code></pre></div>
+<h4 id="autoclass-directive-code-based-reference"><code>autoclass</code> directive — code-based reference<a class="headerlink" href="#autoclass-directive-code-based-reference" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="p">..</span> <span class="ow">autoclass</span><span class="p">::</span> contacts.Application
+   <span class="nc">:members:</span>
+</code></pre></div>
+<ul>
+<li>Generates docs from docstrings → docs stay in sync with code</li>
+</ul>
+<h4 id="testcode-testoutput-verified-user-guides"><code>testcode</code> / <code>testoutput</code> — verified user guides<a class="headerlink" href="#testcode-testoutput-verified-user-guides" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="p">..</span> <span class="ow">testsetup</span><span class="p">::</span>
+
+    from contacts import Application
+    app = Application()
+
+<span class="p">..</span> <span class="ow">testcode</span><span class="p">::</span>
+
+    app.run(&quot;contacts add Name 0123456789&quot;)
+
+<span class="p">..</span> <span class="ow">testcode</span><span class="p">::</span>
+
+    app.run(&quot;contacts ls&quot;)
+
+<span class="p">..</span> <span class="ow">testoutput</span><span class="p">::</span>
+
+    Name 0123456789
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>make<span class="w"> </span>doctest<span class="w">  </span><span class="c1"># runs all testcode blocks and verifies testoutput</span>
+</code></pre></div>
+<ul>
+<li><code>code-block</code> = display only (not verified)</li>
+<li><code>testcode</code> = displayed AND executed (verified)</li>
+</ul>
+<h3 id="property-based-testing-with-hypothesis">Property-based testing with Hypothesis<a class="headerlink" href="#property-based-testing-with-hypothesis" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong><code>pip install hypothesis</code></strong></li>
+<li>Instead of testing specific examples, test <strong>properties</strong> that should hold for all inputs</li>
+<li>Hypothesis generates random inputs automatically</li>
+</ul>
+<h4 id="key-concept-strategies">Key concept: strategies<a class="headerlink" href="#key-concept-strategies" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">hypothesis</span><span class="w"> </span><span class="kn">import</span> <span class="n">given</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">hypothesis</span><span class="w"> </span><span class="kn">import</span> <span class="n">strategies</span> <span class="k">as</span> <span class="n">st</span>
+
+<span class="c1"># st.integers() — generates random ints</span>
+<span class="c1"># st.text() — generates random strings</span>
+<span class="c1"># st.lists() — generates random lists</span>
+<span class="c1"># st.floats(), st.booleans(), st.none(), etc.</span>
+
+<span class="nd">@given</span><span class="p">(</span><span class="n">st</span><span class="o">.</span><span class="n">integers</span><span class="p">(),</span> <span class="n">st</span><span class="o">.</span><span class="n">integers</span><span class="p">())</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">test_addition_commutative</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
+    <span class="k">assert</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span> <span class="o">==</span> <span class="n">b</span> <span class="o">+</span> <span class="n">a</span>
+
+<span class="nd">@given</span><span class="p">(</span><span class="n">st</span><span class="o">.</span><span class="n">lists</span><span class="p">(</span><span class="n">st</span><span class="o">.</span><span class="n">integers</span><span class="p">()))</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">test_sort_idempotent</span><span class="p">(</span><span class="n">lst</span><span class="p">):</span>
+    <span class="k">assert</span> <span class="nb">sorted</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="n">lst</span><span class="p">))</span> <span class="o">==</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">lst</span><span class="p">)</span>
+</code></pre></div>
+<h4 id="composite-strategies">Composite strategies<a class="headerlink" href="#composite-strategies" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="nd">@st</span><span class="o">.</span><span class="n">composite</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">phone_number</span><span class="p">(</span><span class="n">draw</span><span class="p">):</span>
+    <span class="n">prefix</span> <span class="o">=</span> <span class="n">draw</span><span class="p">(</span><span class="n">st</span><span class="o">.</span><span class="n">sampled_from</span><span class="p">([</span><span class="s2">&quot;+1&quot;</span><span class="p">,</span> <span class="s2">&quot;+44&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">]))</span>
+    <span class="n">digits</span> <span class="o">=</span> <span class="n">draw</span><span class="p">(</span><span class="n">st</span><span class="o">.</span><span class="n">text</span><span class="p">(</span>
+        <span class="n">alphabet</span><span class="o">=</span><span class="s2">&quot;0123456789&quot;</span><span class="p">,</span>
+        <span class="n">min_size</span><span class="o">=</span><span class="mi">7</span><span class="p">,</span> <span class="n">max_size</span><span class="o">=</span><span class="mi">10</span>
+    <span class="p">))</span>
+    <span class="k">return</span> <span class="n">prefix</span> <span class="o">+</span> <span class="n">digits</span>
+</code></pre></div>
+<h4 id="hypothesis-finds-edge-cases-automatically">Hypothesis finds edge cases automatically<a class="headerlink" href="#hypothesis-finds-edge-cases-automatically" title="Permanent link">&para;</a></h4>
+<ul>
+<li>Empty strings, boundary values, unicode, very large numbers</li>
+<li>When a test fails, Hypothesis <strong>shrinks</strong> the input to the minimal failing case</li>
+<li>Failed examples are saved in a database and replayed on future runs</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="nd">@given</span><span class="p">(</span><span class="n">st</span><span class="o">.</span><span class="n">text</span><span class="p">())</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">test_add_contact_name</span><span class="p">(</span><span class="n">name</span><span class="p">):</span>
+    <span class="n">app</span> <span class="o">=</span> <span class="n">Application</span><span class="p">()</span>
+    <span class="c1"># Hypothesis will try &quot;&quot;, &quot; &quot;, unicode, very long strings, etc.</span>
+    <span class="k">if</span> <span class="n">name</span><span class="o">.</span><span class="n">strip</span><span class="p">():</span>
+        <span class="n">app</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;contacts add </span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2"> 1234567890&quot;</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">app</span><span class="o">.</span><span class="n">_contacts</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span>
+</code></pre></div>
+<hr />
+<h2 id="chapter-11-testing-for-the-web-wsgi-versus-http">Chapter 11: Testing for the Web: WSGI versus HTTP<a class="headerlink" href="#chapter-11-testing-for-the-web-wsgi-versus-http" title="Permanent link">&para;</a></h2>
+<h3 id="testing-http-clients">Testing HTTP clients<a class="headerlink" href="#testing-http-clients" title="Permanent link">&para;</a></h3>
+<h4 id="using-real-http-slow-fragile">Using real HTTP (slow, fragile)<a class="headerlink" href="#using-real-http-slow-fragile" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">requests</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">HTTPClient</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="n">requests</span><span class="o">=</span><span class="n">requests</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_url</span> <span class="o">=</span> <span class="n">url</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_requests</span> <span class="o">=</span> <span class="n">requests</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">GET</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_url</span><span class="p">)</span><span class="o">.</span><span class="n">text</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">POST</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_url</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span><span class="o">.</span><span class="n">text</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">DELETE</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_requests</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_url</span><span class="p">)</span><span class="o">.</span><span class="n">text</span>
+</code></pre></div>
+<h4 id="requests-mock-mock-http-responses-without-network"><code>requests-mock</code> — mock HTTP responses without network<a class="headerlink" href="#requests-mock-mock-http-responses-without-network" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong><code>pip install requests-mock</code></strong></li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">requests_mock</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">rm</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">TestHTTPClient</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_GET</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">with</span> <span class="n">rm</span><span class="o">.</span><span class="n">Mocker</span><span class="p">()</span> <span class="k">as</span> <span class="n">m</span><span class="p">:</span>
+            <span class="n">m</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;http://httpbin.org/get&quot;</span><span class="p">,</span> <span class="n">json</span><span class="o">=</span><span class="p">{</span>
+                <span class="s2">&quot;headers&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;Host&quot;</span><span class="p">:</span> <span class="s2">&quot;httpbin.org&quot;</span><span class="p">},</span>
+                <span class="s2">&quot;args&quot;</span><span class="p">:</span> <span class="p">{}</span>
+            <span class="p">})</span>
+            <span class="n">client</span> <span class="o">=</span> <span class="n">HTTPClient</span><span class="p">(</span><span class="n">url</span><span class="o">=</span><span class="s2">&quot;http://httpbin.org/get&quot;</span><span class="p">)</span>
+            <span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">GET</span><span class="p">()</span>
+            <span class="k">assert</span> <span class="s1">&#39;&quot;Host&quot;: &quot;httpbin.org&quot;&#39;</span> <span class="ow">in</span> <span class="n">response</span>
+</code></pre></div>
+<ul>
+<li>Fast (no network), but doesn't verify client-server compatibility</li>
+</ul>
+<h3 id="testing-wsgi-with-webtest">Testing WSGI with WebTest<a class="headerlink" href="#testing-wsgi-with-webtest" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>WSGI</strong> (Web Server Gateway Interface) = Python standard for web app ↔ server communication (PEP 333)</li>
+<li><strong><code>pip install webtest</code></strong></li>
+</ul>
+<h4 id="wsgi-basics">WSGI basics<a class="headerlink" href="#wsgi-basics" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="c1"># Minimal WSGI application</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Application</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">environ</span><span class="p">,</span> <span class="n">start_response</span><span class="p">):</span>
+        <span class="n">start_response</span><span class="p">(</span>
+            <span class="s1">&#39;200 OK&#39;</span><span class="p">,</span>
+            <span class="p">[(</span><span class="s1">&#39;Content-type&#39;</span><span class="p">,</span> <span class="s1">&#39;text/plain; charset=utf-8&#39;</span><span class="p">)]</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="p">[</span><span class="s2">&quot;Hello World&quot;</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)]</span>
+</code></pre></div>
+<h4 id="webtest-test-wsgi-apps-without-a-server">WebTest — test WSGI apps without a server<a class="headerlink" href="#webtest-test-wsgi-apps-without-a-server" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">webtest</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">TestWSGIApp</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_GET</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">client</span> <span class="o">=</span> <span class="n">webtest</span><span class="o">.</span><span class="n">TestApp</span><span class="p">(</span><span class="n">Application</span><span class="p">())</span>
+        <span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;http://httpbin.org/get&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">text</span>
+        <span class="k">assert</span> <span class="s1">&#39;&quot;Host&quot;: &quot;httpbin.org&quot;&#39;</span> <span class="ow">in</span> <span class="n">response</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_POST</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">client</span> <span class="o">=</span> <span class="n">webtest</span><span class="o">.</span><span class="n">TestApp</span><span class="p">(</span><span class="n">Application</span><span class="p">())</span>
+        <span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">post</span><span class="p">(</span>
+            <span class="n">url</span><span class="o">=</span><span class="s2">&quot;http://httpbin.org/get?alpha=1&quot;</span><span class="p">,</span>
+            <span class="n">params</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;beta&quot;</span><span class="p">:</span> <span class="s2">&quot;2&quot;</span><span class="p">}</span>
+        <span class="p">)</span><span class="o">.</span><span class="n">json</span>
+        <span class="k">assert</span> <span class="n">response</span><span class="p">[</span><span class="s2">&quot;form&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="p">{</span><span class="s2">&quot;beta&quot;</span><span class="p">:</span> <span class="s2">&quot;2&quot;</span><span class="p">}</span>
+</code></pre></div>
+<ul>
+<li><code>TestApp</code> routes all requests to the WSGI app in-memory (no network!)</li>
+<li>Tests run in milliseconds vs seconds for real HTTP</li>
+</ul>
+<h4 id="dependency-injection-for-dual-testing">Dependency injection for dual testing<a class="headerlink" href="#dependency-injection-for-dual-testing" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">HTTPClient</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="n">requests</span><span class="o">=</span><span class="n">requests</span><span class="p">):</span>  <span class="c1"># inject requests</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_requests</span> <span class="o">=</span> <span class="n">requests</span>
+        <span class="o">...</span>
+
+<span class="c1"># Integration test — inject WebTest instead of requests</span>
+<span class="n">client</span> <span class="o">=</span> <span class="n">HTTPClient</span><span class="p">(</span>
+    <span class="n">url</span><span class="o">=</span><span class="s2">&quot;http://httpbin.org/get&quot;</span><span class="p">,</span>
+    <span class="n">requests</span><span class="o">=</span><span class="n">webtest</span><span class="o">.</span><span class="n">TestApp</span><span class="p">(</span><span class="n">Application</span><span class="p">())</span>
+<span class="p">)</span>
+</code></pre></div>
+<h3 id="using-webtest-with-web-frameworks">Using WebTest with web frameworks<a class="headerlink" href="#using-webtest-with-web-frameworks" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Works with any WSGI framework: <strong>Flask, Django, Pyramid, TurboGears2</strong></li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="c1"># conftest.py — fixture to select framework via CLI</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">pytest_addoption</span><span class="p">(</span><span class="n">parser</span><span class="p">):</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">addoption</span><span class="p">(</span><span class="s2">&quot;--framework&quot;</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s2">&quot;store&quot;</span><span class="p">,</span>
+                     <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Choose: [tg2, django, flask, pyramid]&quot;</span><span class="p">)</span>
+
+<span class="nd">@pytest</span><span class="o">.</span><span class="n">fixture</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">wsgiapp</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+    <span class="n">framework</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">getoption</span><span class="p">(</span><span class="s2">&quot;--framework&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">framework</span> <span class="o">==</span> <span class="s2">&quot;flask&quot;</span><span class="p">:</span>
+        <span class="kn">from</span><span class="w"> </span><span class="nn">myapp.flask</span><span class="w"> </span><span class="kn">import</span> <span class="n">make_application</span>
+    <span class="k">elif</span> <span class="n">framework</span> <span class="o">==</span> <span class="s2">&quot;django&quot;</span><span class="p">:</span>
+        <span class="kn">from</span><span class="w"> </span><span class="nn">myapp.django</span><span class="w"> </span><span class="kn">import</span> <span class="n">make_application</span>
+    <span class="c1"># ...</span>
+    <span class="k">return</span> <span class="n">make_application</span><span class="p">()</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>pytest<span class="w"> </span>--framework<span class="o">=</span>flask
+$<span class="w"> </span>pytest<span class="w"> </span>--framework<span class="o">=</span>django
+</code></pre></div>
+<h3 id="writing-django-tests-with-djangos-test-client">Writing Django tests with Django's test client<a class="headerlink" href="#writing-django-tests-with-djangos-test-client" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">django.test</span><span class="w"> </span><span class="kn">import</span> <span class="n">TestCase</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">HttpbinTests</span><span class="p">(</span><span class="n">TestCase</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_home</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">response</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertContains</span><span class="p">(</span><span class="n">response</span><span class="p">,</span> <span class="s2">&quot;Hello World&quot;</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_GET</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">response</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;/get&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">content</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="s1">&#39;&quot;Host&quot;: &quot;httpbin.org&quot;&#39;</span> <span class="ow">in</span> <span class="n">response</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>python<span class="w"> </span>manage.py<span class="w"> </span><span class="nb">test</span>
+</code></pre></div>
+<ul>
+<li><strong><code>pytest-django</code></strong> — package that lets you run Django tests with pytest</li>
+</ul>
+<hr />
+<h2 id="chapter-12-end-to-end-testing-with-the-robot-framework">Chapter 12: End-to-End Testing with the Robot Framework<a class="headerlink" href="#chapter-12-end-to-end-testing-with-the-robot-framework" title="Permanent link">&para;</a></h2>
+<h3 id="introducing-the-robot-framework">Introducing the Robot Framework<a class="headerlink" href="#introducing-the-robot-framework" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Robot Framework</strong> = automation framework for ATDD/BDD-style end-to-end testing</li>
+<li>Tests written in natural English-like keyword syntax in <code>.robot</code> files</li>
+<li>Originally developed by Nokia; widely used for web and mobile E2E tests</li>
+<li><strong><code>pip install robotframework robotframework-seleniumlibrary webdrivermanager robotframework-screencaplibrary</code></strong></li>
+</ul>
+<h4 id="robot-file-structure"><code>.robot</code> file structure<a class="headerlink" href="#robot-file-structure" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code>*** Settings ***
+Library    SeleniumLibrary
+
+*** Variables ***
+${BROWSER}    chrome
+
+*** Test Cases ***
+Hello World
+    Run    echo &quot;Hello World&quot; &gt; hello.txt
+    ${filecontent} =    Get File    hello.txt
+    Should Contain    ${filecontent}    Hello
+
+*** Keywords ***
+Echo Hello
+    Log    Hello!
+</code></pre></div>
+<ul>
+<li><code>*** Settings ***</code> — configure libraries</li>
+<li><code>*** Variables ***</code> — reusable variables</li>
+<li><code>*** Test Cases ***</code> — the tests themselves</li>
+<li><code>*** Keywords ***</code> — custom reusable commands</li>
+<li>Multiple spaces separate commands from arguments</li>
+</ul>
+<h3 id="testing-with-web-browsers">Testing with web browsers<a class="headerlink" href="#testing-with-web-browsers" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong><code>SeleniumLibrary</code></strong> — Robot library for browser automation (wraps Selenium)</li>
+<li><strong><code>webdrivermanager</code></strong> — download browser drivers</li>
+</ul>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>webdrivermanager<span class="w"> </span>firefox<span class="w"> </span>chrome
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>*** Settings ***
+Library    SeleniumLibrary
+
+*** Test Cases ***
+Search On Google
+    Open Browser    http://www.google.com    Chrome
+    Input Text    name=q    Stephen\ Hawking
+    Press Keys    name=q    ENTER
+    Page Should Contain    Wikipedia
+    Close Window
+</code></pre></div>
+<h3 id="recording-the-execution-of-tests">Recording the execution of tests<a class="headerlink" href="#recording-the-execution-of-tests" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong><code>ScreenCapLibrary</code></strong> — screenshots and video recording</li>
+</ul>
+<div class="highlight"><pre><span></span><code>*** Settings ***
+Library    SeleniumLibrary
+Library    ScreenCapLibrary
+
+Test Setup      Start Video Recording
+Test Teardown   Stop Video Recording
+</code></pre></div>
+<ul>
+<li>Recordings and screenshots embedded in <code>log.html</code></li>
+</ul>
+<h3 id="testing-with-headless-browsers">Testing with headless browsers<a class="headerlink" href="#testing-with-headless-browsers" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>*** Variables ***
+${BROWSER}        headlesschrome
+${NOTHEADLESS}=   &quot;headlesschrome&quot; not in &quot;${BROWSER}&quot;
+
+*** Test Cases ***
+Search On Google
+    Open Browser    http://www.google.com    ${BROWSER}
+    Run Keyword If    ${NOTHEADLESS}    Wait Until Page Contains Element    cnsw
+    ...
+</code></pre></div>
+<h3 id="testing-multiple-browsers">Testing multiple browsers<a class="headerlink" href="#testing-multiple-browsers" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># Override variable from CLI</span>
+$<span class="w"> </span>robot<span class="w"> </span>--variable<span class="w"> </span>browser:firefox<span class="w"> </span>searchgoogle.robot
+$<span class="w"> </span>robot<span class="w"> </span>--variable<span class="w"> </span>browser:headlessfirefox<span class="w"> </span>searchgoogle.robot
+</code></pre></div>
+<h3 id="extending-the-robot-framework">Extending the Robot Framework<a class="headerlink" href="#extending-the-robot-framework" title="Permanent link">&para;</a></h3>
+<h4 id="adding-custom-keywords-in-robot-files">Adding custom keywords (in <code>.robot</code> files)<a class="headerlink" href="#adding-custom-keywords-in-robot-files" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code>*** Keywords ***
+Echo Hello
+    Log    Hello!
+
+*** Test Cases ***
+Use Custom Keywords
+    Echo Hello
+</code></pre></div>
+<h4 id="extending-robot-from-python">Extending Robot from Python<a class="headerlink" href="#extending-robot-from-python" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="c1"># HelloLibrary/__init__.py</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">HelloLibrary</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">say_hello</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Hello from Python!&quot;</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="c1"># setup.py</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">setuptools</span><span class="w"> </span><span class="kn">import</span> <span class="n">setup</span>
+<span class="n">setup</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;robotframework-hellolibrary&#39;</span><span class="p">,</span> <span class="n">packages</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;HelloLibrary&#39;</span><span class="p">])</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>*** Settings ***
+Library    HelloLibrary
+
+*** Test Cases ***
+Use Custom Keywords
+    Say Hello
+</code></pre></div>
+<h4 id="library-scoping">Library scoping<a class="headerlink" href="#library-scoping" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">HelloLibrary</span><span class="p">:</span>
+    <span class="n">ROBOT_LIBRARY_SCOPE</span> <span class="o">=</span> <span class="s2">&quot;SUITE&quot;</span>   <span class="c1"># share instance across suite</span>
+    <span class="c1"># or &quot;GLOBAL&quot; for entire test run (default is per-test)</span>
+</code></pre></div>
+<hr />
+<h3 id="quick-reference-libraries-introduced">Quick Reference: Libraries Introduced<a class="headerlink" href="#quick-reference-libraries-introduced" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Library / Tool</th>
+<th>Purpose</th>
+<th>Install</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>pytest</code></td>
+<td>Test framework</td>
+<td><code>pip install pytest</code></td>
+</tr>
+<tr>
+<td><code>unittest.mock</code></td>
+<td>Mocking (stdlib)</td>
+<td>built-in</td>
+</tr>
+<tr>
+<td><code>pytest-bdd</code></td>
+<td>BDD / Gherkin tests</td>
+<td><code>pip install pytest-bdd</code></td>
+</tr>
+<tr>
+<td><code>pytest-cov</code></td>
+<td>Code coverage</td>
+<td><code>pip install pytest-cov</code></td>
+</tr>
+<tr>
+<td><code>pytest-benchmark</code></td>
+<td>Performance benchmarking</td>
+<td><code>pip install pytest-benchmark</code></td>
+</tr>
+<tr>
+<td><code>flaky</code></td>
+<td>Retry unstable tests</td>
+<td><code>pip install flaky</code></td>
+</tr>
+<tr>
+<td><code>pytest-testmon</code></td>
+<td>Smart test selection</td>
+<td><code>pip install pytest-testmon</code></td>
+</tr>
+<tr>
+<td><code>pytest-xdist</code></td>
+<td>Parallel test execution</td>
+<td><code>pip install pytest-xdist</code></td>
+</tr>
+<tr>
+<td><code>tox</code></td>
+<td>Test environment manager</td>
+<td><code>pip install tox</code></td>
+</tr>
+<tr>
+<td><code>tox-travis</code></td>
+<td>Tox + Travis CI bridge</td>
+<td><code>pip install tox-travis</code></td>
+</tr>
+<tr>
+<td><code>coveralls</code></td>
+<td>Coverage-as-a-service</td>
+<td><code>pip install coveralls</code></td>
+</tr>
+<tr>
+<td><code>hypothesis</code></td>
+<td>Property-based testing</td>
+<td><code>pip install hypothesis</code></td>
+</tr>
+<tr>
+<td><code>sphinx</code></td>
+<td>Documentation generator</td>
+<td><code>pip install sphinx</code></td>
+</tr>
+<tr>
+<td><code>requests-mock</code></td>
+<td>Mock HTTP requests</td>
+<td><code>pip install requests-mock</code></td>
+</tr>
+<tr>
+<td><code>webtest</code></td>
+<td>WSGI integration testing</td>
+<td><code>pip install webtest</code></td>
+</tr>
+<tr>
+<td><code>pytest-django</code></td>
+<td>Django + pytest bridge</td>
+<td><code>pip install pytest-django</code></td>
+</tr>
+<tr>
+<td><code>robotframework</code></td>
+<td>E2E test framework</td>
+<td><code>pip install robotframework</code></td>
+</tr>
+<tr>
+<td><code>robotframework-seleniumlibrary</code></td>
+<td>Browser automation</td>
+<td><code>pip install robotframework-seleniumlibrary</code></td>
+</tr>
+<tr>
+<td><code>robotframework-screencaplibrary</code></td>
+<td>Video/screenshot recording</td>
+<td><code>pip install robotframework-screencaplibrary</code></td>
+</tr>
+<tr>
+<td><code>webdrivermanager</code></td>
+<td>Browser driver management</td>
+<td><code>pip install webdrivermanager</code></td>
+</tr>
+</tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+  
+
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        
+
+<footer class="md-footer">
+  
+    <nav
+      class="md-footer__inner md-grid"
+      aria-label="footer.title"
+    >
+      
+        <a
+          href="../"
+          class="md-footer__link md-footer__link--prev"
+          rel="prev"
+        >
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              Book Summaries
+            </div>
+          </div>
+        </a>
+      
+      
+        <a
+          href="../pytest/"
+          class="md-footer__link md-footer__link--next"
+          rel="next"
+        >
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              pytest
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        Made with
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+          Material for MkDocs
+        </a>
+        with emoji by
+        <a href="https://github.com/twitter/twemoji" target="_blank" rel="noopener">
+          Twemoji
+        </a>
+      </div>
+      
+<div class="md-social">
+  
+</div>
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["announce.dismiss", "content.action.edit", "content.action.view", "content.code.annotate", "content.code.copy", "content.tooltips", "header.autohide", "navigation.expand", "navigation.footer", "navigation.indexes", "navigation.instant", "navigation.sections", "navigation.tabs", "navigation.top", "navigation.tracking", "search.highlight", "search.share", "search.suggest", "toc.follow", "toc.integrate"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../../javascripts/extra.js"></script>
+      
+        <script src="../../assets/pymdownx-extras/extra-loader-B5CKpNQx.js"></script>
+      
+    
+  </body>
+</html>

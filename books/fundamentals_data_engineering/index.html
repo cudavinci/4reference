@@ -1,0 +1,3345 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Notes and code snippets">
+      
+      
+        <meta name="author" content="Sean Fuller">
+      
+      
+        <link rel="canonical" href="https://cudavinci.github.io/4reference/books/fundamentals_data_engineering/">
+      
+      
+        <link rel="prev" href="../refactoring/">
+      
+      
+        <link rel="next" href="../data_pipelines_airflow/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Data Engineering - My Snippets & Notes</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+
+      
+    
+<script src="../../assets/pymdownx-extras/material-extra-theme-2ek1P7jT.js" type="text/javascript"></script>
+<script src="../../assets/pymdownx-extras/material-extra-3rdparty-BUCF4rjN.js" type="text/javascript"></script>
+
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+      <link rel="stylesheet" href="../../assets/pymdownx-extras/extra-c6ab11540a.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="dracula" data-md-color-primary="#f8f8f2" data-md-color-accent="#bd93f9">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#book6-fundamentals-of-data-engineering-summary" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+
+<header class="md-header" data-md-component="header">
+  <nav
+    class="md-header__inner md-grid"
+    aria-label="header.title"
+  >
+    <a
+      href="https://cudavinci.github.io/4reference/"
+      title="My Snippets &amp; Notes"
+      class="md-header__button md-logo"
+      aria-label="My Snippets & Notes"
+    >
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            My Snippets & Notes
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Data Engineering
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    <div class="md-header__options">
+      <div class="md-header-nav__scheme md-header-nav__button md-source__icon md-icon">
+          <a
+            href="javascript:toggleScheme();"
+            title="Light mode"
+            class="light-mode"
+          >
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+          </a>
+          <a
+            href="javascript:toggleScheme();"
+            title="Dark mode"
+            class="dark-mode"
+          >
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+          </a>
+          <a
+            href="javascript:toggleScheme();"
+            title="System preference"
+            class="system-mode"
+          >
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M7.5 2c-1.79 1.15-3 3.18-3 5.5s1.21 4.35 3.03 5.5C4.46 13 2 10.54 2 7.5A5.5 5.5 0 0 1 7.5 2m11.57 1.5 1.43 1.43L4.93 20.5 3.5 19.07zm-6.18 2.43L11.41 5 9.97 6l.42-1.7L9 3.24l1.75-.12.58-1.65L12 3.1l1.73.03-1.35 1.13zm-3.3 3.61-1.16-.73-1.12.78.34-1.32-1.09-.83 1.36-.09.45-1.29.51 1.27 1.36.03-1.05.87zM19 13.5a5.5 5.5 0 0 1-5.5 5.5c-1.22 0-2.35-.4-3.26-1.07l7.69-7.69c.67.91 1.07 2.04 1.07 3.26m-4.4 6.58 2.77-1.15-.24 3.35zm4.33-2.7 1.15-2.77 2.2 2.54zm1.15-4.96-1.14-2.78 3.34.24zM9.63 18.93l2.77 1.15-2.53 2.19z"/></svg>
+          </a>
+           <a
+            href="javascript:toggleScheme();"
+            title="Unknown scheme"
+            class="unknown-mode"
+          >
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m15.07 11.25-.9.92C13.45 12.89 13 13.5 13 15h-2v-.5c0-1.11.45-2.11 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41a2 2 0 0 0-2-2 2 2 0 0 0-2 2H8a4 4 0 0 1 4-4 4 4 0 0 1 4 4 3.2 3.2 0 0 1-.93 2.25M13 19h-2v-2h2M12 2A10 10 0 0 0 2 12a10 10 0 0 0 10 10 10 10 0 0 0 10-10c0-5.53-4.5-10-10-10"/></svg>
+          </a>
+      </div>
+    </div>
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../snippets/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Code Snippets
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../webdev_snippets/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Web Development
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Book Summaries
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../notes/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Notes
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--lifted md-nav--integrated" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="My Snippets &amp; Notes" class="md-nav__button md-logo" aria-label="My Snippets & Notes" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    My Snippets & Notes
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../snippets/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Code Snippets
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../webdev_snippets/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Web Development
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Book Summaries
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4" id="__nav_4_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Book Summaries
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../crafting_tdd_python/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Crafting TDD
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../pytest/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    pytest
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../python_packaging/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Python Packaging
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../selenium_testing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Selenium Testing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api_design_patterns/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API Design Patterns
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../serious_python/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Serious Python
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tdd_python/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    TDD with Python
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../arch_patterns_python/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture Patterns
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../refactoring/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Refactoring
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Data Engineering
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Data Engineering
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#joe-reis-matt-housley-oreilly-2022" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Joe Reis &amp; Matt Housley (O'Reilly, 2022)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#part-i-foundation-and-building-blocks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Part I: Foundation and Building Blocks
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Part I: Foundation and Building Blocks">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#chapter-1-data-engineering-described" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chapter 1: Data Engineering Described
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Chapter 1: Data Engineering Described">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-is-data-engineering" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What Is Data Engineering?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#data-engineering-skills-and-activities" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Data Engineering Skills and Activities
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#data-engineers-inside-an-organization" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Data Engineers Inside an Organization
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#chapter-2-the-data-engineering-lifecycle" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chapter 2: The Data Engineering Lifecycle
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Chapter 2: The Data Engineering Lifecycle">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-is-the-data-engineering-lifecycle" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What Is the Data Engineering Lifecycle?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#generation-source-systems" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Generation: Source Systems
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#storage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Storage
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ingestion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ingestion
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#transformation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Transformation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#serving-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Serving Data
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#major-undercurrents-across-the-data-engineering-lifecycle" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Major Undercurrents Across the Data Engineering Lifecycle
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#chapter-3-designing-good-data-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chapter 3: Designing Good Data Architecture
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Chapter 3: Designing Good Data Architecture">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-is-data-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What Is Data Architecture?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#principles-of-good-data-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Principles of Good Data Architecture
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#major-architecture-concepts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Major Architecture Concepts
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#examples-and-types-of-data-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Examples and Types of Data Architecture
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#chapter-4-choosing-technologies-across-the-data-engineering-lifecycle" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chapter 4: Choosing Technologies Across the Data Engineering Lifecycle
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Chapter 4: Choosing Technologies Across the Data Engineering Lifecycle">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#key-evaluation-criteria" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Key Evaluation Criteria
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#today-vs-future-immutable-vs-transitory-technologies" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Today vs Future: Immutable vs Transitory Technologies
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#location" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Location
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#build-vs-buy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Build vs Buy
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#monolith-vs-modular" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Monolith vs Modular
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#serverless-vs-servers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Serverless vs Servers
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#orchestration-example-airflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Orchestration Example: Airflow
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#part-ii-the-data-engineering-lifecycle-in-depth" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Part II: The Data Engineering Lifecycle in Depth
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Part II: The Data Engineering Lifecycle in Depth">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#chapter-5-data-generation-in-source-systems" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chapter 5: Data Generation in Source Systems
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Chapter 5: Data Generation in Source Systems">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sources-of-data-how-is-data-created" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sources of Data: How Is Data Created?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#source-systems-main-ideas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Source Systems: Main Ideas
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#source-system-practical-details" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Source System Practical Details
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#undercurrents-and-their-impact-on-source-systems" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Undercurrents and Their Impact on Source Systems
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#chapter-6-storage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chapter 6: Storage
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Chapter 6: Storage">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#raw-ingredients-of-data-storage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Raw Ingredients of Data Storage
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#data-storage-systems" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Data Storage Systems
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#data-engineering-storage-abstractions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Data Engineering Storage Abstractions
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#big-ideas-and-trends-in-storage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Big Ideas and Trends in Storage
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#chapter-7-ingestion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chapter 7: Ingestion
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Chapter 7: Ingestion">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-is-data-ingestion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What Is Data Ingestion?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#key-engineering-considerations-for-the-ingestion-phase" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Key Engineering Considerations for the Ingestion Phase
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#batch-ingestion-considerations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Batch Ingestion Considerations
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#message-and-stream-ingestion-considerations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Message and Stream Ingestion Considerations
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ways-to-ingest-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ways to Ingest Data
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#chapter-8-queries-modeling-and-transformation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chapter 8: Queries, Modeling, and Transformation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Chapter 8: Queries, Modeling, and Transformation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#queries" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Queries
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#data-modeling" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Data Modeling
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#transformations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Transformations
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#chapter-9-serving-data-for-analytics-machine-learning-and-reverse-etl" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chapter 9: Serving Data for Analytics, Machine Learning, and Reverse ETL
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Chapter 9: Serving Data for Analytics, Machine Learning, and Reverse ETL">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#general-considerations-for-serving-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        General Considerations for Serving Data
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#analytics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Analytics
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#machine-learning" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Machine Learning
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ways-to-serve-data-for-analytics-and-ml" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ways to Serve Data for Analytics and ML
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reverse-etl" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reverse ETL
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#part-iii-security-privacy-and-the-future-of-data-engineering" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Part III: Security, Privacy, and the Future of Data Engineering
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Part III: Security, Privacy, and the Future of Data Engineering">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#chapter-10-security-and-privacy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chapter 10: Security and Privacy
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Chapter 10: Security and Privacy">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#people" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        People
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#processes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Processes
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#technology" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Technology
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#chapter-11-the-future-of-data-engineering" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chapter 11: The Future of Data Engineering
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Chapter 11: The Future of Data Engineering">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-data-engineering-lifecycle-isnt-going-away" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Data Engineering Lifecycle Isn't Going Away
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-decline-of-complexity-and-rise-of-easy-to-use-data-tools" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Decline of Complexity and Rise of Easy-to-Use Data Tools
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-cloud-scale-data-os-and-improved-interoperability" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Cloud-Scale Data OS and Improved Interoperability
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#enterprisey-data-engineering" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        "Enterprisey" Data Engineering
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#moving-beyond-the-modern-data-stack-toward-the-live-data-stack" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Moving Beyond the Modern Data Stack, Toward the Live Data Stack
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#appendix-a-serialization-and-compression-technical-details" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Appendix A: Serialization and Compression Technical Details
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Appendix A: Serialization and Compression Technical Details">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#serialization-formats" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Serialization Formats
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#compression-algorithms" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Compression Algorithms
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#appendix-b-cloud-networking" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Appendix B: Cloud Networking
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Appendix B: Cloud Networking">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#key-concepts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Key Concepts
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#quick-reference-mapping-your-migration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Quick Reference: Mapping Your Migration
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Quick Reference: Mapping Your Migration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#recommended-migration-sequence" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Recommended Migration Sequence
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../data_pipelines_airflow/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Airflow
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../fastapi_cookbook/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    FastAPI Cookbook
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../notes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Notes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+  
+                  
+
+
+
+<h1 id="book6-fundamentals-of-data-engineering-summary">Book6 - Fundamentals of Data Engineering — Summary<a class="headerlink" href="#book6-fundamentals-of-data-engineering-summary" title="Permanent link">&para;</a></h1>
+<h4 id="joe-reis-matt-housley-oreilly-2022">Joe Reis &amp; Matt Housley (O'Reilly, 2022)<a class="headerlink" href="#joe-reis-matt-housley-oreilly-2022" title="Permanent link">&para;</a></h4>
+<blockquote>
+<p><strong>Context</strong>: This summary is tailored for a team migrating on-prem pipelines (Excel files on shared network drives, Autosys/.jil orchestration) to a cloud-native architecture (AWS S3 / Postgres, Airflow orchestration, EKS deployment). Sections less relevant to this context are trimmed or omitted.</p>
+</blockquote>
+<hr />
+<h2 id="part-i-foundation-and-building-blocks">Part I: Foundation and Building Blocks<a class="headerlink" href="#part-i-foundation-and-building-blocks" title="Permanent link">&para;</a></h2>
+<hr />
+<h3 id="chapter-1-data-engineering-described">Chapter 1: Data Engineering Described<a class="headerlink" href="#chapter-1-data-engineering-described" title="Permanent link">&para;</a></h3>
+<h4 id="what-is-data-engineering">What Is Data Engineering?<a class="headerlink" href="#what-is-data-engineering" title="Permanent link">&para;</a></h4>
+<h5 id="data-engineering-defined">Data Engineering Defined<a class="headerlink" href="#data-engineering-defined" title="Permanent link">&para;</a></h5>
+<ul>
+<li><strong>Data engineering</strong>: The development, implementation, and maintenance of systems and processes that take in raw data and produce high-quality, consistent information for downstream use cases (analytics, ML).</li>
+<li><strong>Data engineer</strong>: Manages the data engineering lifecycle — from getting data from source systems to serving data for end use cases.</li>
+<li>DE sits at the intersection of: <strong>security, data management, DataOps, data architecture, orchestration, and software engineering</strong>.</li>
+</ul>
+<h5 id="the-data-engineering-lifecycle">The Data Engineering Lifecycle<a class="headerlink" href="#the-data-engineering-lifecycle" title="Permanent link">&para;</a></h5>
+<p>Five stages, plus undercurrents that cut across all stages:</p>
+<div class="highlight"><pre><span></span><code>Stages:          Generation → Ingestion → Transformation → Serving
+                                   ↕
+                               Storage (underlies all)
+
+Outputs:         Analytics | Machine Learning | Reverse ETL
+
+Undercurrents:   Security | Data Management | DataOps |
+                 Data Architecture | Orchestration | Software Engineering
+</code></pre></div>
+<p><strong>See Figure 1-1 for the canonical data engineering lifecycle diagram.</strong></p>
+<h5 id="evolution-of-the-data-engineer">Evolution of the Data Engineer<a class="headerlink" href="#evolution-of-the-data-engineer" title="Permanent link">&para;</a></h5>
+<table>
+<thead>
+<tr>
+<th>Era</th>
+<th>Key Developments</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>1980–2000</strong></td>
+<td>Data warehousing, SQL, Kimball/Inmon modeling, MPP databases, BI</td>
+</tr>
+<tr>
+<td><strong>2000s</strong></td>
+<td>Big data era begins — Hadoop, MapReduce, commodity hardware, AWS launches</td>
+</tr>
+<tr>
+<td><strong>2010s</strong></td>
+<td>Big data engineering — Spark, Kafka, streaming, code-first culture, open source explosion</td>
+</tr>
+<tr>
+<td><strong>2020s</strong></td>
+<td>Data lifecycle engineering — managed services, abstraction, modern data stack, DataOps, governance</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>The modern data engineer is a <strong>data lifecycle engineer</strong> — focused higher in the value chain on management, architecture, orchestration, and governance rather than low-level infrastructure.</li>
+<li>The term "big data" is passé; the tooling has been democratized and absorbed into standard DE practice.</li>
+</ul>
+<h5 id="data-engineering-and-data-science">Data Engineering and Data Science<a class="headerlink" href="#data-engineering-and-data-science" title="Permanent link">&para;</a></h5>
+<ul>
+<li>DE is <strong>upstream</strong> from data science/analytics. DE provides the inputs that data scientists convert into value.</li>
+<li><strong>See Figure 1-5 (Data Science Hierarchy of Needs)</strong>: DS teams spend 70–80% of time on data collection, cleaning, and prep. Good DE frees them to focus on modeling and analysis.</li>
+</ul>
+<h4 id="data-engineering-skills-and-activities">Data Engineering Skills and Activities<a class="headerlink" href="#data-engineering-skills-and-activities" title="Permanent link">&para;</a></h4>
+<h5 id="data-maturity-and-the-data-engineer">Data Maturity and the Data Engineer<a class="headerlink" href="#data-maturity-and-the-data-engineer" title="Permanent link">&para;</a></h5>
+<p><strong>Data maturity</strong> = the progression toward higher data utilization, capabilities, and integration across the org. Three stages:</p>
+<table>
+<thead>
+<tr>
+<th>Stage</th>
+<th>Characteristics</th>
+<th>DE Focus</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>1. Starting with data</strong></td>
+<td>Fuzzy goals, small team, ad hoc requests</td>
+<td>Get buy-in, define architecture, build foundations, avoid undifferentiated heavy lifting</td>
+</tr>
+<tr>
+<td><strong>2. Scaling with data</strong></td>
+<td>Formal practices, growing pipelines, specialist roles</td>
+<td>Establish formal data practices, adopt DevOps/DataOps, build scalable architecture</td>
+</tr>
+<tr>
+<td><strong>3. Leading with data</strong></td>
+<td>Self-service analytics, seamless new data intro, automation</td>
+<td>Automation, custom tooling for competitive advantage, data governance, DataOps</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>Relevant to your migration</strong>: You're moving from Stage 1→2 territory. Focus on formalizing practices, choosing scalable architecture, and avoiding custom builds where off-the-shelf solutions exist.</p>
+</blockquote>
+<h5 id="type-a-vs-type-b-data-engineers">Type A vs Type B Data Engineers<a class="headerlink" href="#type-a-vs-type-b-data-engineers" title="Permanent link">&para;</a></h5>
+<ul>
+<li><strong>Type A (Abstraction)</strong>: Uses managed services and off-the-shelf tools. Avoids reinventing the wheel. Works at all maturity levels.</li>
+<li><strong>Type B (Build)</strong>: Builds custom data tools and systems for competitive advantage. More common at stages 2–3.</li>
+</ul>
+<blockquote>
+<p><strong>For your team</strong>: Default to Type A. Use managed services (Airflow on MWAA/Cloud Composer or self-hosted on EKS, S3 for object storage, RDS Postgres). Only build custom when it provides clear competitive advantage for portfolio optimization workflows.</p>
+</blockquote>
+<h4 id="data-engineers-inside-an-organization">Data Engineers Inside an Organization<a class="headerlink" href="#data-engineers-inside-an-organization" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Internal-facing DE</strong>: Maintains pipelines and warehouses for BI, reports, DS, ML (this is your team).</li>
+<li><strong>External-facing DE</strong>: Builds systems for customer-facing applications.</li>
+<li>Key upstream stakeholders: software engineers, data architects, DevOps/SREs.</li>
+<li>Key downstream stakeholders: data analysts, data scientists, ML engineers.</li>
+</ul>
+<hr />
+<h3 id="chapter-2-the-data-engineering-lifecycle">Chapter 2: The Data Engineering Lifecycle<a class="headerlink" href="#chapter-2-the-data-engineering-lifecycle" title="Permanent link">&para;</a></h3>
+<h4 id="what-is-the-data-engineering-lifecycle">What Is the Data Engineering Lifecycle?<a class="headerlink" href="#what-is-the-data-engineering-lifecycle" title="Permanent link">&para;</a></h4>
+<p>The lifecycle stages turn raw data into useful end products:</p>
+<ol>
+<li><strong>Generation</strong> — Source systems produce data</li>
+<li><strong>Storage</strong> — Data is persisted for use</li>
+<li><strong>Ingestion</strong> — Data is moved from source to storage</li>
+<li><strong>Transformation</strong> — Data is changed into useful form</li>
+<li><strong>Serving</strong> — Data is made available for analytics, ML, reverse ETL</li>
+</ol>
+<p>Storage underpins all stages. The stages are not strictly linear — they overlap, repeat, and interweave.</p>
+<h4 id="generation-source-systems">Generation: Source Systems<a class="headerlink" href="#generation-source-systems" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Source system</strong>: The origin of data (application database, IoT device, message queue, spreadsheet, API, etc.).</li>
+<li>You typically don't own or control source systems — maintain open communication with source system owners.</li>
+<li>Key evaluation questions for source systems:</li>
+<li>Data persistence model? Rate of generation? Schema type (fixed vs schemaless)?</li>
+<li>Data quality/consistency? Duplicate handling? Late-arriving data?</li>
+<li>Will reading from it impact its performance? How are schema changes communicated?</li>
+</ul>
+<blockquote>
+<p><strong>Your context</strong>: Current source systems are Excel files on a shared network drive. This is a classic file-based source system with slow access and no schema enforcement.</p>
+</blockquote>
+<h4 id="storage">Storage<a class="headerlink" href="#storage" title="Permanent link">&para;</a></h4>
+<ul>
+<li>Cloud architectures often leverage <strong>multiple</strong> storage solutions simultaneously.</li>
+<li>Key evaluation questions:</li>
+<li>Read/write speed compatibility? Will it bottleneck downstream?</li>
+<li>Can it scale? Does it support complex queries or just raw storage?</li>
+<li>Are you capturing metadata, lineage, schema evolution?</li>
+</ul>
+<h5 id="understanding-data-access-frequency">Understanding Data Access Frequency<a class="headerlink" href="#understanding-data-access-frequency" title="Permanent link">&para;</a></h5>
+<ul>
+<li><strong>Hot data</strong>: Frequently accessed (e.g., serving user requests) — fast storage.</li>
+<li><strong>Lukewarm data</strong>: Accessed periodically (weekly/monthly reports).</li>
+<li><strong>Cold data</strong>: Rarely queried, archived for compliance — cheap storage, expensive retrieval (e.g., S3 Glacier).</li>
+</ul>
+<h4 id="ingestion">Ingestion<a class="headerlink" href="#ingestion" title="Permanent link">&para;</a></h4>
+<ul>
+<li>Source systems and ingestion are the most common bottlenecks in the lifecycle.</li>
+<li>Key questions: Use case? Frequency? Volume? Format? Quality?</li>
+</ul>
+<h5 id="batch-vs-streaming">Batch vs Streaming<a class="headerlink" href="#batch-vs-streaming" title="Permanent link">&para;</a></h5>
+<ul>
+<li><strong>Batch</strong>: Process data in chunks at scheduled intervals. Default for most analytics/ML use cases. Simpler and cheaper.</li>
+<li><strong>Streaming</strong>: Continuous, near-real-time. Adopt only when business use case justifies the added complexity.</li>
+<li>Many frameworks (Spark, Flink) handle both batch and micro-batch.</li>
+</ul>
+<h5 id="push-vs-pull">Push vs Pull<a class="headerlink" href="#push-vs-pull" title="Permanent link">&para;</a></h5>
+<ul>
+<li><strong>Push</strong>: Source writes to a target (database, object store, filesystem).</li>
+<li><strong>Pull</strong>: Ingestion system queries source on schedule (traditional ETL).</li>
+<li><strong>CDC (Change Data Capture)</strong>: Can be push (trigger-based, log-based) or pull (timestamp-based queries). Log-based CDC adds minimal load to source DB.</li>
+</ul>
+<h4 id="transformation">Transformation<a class="headerlink" href="#transformation" title="Permanent link">&para;</a></h4>
+<ul>
+<li>Converts raw data to useful forms for downstream consumption.</li>
+<li>Early transformations: type casting, format standardization, deduplication.</li>
+<li>Later transformations: schema normalization, aggregation, featurization for ML.</li>
+<li><strong>Business logic</strong> is a major driver — data modeling translates business rules into reusable patterns.</li>
+</ul>
+<h4 id="serving-data">Serving Data<a class="headerlink" href="#serving-data" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Analytics</strong>: BI (historical), operational analytics (real-time), embedded analytics (customer-facing).</li>
+<li><strong>Machine Learning</strong>: Feature engineering, model training data.</li>
+<li><strong>Reverse ETL</strong>: Feeding processed data back into source systems (e.g., scored models → CRM).</li>
+<li>Data has <strong>value</strong> only when it's consumed. Avoid "data vanity projects."</li>
+</ul>
+<h4 id="major-undercurrents-across-the-data-engineering-lifecycle">Major Undercurrents Across the Data Engineering Lifecycle<a class="headerlink" href="#major-undercurrents-across-the-data-engineering-lifecycle" title="Permanent link">&para;</a></h4>
+<h5 id="security">Security<a class="headerlink" href="#security" title="Permanent link">&para;</a></h5>
+<ul>
+<li><strong>Principle of least privilege</strong>: Give users/systems only the access they need, nothing more.</li>
+<li>Antipattern: Giving admin access to all users. Catastrophe waiting to happen.</li>
+<li>Security is about people, process, and technology. Culture of security first.</li>
+<li>Protect data in flight and at rest (encryption, tokenization, masking).</li>
+<li>Know IAM, network security, password policies, and encryption.</li>
+</ul>
+<h5 id="data-management">Data Management<a class="headerlink" href="#data-management" title="Permanent link">&para;</a></h5>
+<p>Key facets:</p>
+<ul>
+<li><strong>Data governance</strong>: Discoverability, security, accountability. Core categories: data quality, metadata, privacy.</li>
+<li><strong>Metadata</strong>: Four types:</li>
+<li><em>Business metadata</em>: Business definitions, rules, data owners.</li>
+<li><em>Technical metadata</em>: Schema, data lineage, pipeline workflows.</li>
+<li><em>Operational metadata</em>: Job IDs, runtime logs, process results.</li>
+<li><em>Reference metadata</em>: Lookup data (codes, standards, calendars).</li>
+<li><strong>Data quality</strong>: Accuracy, completeness, timeliness. Test and monitor proactively.</li>
+<li><strong>Master data management (MDM)</strong>: Golden records — consistent entity definitions across the org.</li>
+<li><strong>Data modeling</strong>: Converting data into usable form. Kimball, Inmon, Data Vault are key patterns (covered in Ch 8).</li>
+<li><strong>Data lineage</strong>: Audit trail of data through its lifecycle — critical for debugging and compliance.</li>
+<li><strong>Data lifecycle management</strong>: Archival, retention, destruction policies. Cloud makes this easier with tiered storage classes but pay-as-you-go means CFOs watch storage costs closely.</li>
+</ul>
+<h5 id="dataops">DataOps<a class="headerlink" href="#dataops" title="Permanent link">&para;</a></h5>
+<p>Combines Agile, DevOps, and statistical process control (SPC) for data products. Three pillars:</p>
+<ol>
+<li><strong>Automation</strong>: CI/CD for data pipelines, environment management, configuration as code.</li>
+<li><strong>Observability and monitoring</strong>: Detect data quality issues, stale data, pipeline failures before stakeholders do. Apply SPC. Related concept: <strong>DODD (Data Observability Driven Development)</strong> — like TDD for data.</li>
+<li><strong>Incident response</strong>: Rapid root cause identification, blameless communication, proactive issue detection.</li>
+</ol>
+<blockquote>
+<p><strong>Automation maturity progression</strong> (highly relevant to your migration):
+1. Cron jobs → fragile, no dependency awareness
+2. Orchestration framework (Airflow) → dependency-aware DAGs, alerting, backfill
+3. Automated DAG deployment with testing → CI/CD for DAGs, validated before deploy
+4. Full DataOps → metadata-driven DAGs, automated quality checks, lineage tracking</p>
+</blockquote>
+<h5 id="orchestration">Orchestration<a class="headerlink" href="#orchestration" title="Permanent link">&para;</a></h5>
+<ul>
+<li><strong>Orchestration</strong> ≠ scheduling. An orchestrator manages <strong>job dependencies</strong> via DAGs. A scheduler (cron) just triggers at fixed times.</li>
+<li>DAGs can be run once or on schedule (daily, hourly, etc.).</li>
+<li>Orchestration systems provide: dependency management, job history, visualization, alerting, backfill capability.</li>
+<li><strong>Airflow</strong>: Open-sourced by Airbnb in 2014, written in Python. Highly extensible. Mindshare leader. Alternatives: Prefect, Dagster (better metadata/portability/testability), Argo (K8s-native).</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="c1"># Conceptual Airflow DAG structure</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">airflow</span><span class="w"> </span><span class="kn">import</span> <span class="n">DAG</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">airflow.operators.python</span><span class="w"> </span><span class="kn">import</span> <span class="n">PythonOperator</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">datetime</span><span class="w"> </span><span class="kn">import</span> <span class="n">datetime</span>
+
+<span class="k">with</span> <span class="n">DAG</span><span class="p">(</span><span class="s2">&quot;etl_pipeline&quot;</span><span class="p">,</span> <span class="n">start_date</span><span class="o">=</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2024</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">schedule</span><span class="o">=</span><span class="s2">&quot;@daily&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">dag</span><span class="p">:</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">extract</span><span class="p">():</span>
+        <span class="c1"># Pull data from source (e.g., read from S3 or query source DB)</span>
+        <span class="o">...</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">transform</span><span class="p">():</span>
+        <span class="c1"># Apply business logic, clean data, reshape</span>
+        <span class="o">...</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">load</span><span class="p">():</span>
+        <span class="c1"># Write to destination (S3, Postgres, data warehouse)</span>
+        <span class="o">...</span>
+
+    <span class="n">t1</span> <span class="o">=</span> <span class="n">PythonOperator</span><span class="p">(</span><span class="n">task_id</span><span class="o">=</span><span class="s2">&quot;extract&quot;</span><span class="p">,</span> <span class="n">python_callable</span><span class="o">=</span><span class="n">extract</span><span class="p">)</span>
+    <span class="n">t2</span> <span class="o">=</span> <span class="n">PythonOperator</span><span class="p">(</span><span class="n">task_id</span><span class="o">=</span><span class="s2">&quot;transform&quot;</span><span class="p">,</span> <span class="n">python_callable</span><span class="o">=</span><span class="n">transform</span><span class="p">)</span>
+    <span class="n">t3</span> <span class="o">=</span> <span class="n">PythonOperator</span><span class="p">(</span><span class="n">task_id</span><span class="o">=</span><span class="s2">&quot;load&quot;</span><span class="p">,</span> <span class="n">python_callable</span><span class="o">=</span><span class="n">load</span><span class="p">)</span>
+
+    <span class="n">t1</span> <span class="o">&gt;&gt;</span> <span class="n">t2</span> <span class="o">&gt;&gt;</span> <span class="n">t3</span>  <span class="c1"># Dependency chain</span>
+</code></pre></div>
+<h5 id="software-engineering">Software Engineering<a class="headerlink" href="#software-engineering" title="Permanent link">&para;</a></h5>
+<ul>
+<li>Core data processing code (SQL, Spark, Python) remains essential.</li>
+<li><strong>Testing</strong>: Unit, regression, integration, end-to-end, smoke tests — all apply to data pipelines.</li>
+<li><strong>Infrastructure as code (IaC)</strong>: Terraform, Helm, CloudFormation. Manage cloud infra declaratively.</li>
+<li><strong>Pipelines as code</strong>: DAGs defined in Python/code. Core concept in modern orchestration.</li>
+<li><strong>Streaming</strong>: Windowing methods, joins in real-time, function platforms (Lambda, Flink).</li>
+</ul>
+<hr />
+<h3 id="chapter-3-designing-good-data-architecture">Chapter 3: Designing Good Data Architecture<a class="headerlink" href="#chapter-3-designing-good-data-architecture" title="Permanent link">&para;</a></h3>
+<h4 id="what-is-data-architecture">What Is Data Architecture?<a class="headerlink" href="#what-is-data-architecture" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Data architecture</strong>: The design of systems to support the evolving data needs of an enterprise, achieved through <strong>flexible and reversible decisions</strong> reached through careful <strong>evaluation of trade-offs</strong>.</li>
+<li>Distinct from but related to <strong>enterprise architecture</strong> (TOGAF, Gartner, EABOK frameworks).</li>
+<li>Has two components:</li>
+<li><strong>Operational architecture</strong>: <em>What</em> needs to be done (functional requirements).</li>
+<li><strong>Technical architecture</strong>: <em>How</em> it will happen (systems, technologies, implementation).</li>
+</ul>
+<h5 id="good-data-architecture">"Good" Data Architecture<a class="headerlink" href="#good-data-architecture" title="Permanent link">&para;</a></h5>
+<ul>
+<li>Serves business requirements with reusable building blocks while maintaining flexibility.</li>
+<li>Key distinguishing trait: <strong>agility</strong> — ability to respond to changes in business and technology.</li>
+<li>Bad data architecture: tightly coupled, rigid, overly centralized, or "accidentally" architected.</li>
+</ul>
+<h4 id="principles-of-good-data-architecture">Principles of Good Data Architecture<a class="headerlink" href="#principles-of-good-data-architecture" title="Permanent link">&para;</a></h4>
+<h5 id="principle-1-choose-common-components-wisely">Principle 1: Choose Common Components Wisely<a class="headerlink" href="#principle-1-choose-common-components-wisely" title="Permanent link">&para;</a></h5>
+<ul>
+<li>Common components = shared building blocks across the org (object storage, event-streaming platforms, version control, observability).</li>
+<li>Should be accessible and understandable. Keep them simple and avoid customization that creates technical debt.</li>
+</ul>
+<h5 id="principle-2-plan-for-failure">Principle 2: Plan for Failure<a class="headerlink" href="#principle-2-plan-for-failure" title="Permanent link">&para;</a></h5>
+<ul>
+<li>Availability = percentage of time a system is operational (e.g., 99.99% = ~52 min downtime/year).</li>
+<li><strong>Reliability</strong>: System performs function correctly. <strong>Durability</strong>: Data survives intact.</li>
+<li>Design for failure: redundancy, graceful degradation, self-healing, automated recovery.</li>
+</ul>
+<h5 id="principle-3-architect-for-scalability">Principle 3: Architect for Scalability<a class="headerlink" href="#principle-3-architect-for-scalability" title="Permanent link">&para;</a></h5>
+<ul>
+<li><strong>Scaling up</strong> (vertical): Bigger machine. <strong>Scaling out</strong> (horizontal): More machines.</li>
+<li><strong>Elasticity</strong>: Dynamically scale with demand. Cloud-native advantage.</li>
+</ul>
+<h5 id="principle-4-architecture-is-leadership">Principle 4: Architecture Is Leadership<a class="headerlink" href="#principle-4-architecture-is-leadership" title="Permanent link">&para;</a></h5>
+<ul>
+<li>Architects mentor, collaborate, and guide. Not ivory tower — hands-on influence.</li>
+</ul>
+<h5 id="principle-5-always-be-architecting">Principle 5: Always Be Architecting<a class="headerlink" href="#principle-5-always-be-architecting" title="Permanent link">&para;</a></h5>
+<ul>
+<li>Architecture is never "done." Iterate continuously.</li>
+</ul>
+<h5 id="principle-6-build-loosely-coupled-systems">Principle 6: Build Loosely Coupled Systems<a class="headerlink" href="#principle-6-build-loosely-coupled-systems" title="Permanent link">&para;</a></h5>
+<ul>
+<li>Systems should be independent, able to change without cascading effects.</li>
+<li>Modular, well-defined interfaces between components.</li>
+<li>Opposite of tightly coupled monolith where changing one component breaks everything.</li>
+</ul>
+<h5 id="principle-7-make-reversible-decisions">Principle 7: Make Reversible Decisions<a class="headerlink" href="#principle-7-make-reversible-decisions" title="Permanent link">&para;</a></h5>
+<ul>
+<li><strong>Two-way doors</strong> (easily reversible): Preferred. Try things, revert if needed.</li>
+<li><strong>One-way doors</strong> (irreversible): Proceed with great caution.</li>
+<li>Cloud environments favor two-way doors — spin up, test, tear down.</li>
+</ul>
+<blockquote>
+<p><strong>Relevant to your S3 vs Postgres decision</strong>: This is a two-way door. You can start with S3 (file-based, familiar to your team) and add Postgres later. Or use both — S3 for raw/landing zone, Postgres for curated/queried data. The hybrid approach is low-risk and reversible.</p>
+</blockquote>
+<h5 id="principle-8-prioritize-security">Principle 8: Prioritize Security<a class="headerlink" href="#principle-8-prioritize-security" title="Permanent link">&para;</a></h5>
+<ul>
+<li>Bake security into every layer. Hardened defaults, principle of least privilege, encryption at rest and in transit.</li>
+</ul>
+<h5 id="principle-9-embrace-finops">Principle 9: Embrace FinOps<a class="headerlink" href="#principle-9-embrace-finops" title="Permanent link">&para;</a></h5>
+<ul>
+<li><strong>FinOps</strong>: Cloud financial operations. Monitor spend, optimize costs, allocate by team/project.</li>
+<li>Cloud costs are operational (OpEx), not capital (CapEx). Track and attribute them.</li>
+</ul>
+<h4 id="major-architecture-concepts">Major Architecture Concepts<a class="headerlink" href="#major-architecture-concepts" title="Permanent link">&para;</a></h4>
+<h5 id="domains-and-services">Domains and Services<a class="headerlink" href="#domains-and-services" title="Permanent link">&para;</a></h5>
+<ul>
+<li><strong>Domain</strong>: A real-world subject area with its own data, rules, and logic (e.g., "portfolio management," "trading").</li>
+<li><strong>Service</strong>: A set of functionality in a domain, accessed via a well-defined interface.</li>
+</ul>
+<h5 id="distributed-systems-scalability-and-designing-for-failure">Distributed Systems, Scalability, and Designing for Failure<a class="headerlink" href="#distributed-systems-scalability-and-designing-for-failure" title="Permanent link">&para;</a></h5>
+<ul>
+<li>Horizontal scaling distributes load but introduces complexity (CAP theorem, network partitions).</li>
+<li>Design for failure at every level.</li>
+</ul>
+<h5 id="tight-vs-loose-coupling-tiers-monoliths-and-microservices">Tight vs Loose Coupling: Tiers, Monoliths, and Microservices<a class="headerlink" href="#tight-vs-loose-coupling-tiers-monoliths-and-microservices" title="Permanent link">&para;</a></h5>
+<ul>
+<li><strong>Monolith</strong>: Single deployment unit. Simple but hard to scale independently.</li>
+<li><strong>Microservices</strong>: Independent, loosely coupled services. Flexible but complex.</li>
+<li><strong>Practical middle ground</strong>: Start monolithic, extract services when clear boundaries emerge.</li>
+</ul>
+<h5 id="event-driven-architecture">Event-Driven Architecture<a class="headerlink" href="#event-driven-architecture" title="Permanent link">&para;</a></h5>
+<ul>
+<li>Systems communicate via events rather than direct calls.</li>
+<li>Great for decoupling, real-time processing, and audit trails.</li>
+</ul>
+<h5 id="brownfield-vs-greenfield-projects">Brownfield vs Greenfield Projects<a class="headerlink" href="#brownfield-vs-greenfield-projects" title="Permanent link">&para;</a></h5>
+<ul>
+<li><strong>Brownfield</strong>: Working within existing systems (your migration — existing Autosys, Excel-based pipelines).</li>
+<li><strong>Greenfield</strong>: Starting from scratch.</li>
+<li>Brownfield requires understanding legacy constraints, incremental migration, running old and new in parallel.</li>
+</ul>
+<blockquote>
+<p><strong>Your migration strategy</strong> (brownfield approach): Keep on-prem running, add S3/Postgres writes to production pipeline, build cloud pipeline on feature branch, validate, cutover.</p>
+</blockquote>
+<h4 id="examples-and-types-of-data-architecture">Examples and Types of Data Architecture<a class="headerlink" href="#examples-and-types-of-data-architecture" title="Permanent link">&para;</a></h4>
+<h5 id="data-warehouse">Data Warehouse<a class="headerlink" href="#data-warehouse" title="Permanent link">&para;</a></h5>
+<ul>
+<li>Centralized, highly structured repository for analytical data.</li>
+<li>Uses schema-on-write — data conforms to schema upon loading.</li>
+<li>Optimized for complex queries and aggregations (OLAP).</li>
+<li>Cloud warehouses (Snowflake, BigQuery, Redshift) separate compute from storage.</li>
+</ul>
+<h5 id="data-lake">Data Lake<a class="headerlink" href="#data-lake" title="Permanent link">&para;</a></h5>
+<ul>
+<li>Stores raw data in its native format (schema-on-read).</li>
+<li>Object storage (S3) is the standard substrate.</li>
+<li>Risk: becomes a "data swamp" without governance, metadata, and quality enforcement.</li>
+</ul>
+<h5 id="convergence-data-lakehouse-and-data-platform">Convergence: Data Lakehouse and Data Platform<a class="headerlink" href="#convergence-data-lakehouse-and-data-platform" title="Permanent link">&para;</a></h5>
+<ul>
+<li><strong>Data Lakehouse</strong>: Combines lake (raw storage, schema-on-read) with warehouse features (ACID transactions, schema enforcement, query optimization). Examples: Delta Lake, Apache Iceberg, Apache Hudi.</li>
+<li><strong>Data Platform</strong>: Umbrella term for the full stack — lake + warehouse + processing + governance + serving.</li>
+</ul>
+<h5 id="modern-data-stack">Modern Data Stack<a class="headerlink" href="#modern-data-stack" title="Permanent link">&para;</a></h5>
+<ul>
+<li>Collection of cloud-native, modular, plug-and-play tools.</li>
+<li>Typical components: Fivetran (ingestion) → Snowflake (warehouse) → dbt (transformation) → Looker (BI) → Airflow (orchestration).</li>
+</ul>
+<h5 id="lambda-architecture">Lambda Architecture<a class="headerlink" href="#lambda-architecture" title="Permanent link">&para;</a></h5>
+<ul>
+<li>Parallel <strong>batch layer</strong> (full reprocessing) and <strong>speed layer</strong> (real-time) with a <strong>serving layer</strong> merging results.</li>
+<li>Complexity: Maintaining two separate codepaths. Falling out of favor.</li>
+</ul>
+<h5 id="kappa-architecture">Kappa Architecture<a class="headerlink" href="#kappa-architecture" title="Permanent link">&para;</a></h5>
+<ul>
+<li>Streaming-only. All data treated as streams. Simpler than Lambda but requires mature streaming infra.</li>
+</ul>
+<h5 id="data-mesh">Data Mesh<a class="headerlink" href="#data-mesh" title="Permanent link">&para;</a></h5>
+<ul>
+<li>Decentralized, domain-oriented architecture.</li>
+<li>Four principles:</li>
+<li><strong>Domain-oriented ownership</strong>: Each domain team owns its data end-to-end.</li>
+<li><strong>Data as a product</strong>: Each domain exposes curated "data products" with SLAs.</li>
+<li><strong>Self-serve data platform</strong>: Central platform team provides infrastructure as a service.</li>
+<li><strong>Federated computational governance</strong>: Standards enforced computationally across domains.</li>
+</ul>
+<hr />
+<h3 id="chapter-4-choosing-technologies-across-the-data-engineering-lifecycle">Chapter 4: Choosing Technologies Across the Data Engineering Lifecycle<a class="headerlink" href="#chapter-4-choosing-technologies-across-the-data-engineering-lifecycle" title="Permanent link">&para;</a></h3>
+<h4 id="key-evaluation-criteria">Key Evaluation Criteria<a class="headerlink" href="#key-evaluation-criteria" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>Factor</th>
+<th>Question to Ask</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Team size &amp; capabilities</strong></td>
+<td>Can your team realistically learn and maintain this technology?</td>
+</tr>
+<tr>
+<td><strong>Speed to market</strong></td>
+<td>How quickly can you deliver value?</td>
+</tr>
+<tr>
+<td><strong>Interoperability</strong></td>
+<td>Does it play well with your other tools?</td>
+</tr>
+<tr>
+<td><strong>Cost optimization</strong></td>
+<td>TCO (total cost of ownership) + opportunity cost?</td>
+</tr>
+<tr>
+<td><strong>FinOps</strong></td>
+<td>Can you monitor and control cloud spend?</td>
+</tr>
+</tbody>
+</table>
+<h4 id="today-vs-future-immutable-vs-transitory-technologies">Today vs Future: Immutable vs Transitory Technologies<a class="headerlink" href="#today-vs-future-immutable-vs-transitory-technologies" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Immutable technologies</strong>: SQL, object storage, Linux, networking fundamentals — learn these deeply.</li>
+<li><strong>Transitory technologies</strong>: Specific vendors, frameworks, SaaS tools — change rapidly.</li>
+<li>Focus on understanding the immutables. Choose transitory tech based on current needs.</li>
+</ul>
+<h4 id="location">Location<a class="headerlink" href="#location" title="Permanent link">&para;</a></h4>
+<h5 id="on-premises">On Premises<a class="headerlink" href="#on-premises" title="Permanent link">&para;</a></h5>
+<ul>
+<li>You own hardware, network, physical security. High upfront CapEx.</li>
+<li>Limitations: slow provisioning, finite capacity, hard to scale dynamically.</li>
+<li><strong>Your current state</strong>: Autosys on-prem, shared network drives, Excel files.</li>
+</ul>
+<h5 id="cloud">Cloud<a class="headerlink" href="#cloud" title="Permanent link">&para;</a></h5>
+<ul>
+<li>Pay-as-you-go, elastic scaling, managed services.</li>
+<li><strong>IaaS</strong>: VMs, raw compute (EC2). <strong>PaaS</strong>: Managed services (RDS, S3). <strong>SaaS</strong>: Fully managed applications (Snowflake).</li>
+<li>Cloud-native advantages: separation of compute and storage, auto-scaling, global availability.</li>
+</ul>
+<h5 id="hybrid-cloud">Hybrid Cloud<a class="headerlink" href="#hybrid-cloud" title="Permanent link">&para;</a></h5>
+<ul>
+<li>Mix of on-prem and cloud. <strong>Your migration approach</strong> — run on-prem and cloud in parallel during transition.</li>
+</ul>
+<h4 id="build-vs-buy">Build vs Buy<a class="headerlink" href="#build-vs-buy" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Default to buy (managed services)</strong> unless custom build provides clear competitive advantage.</li>
+<li><strong>Open source</strong>: Free licensing but not free to operate. Consider operational burden (patching, scaling, debugging).</li>
+<li><strong>Managed open source</strong>: Best of both worlds (e.g., Amazon MWAA for Airflow, Amazon RDS for Postgres).</li>
+</ul>
+<blockquote>
+<p><strong>For your team</strong>: Use managed Airflow (MWAA) or self-host on EKS via Helm chart. Use RDS Postgres (managed) instead of running Postgres yourself on EC2. Use S3 natively (zero ops burden).</p>
+</blockquote>
+<h4 id="monolith-vs-modular">Monolith vs Modular<a class="headerlink" href="#monolith-vs-modular" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Monolith</strong>: Single system does everything. Simple at first, hard to evolve.</li>
+<li><strong>Modular</strong>: Compose best-of-breed tools. More flexible, but integration complexity.</li>
+<li><strong>Distributed monolith</strong>: Worst of both worlds — "microservices" that are actually tightly coupled.</li>
+</ul>
+<blockquote>
+<p><strong>Recommended</strong>: Modular approach. S3 (storage) + Postgres (queryable store) + Airflow (orchestration) + Python (processing). Loosely coupled, replaceable components.</p>
+</blockquote>
+<h4 id="serverless-vs-servers">Serverless vs Servers<a class="headerlink" href="#serverless-vs-servers" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Serverless</strong> (Lambda, Fargate): No server management, scale-to-zero, pay per invocation. Good for event-driven and sporadic workloads.</li>
+<li><strong>Containers</strong> (EKS/K8s): You manage the cluster. Good for long-running, complex workloads.</li>
+<li>Serverless for simple tasks (triggers, small transforms). Containers for heavy processing (your existing K8s expertise on EKS).</li>
+</ul>
+<h4 id="orchestration-example-airflow">Orchestration Example: Airflow<a class="headerlink" href="#orchestration-example-airflow" title="Permanent link">&para;</a></h4>
+<ul>
+<li>Airflow as the de facto standard for batch orchestration.</li>
+<li>DAG-based dependency management replaces Autosys .jil files.</li>
+<li>Key benefits over Autosys: Python-native DAG definitions, built-in dependency resolution, web UI for monitoring, backfill capability, rich ecosystem of operators/hooks.</li>
+</ul>
+<hr />
+<h2 id="part-ii-the-data-engineering-lifecycle-in-depth">Part II: The Data Engineering Lifecycle in Depth<a class="headerlink" href="#part-ii-the-data-engineering-lifecycle-in-depth" title="Permanent link">&para;</a></h2>
+<hr />
+<h3 id="chapter-5-data-generation-in-source-systems">Chapter 5: Data Generation in Source Systems<a class="headerlink" href="#chapter-5-data-generation-in-source-systems" title="Permanent link">&para;</a></h3>
+<h4 id="sources-of-data-how-is-data-created">Sources of Data: How Is Data Created?<a class="headerlink" href="#sources-of-data-how-is-data-created" title="Permanent link">&para;</a></h4>
+<ul>
+<li>Data originates as analog or digital signals, then flows into systems.</li>
+<li>Know your source systems deeply — patterns, quirks, volumes, frequencies.</li>
+</ul>
+<h4 id="source-systems-main-ideas">Source Systems: Main Ideas<a class="headerlink" href="#source-systems-main-ideas" title="Permanent link">&para;</a></h4>
+<h5 id="files-and-unstructured-data">Files and Unstructured Data<a class="headerlink" href="#files-and-unstructured-data" title="Permanent link">&para;</a></h5>
+<ul>
+<li>Files (CSV, Excel, JSON, XML, etc.) are the universal exchange medium between organizations.</li>
+<li><strong>Your current state</strong>: Excel files on shared network drive = file-based source system.</li>
+</ul>
+<h5 id="apis">APIs<a class="headerlink" href="#apis" title="Permanent link">&para;</a></h5>
+<ul>
+<li>Standard method for inter-system data exchange. REST, GraphQL, gRPC.</li>
+<li>Despite frameworks, maintaining API connections often requires ongoing engineering effort.</li>
+</ul>
+<h5 id="application-databases-oltp-systems">Application Databases (OLTP Systems)<a class="headerlink" href="#application-databases-oltp-systems" title="Permanent link">&para;</a></h5>
+<ul>
+<li>Store application state (e.g., account balances). Optimized for high-throughput reads/writes.</li>
+<li><strong>ACID properties</strong>: Atomicity, Consistency, Isolation, Durability — guarantee transaction reliability.</li>
+</ul>
+<h5 id="online-analytical-processing-olap-systems">Online Analytical Processing (OLAP) Systems<a class="headerlink" href="#online-analytical-processing-olap-systems" title="Permanent link">&para;</a></h5>
+<ul>
+<li>Optimized for complex queries, aggregations, historical analysis. Column-oriented storage.</li>
+<li>May serve as source system if you're reading from another team's warehouse.</li>
+</ul>
+<h5 id="change-data-capture-cdc">Change Data Capture (CDC)<a class="headerlink" href="#change-data-capture-cdc" title="Permanent link">&para;</a></h5>
+<ul>
+<li>Tracks changes (inserts, updates, deletes) in a source database.</li>
+<li>Methods: timestamp-based (pull), trigger-based (push), log-based (push, minimal source load).</li>
+<li><strong>Log-based CDC</strong> (e.g., Debezium reading Postgres WAL) is preferred — minimal impact on source DB.</li>
+</ul>
+<h5 id="logs">Logs<a class="headerlink" href="#logs" title="Permanent link">&para;</a></h5>
+<ul>
+<li>Application and system logs are a critical data source. Often semi-structured (JSON, key-value).</li>
+<li><strong>Database logs</strong>: Transaction logs (WAL in Postgres) are the basis for log-based CDC.</li>
+</ul>
+<h5 id="crud-and-insert-only-patterns">CRUD and Insert-Only Patterns<a class="headerlink" href="#crud-and-insert-only-patterns" title="Permanent link">&para;</a></h5>
+<ul>
+<li><strong>CRUD</strong>: Create, Read, Update, Delete. Standard mutable pattern.</li>
+<li><strong>Insert-only (append-only)</strong>: Never update/delete — only insert new records. Creates natural audit trail. Used in event sourcing and streaming.</li>
+</ul>
+<h5 id="messages-and-streams">Messages and Streams<a class="headerlink" href="#messages-and-streams" title="Permanent link">&para;</a></h5>
+<ul>
+<li><strong>Message queue</strong>: Asynchronous communication between systems. Messages consumed and deleted.</li>
+<li><strong>Event stream</strong>: Append-only log of events. Can be replayed. Retained for a configurable period.</li>
+<li>Key platforms: Apache Kafka, AWS Kinesis, Google Pub/Sub, Apache Pulsar.</li>
+</ul>
+<h5 id="types-of-time">Types of Time<a class="headerlink" href="#types-of-time" title="Permanent link">&para;</a></h5>
+<ul>
+<li><strong>Event time</strong>: When the event actually occurred.</li>
+<li><strong>Ingestion time</strong>: When the data was ingested into the pipeline.</li>
+<li><strong>Processing time</strong>: When the data was processed/transformed.</li>
+<li>Understanding the difference is critical for correct analytics and handling late-arriving data.</li>
+</ul>
+<h4 id="source-system-practical-details">Source System Practical Details<a class="headerlink" href="#source-system-practical-details" title="Permanent link">&para;</a></h4>
+<h5 id="databases">Databases<a class="headerlink" href="#databases" title="Permanent link">&para;</a></h5>
+<ul>
+<li><strong>Relational (RDBMS)</strong>: Tables with rows and columns. Schema-enforced. Strong for structured data. (Postgres, MySQL, Oracle).</li>
+<li><strong>NoSQL</strong>: Key-value (DynamoDB), document (MongoDB), wide-column (Cassandra), graph (Neo4j).</li>
+<li><strong>Considerations</strong>: Connection management, query load on source DB, change tracking strategy.</li>
+</ul>
+<h5 id="apis_1">APIs<a class="headerlink" href="#apis_1" title="Permanent link">&para;</a></h5>
+<ul>
+<li>REST (most common), GraphQL (flexible queries), Webhooks (push-based), gRPC (high-performance).</li>
+</ul>
+<h5 id="message-queues-and-event-streaming-platforms">Message Queues and Event-Streaming Platforms<a class="headerlink" href="#message-queues-and-event-streaming-platforms" title="Permanent link">&para;</a></h5>
+<ul>
+<li><strong>Kafka</strong>: Distributed event-streaming platform. Topics, partitions, consumer groups. High throughput, durable, replayable.</li>
+<li><strong>Cloud equivalents</strong>: Kinesis (AWS), Pub/Sub (GCP).</li>
+</ul>
+<h4 id="undercurrents-and-their-impact-on-source-systems">Undercurrents and Their Impact on Source Systems<a class="headerlink" href="#undercurrents-and-their-impact-on-source-systems" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>DataOps</strong>: Track data quality at the source. Metadata collection.</li>
+<li><strong>Orchestration</strong>: Coordinate ingestion jobs and dependency chains.</li>
+<li><strong>Software engineering</strong>: Version control source definitions, test data contracts.</li>
+</ul>
+<hr />
+<h3 id="chapter-6-storage">Chapter 6: Storage<a class="headerlink" href="#chapter-6-storage" title="Permanent link">&para;</a></h3>
+<h4 id="raw-ingredients-of-data-storage">Raw Ingredients of Data Storage<a class="headerlink" href="#raw-ingredients-of-data-storage" title="Permanent link">&para;</a></h4>
+<h5 id="magnetic-disk-drive-hdd">Magnetic Disk Drive (HDD)<a class="headerlink" href="#magnetic-disk-drive-hdd" title="Permanent link">&para;</a></h5>
+<ul>
+<li>Sequential reads fast, random access slow. Cheap per GB.</li>
+</ul>
+<h5 id="solid-state-drive-ssd">Solid-State Drive (SSD)<a class="headerlink" href="#solid-state-drive-ssd" title="Permanent link">&para;</a></h5>
+<ul>
+<li>Much faster random access. More expensive. Wear leveling limits write cycles.</li>
+</ul>
+<h5 id="random-access-memory-ram">Random Access Memory (RAM)<a class="headerlink" href="#random-access-memory-ram" title="Permanent link">&para;</a></h5>
+<ul>
+<li>Orders of magnitude faster than disk. Volatile. Used for caching and in-memory processing.</li>
+</ul>
+<h5 id="serialization">Serialization<a class="headerlink" href="#serialization" title="Permanent link">&para;</a></h5>
+<ul>
+<li><strong>Definition</strong>: Encoding data structures into byte sequences for storage or transmission.</li>
+<li><strong>Row-oriented</strong>: CSV, JSON, Avro — good for transactional workloads (write-heavy).</li>
+<li><strong>Column-oriented</strong>: Parquet, ORC — good for analytical workloads (read/scan-heavy, compressible).</li>
+</ul>
+<blockquote>
+<p><strong>For your team</strong>: Migrate Excel files to <strong>Parquet on S3</strong> for analytical workloads (columnar, compressed, fast reads) or <strong>insert into Postgres</strong> for queryable structured data.</p>
+</blockquote>
+<h5 id="compression">Compression<a class="headerlink" href="#compression" title="Permanent link">&para;</a></h5>
+<ul>
+<li>Reduces storage cost and I/O. Common algorithms: gzip, Snappy (fast), Zstandard (good ratio), LZ4 (fastest).</li>
+<li>Parquet and ORC have built-in compression support.</li>
+</ul>
+<h5 id="caching">Caching<a class="headerlink" href="#caching" title="Permanent link">&para;</a></h5>
+<ul>
+<li>Frequently accessed data kept in faster storage layer (RAM, SSD). Critical for hot data serving.</li>
+</ul>
+<h4 id="data-storage-systems">Data Storage Systems<a class="headerlink" href="#data-storage-systems" title="Permanent link">&para;</a></h4>
+<h5 id="single-machine-vs-distributed-storage">Single Machine vs Distributed Storage<a class="headerlink" href="#single-machine-vs-distributed-storage" title="Permanent link">&para;</a></h5>
+<ul>
+<li>Single machine: simpler but limited. Distributed: scales but introduces consistency challenges.</li>
+<li><strong>CAP Theorem</strong>: Distributed systems can guarantee at most 2 of 3: Consistency, Availability, Partition tolerance.</li>
+</ul>
+<h5 id="eventual-vs-strong-consistency">Eventual vs Strong Consistency<a class="headerlink" href="#eventual-vs-strong-consistency" title="Permanent link">&para;</a></h5>
+<ul>
+<li><strong>Strong consistency</strong>: Reads always return latest write. Higher latency.</li>
+<li><strong>Eventual consistency</strong>: Reads may return stale data temporarily. Lower latency, higher availability. (S3 now offers strong read-after-write consistency.)</li>
+</ul>
+<h5 id="file-storage">File Storage<a class="headerlink" href="#file-storage" title="Permanent link">&para;</a></h5>
+<ul>
+<li>Traditional hierarchical filesystem (directories and files). Network file storage (NFS, SMB/CIFS).</li>
+<li><strong>Your current state</strong>: Shared network drive = network file storage. Slow access, no metadata, no versioning.</li>
+<li>Cloud file storage exists (EFS, FSx) but object storage (S3) is usually the better choice for data engineering.</li>
+</ul>
+<h5 id="block-storage">Block Storage<a class="headerlink" href="#block-storage" title="Permanent link">&para;</a></h5>
+<ul>
+<li>Raw storage blocks (EBS, local SSD). Used as underlying storage for databases and VMs.</li>
+<li>Not directly used in data pipelines — but your Postgres database sits on block storage.</li>
+</ul>
+<h5 id="object-storage">Object Storage<a class="headerlink" href="#object-storage" title="Permanent link">&para;</a></h5>
+<ul>
+<li><strong>Key-value store</strong>: Objects addressed by key (path). Flat namespace (though <code>/</code> simulates hierarchy).</li>
+<li><strong>S3</strong>: The de facto standard for cloud data storage. Highly durable (99.999999999% — "11 nines"), massively scalable, cheap.</li>
+<li><strong>Ideal for</strong>: Data lakes, landing zones, raw/archive data, Parquet/CSV/JSON files.</li>
+<li><strong>Not ideal for</strong>: Low-latency random access, transactional workloads (use a database instead).</li>
+<li><strong>Antipattern</strong>: Using S3 for high-rate random-access updates (it's optimized for large sequential reads/writes).</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="c1"># Example: Writing a Pandas DataFrame to S3 as Parquet</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">boto3</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">io</span>
+
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s2">&quot;portfolio_id&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="s2">&quot;nav&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mf">1000000.5</span><span class="p">,</span> <span class="mf">2500000.3</span><span class="p">]})</span>
+
+<span class="c1"># Write to Parquet in-memory, then upload to S3</span>
+<span class="n">buffer</span> <span class="o">=</span> <span class="n">io</span><span class="o">.</span><span class="n">BytesIO</span><span class="p">()</span>
+<span class="n">df</span><span class="o">.</span><span class="n">to_parquet</span><span class="p">(</span><span class="n">buffer</span><span class="p">,</span> <span class="n">engine</span><span class="o">=</span><span class="s2">&quot;pyarrow&quot;</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">buffer</span><span class="o">.</span><span class="n">seek</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="n">s3</span> <span class="o">=</span> <span class="n">boto3</span><span class="o">.</span><span class="n">client</span><span class="p">(</span><span class="s2">&quot;s3&quot;</span><span class="p">)</span>
+<span class="n">s3</span><span class="o">.</span><span class="n">put_object</span><span class="p">(</span><span class="n">Bucket</span><span class="o">=</span><span class="s2">&quot;my-data-lake&quot;</span><span class="p">,</span> <span class="n">Key</span><span class="o">=</span><span class="s2">&quot;curated/portfolios/2024-01-15.parquet&quot;</span><span class="p">,</span> <span class="n">Body</span><span class="o">=</span><span class="n">buffer</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="c1"># Example: Writing to Postgres</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">psycopg2</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">io</span><span class="w"> </span><span class="kn">import</span> <span class="n">StringIO</span>
+
+<span class="n">conn</span> <span class="o">=</span> <span class="n">psycopg2</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s2">&quot;host=mydb.rds.amazonaws.com dbname=analytics user=etl_user&quot;</span><span class="p">)</span>
+<span class="n">cur</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+
+<span class="c1"># Use COPY for bulk loading (much faster than INSERT for large batches)</span>
+<span class="n">buffer</span> <span class="o">=</span> <span class="n">StringIO</span><span class="p">()</span>
+<span class="n">df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">buffer</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">buffer</span><span class="o">.</span><span class="n">seek</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="n">cur</span><span class="o">.</span><span class="n">copy_expert</span><span class="p">(</span><span class="s2">&quot;COPY portfolios FROM STDIN WITH CSV&quot;</span><span class="p">,</span> <span class="n">buffer</span><span class="p">)</span>
+<span class="n">conn</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+</code></pre></div>
+<h5 id="cache-and-memory-based-storage-systems">Cache and Memory-Based Storage Systems<a class="headerlink" href="#cache-and-memory-based-storage-systems" title="Permanent link">&para;</a></h5>
+<ul>
+<li>Redis, Memcached — for sub-millisecond access to frequently queried data.</li>
+</ul>
+<h5 id="indexes-partitioning-and-clustering">Indexes, Partitioning, and Clustering<a class="headerlink" href="#indexes-partitioning-and-clustering" title="Permanent link">&para;</a></h5>
+<ul>
+<li><strong>Index</strong>: Data structure that speeds up lookups on specific columns (B-tree, hash, bitmap).</li>
+<li><strong>Partitioning</strong>: Splitting data into segments by a key (date, region). Reduces scan scope.</li>
+<li><strong>Clustering</strong>: Physically ordering data on disk to match a common access pattern.</li>
+</ul>
+<blockquote>
+<p><strong>S3 "partitioning"</strong>: Achieved via key prefix naming convention:
+<div class="highlight"><pre><span></span><code>s3://my-bucket/raw/portfolios/year=2024/month=01/day=15/data.parquet
+</code></pre></div>
+This enables efficient prefix-based listing and integrates with tools like Athena, Spark, Hive.</p>
+</blockquote>
+<h4 id="data-engineering-storage-abstractions">Data Engineering Storage Abstractions<a class="headerlink" href="#data-engineering-storage-abstractions" title="Permanent link">&para;</a></h4>
+<h5 id="the-data-warehouse">The Data Warehouse<a class="headerlink" href="#the-data-warehouse" title="Permanent link">&para;</a></h5>
+<ul>
+<li>Central, highly curated, schema-enforced analytical store.</li>
+<li>Cloud warehouses (Snowflake, BigQuery, Redshift) separate compute from storage.</li>
+</ul>
+<h5 id="the-data-lake">The Data Lake<a class="headerlink" href="#the-data-lake" title="Permanent link">&para;</a></h5>
+<ul>
+<li>Raw storage in native format on object storage (S3). Schema-on-read.</li>
+<li>Risk of "data swamp" without governance. Need metadata management.</li>
+</ul>
+<h5 id="the-data-lakehouse">The Data Lakehouse<a class="headerlink" href="#the-data-lakehouse" title="Permanent link">&para;</a></h5>
+<ul>
+<li>Adds ACID transactions, schema enforcement, and time travel to data lake.</li>
+<li>Technologies: <strong>Delta Lake</strong>, <strong>Apache Iceberg</strong>, <strong>Apache Hudi</strong>.</li>
+<li>Enables warehouse-like queries directly on S3 data.</li>
+</ul>
+<h5 id="stream-to-batch-storage-architecture">Stream-to-Batch Storage Architecture<a class="headerlink" href="#stream-to-batch-storage-architecture" title="Permanent link">&para;</a></h5>
+<ul>
+<li>Streaming data lands in an event platform (Kafka), then is periodically materialized to object storage (S3) or a warehouse in batch windows.</li>
+</ul>
+<h4 id="big-ideas-and-trends-in-storage">Big Ideas and Trends in Storage<a class="headerlink" href="#big-ideas-and-trends-in-storage" title="Permanent link">&para;</a></h4>
+<h5 id="separation-of-compute-from-storage">Separation of Compute from Storage<a class="headerlink" href="#separation-of-compute-from-storage" title="Permanent link">&para;</a></h5>
+<ul>
+<li><strong>Core cloud-native pattern</strong>: Storage (S3) is decoupled from compute (Spark on EMR, Athena, etc.).</li>
+<li>Scale storage and compute independently. Pay for each separately.</li>
+<li>Enables multiple compute engines to query the same data (Spark, Presto, Athena, Redshift Spectrum).</li>
+</ul>
+<blockquote>
+<p><strong>Highly relevant to your architecture</strong>: S3 as storage layer + multiple compute engines. EKS pods can read from S3 directly. Postgres handles structured queries. No need to pick one — use both.</p>
+</blockquote>
+<h5 id="data-storage-lifecycle-and-data-retention">Data Storage Lifecycle and Data Retention<a class="headerlink" href="#data-storage-lifecycle-and-data-retention" title="Permanent link">&para;</a></h5>
+<ul>
+<li>Define retention policies. Cloud storage tiers reduce cost for aging data:</li>
+<li>S3 Standard → S3 Infrequent Access → S3 Glacier → Glacier Deep Archive.</li>
+<li>Automate lifecycle transitions with S3 Lifecycle Rules.</li>
+</ul>
+<hr />
+<h3 id="chapter-7-ingestion">Chapter 7: Ingestion<a class="headerlink" href="#chapter-7-ingestion" title="Permanent link">&para;</a></h3>
+<h4 id="what-is-data-ingestion">What Is Data Ingestion?<a class="headerlink" href="#what-is-data-ingestion" title="Permanent link">&para;</a></h4>
+<ul>
+<li>Moving data from source systems into the data engineering lifecycle.</li>
+<li><strong>Data pipeline</strong>: The combination of architecture, systems, and processes that move data through lifecycle stages. Intentionally flexible definition.</li>
+</ul>
+<h4 id="key-engineering-considerations-for-the-ingestion-phase">Key Engineering Considerations for the Ingestion Phase<a class="headerlink" href="#key-engineering-considerations-for-the-ingestion-phase" title="Permanent link">&para;</a></h4>
+<h5 id="bounded-vs-unbounded-data">Bounded vs Unbounded Data<a class="headerlink" href="#bounded-vs-unbounded-data" title="Permanent link">&para;</a></h5>
+<ul>
+<li><strong>Bounded</strong>: Finite dataset (e.g., a daily CSV export, a database table snapshot).</li>
+<li><strong>Unbounded</strong>: Continuous stream of data with no defined end (e.g., Kafka topic, IoT sensor feed).</li>
+<li>Batch processing inherently treats data as bounded. Streaming handles unbounded data.</li>
+</ul>
+<h5 id="frequency">Frequency<a class="headerlink" href="#frequency" title="Permanent link">&para;</a></h5>
+<ul>
+<li>How often should data be updated? Real-time? Hourly? Daily?</li>
+<li><strong>Your context</strong>: Currently batch (Autosys schedules). Airflow will maintain batch cadence but with better dependency management. Consider whether any pipelines benefit from more frequent updates.</li>
+</ul>
+<h5 id="synchronous-vs-asynchronous-ingestion">Synchronous vs Asynchronous Ingestion<a class="headerlink" href="#synchronous-vs-asynchronous-ingestion" title="Permanent link">&para;</a></h5>
+<ul>
+<li><strong>Synchronous</strong>: Source sends data and waits for acknowledgment. Tightly coupled.</li>
+<li><strong>Asynchronous</strong>: Source fires and forgets (or relies on a queue/buffer). Decoupled, more resilient.</li>
+<li>Prefer async ingestion for pipeline decoupling and fault tolerance.</li>
+</ul>
+<h5 id="serialization-and-deserialization">Serialization and Deserialization<a class="headerlink" href="#serialization-and-deserialization" title="Permanent link">&para;</a></h5>
+<ul>
+<li>Data must be serialized for transmission and deserialized upon receipt.</li>
+<li>Format compatibility between source and destination matters (CSV → Parquet conversion, JSON parsing, etc.).</li>
+</ul>
+<h5 id="throughput-and-scalability">Throughput and Scalability<a class="headerlink" href="#throughput-and-scalability" title="Permanent link">&para;</a></h5>
+<ul>
+<li>Design ingestion to handle peak loads, not just average.</li>
+<li>Use buffering (queues, object storage) to absorb spikes.</li>
+</ul>
+<h5 id="reliability-and-durability">Reliability and Durability<a class="headerlink" href="#reliability-and-durability" title="Permanent link">&para;</a></h5>
+<ul>
+<li>Can you replay failed ingestion? Is data buffered safely?</li>
+<li><strong>At-least-once</strong> delivery is common (handle deduplication downstream).</li>
+<li><strong>Exactly-once</strong> delivery is the gold standard but harder to achieve.</li>
+</ul>
+<h5 id="push-vs-pull-patterns">Push vs Pull Patterns<a class="headerlink" href="#push-vs-pull-patterns" title="Permanent link">&para;</a></h5>
+<ul>
+<li><strong>Push</strong>: Source writes data to target. Examples: Webhooks, database-triggered CDC, sensor → message queue.</li>
+<li><strong>Pull</strong>: Ingestion system queries source on schedule. Examples: Scheduled API polls, <code>SELECT *</code> from source DB.</li>
+</ul>
+<h4 id="batch-ingestion-considerations">Batch Ingestion Considerations<a class="headerlink" href="#batch-ingestion-considerations" title="Permanent link">&para;</a></h4>
+<h5 id="snapshot-vs-differential-extraction">Snapshot vs Differential Extraction<a class="headerlink" href="#snapshot-vs-differential-extraction" title="Permanent link">&para;</a></h5>
+<ul>
+<li><strong>Snapshot (full extract)</strong>: Grab entire dataset each time. Simple but expensive for large datasets.</li>
+<li><strong>Differential (incremental)</strong>: Only grab what changed since last extraction. More efficient, more complex.</li>
+</ul>
+<blockquote>
+<p><strong>Your migration</strong>: Currently likely doing full Excel file reads. As you move to Postgres/S3, implement incremental extraction using timestamps or CDC.</p>
+</blockquote>
+<h5 id="file-based-export-and-ingestion">File-Based Export and Ingestion<a class="headerlink" href="#file-based-export-and-ingestion" title="Permanent link">&para;</a></h5>
+<ul>
+<li>Export data to files (CSV, Parquet), transfer to target storage.</li>
+<li>Simple, reliable, battle-tested. Works well with S3 as landing zone.</li>
+</ul>
+<blockquote>
+<p><strong>Your pattern</strong>: Excel → Python → Parquet → S3 (or directly to Postgres via COPY).</p>
+</blockquote>
+<h5 id="etl-vs-elt">ETL vs ELT<a class="headerlink" href="#etl-vs-elt" title="Permanent link">&para;</a></h5>
+<ul>
+<li><strong>ETL (Extract, Transform, Load)</strong>: Transform before loading. Traditional on-prem approach.</li>
+<li><strong>ELT (Extract, Load, Transform)</strong>: Load raw, transform in place. Cloud-native approach — leverage cheap storage and powerful cloud compute.</li>
+<li><strong>ELT is the modern default</strong> — land raw data in S3/warehouse, then transform using SQL/Spark/dbt.</li>
+</ul>
+<div class="highlight"><pre><span></span><code># ETL (traditional — your current on-prem approach)
+Source → [Python transform on local server] → Destination
+
+# ELT (cloud-native — your target state)
+Source → [Land raw in S3] → [Transform with Spark/SQL/dbt] → Curated in S3/Postgres
+</code></pre></div>
+<h5 id="data-migration">Data Migration<a class="headerlink" href="#data-migration" title="Permanent link">&para;</a></h5>
+<ul>
+<li>Moving data from one system to another (your exact project).</li>
+<li>Key principles: run old and new in parallel, validate data parity, cutover when confident.</li>
+</ul>
+<h4 id="message-and-stream-ingestion-considerations">Message and Stream Ingestion Considerations<a class="headerlink" href="#message-and-stream-ingestion-considerations" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Schema evolution</strong>: Handle backward/forward compatible schema changes (Avro schema registry).</li>
+<li><strong>Late-arriving data</strong>: Define SLAs for acceptable lateness. Decide how to handle late records.</li>
+<li><strong>Ordering and deduplication</strong>: Distributed systems don't guarantee order. Handle at consumer side.</li>
+<li><strong>Dead-letter queues (DLQ)</strong>: Failed messages routed to a separate queue for manual inspection.</li>
+<li><strong>Replay</strong>: Ability to re-consume historical messages (Kafka supports this with retention).</li>
+</ul>
+<h4 id="ways-to-ingest-data">Ways to Ingest Data<a class="headerlink" href="#ways-to-ingest-data" title="Permanent link">&para;</a></h4>
+<h5 id="direct-database-connection">Direct Database Connection<a class="headerlink" href="#direct-database-connection" title="Permanent link">&para;</a></h5>
+<ul>
+<li>Query source DB directly (JDBC/ODBC). Simple but puts load on source.</li>
+<li>Use read replicas or off-peak windows to minimize impact.</li>
+</ul>
+<h5 id="change-data-capture-cdc_1">Change Data Capture (CDC)<a class="headerlink" href="#change-data-capture-cdc_1" title="Permanent link">&para;</a></h5>
+<ul>
+<li>Log-based CDC (Debezium) reads database transaction logs. Minimal source impact, near-real-time.</li>
+<li>Recommended for database-to-database or database-to-stream ingestion.</li>
+</ul>
+<h5 id="apis_2">APIs<a class="headerlink" href="#apis_2" title="Permanent link">&para;</a></h5>
+<ul>
+<li>REST polling, webhook push, GraphQL subscriptions.</li>
+<li>Watch for rate limits, pagination, auth token management.</li>
+</ul>
+<h5 id="message-queues-and-event-streaming-platforms_1">Message Queues and Event-Streaming Platforms<a class="headerlink" href="#message-queues-and-event-streaming-platforms_1" title="Permanent link">&para;</a></h5>
+<ul>
+<li>Kafka, Kinesis, Pub/Sub for real-time data ingestion.</li>
+</ul>
+<h5 id="managed-data-connectors">Managed Data Connectors<a class="headerlink" href="#managed-data-connectors" title="Permanent link">&para;</a></h5>
+<ul>
+<li>Fivetran, Airbyte, Stitch — managed ELT tools that handle source→destination pipelines.</li>
+<li>Good for reducing engineering effort on commoditized integrations.</li>
+</ul>
+<h5 id="moving-data-with-object-storage">Moving Data with Object Storage<a class="headerlink" href="#moving-data-with-object-storage" title="Permanent link">&para;</a></h5>
+<ul>
+<li>Upload files to S3, then process. Simple, reliable, decoupled.</li>
+<li>Works well as the <strong>landing zone</strong> pattern.</li>
+</ul>
+<div class="highlight"><pre><span></span><code># Landing zone pattern for your migration:
+# 1. On-prem pipeline writes to S3 (new step added to existing pipeline)
+# 2. Cloud pipeline reads from S3, transforms, loads to Postgres or curated S3
+# 3. Both pipelines run in parallel during migration period
+
+# On-prem addition:
+import boto3
+s3 = boto3.client(&quot;s3&quot;)
+s3.upload_file(&quot;output.parquet&quot;, &quot;my-landing-zone&quot;, &quot;raw/portfolios/2024-01-15.parquet&quot;)
+</code></pre></div>
+<hr />
+<h3 id="chapter-8-queries-modeling-and-transformation">Chapter 8: Queries, Modeling, and Transformation<a class="headerlink" href="#chapter-8-queries-modeling-and-transformation" title="Permanent link">&para;</a></h3>
+<h4 id="queries">Queries<a class="headerlink" href="#queries" title="Permanent link">&para;</a></h4>
+<h5 id="what-is-a-query">What Is a Query?<a class="headerlink" href="#what-is-a-query" title="Permanent link">&para;</a></h5>
+<ul>
+<li>A query retrieves or acts on data. SQL is the primary language.</li>
+<li>SQL categories: <strong>DDL</strong> (CREATE, DROP), <strong>DML</strong> (SELECT, INSERT, UPDATE, DELETE), <strong>DCL</strong> (GRANT, REVOKE), <strong>TCL</strong> (COMMIT, ROLLBACK).</li>
+</ul>
+<h5 id="the-life-of-a-query">The Life of a Query<a class="headerlink" href="#the-life-of-a-query" title="Permanent link">&para;</a></h5>
+<div class="highlight"><pre><span></span><code>SQL query → Parsing → Bytecode → Query Optimizer → Execution → Results
+</code></pre></div>
+<h5 id="the-query-optimizer">The Query Optimizer<a class="headerlink" href="#the-query-optimizer" title="Permanent link">&para;</a></h5>
+<ul>
+<li>Analyzes query plan and determines most efficient execution strategy.</li>
+<li>Considers: join order, index usage, data scan size, join algorithms.</li>
+<li>Different databases optimize differently — understand your engine's optimizer.</li>
+</ul>
+<h5 id="improving-query-performance">Improving Query Performance<a class="headerlink" href="#improving-query-performance" title="Permanent link">&para;</a></h5>
+<ul>
+<li><strong>Optimize joins</strong>: Prejoin frequently combined datasets. Avoid many-to-many explosions.</li>
+<li><strong>Use CTEs and subqueries wisely</strong>: CTEs improve readability but some engines don't optimize them.</li>
+<li><strong>Manage data scan size</strong>: Partition data, use columnar formats (Parquet), predicate pushdown.</li>
+<li><strong>Avoid full table scans</strong>: Use indexes, partition pruning, column projection.</li>
+<li><strong>Caching</strong>: Materialized views, query result caching.</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="c1">-- Example: Partitioned query on S3 data via Athena</span>
+<span class="c1">-- Only scans the relevant date partition</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="n">portfolio_id</span><span class="p">,</span><span class="w"> </span><span class="k">SUM</span><span class="p">(</span><span class="n">market_value</span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">total_mv</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">portfolio_holdings</span>
+<span class="k">WHERE</span><span class="w"> </span><span class="k">year</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;2024&#39;</span><span class="w"> </span><span class="k">AND</span><span class="w"> </span><span class="k">month</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;01&#39;</span>
+<span class="k">GROUP</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">portfolio_id</span><span class="p">;</span>
+</code></pre></div>
+<h5 id="queries-on-streaming-data">Queries on Streaming Data<a class="headerlink" href="#queries-on-streaming-data" title="Permanent link">&para;</a></h5>
+<ul>
+<li>Streaming SQL (e.g., Flink SQL, KSQL) operates on unbounded data.</li>
+<li><strong>Windowing</strong>: Tumbling windows (fixed, non-overlapping), sliding/hopping windows (overlapping), session windows (activity-based).</li>
+</ul>
+<h4 id="data-modeling">Data Modeling<a class="headerlink" href="#data-modeling" title="Permanent link">&para;</a></h4>
+<h5 id="what-is-a-data-model">What Is a Data Model?<a class="headerlink" href="#what-is-a-data-model" title="Permanent link">&para;</a></h5>
+<ul>
+<li>An abstract representation of data, its relationships, and constraints.</li>
+<li>Serves as a contract between data producers and consumers.</li>
+</ul>
+<h5 id="conceptual-logical-and-physical-data-models">Conceptual, Logical, and Physical Data Models<a class="headerlink" href="#conceptual-logical-and-physical-data-models" title="Permanent link">&para;</a></h5>
+<ul>
+<li><strong>Conceptual</strong>: High-level business entities and relationships (no technical detail).</li>
+<li><strong>Logical</strong>: Detailed structure with attributes and data types (database-agnostic).</li>
+<li><strong>Physical</strong>: Actual implementation — tables, columns, indexes, partitions (database-specific).</li>
+</ul>
+<h5 id="normalization">Normalization<a class="headerlink" href="#normalization" title="Permanent link">&para;</a></h5>
+<ul>
+<li><strong>Normalization</strong>: Organizing data to reduce redundancy. Normal forms (1NF through 3NF typically).</li>
+<li><strong>1NF</strong>: Atomic values, unique rows.</li>
+<li><strong>2NF</strong>: 1NF + no partial dependencies on composite keys.</li>
+<li><strong>3NF</strong>: 2NF + no transitive dependencies.</li>
+<li>Fully normalized = minimal redundancy, maximum integrity, but complex joins for analytics.</li>
+<li><strong>Denormalization</strong>: Intentionally introducing redundancy for query performance. Common in analytics.</li>
+</ul>
+<h5 id="techniques-for-modeling-batch-analytical-data">Techniques for Modeling Batch Analytical Data<a class="headerlink" href="#techniques-for-modeling-batch-analytical-data" title="Permanent link">&para;</a></h5>
+<p><strong>Kimball (Dimensional Modeling)</strong></p>
+<ul>
+<li><strong>Star schema</strong>: Central fact table surrounded by dimension tables.</li>
+<li><strong>Fact tables</strong>: Quantitative measurements (transactions, events). Grain = level of detail per row.</li>
+<li><strong>Dimension tables</strong>: Descriptive attributes (who, what, when, where).</li>
+<li>Simple, intuitive, fast queries. Widely adopted.</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="c1">-- Star schema example</span>
+<span class="c1">-- Fact table: portfolio_holdings (grain: one row per holding per day)</span>
+<span class="c1">-- Dimensions: dim_portfolio, dim_security, dim_date</span>
+
+<span class="k">SELECT</span><span class="w"> </span><span class="n">d</span><span class="p">.</span><span class="nb">date</span><span class="p">,</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">portfolio_name</span><span class="p">,</span><span class="w"> </span><span class="n">s</span><span class="p">.</span><span class="n">security_name</span><span class="p">,</span><span class="w"> </span><span class="n">f</span><span class="p">.</span><span class="n">market_value</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">fact_portfolio_holdings</span><span class="w"> </span><span class="n">f</span>
+<span class="k">JOIN</span><span class="w"> </span><span class="n">dim_date</span><span class="w"> </span><span class="n">d</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">f</span><span class="p">.</span><span class="n">date_key</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">d</span><span class="p">.</span><span class="n">date_key</span>
+<span class="k">JOIN</span><span class="w"> </span><span class="n">dim_portfolio</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">f</span><span class="p">.</span><span class="n">portfolio_key</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">portfolio_key</span>
+<span class="k">JOIN</span><span class="w"> </span><span class="n">dim_security</span><span class="w"> </span><span class="n">s</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">f</span><span class="p">.</span><span class="n">security_key</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">s</span><span class="p">.</span><span class="n">security_key</span>
+<span class="k">WHERE</span><span class="w"> </span><span class="n">d</span><span class="p">.</span><span class="nb">date</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;2024-01-15&#39;</span><span class="p">;</span>
+</code></pre></div>
+<p><strong>Inmon (Corporate Information Factory)</strong></p>
+<ul>
+<li>Top-down approach. Build a normalized enterprise data warehouse (3NF) first, then create dimensional data marts.</li>
+<li>More rigorous, better for complex enterprises, but slower to build.</li>
+</ul>
+<p><strong>Data Vault</strong></p>
+<ul>
+<li>Hybrid approach designed for agility and auditability.</li>
+<li>Three entity types:</li>
+<li><strong>Hubs</strong>: Unique business keys.</li>
+<li><strong>Links</strong>: Relationships between hubs.</li>
+<li><strong>Satellites</strong>: Descriptive attributes with timestamps (full history).</li>
+<li>Insert-only (append-only), full auditability, parallelizable loading.</li>
+</ul>
+<p><strong>Wide Denormalized Tables</strong></p>
+<ul>
+<li>Single flat table with many columns. Simple queries (no joins), but can be very wide.</li>
+<li>Popular in data lake environments and for ML feature tables.</li>
+</ul>
+<blockquote>
+<p><strong>Recommendation for your team</strong>: Start with <strong>wide denormalized tables</strong> in S3/Parquet for simplicity. If you adopt Postgres for serving, consider a lightweight <strong>star schema</strong> for commonly queried datasets. Full Kimball/Inmon/Data Vault is overkill for your current scale.</p>
+</blockquote>
+<h4 id="transformations">Transformations<a class="headerlink" href="#transformations" title="Permanent link">&para;</a></h4>
+<h5 id="batch-transformations">Batch Transformations<a class="headerlink" href="#batch-transformations" title="Permanent link">&para;</a></h5>
+<ul>
+<li>SQL-based transforms in a warehouse or on files (Spark, dbt, Pandas).</li>
+<li><strong>dbt (Data Build Tool)</strong>: SQL-first transformation framework. Version-controlled, tested, documented. Widely adopted.</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="c1">-- dbt-style transformation example</span>
+<span class="c1">-- models/curated/portfolio_daily_nav.sql</span>
+<span class="k">WITH</span><span class="w"> </span><span class="n">raw_holdings</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="err">{{</span><span class="w"> </span><span class="k">ref</span><span class="p">(</span><span class="s1">&#39;stg_portfolio_holdings&#39;</span><span class="p">)</span><span class="w"> </span><span class="err">}}</span>
+<span class="p">),</span>
+<span class="n">aggregated</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="k">SELECT</span>
+<span class="w">        </span><span class="n">portfolio_id</span><span class="p">,</span>
+<span class="w">        </span><span class="n">as_of_date</span><span class="p">,</span>
+<span class="w">        </span><span class="k">SUM</span><span class="p">(</span><span class="n">market_value</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">total_nav</span><span class="p">,</span>
+<span class="w">        </span><span class="k">COUNT</span><span class="p">(</span><span class="k">DISTINCT</span><span class="w"> </span><span class="n">security_id</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">num_holdings</span>
+<span class="w">    </span><span class="k">FROM</span><span class="w"> </span><span class="n">raw_holdings</span>
+<span class="w">    </span><span class="k">GROUP</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">portfolio_id</span><span class="p">,</span><span class="w"> </span><span class="n">as_of_date</span>
+<span class="p">)</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">aggregated</span>
+</code></pre></div>
+<h5 id="materialized-views-federation-and-query-virtualization">Materialized Views, Federation, and Query Virtualization<a class="headerlink" href="#materialized-views-federation-and-query-virtualization" title="Permanent link">&para;</a></h5>
+<ul>
+<li><strong>Materialized view</strong>: Precomputed query result stored physically. Fast reads, must be refreshed.</li>
+<li><strong>Federation</strong>: Query across multiple data sources as if they were one.</li>
+<li><strong>Query virtualization</strong>: Virtual tables that execute queries on the fly against underlying sources.</li>
+</ul>
+<h5 id="streaming-transformations-and-processing">Streaming Transformations and Processing<a class="headerlink" href="#streaming-transformations-and-processing" title="Permanent link">&para;</a></h5>
+<ul>
+<li>Apply transforms to data in motion (Kafka Streams, Flink, Spark Structured Streaming).</li>
+<li>Useful for real-time enrichment, filtering, aggregation.</li>
+</ul>
+<hr />
+<h3 id="chapter-9-serving-data-for-analytics-machine-learning-and-reverse-etl">Chapter 9: Serving Data for Analytics, Machine Learning, and Reverse ETL<a class="headerlink" href="#chapter-9-serving-data-for-analytics-machine-learning-and-reverse-etl" title="Permanent link">&para;</a></h3>
+<h4 id="general-considerations-for-serving-data">General Considerations for Serving Data<a class="headerlink" href="#general-considerations-for-serving-data" title="Permanent link">&para;</a></h4>
+<h5 id="trust">Trust<a class="headerlink" href="#trust" title="Permanent link">&para;</a></h5>
+<ul>
+<li>Downstream consumers must trust the data. Trust is built through quality, consistency, and transparency.</li>
+<li>Data quality issues erode trust quickly and are hard to rebuild.</li>
+</ul>
+<h5 id="whats-the-use-case-and-whos-the-user">What's the Use Case, and Who's the User?<a class="headerlink" href="#whats-the-use-case-and-whos-the-user" title="Permanent link">&para;</a></h5>
+<ul>
+<li>Understand the consumer: analyst, data scientist, ML pipeline, external customer?</li>
+<li>Tailor serving layer to use case: ad hoc queries, dashboards, model training, API access.</li>
+</ul>
+<h5 id="data-products">Data Products<a class="headerlink" href="#data-products" title="Permanent link">&para;</a></h5>
+<ul>
+<li>A <strong>data product</strong> is a dataset (or data-derived artifact) treated as a product — with SLAs, documentation, ownership, and quality guarantees.</li>
+</ul>
+<h5 id="self-service-or-not">Self-Service or Not?<a class="headerlink" href="#self-service-or-not" title="Permanent link">&para;</a></h5>
+<ul>
+<li>Self-service analytics: Users access and analyze data without IT help.</li>
+<li>Requires good data quality, documentation, and accessible tools.</li>
+</ul>
+<h5 id="data-definitions-and-logic">Data Definitions and Logic<a class="headerlink" href="#data-definitions-and-logic" title="Permanent link">&para;</a></h5>
+<ul>
+<li><strong>Metrics layer / semantic layer</strong>: Centralized definitions of business metrics. Prevents conflicting definitions across teams.</li>
+</ul>
+<h4 id="analytics">Analytics<a class="headerlink" href="#analytics" title="Permanent link">&para;</a></h4>
+<h5 id="business-analytics-bi">Business Analytics (BI)<a class="headerlink" href="#business-analytics-bi" title="Permanent link">&para;</a></h5>
+<ul>
+<li>Dashboards, reports, ad hoc queries on historical data.</li>
+<li>Tools: Tableau, Power BI, Looker, Metabase.</li>
+<li>Logic-on-read approach: Store data clean but fairly raw, apply business logic at query time via BI tool.</li>
+</ul>
+<h5 id="operational-analytics">Operational Analytics<a class="headerlink" href="#operational-analytics" title="Permanent link">&para;</a></h5>
+<ul>
+<li>Real-time or near-real-time monitoring. Live dashboards, alerting.</li>
+<li>Data consumed directly from streaming sources or near-real-time refreshed tables.</li>
+</ul>
+<h5 id="embedded-analytics">Embedded Analytics<a class="headerlink" href="#embedded-analytics" title="Permanent link">&para;</a></h5>
+<ul>
+<li>Analytics delivered to external customers within a product.</li>
+<li>Access control is critical — each customer must see only their data (multi-tenancy).</li>
+</ul>
+<h4 id="machine-learning">Machine Learning<a class="headerlink" href="#machine-learning" title="Permanent link">&para;</a></h4>
+<ul>
+<li>Data engineers provide the infrastructure for ML: feature pipelines, training data management, serving infrastructure.</li>
+<li><strong>Feature stores</strong>: Centralized repositories for ML features with versioning, sharing, and serving (online + offline).</li>
+<li>Key considerations: Data quality sufficient for features? Data discoverable? Technical/org boundaries between DE and ML clear?</li>
+</ul>
+<h4 id="ways-to-serve-data-for-analytics-and-ml">Ways to Serve Data for Analytics and ML<a class="headerlink" href="#ways-to-serve-data-for-analytics-and-ml" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Use Case</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>File exchange (S3)</strong></td>
+<td>Share Parquet/CSV files. Simple. Good for batch ML training.</td>
+</tr>
+<tr>
+<td><strong>Database (Postgres, warehouse)</strong></td>
+<td>Structured queries, BI tools, dashboards.</td>
+</tr>
+<tr>
+<td><strong>Streaming (Kafka)</strong></td>
+<td>Real-time consumers, event-driven serving.</td>
+</tr>
+<tr>
+<td><strong>Query federation</strong></td>
+<td>Query across multiple sources without moving data.</td>
+</tr>
+<tr>
+<td><strong>Semantic/metrics layer</strong></td>
+<td>Consistent business definitions across tools.</td>
+</tr>
+<tr>
+<td><strong>Notebooks</strong></td>
+<td>Interactive analysis, ad hoc exploration (Jupyter).</td>
+</tr>
+</tbody>
+</table>
+<h4 id="reverse-etl">Reverse ETL<a class="headerlink" href="#reverse-etl" title="Permanent link">&para;</a></h4>
+<ul>
+<li>Pushing processed/enriched data from the analytical layer back to operational systems (CRM, SaaS platforms, production applications).</li>
+<li>Growing practice as companies want to operationalize their analytics.</li>
+</ul>
+<hr />
+<h2 id="part-iii-security-privacy-and-the-future-of-data-engineering">Part III: Security, Privacy, and the Future of Data Engineering<a class="headerlink" href="#part-iii-security-privacy-and-the-future-of-data-engineering" title="Permanent link">&para;</a></h2>
+<hr />
+<h3 id="chapter-10-security-and-privacy">Chapter 10: Security and Privacy<a class="headerlink" href="#chapter-10-security-and-privacy" title="Permanent link">&para;</a></h3>
+<h4 id="people">People<a class="headerlink" href="#people" title="Permanent link">&para;</a></h4>
+<h5 id="the-power-of-negative-thinking">The Power of Negative Thinking<a class="headerlink" href="#the-power-of-negative-thinking" title="Permanent link">&para;</a></h5>
+<ul>
+<li>The weakest link in security is human. Always think through attack and leak scenarios.</li>
+<li>Best way to protect sensitive data: <strong>don't ingest it in the first place</strong> unless there's a real downstream need.</li>
+</ul>
+<h5 id="always-be-paranoid">Always Be Paranoid<a class="headerlink" href="#always-be-paranoid" title="Permanent link">&para;</a></h5>
+<ul>
+<li>Verify credential requests. When in doubt, hold off and get second opinions.</li>
+</ul>
+<h4 id="processes">Processes<a class="headerlink" href="#processes" title="Permanent link">&para;</a></h4>
+<h5 id="the-principle-of-least-privilege">The Principle of Least Privilege<a class="headerlink" href="#the-principle-of-least-privilege" title="Permanent link">&para;</a></h5>
+<ul>
+<li>Every user, service, and system gets the minimum access necessary.</li>
+<li>Applied to: IAM roles, database users, S3 bucket policies, Kubernetes RBAC.</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="c1"># Example: K8s RBAC for a pipeline service account (least privilege)</span>
+<span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">rbac.authorization.k8s.io/v1</span>
+<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Role</span>
+<span class="nt">metadata</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">etl-pipeline-role</span>
+<span class="w">  </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">data-pipelines</span>
+<span class="nt">rules</span><span class="p">:</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">apiGroups</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;&quot;</span><span class="p p-Indicator">]</span>
+<span class="w">  </span><span class="nt">resources</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;pods&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;pods/log&quot;</span><span class="p p-Indicator">]</span>
+<span class="w">  </span><span class="nt">verbs</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;get&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;list&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;watch&quot;</span><span class="p p-Indicator">]</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">apiGroups</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;batch&quot;</span><span class="p p-Indicator">]</span>
+<span class="w">  </span><span class="nt">resources</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;jobs&quot;</span><span class="p p-Indicator">]</span>
+<span class="w">  </span><span class="nt">verbs</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;get&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;list&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;watch&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;create&quot;</span><span class="p p-Indicator">]</span>
+</code></pre></div>
+<h5 id="shared-responsibility-in-the-cloud">Shared Responsibility in the Cloud<a class="headerlink" href="#shared-responsibility-in-the-cloud" title="Permanent link">&para;</a></h5>
+<ul>
+<li>Cloud provider secures the infrastructure <strong>of</strong> the cloud. You secure everything <strong>in</strong> the cloud.</li>
+<li>You are responsible for: IAM policies, network config, encryption keys, application security, data classification.</li>
+</ul>
+<h5 id="always-back-up-your-data">Always Back Up Your Data<a class="headerlink" href="#always-back-up-your-data" title="Permanent link">&para;</a></h5>
+<ul>
+<li>S3 versioning, cross-region replication, database snapshots (RDS automated backups).</li>
+<li>Test restore procedures regularly.</li>
+</ul>
+<h4 id="technology">Technology<a class="headerlink" href="#technology" title="Permanent link">&para;</a></h4>
+<h5 id="encryption">Encryption<a class="headerlink" href="#encryption" title="Permanent link">&para;</a></h5>
+<ul>
+<li><strong>At rest</strong>: S3 SSE (server-side encryption), RDS encryption, EBS encryption.</li>
+<li><strong>In transit</strong>: TLS/SSL for all network communication. Enforce HTTPS.</li>
+<li>Manage encryption keys via KMS (Key Management Service).</li>
+</ul>
+<h5 id="logging-monitoring-and-alerting">Logging, Monitoring, and Alerting<a class="headerlink" href="#logging-monitoring-and-alerting" title="Permanent link">&para;</a></h5>
+<ul>
+<li>CloudTrail for API audit logs. CloudWatch for metrics and alarms.</li>
+<li>Monitor: access patterns, unusual queries, failed auth attempts, data egress spikes.</li>
+</ul>
+<h5 id="network-access">Network Access<a class="headerlink" href="#network-access" title="Permanent link">&para;</a></h5>
+<ul>
+<li>VPCs, security groups, NACLs. Minimize public-facing endpoints.</li>
+<li>Use VPC endpoints for S3 and other AWS services (traffic stays within AWS network).</li>
+</ul>
+<h5 id="security-for-low-level-data-engineering">Security for Low-Level Data Engineering<a class="headerlink" href="#security-for-low-level-data-engineering" title="Permanent link">&para;</a></h5>
+<ul>
+<li>Principle of least privilege for IAM roles attached to EKS pods (IRSA — IAM Roles for Service Accounts).</li>
+<li>Use secrets management (AWS Secrets Manager, HashiCorp Vault) instead of hardcoded credentials.</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="c1"># Example: Retrieving a database password from AWS Secrets Manager</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">boto3</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">json</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">get_db_credentials</span><span class="p">(</span><span class="n">secret_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+    <span class="n">client</span> <span class="o">=</span> <span class="n">boto3</span><span class="o">.</span><span class="n">client</span><span class="p">(</span><span class="s2">&quot;secretsmanager&quot;</span><span class="p">)</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">get_secret_value</span><span class="p">(</span><span class="n">SecretId</span><span class="o">=</span><span class="n">secret_name</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">response</span><span class="p">[</span><span class="s2">&quot;SecretString&quot;</span><span class="p">])</span>
+
+<span class="n">creds</span> <span class="o">=</span> <span class="n">get_db_credentials</span><span class="p">(</span><span class="s2">&quot;prod/postgres/etl-user&quot;</span><span class="p">)</span>
+<span class="c1"># creds = {&quot;username&quot;: &quot;etl_user&quot;, &quot;password&quot;: &quot;...&quot;, &quot;host&quot;: &quot;...&quot;, &quot;dbname&quot;: &quot;analytics&quot;}</span>
+</code></pre></div>
+<hr />
+<h3 id="chapter-11-the-future-of-data-engineering">Chapter 11: The Future of Data Engineering<a class="headerlink" href="#chapter-11-the-future-of-data-engineering" title="Permanent link">&para;</a></h3>
+<h4 id="the-data-engineering-lifecycle-isnt-going-away">The Data Engineering Lifecycle Isn't Going Away<a class="headerlink" href="#the-data-engineering-lifecycle-isnt-going-away" title="Permanent link">&para;</a></h4>
+<ul>
+<li>The lifecycle stages (generation, storage, ingestion, transformation, serving) are durable concepts.</li>
+<li>Specific tools will change but the lifecycle framework persists.</li>
+</ul>
+<h4 id="the-decline-of-complexity-and-rise-of-easy-to-use-data-tools">The Decline of Complexity and Rise of Easy-to-Use Data Tools<a class="headerlink" href="#the-decline-of-complexity-and-rise-of-easy-to-use-data-tools" title="Permanent link">&para;</a></h4>
+<ul>
+<li>Abstraction continues. Tools become simpler, more accessible, less ops burden.</li>
+<li>Managed services replace self-hosted infrastructure.</li>
+</ul>
+<h4 id="the-cloud-scale-data-os-and-improved-interoperability">The Cloud-Scale Data OS and Improved Interoperability<a class="headerlink" href="#the-cloud-scale-data-os-and-improved-interoperability" title="Permanent link">&para;</a></h4>
+<ul>
+<li>Cloud is converging toward a "data OS" — interoperable services that compose seamlessly.</li>
+<li>Open table formats (Iceberg, Delta Lake, Hudi) enable interoperability across engines.</li>
+</ul>
+<h4 id="enterprisey-data-engineering">"Enterprisey" Data Engineering<a class="headerlink" href="#enterprisey-data-engineering" title="Permanent link">&para;</a></h4>
+<ul>
+<li>Governance, quality, lineage, cataloging — once "enterprise-only" practices — are now mainstream.</li>
+<li>Data mesh, data contracts, data products are formalizing these patterns.</li>
+</ul>
+<h4 id="moving-beyond-the-modern-data-stack-toward-the-live-data-stack">Moving Beyond the Modern Data Stack, Toward the Live Data Stack<a class="headerlink" href="#moving-beyond-the-modern-data-stack-toward-the-live-data-stack" title="Permanent link">&para;</a></h4>
+<ul>
+<li>Real-time analytical databases (ClickHouse, Apache Druid, Materialize) enable low-latency analytics.</li>
+<li>Streaming pipelines become first-class alongside batch.</li>
+<li>Tight feedback loops between applications and ML models.</li>
+</ul>
+<hr />
+<h2 id="appendix-a-serialization-and-compression-technical-details">Appendix A: Serialization and Compression Technical Details<a class="headerlink" href="#appendix-a-serialization-and-compression-technical-details" title="Permanent link">&para;</a></h2>
+<h4 id="serialization-formats">Serialization Formats<a class="headerlink" href="#serialization-formats" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>Format</th>
+<th>Type</th>
+<th>Schema</th>
+<th>Use Case</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>CSV</strong></td>
+<td>Row</td>
+<td>None</td>
+<td>Simple interchange, human-readable. Fragile (quoting, encoding issues).</td>
+</tr>
+<tr>
+<td><strong>JSON</strong></td>
+<td>Row (semi-structured)</td>
+<td>Self-describing</td>
+<td>API interchange, logs. Human-readable but verbose.</td>
+</tr>
+<tr>
+<td><strong>Avro</strong></td>
+<td>Row (binary)</td>
+<td>Schema embedded</td>
+<td>Streaming (Kafka), schema evolution, compact.</td>
+</tr>
+<tr>
+<td><strong>Parquet</strong></td>
+<td>Columnar (binary)</td>
+<td>Schema embedded</td>
+<td>Analytics, data lakes, ML training. Highly compressed, fast scans.</td>
+</tr>
+<tr>
+<td><strong>ORC</strong></td>
+<td>Columnar (binary)</td>
+<td>Schema embedded</td>
+<td>Hive/Spark ecosystems. Similar to Parquet.</td>
+</tr>
+<tr>
+<td><strong>Arrow</strong></td>
+<td>Columnar (in-memory)</td>
+<td>Schema defined</td>
+<td>Inter-process data exchange, zero-copy reads. Not for storage.</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>Recommended for your migration</strong>:
+- <strong>Landing zone / raw</strong>: Parquet (columnar, compressed, schema-embedded, Athena-queryable)
+- <strong>Streaming</strong>: Avro (compact, schema evolution via registry)
+- <strong>Interchange with legacy systems</strong>: CSV (if needed), but migrate to Parquet ASAP</p>
+</blockquote>
+<h4 id="compression-algorithms">Compression Algorithms<a class="headerlink" href="#compression-algorithms" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>Algorithm</th>
+<th>Speed</th>
+<th>Ratio</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>gzip</strong></td>
+<td>Moderate</td>
+<td>Good</td>
+<td>Most compatible. Default for many tools.</td>
+</tr>
+<tr>
+<td><strong>Snappy</strong></td>
+<td>Very fast</td>
+<td>Lower</td>
+<td>Optimized for speed. Common in Spark/Hadoop.</td>
+</tr>
+<tr>
+<td><strong>Zstandard (zstd)</strong></td>
+<td>Fast</td>
+<td>Excellent</td>
+<td>Best balance of speed and ratio. Growing adoption.</td>
+</tr>
+<tr>
+<td><strong>LZ4</strong></td>
+<td>Fastest</td>
+<td>Lower</td>
+<td>Ultra-low latency. Good for streaming.</td>
+</tr>
+<tr>
+<td><strong>bzip2</strong></td>
+<td>Slow</td>
+<td>Excellent</td>
+<td>Maximum compression. Rarely used in pipelines.</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>Recommendation</strong>: Use <strong>Snappy</strong> or <strong>Zstandard</strong> with Parquet on S3. Both offer good speed/ratio tradeoffs for analytical workloads.</p>
+</blockquote>
+<hr />
+<h2 id="appendix-b-cloud-networking">Appendix B: Cloud Networking<a class="headerlink" href="#appendix-b-cloud-networking" title="Permanent link">&para;</a></h2>
+<h4 id="key-concepts">Key Concepts<a class="headerlink" href="#key-concepts" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>VPC (Virtual Private Cloud)</strong>: Isolated network within AWS. You define subnets, routing, and access.</li>
+<li><strong>Subnets</strong>: Public (internet-accessible) and private (internal only). Data infrastructure belongs in private subnets.</li>
+<li><strong>Security Groups</strong>: Stateful firewall rules at the instance level. Whitelist ingress/egress.</li>
+<li><strong>VPC Endpoints</strong>: Private connectivity to AWS services (S3, Secrets Manager) without traversing the public internet.</li>
+<li><strong>VPC Peering / Transit Gateway</strong>: Connect multiple VPCs. Useful for multi-account architectures.</li>
+</ul>
+<blockquote>
+<p><strong>For your EKS deployment</strong>:
+- EKS worker nodes in private subnets.
+- S3 access via VPC Gateway Endpoint (free, private).
+- RDS Postgres in private subnet, accessible only from EKS security group.
+- Airflow web UI exposed via ALB in public subnet (with authentication).</p>
+</blockquote>
+<div class="highlight"><pre><span></span><code>┌──────────────────── VPC ────────────────────┐
+│                                              │
+│  ┌─ Private Subnet ─┐   ┌─ Private Subnet ─┐│
+│  │  EKS Worker Nodes │   │  RDS Postgres    ││
+│  │  Airflow Workers  │──▶│  (analytics DB)  ││
+│  └───────┬───────────┘   └──────────────────┘│
+│          │                                    │
+│          │  VPC Endpoint                      │
+│          ▼                                    │
+│       ┌──────┐                                │
+│       │  S3  │ (data lake)                    │
+│       └──────┘                                │
+│                                              │
+│  ┌─ Public Subnet ──┐                        │
+│  │  ALB → Airflow UI │                        │
+│  └───────────────────┘                        │
+└──────────────────────────────────────────────┘
+</code></pre></div>
+<hr />
+<h2 id="quick-reference-mapping-your-migration">Quick Reference: Mapping Your Migration<a class="headerlink" href="#quick-reference-mapping-your-migration" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Current State (On-Prem)</th>
+<th>Target State (Cloud)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Excel files on shared network drive</td>
+<td>S3 (Parquet) + Postgres (RDS)</td>
+</tr>
+<tr>
+<td>Autosys .jil orchestration</td>
+<td>Apache Airflow (MWAA or on EKS)</td>
+</tr>
+<tr>
+<td>Manual file-based data movement</td>
+<td>Automated S3 put + Postgres insert</td>
+</tr>
+<tr>
+<td>On-prem server execution</td>
+<td>EKS (Kubernetes) on AWS</td>
+</tr>
+<tr>
+<td>No formal data quality checks</td>
+<td>DataOps: automated testing, monitoring, alerting</td>
+</tr>
+<tr>
+<td>Ad hoc schema (Excel columns)</td>
+<td>Enforced schema (Parquet schema, Postgres DDL)</td>
+</tr>
+<tr>
+<td>No data lineage</td>
+<td>Airflow DAG lineage + metadata tracking</td>
+</tr>
+</tbody>
+</table>
+<h4 id="recommended-migration-sequence">Recommended Migration Sequence<a class="headerlink" href="#recommended-migration-sequence" title="Permanent link">&para;</a></h4>
+<ol>
+<li><strong>Add S3 writes to on-prem pipeline</strong> — dual-write: existing output + S3 upload (Parquet).</li>
+<li><strong>Optionally add Postgres inserts</strong> — for data that needs structured querying.</li>
+<li><strong>Build cloud pipeline on feature branch</strong> — Airflow DAGs reading from S3/Postgres, running on EKS.</li>
+<li><strong>Validate data parity</strong> — compare on-prem outputs vs cloud outputs.</li>
+<li><strong>Cutover</strong> — switch downstream consumers to cloud pipeline.</li>
+<li><strong>Decommission</strong> — retire on-prem Autosys jobs.</li>
+</ol>
+<hr />
+
+
+
+
+
+
+
+
+
+
+
+
+                
+  
+
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        
+
+<footer class="md-footer">
+  
+    <nav
+      class="md-footer__inner md-grid"
+      aria-label="footer.title"
+    >
+      
+        <a
+          href="../refactoring/"
+          class="md-footer__link md-footer__link--prev"
+          rel="prev"
+        >
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              Refactoring
+            </div>
+          </div>
+        </a>
+      
+      
+        <a
+          href="../data_pipelines_airflow/"
+          class="md-footer__link md-footer__link--next"
+          rel="next"
+        >
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              Airflow
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        Made with
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+          Material for MkDocs
+        </a>
+        with emoji by
+        <a href="https://github.com/twitter/twemoji" target="_blank" rel="noopener">
+          Twemoji
+        </a>
+      </div>
+      
+<div class="md-social">
+  
+</div>
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["announce.dismiss", "content.action.edit", "content.action.view", "content.code.annotate", "content.code.copy", "content.tooltips", "header.autohide", "navigation.expand", "navigation.footer", "navigation.indexes", "navigation.instant", "navigation.sections", "navigation.tabs", "navigation.top", "navigation.tracking", "search.highlight", "search.share", "search.suggest", "toc.follow", "toc.integrate"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../../javascripts/extra.js"></script>
+      
+        <script src="../../assets/pymdownx-extras/extra-loader-B5CKpNQx.js"></script>
+      
+    
+  </body>
+</html>

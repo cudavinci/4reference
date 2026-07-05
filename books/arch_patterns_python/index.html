@@ -1,0 +1,3498 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Notes and code snippets">
+      
+      
+        <meta name="author" content="Sean Fuller">
+      
+      
+        <link rel="canonical" href="https://cudavinci.github.io/4reference/books/arch_patterns_python/">
+      
+      
+        <link rel="prev" href="../tdd_python/">
+      
+      
+        <link rel="next" href="../refactoring/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Architecture Patterns - My Snippets & Notes</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+
+      
+    
+<script src="../../assets/pymdownx-extras/material-extra-theme-2ek1P7jT.js" type="text/javascript"></script>
+<script src="../../assets/pymdownx-extras/material-extra-3rdparty-BUCF4rjN.js" type="text/javascript"></script>
+
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+      <link rel="stylesheet" href="../../assets/pymdownx-extras/extra-c6ab11540a.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="dracula" data-md-color-primary="#f8f8f2" data-md-color-accent="#bd93f9">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#book3-architecture-patterns-with-python" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+
+<header class="md-header" data-md-component="header">
+  <nav
+    class="md-header__inner md-grid"
+    aria-label="header.title"
+  >
+    <a
+      href="https://cudavinci.github.io/4reference/"
+      title="My Snippets &amp; Notes"
+      class="md-header__button md-logo"
+      aria-label="My Snippets & Notes"
+    >
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            My Snippets & Notes
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Architecture Patterns
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    <div class="md-header__options">
+      <div class="md-header-nav__scheme md-header-nav__button md-source__icon md-icon">
+          <a
+            href="javascript:toggleScheme();"
+            title="Light mode"
+            class="light-mode"
+          >
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+          </a>
+          <a
+            href="javascript:toggleScheme();"
+            title="Dark mode"
+            class="dark-mode"
+          >
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+          </a>
+          <a
+            href="javascript:toggleScheme();"
+            title="System preference"
+            class="system-mode"
+          >
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M7.5 2c-1.79 1.15-3 3.18-3 5.5s1.21 4.35 3.03 5.5C4.46 13 2 10.54 2 7.5A5.5 5.5 0 0 1 7.5 2m11.57 1.5 1.43 1.43L4.93 20.5 3.5 19.07zm-6.18 2.43L11.41 5 9.97 6l.42-1.7L9 3.24l1.75-.12.58-1.65L12 3.1l1.73.03-1.35 1.13zm-3.3 3.61-1.16-.73-1.12.78.34-1.32-1.09-.83 1.36-.09.45-1.29.51 1.27 1.36.03-1.05.87zM19 13.5a5.5 5.5 0 0 1-5.5 5.5c-1.22 0-2.35-.4-3.26-1.07l7.69-7.69c.67.91 1.07 2.04 1.07 3.26m-4.4 6.58 2.77-1.15-.24 3.35zm4.33-2.7 1.15-2.77 2.2 2.54zm1.15-4.96-1.14-2.78 3.34.24zM9.63 18.93l2.77 1.15-2.53 2.19z"/></svg>
+          </a>
+           <a
+            href="javascript:toggleScheme();"
+            title="Unknown scheme"
+            class="unknown-mode"
+          >
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m15.07 11.25-.9.92C13.45 12.89 13 13.5 13 15h-2v-.5c0-1.11.45-2.11 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41a2 2 0 0 0-2-2 2 2 0 0 0-2 2H8a4 4 0 0 1 4-4 4 4 0 0 1 4 4 3.2 3.2 0 0 1-.93 2.25M13 19h-2v-2h2M12 2A10 10 0 0 0 2 12a10 10 0 0 0 10 10 10 10 0 0 0 10-10c0-5.53-4.5-10-10-10"/></svg>
+          </a>
+      </div>
+    </div>
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../snippets/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Code Snippets
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../webdev_snippets/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Web Development
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Book Summaries
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../notes/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Notes
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--lifted md-nav--integrated" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="My Snippets &amp; Notes" class="md-nav__button md-logo" aria-label="My Snippets & Notes" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    My Snippets & Notes
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../snippets/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Code Snippets
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../webdev_snippets/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Web Development
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Book Summaries
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4" id="__nav_4_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Book Summaries
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../crafting_tdd_python/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Crafting TDD
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../pytest/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    pytest
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../python_packaging/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Python Packaging
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../selenium_testing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Selenium Testing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api_design_patterns/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API Design Patterns
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../serious_python/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Serious Python
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tdd_python/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    TDD with Python
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture Patterns
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture Patterns
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#introduction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Introduction
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Introduction">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#why-do-our-designs-go-wrong" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why Do Our Designs Go Wrong?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#encapsulation-and-abstractions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Encapsulation and Abstractions
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-dependency-inversion-principle" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Dependency Inversion Principle
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#part-i-building-an-architecture-to-support-domain-modeling" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Part I: Building an Architecture to Support Domain Modeling
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#chapter-1-domain-modeling" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chapter 1: Domain Modeling
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Chapter 1: Domain Modeling">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-is-a-domain-model" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What Is a Domain Model?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exploring-the-domain-language" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exploring the Domain Language
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#unit-testing-domain-models" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Unit Testing Domain Models
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dataclasses-are-great-for-value-objects" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Dataclasses Are Great for Value Objects
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#entities-vs-value-objects" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Entities vs Value Objects
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#domain-services" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Domain Services
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exceptions-as-domain-concepts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exceptions as Domain Concepts
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#chapter-2-repository-pattern" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chapter 2: Repository Pattern
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Chapter 2: Repository Pattern">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-normal-orm-way-model-depends-on-orm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Normal ORM Way: Model Depends on ORM
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#inverting-the-dependency-orm-depends-on-model" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Inverting the Dependency: ORM Depends on Model
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#introducing-the-repository-pattern" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Introducing the Repository Pattern
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#building-a-fake-repository-for-tests" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Building a Fake Repository for Tests
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#trade-offs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Trade-Offs
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#chapter-3-a-brief-interlude-on-coupling-and-abstractions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chapter 3: A Brief Interlude: On Coupling and Abstractions
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Chapter 3: A Brief Interlude: On Coupling and Abstractions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#abstracting-state-aids-testability" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Abstracting State Aids Testability
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-ports-and-adapters-hexagonal-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The "Ports and Adapters" / Hexagonal Architecture
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#functional-core-imperative-shell" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Functional Core, Imperative Shell
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#choosing-the-right-abstraction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Choosing the Right Abstraction
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#chapter-4-our-first-use-case-flask-api-and-service-layer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chapter 4: Our First Use Case: Flask API and Service Layer
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Chapter 4: Our First Use Case: Flask API and Service Layer">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#connecting-our-application-to-the-real-world" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Connecting Our Application to the Real World
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#a-typical-service-function" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A Typical Service Function
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-service-layer-and-the-flask-endpoint" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Service Layer and the Flask Endpoint
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#why-is-everything-called-a-service" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why Is Everything Called a Service?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#testing-the-service-layer-with-fakes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Testing the Service Layer with Fakes
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#chapter-5-tdd-in-high-gear-and-low-gear" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chapter 5: TDD in High Gear and Low Gear
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Chapter 5: TDD in High Gear and Low Gear">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#test-pyramid-test-spectrum" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Test Pyramid / Test Spectrum
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rules-of-thumb-for-test-types" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rules of Thumb for Test Types
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#high-gear-vs-low-gear" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        High Gear vs. Low Gear
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fully-decoupling-the-service-layer-tests-from-the-domain" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fully Decoupling the Service-Layer Tests from the Domain
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#chapter-6-unit-of-work-pattern" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chapter 6: Unit of Work Pattern
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Chapter 6: Unit of Work Pattern">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-unit-of-work-collaborates-with-the-repository" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Unit of Work Collaborates with the Repository
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#real-and-fake-uow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Real and Fake UoW
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#using-uow-in-service-layer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Using UoW in Service Layer
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#chapter-7-aggregates-and-consistency-boundaries" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chapter 7: Aggregates and Consistency Boundaries
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Chapter 7: Aggregates and Consistency Boundaries">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#why-do-we-need-aggregates" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why Do We Need Aggregates?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#choosing-an-aggregate" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Choosing an Aggregate
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#optimistic-concurrency-with-version-numbers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Optimistic Concurrency with Version Numbers
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#one-aggregate-one-repository" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        One Aggregate = One Repository
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#chapter-8-events-and-the-message-bus" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chapter 8: Events and the Message Bus
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Chapter 8: Events and the Message Bus">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#events" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Events
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-model-raises-events" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Model Raises Events
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-message-bus-maps-events-to-handlers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Message Bus Maps Events to Handlers
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-uow-publishes-events-to-the-message-bus" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The UoW Publishes Events to the Message Bus
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#chapter-9-going-to-town-on-the-message-bus" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chapter 9: Going to Town on the Message Bus
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Chapter 9: Going to Town on the Message Bus">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#a-new-architecture-everything-is-an-event-handler" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A New Architecture: Everything Is an Event Handler
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#test-driving-a-new-handler" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Test-Driving a New Handler
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#optionally-unit-testing-event-handlers-in-isolation-with-a-fake-message-bus" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Optionally: Unit Testing Event Handlers in Isolation with a Fake Message Bus
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#chapter-10-commands-and-command-handler" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chapter 10: Commands and Command Handler
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Chapter 10: Commands and Command Handler">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#commands-and-events" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Commands and Events
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#differences-in-exception-handling" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Differences in Exception Handling
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#recovering-from-errors-synchronously" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Recovering from Errors Synchronously
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#chapter-11-event-driven-architecture-using-events-to-integrate-microservices" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chapter 11: Event-Driven Architecture: Using Events to Integrate Microservices
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Chapter 11: Event-Driven Architecture: Using Events to Integrate Microservices">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#distributed-ball-of-mud-and-thinking-in-nouns" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Distributed Ball of Mud, and Thinking in Nouns
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-alternative-temporal-decoupling-using-asynchronous-messaging" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Alternative: Temporal Decoupling Using Asynchronous Messaging
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#using-a-redis-pubsub-channel-for-integration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Using a Redis Pub/Sub Channel for Integration
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#internal-versus-external-events" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Internal Versus External Events
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#chapter-12-command-query-responsibility-segregation-cqrs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chapter 12: Command-Query Responsibility Segregation (CQRS)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Chapter 12: Command-Query Responsibility Segregation (CQRS)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#domain-models-are-for-writing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Domain Models Are for Writing
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#most-users-arent-going-to-buy-your-furniture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Most Users Aren't Going to Buy Your Furniture
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#postredirectget-and-cqs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Post/Redirect/Get and CQS
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hold-on-to-your-lunch-folks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Hold On to Your Lunch, Folks
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#alternatives-for-read-models" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Alternatives for Read Models
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#updating-a-read-model-table-using-an-event-handler" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Updating a Read Model Table Using an Event Handler
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#changing-our-read-model-implementation-is-easy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Changing Our Read Model Implementation Is Easy
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#chapter-13-dependency-injection-and-bootstrapping" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chapter 13: Dependency Injection (and Bootstrapping)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Chapter 13: Dependency Injection (and Bootstrapping)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#implicit-versus-explicit-dependencies" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Implicit Versus Explicit Dependencies
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#preparing-handlers-manual-di-with-closures-and-partials" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Preparing Handlers: Manual DI with Closures and Partials
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#an-alternative-using-classes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        An Alternative Using Classes
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#a-bootstrap-script" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A Bootstrap Script
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#initializing-di-in-our-tests" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Initializing DI in Our Tests
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#building-an-adapter-properly-a-worked-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Building an Adapter "Properly": A Worked Example
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#di-framework-mentions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        DI Framework Mentions
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#message-bus-is-given-handlers-at-runtime" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Message Bus Is Given Handlers at Runtime
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#epilogue" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Epilogue
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Epilogue">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#how-do-i-get-there-from-here" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How Do I Get There from Here?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#separating-entangled-responsibilities" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Separating Entangled Responsibilities
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#identifying-aggregates-and-bounded-contexts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Identifying Aggregates and Bounded Contexts
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#an-event-driven-approach-to-go-to-microservices-via-strangler-pattern" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        An Event-Driven Approach to Go to Microservices via Strangler Pattern
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#convincing-your-stakeholders-to-try-something-new" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Convincing Your Stakeholders to Try Something New
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#footguns" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Footguns
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#appendix-a-summary-diagram-and-table" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Appendix A: Summary Diagram and Table
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Appendix A: Summary Diagram and Table">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#component-reference" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Component Reference
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#appendix-b-a-template-project-structure" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Appendix B: A Template Project Structure
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Appendix B: A Template Project Structure">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#project-layout" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Project Layout
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#key-config-patterns" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Key Config Patterns
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#appendix-c-swapping-out-the-infrastructure-do-everything-with-csvs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Appendix C: Swapping Out the Infrastructure: Do Everything with CSVs
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Appendix C: Swapping Out the Infrastructure: Do Everything with CSVs">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#key-lesson" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Key Lesson
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#appendix-d-repository-and-unit-of-work-patterns-with-django" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Appendix D: Repository and Unit of Work Patterns with Django
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#appendix-e-validation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Appendix E: Validation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Appendix E: Validation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#three-types-of-validation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Three Types of Validation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#where-to-validate" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Where to Validate
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-ensure-pattern" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Ensure Pattern
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../refactoring/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Refactoring
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../fundamentals_data_engineering/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Data Engineering
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../data_pipelines_airflow/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Airflow
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../fastapi_cookbook/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    FastAPI Cookbook
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../notes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Notes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+  
+                  
+
+
+
+<h1 id="book3-architecture-patterns-with-python">Book3 - Architecture Patterns with Python<a class="headerlink" href="#book3-architecture-patterns-with-python" title="Permanent link">&para;</a></h1>
+<p><strong>By Harry Percival &amp; Bob Gregory (O'Reilly, 2020)</strong>
+<strong>Subtitle:</strong> Enabling Test-Driven Development, Domain-Driven Design, and Event-Driven Microservices</p>
+<blockquote>
+<p>Core thesis: As software grows in complexity, the way we structure our code matters more than the way we write individual functions. This book applies DDD, TDD, and event-driven patterns in Python to build systems that are testable, maintainable, and scalable.</p>
+</blockquote>
+<hr />
+<h2 id="introduction">Introduction<a class="headerlink" href="#introduction" title="Permanent link">&para;</a></h2>
+<h3 id="why-do-our-designs-go-wrong">Why Do Our Designs Go Wrong?<a class="headerlink" href="#why-do-our-designs-go-wrong" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Big ball of mud</strong>: the natural state of software when we don't actively manage complexity</li>
+<li>Symptoms: hard to change, hard to test, side-effect-laden code</li>
+<li>The cure: <strong>encapsulation</strong> (simplifying behavior &amp; hiding data) and <strong>abstractions</strong> (simplified interfaces hiding complex details)</li>
+<li>Layering: each layer depends only on the layer below it</li>
+</ul>
+<h3 id="encapsulation-and-abstractions">Encapsulation and Abstractions<a class="headerlink" href="#encapsulation-and-abstractions" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Encapsulation</strong>: simplifying behavior and hiding data behind a well-defined interface</li>
+<li><strong>Abstraction</strong>: a simplified description of a system that emphasizes some details while ignoring others</li>
+<li>In traditional layered architecture, the problem is tight coupling to the database ("everything depends on the DB")</li>
+</ul>
+<h3 id="the-dependency-inversion-principle">The Dependency Inversion Principle<a class="headerlink" href="#the-dependency-inversion-principle" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>DIP</strong>: High-level modules should not depend on low-level modules. Both should depend on abstractions.</li>
+<li>Instead of <code>BusinessLogic -&gt; Database</code>, use <code>BusinessLogic -&gt; AbstractRepository &lt;- ConcreteRepository</code></li>
+<li>The domain model should be the most important layer and should have <em>no</em> dependencies on infrastructure</li>
+</ul>
+<hr />
+<h2 id="part-i-building-an-architecture-to-support-domain-modeling">Part I: Building an Architecture to Support Domain Modeling<a class="headerlink" href="#part-i-building-an-architecture-to-support-domain-modeling" title="Permanent link">&para;</a></h2>
+<hr />
+<h2 id="chapter-1-domain-modeling">Chapter 1: Domain Modeling<a class="headerlink" href="#chapter-1-domain-modeling" title="Permanent link">&para;</a></h2>
+<h3 id="what-is-a-domain-model">What Is a Domain Model?<a class="headerlink" href="#what-is-a-domain-model" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Domain model</strong>: the mental map that business owners carry of the business processes they manage</li>
+<li>The software should mirror this mental map as closely as possible</li>
+<li>The book's example domain: a furniture allocation service (assigning incoming orders to batches of stock)</li>
+</ul>
+<h3 id="exploring-the-domain-language">Exploring the Domain Language<a class="headerlink" href="#exploring-the-domain-language" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Key terms from the example domain:</li>
+<li><strong>SKU</strong> (Stock Keeping Unit): a unique product type (e.g., <code>RED-CHAIR</code>)</li>
+<li><strong>Batch</strong>: a quantity of a SKU arriving on a specific date</li>
+<li><strong>Order Line</strong>: a single line on a customer's order (SKU + quantity)</li>
+<li><strong>Allocate</strong>: link an order line to a batch, reducing available stock</li>
+</ul>
+<h3 id="unit-testing-domain-models">Unit Testing Domain Models<a class="headerlink" href="#unit-testing-domain-models" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># Domain model tests are pure Python - no DB, no frameworks</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">test_allocating_to_a_batch_reduces_the_available_quantity</span><span class="p">():</span>
+    <span class="n">batch</span> <span class="o">=</span> <span class="n">Batch</span><span class="p">(</span><span class="s2">&quot;batch-001&quot;</span><span class="p">,</span> <span class="s2">&quot;SMALL-TABLE&quot;</span><span class="p">,</span> <span class="n">qty</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">eta</span><span class="o">=</span><span class="n">date</span><span class="o">.</span><span class="n">today</span><span class="p">())</span>
+    <span class="n">line</span> <span class="o">=</span> <span class="n">OrderLine</span><span class="p">(</span><span class="s2">&quot;order-ref&quot;</span><span class="p">,</span> <span class="s2">&quot;SMALL-TABLE&quot;</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+
+    <span class="n">batch</span><span class="o">.</span><span class="n">allocate</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+
+    <span class="k">assert</span> <span class="n">batch</span><span class="o">.</span><span class="n">available_quantity</span> <span class="o">==</span> <span class="mi">18</span>
+</code></pre></div>
+<ul>
+<li>Tests use plain Python objects — no ORM, no framework</li>
+<li>Business rules are expressed as simple unit tests</li>
+</ul>
+<h3 id="dataclasses-are-great-for-value-objects">Dataclasses Are Great for Value Objects<a class="headerlink" href="#dataclasses-are-great-for-value-objects" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Value Object</strong>: defined by its attributes, has no persistent identity, is interchangeable with other instances with same values</li>
+<li>Use <code>@dataclass(frozen=True)</code> for immutability</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">dataclasses</span><span class="w"> </span><span class="kn">import</span> <span class="n">dataclass</span>
+
+<span class="nd">@dataclass</span><span class="p">(</span><span class="n">frozen</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">OrderLine</span><span class="p">:</span>
+    <span class="n">orderid</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">sku</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">qty</span><span class="p">:</span> <span class="nb">int</span>
+</code></pre></div>
+<h3 id="entities-vs-value-objects">Entities vs Value Objects<a class="headerlink" href="#entities-vs-value-objects" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Entity</th>
+<th>Value Object</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Identity</td>
+<td>Has a persistent identity</td>
+<td>Defined entirely by values</td>
+</tr>
+<tr>
+<td>Equality</td>
+<td>By reference/ID</td>
+<td>By value (structural equality)</td>
+</tr>
+<tr>
+<td>Mutability</td>
+<td>Typically mutable</td>
+<td>Preferably immutable</td>
+</tr>
+<tr>
+<td>Example</td>
+<td><code>Batch</code> (has a reference)</td>
+<td><code>OrderLine</code> (no unique identity)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="domain-services">Domain Services<a class="headerlink" href="#domain-services" title="Permanent link">&para;</a></h3>
+<ul>
+<li>When a piece of logic doesn't naturally belong to any existing entity/value object, it becomes a <strong>domain service function</strong></li>
+<li>Example: <code>allocate()</code> is a standalone function in <code>model.py</code>, not a method on either <code>Order</code> or <code>Batch</code></li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="c1"># Domain service function (src/allocation/domain/model.py)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">allocate</span><span class="p">(</span><span class="n">line</span><span class="p">:</span> <span class="n">OrderLine</span><span class="p">,</span> <span class="n">batches</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Batch</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">batch</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="n">b</span> <span class="k">for</span> <span class="n">b</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">batches</span><span class="p">)</span> <span class="k">if</span> <span class="n">b</span><span class="o">.</span><span class="n">can_allocate</span><span class="p">(</span><span class="n">line</span><span class="p">))</span>
+    <span class="k">except</span> <span class="ne">StopIteration</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="n">OutOfStock</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Out of stock for sku </span><span class="si">{</span><span class="n">line</span><span class="o">.</span><span class="n">sku</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">batch</span><span class="o">.</span><span class="n">allocate</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">batch</span><span class="o">.</span><span class="n">reference</span>
+</code></pre></div>
+<h3 id="exceptions-as-domain-concepts">Exceptions as Domain Concepts<a class="headerlink" href="#exceptions-as-domain-concepts" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">OutOfStock</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+    <span class="k">pass</span>
+</code></pre></div>
+<ul>
+<li>Domain exceptions are part of the ubiquitous language</li>
+</ul>
+<hr />
+<h2 id="chapter-2-repository-pattern">Chapter 2: Repository Pattern<a class="headerlink" href="#chapter-2-repository-pattern" title="Permanent link">&para;</a></h2>
+<h3 id="the-normal-orm-way-model-depends-on-orm">The Normal ORM Way: Model Depends on ORM<a class="headerlink" href="#the-normal-orm-way-model-depends-on-orm" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Typical approach: define your model classes inheriting from the ORM base class (e.g., <code>django.db.models.Model</code>)</li>
+<li>Problem: your domain model is now coupled to the ORM — the most important layer depends on infrastructure</li>
+</ul>
+<h3 id="inverting-the-dependency-orm-depends-on-model">Inverting the Dependency: ORM Depends on Model<a class="headerlink" href="#inverting-the-dependency-orm-depends-on-model" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Key library</strong>: <code>SQLAlchemy</code> (specifically its Classical Mapping / Imperative Mapping)</li>
+<li>Define your domain model as plain Python classes <em>first</em>, then tell SQLAlchemy how to map them</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="c1"># orm.py — SQLAlchemy imperative/classical mapping</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sqlalchemy.orm</span><span class="w"> </span><span class="kn">import</span> <span class="n">mapper</span><span class="p">,</span> <span class="n">relationship</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">domain</span><span class="w"> </span><span class="kn">import</span> <span class="n">model</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">start_mappers</span><span class="p">():</span>
+    <span class="n">lines_mapper</span> <span class="o">=</span> <span class="n">mapper</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">OrderLine</span><span class="p">,</span> <span class="n">order_lines</span><span class="p">)</span>  <span class="c1"># table object</span>
+    <span class="n">mapper</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">Batch</span><span class="p">,</span> <span class="n">batches</span><span class="p">,</span> <span class="n">properties</span><span class="o">=</span><span class="p">{</span>
+        <span class="s1">&#39;_allocations&#39;</span><span class="p">:</span> <span class="n">relationship</span><span class="p">(</span><span class="n">lines_mapper</span><span class="p">,</span> <span class="n">secondary</span><span class="o">=</span><span class="n">allocations</span><span class="p">)</span>
+    <span class="p">})</span>
+</code></pre></div>
+<ul>
+<li>This keeps the domain model <strong>ignorant of persistence</strong> — it's just plain Python classes</li>
+<li>The ORM imports the model, not the other way around</li>
+</ul>
+<h3 id="introducing-the-repository-pattern">Introducing the Repository Pattern<a class="headerlink" href="#introducing-the-repository-pattern" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Repository</strong>: an abstraction over persistent storage; it pretends all data is in memory</li>
+<li>Simplest possible interface: <code>.add()</code> and <code>.get()</code></li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">abc</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">domain</span><span class="w"> </span><span class="kn">import</span> <span class="n">model</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">AbstractRepository</span><span class="p">(</span><span class="n">abc</span><span class="o">.</span><span class="n">ABC</span><span class="p">):</span>
+    <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">add</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">batch</span><span class="p">:</span> <span class="n">model</span><span class="o">.</span><span class="n">Batch</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span>
+
+    <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">reference</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">model</span><span class="o">.</span><span class="n">Batch</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span>
+
+
+<span class="k">class</span><span class="w"> </span><span class="nc">SqlAlchemyRepository</span><span class="p">(</span><span class="n">AbstractRepository</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">session</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">session</span> <span class="o">=</span> <span class="n">session</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">add</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">batch</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">batch</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">reference</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">Batch</span><span class="p">)</span><span class="o">.</span><span class="n">filter_by</span><span class="p">(</span>
+            <span class="n">reference</span><span class="o">=</span><span class="n">reference</span>
+        <span class="p">)</span><span class="o">.</span><span class="n">one</span><span class="p">()</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">list</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">Batch</span><span class="p">)</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+</code></pre></div>
+<h3 id="building-a-fake-repository-for-tests">Building a Fake Repository for Tests<a class="headerlink" href="#building-a-fake-repository-for-tests" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">FakeRepository</span><span class="p">(</span><span class="n">AbstractRepository</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">batches</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_batches</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">batches</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">add</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">batch</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_batches</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">batch</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">reference</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">next</span><span class="p">(</span><span class="n">b</span> <span class="k">for</span> <span class="n">b</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_batches</span> <span class="k">if</span> <span class="n">b</span><span class="o">.</span><span class="n">reference</span> <span class="o">==</span> <span class="n">reference</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">list</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_batches</span><span class="p">)</span>
+</code></pre></div>
+<ul>
+<li>Fake repos enable fast, isolated unit tests with no DB needed</li>
+</ul>
+<h3 id="trade-offs">Trade-Offs<a class="headerlink" href="#trade-offs" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Pros</th>
+<th>Cons</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Simple interface for storage</td>
+<td>Extra layer of abstraction (an "ORM is already an abstraction")</td>
+</tr>
+<tr>
+<td>Easy to swap infra via fakes for testing</td>
+<td>ORM mapping requires extra setup</td>
+</tr>
+<tr>
+<td>Writes are decoupled from reads</td>
+<td>Another thing for devs to learn</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="chapter-3-a-brief-interlude-on-coupling-and-abstractions">Chapter 3: A Brief Interlude: On Coupling and Abstractions<a class="headerlink" href="#chapter-3-a-brief-interlude-on-coupling-and-abstractions" title="Permanent link">&para;</a></h2>
+<h3 id="abstracting-state-aids-testability">Abstracting State Aids Testability<a class="headerlink" href="#abstracting-state-aids-testability" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Problem: how do you test code that has side effects (file I/O, HTTP calls, DB writes)?</li>
+<li>Three approaches:</li>
+<li><strong>Mock everything</strong> (fragile, couples tests to implementation)</li>
+<li><strong>Edge-to-edge testing</strong> (integration/E2E — slow, complex)</li>
+<li><strong>Abstract away side effects</strong> behind simple interfaces (the book's preferred approach)</li>
+</ul>
+<h3 id="the-ports-and-adapters-hexagonal-architecture">The "Ports and Adapters" / Hexagonal Architecture<a class="headerlink" href="#the-ports-and-adapters-hexagonal-architecture" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Business logic at the core, infrastructure at the edges</li>
+<li><strong>Port</strong>: an abstract interface (e.g., <code>AbstractRepository</code>)</li>
+<li><strong>Adapter</strong>: a concrete implementation (e.g., <code>SqlAlchemyRepository</code>, <code>FakeRepository</code>)</li>
+</ul>
+<h3 id="functional-core-imperative-shell">Functional Core, Imperative Shell<a class="headerlink" href="#functional-core-imperative-shell" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Alternative framing: keep the <em>core</em> logic pure (no side effects), push I/O to the <em>shell</em></li>
+<li>Not always achievable in Python, but a useful ideal</li>
+</ul>
+<h3 id="choosing-the-right-abstraction">Choosing the Right Abstraction<a class="headerlink" href="#choosing-the-right-abstraction" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Good abstractions simplify testing, aid in reasoning about code</li>
+<li>Bad abstractions add complexity without reducing coupling</li>
+<li>Rule of thumb: introduce an abstraction when you have a <em>concrete reason</em> (e.g., testability, swappability)</li>
+</ul>
+<hr />
+<h2 id="chapter-4-our-first-use-case-flask-api-and-service-layer">Chapter 4: Our First Use Case: Flask API and Service Layer<a class="headerlink" href="#chapter-4-our-first-use-case-flask-api-and-service-layer" title="Permanent link">&para;</a></h2>
+<h3 id="connecting-our-application-to-the-real-world">Connecting Our Application to the Real World<a class="headerlink" href="#connecting-our-application-to-the-real-world" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Flask</strong> is the web framework used throughout the book</li>
+<li>Entrypoint (Flask route) should be thin — it just translates HTTP requests into domain operations</li>
+</ul>
+<h3 id="a-typical-service-function">A Typical Service Function<a class="headerlink" href="#a-typical-service-function" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># service_layer/services.py</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">allocate</span><span class="p">(</span><span class="n">orderid</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">sku</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">qty</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">repo</span><span class="p">:</span> <span class="n">AbstractRepository</span><span class="p">,</span> <span class="n">session</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="n">batches</span> <span class="o">=</span> <span class="n">repo</span><span class="o">.</span><span class="n">list</span><span class="p">()</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">is_valid_sku</span><span class="p">(</span><span class="n">sku</span><span class="p">,</span> <span class="n">batches</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="n">InvalidSku</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Invalid sku </span><span class="si">{</span><span class="n">sku</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">batchref</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">allocate</span><span class="p">(</span><span class="n">OrderLine</span><span class="p">(</span><span class="n">orderid</span><span class="p">,</span> <span class="n">sku</span><span class="p">,</span> <span class="n">qty</span><span class="p">),</span> <span class="n">batches</span><span class="p">)</span>
+    <span class="n">session</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">batchref</span>
+</code></pre></div>
+<ul>
+<li><strong>Service layer</strong> (aka use-case layer): orchestrates a workflow</li>
+<li>Fetches data from repositories</li>
+<li>Calls domain model methods</li>
+<li>Commits changes</li>
+<li>It doesn't <em>contain</em> business logic — it <em>coordinates</em> it</li>
+</ul>
+<h3 id="the-service-layer-and-the-flask-endpoint">The Service Layer and the Flask Endpoint<a class="headerlink" href="#the-service-layer-and-the-flask-endpoint" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># entrypoints/flask_app.py</span>
+<span class="nd">@app</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s2">&quot;/allocate&quot;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;POST&quot;</span><span class="p">])</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">allocate_endpoint</span><span class="p">():</span>
+    <span class="n">session</span> <span class="o">=</span> <span class="n">get_session</span><span class="p">()</span>
+    <span class="n">repo</span> <span class="o">=</span> <span class="n">repository</span><span class="o">.</span><span class="n">SqlAlchemyRepository</span><span class="p">(</span><span class="n">session</span><span class="p">)</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">batchref</span> <span class="o">=</span> <span class="n">services</span><span class="o">.</span><span class="n">allocate</span><span class="p">(</span>
+            <span class="n">request</span><span class="o">.</span><span class="n">json</span><span class="p">[</span><span class="s2">&quot;orderid&quot;</span><span class="p">],</span>
+            <span class="n">request</span><span class="o">.</span><span class="n">json</span><span class="p">[</span><span class="s2">&quot;sku&quot;</span><span class="p">],</span>
+            <span class="n">request</span><span class="o">.</span><span class="n">json</span><span class="p">[</span><span class="s2">&quot;qty&quot;</span><span class="p">],</span>
+            <span class="n">repo</span><span class="p">,</span> <span class="n">session</span><span class="p">,</span>
+        <span class="p">)</span>
+    <span class="k">except</span> <span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">OutOfStock</span><span class="p">,</span> <span class="n">services</span><span class="o">.</span><span class="n">InvalidSku</span><span class="p">)</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">jsonify</span><span class="p">({</span><span class="s2">&quot;message&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)}),</span> <span class="mi">400</span>
+    <span class="k">return</span> <span class="n">jsonify</span><span class="p">({</span><span class="s2">&quot;batchref&quot;</span><span class="p">:</span> <span class="n">batchref</span><span class="p">}),</span> <span class="mi">201</span>
+</code></pre></div>
+<h3 id="why-is-everything-called-a-service">Why Is Everything Called a Service?<a class="headerlink" href="#why-is-everything-called-a-service" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Domain service</strong>: pure logic that doesn't belong on an entity (e.g., <code>model.allocate()</code>)</li>
+<li><strong>Service layer / application service</strong>: orchestration — fetches objects, invokes domain, persists results</li>
+<li><strong>Infrastructure service</strong>: talks to external systems (email, file systems)</li>
+</ul>
+<h3 id="testing-the-service-layer-with-fakes">Testing the Service Layer with Fakes<a class="headerlink" href="#testing-the-service-layer-with-fakes" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># Unit tests use FakeRepository — no database needed</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">test_returns_allocation</span><span class="p">():</span>
+    <span class="n">repo</span> <span class="o">=</span> <span class="n">FakeRepository</span><span class="p">([</span>
+        <span class="n">Batch</span><span class="p">(</span><span class="s2">&quot;b1&quot;</span><span class="p">,</span> <span class="s2">&quot;COMPLICATED-LAMP&quot;</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="n">eta</span><span class="o">=</span><span class="kc">None</span><span class="p">),</span>
+    <span class="p">])</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">services</span><span class="o">.</span><span class="n">allocate</span><span class="p">(</span><span class="s2">&quot;o1&quot;</span><span class="p">,</span> <span class="s2">&quot;COMPLICATED-LAMP&quot;</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="n">repo</span><span class="p">,</span> <span class="n">FakeSession</span><span class="p">())</span>
+    <span class="k">assert</span> <span class="n">result</span> <span class="o">==</span> <span class="s2">&quot;b1&quot;</span>
+</code></pre></div>
+<hr />
+<h2 id="chapter-5-tdd-in-high-gear-and-low-gear">Chapter 5: TDD in High Gear and Low Gear<a class="headerlink" href="#chapter-5-tdd-in-high-gear-and-low-gear" title="Permanent link">&para;</a></h2>
+<h3 id="test-pyramid-test-spectrum">Test Pyramid / Test Spectrum<a class="headerlink" href="#test-pyramid-test-spectrum" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Unit tests</strong> (domain model): fast, isolated, business-rule focused</li>
+<li><strong>Service-layer tests</strong>: test use cases, use fakes for infra</li>
+<li><strong>E2E tests</strong> (against Flask + real DB): slow but validate integration</li>
+</ul>
+<h3 id="rules-of-thumb-for-test-types">Rules of Thumb for Test Types<a class="headerlink" href="#rules-of-thumb-for-test-types" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Write a few E2E tests to prove the plumbing works</li>
+<li>Write the bulk of your tests against the service layer (using fakes)</li>
+<li>Write unit tests for complex domain logic</li>
+<li>Aim to test <em>behavior</em>, not implementation</li>
+</ul>
+<h3 id="high-gear-vs-low-gear">High Gear vs. Low Gear<a class="headerlink" href="#high-gear-vs-low-gear" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Low gear</strong>: testing the domain model directly when building/debugging complex logic</li>
+<li><strong>High gear</strong>: testing via the service layer once the API is stable</li>
+<li>Moving tests up to the service layer makes them less coupled to implementation — easier to refactor</li>
+</ul>
+<h3 id="fully-decoupling-the-service-layer-tests-from-the-domain">Fully Decoupling the Service-Layer Tests from the Domain<a class="headerlink" href="#fully-decoupling-the-service-layer-tests-from-the-domain" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Ideal: service-layer tests only use domain primitives (strings, ints) — never import domain classes</li>
+<li>This makes it easier to change the domain model without rewriting all tests</li>
+</ul>
+<hr />
+<h2 id="chapter-6-unit-of-work-pattern">Chapter 6: Unit of Work Pattern<a class="headerlink" href="#chapter-6-unit-of-work-pattern" title="Permanent link">&para;</a></h2>
+<h3 id="the-unit-of-work-collaborates-with-the-repository">The Unit of Work Collaborates with the Repository<a class="headerlink" href="#the-unit-of-work-collaborates-with-the-repository" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Unit of Work (UoW)</strong>: abstracts the concept of an atomic operation / database transaction</li>
+<li>Provides a single entrypoint to repositories and handles <code>commit()</code> / <code>rollback()</code></li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">AbstractUnitOfWork</span><span class="p">(</span><span class="n">abc</span><span class="o">.</span><span class="n">ABC</span><span class="p">):</span>
+    <span class="n">products</span><span class="p">:</span> <span class="n">repository</span><span class="o">.</span><span class="n">AbstractRepository</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__enter__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;AbstractUnitOfWork&quot;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__exit__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rollback</span><span class="p">()</span>
+
+    <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">commit</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span>
+
+    <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">rollback</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span>
+</code></pre></div>
+<h3 id="real-and-fake-uow">Real and Fake UoW<a class="headerlink" href="#real-and-fake-uow" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># Real UoW</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">SqlAlchemyUnitOfWork</span><span class="p">(</span><span class="n">AbstractUnitOfWork</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">session_factory</span><span class="o">=</span><span class="n">DEFAULT_SESSION_FACTORY</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">session_factory</span> <span class="o">=</span> <span class="n">session_factory</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__enter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">session</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">session_factory</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">products</span> <span class="o">=</span> <span class="n">repository</span><span class="o">.</span><span class="n">SqlAlchemyRepository</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="p">)</span>
+        <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__enter__</span><span class="p">()</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__exit__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__exit__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">commit</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">rollback</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">rollback</span><span class="p">()</span>
+
+
+<span class="c1"># Fake UoW for tests</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">FakeUnitOfWork</span><span class="p">(</span><span class="n">AbstractUnitOfWork</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">products</span> <span class="o">=</span> <span class="n">FakeRepository</span><span class="p">([])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">committed</span> <span class="o">=</span> <span class="kc">False</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">commit</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">committed</span> <span class="o">=</span> <span class="kc">True</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">rollback</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">pass</span>
+</code></pre></div>
+<h3 id="using-uow-in-service-layer">Using UoW in Service Layer<a class="headerlink" href="#using-uow-in-service-layer" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">allocate</span><span class="p">(</span><span class="n">orderid</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">sku</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">qty</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+             <span class="n">uow</span><span class="p">:</span> <span class="n">unit_of_work</span><span class="o">.</span><span class="n">AbstractUnitOfWork</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="n">line</span> <span class="o">=</span> <span class="n">OrderLine</span><span class="p">(</span><span class="n">orderid</span><span class="p">,</span> <span class="n">sku</span><span class="p">,</span> <span class="n">qty</span><span class="p">)</span>
+    <span class="k">with</span> <span class="n">uow</span><span class="p">:</span>  <span class="c1"># context manager handles transaction</span>
+        <span class="n">product</span> <span class="o">=</span> <span class="n">uow</span><span class="o">.</span><span class="n">products</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">sku</span><span class="o">=</span><span class="n">sku</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">product</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">InvalidSku</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Invalid sku </span><span class="si">{</span><span class="n">sku</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">batchref</span> <span class="o">=</span> <span class="n">product</span><span class="o">.</span><span class="n">allocate</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+        <span class="n">uow</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>  <span class="c1"># explicit commit</span>
+    <span class="k">return</span> <span class="n">batchref</span>
+</code></pre></div>
+<ul>
+<li>The <code>with</code> block ensures rollback on failure (via <code>__exit__</code>)</li>
+<li>Explicit <code>commit()</code> makes it clear when a transaction succeeds</li>
+</ul>
+<hr />
+<h2 id="chapter-7-aggregates-and-consistency-boundaries">Chapter 7: Aggregates and Consistency Boundaries<a class="headerlink" href="#chapter-7-aggregates-and-consistency-boundaries" title="Permanent link">&para;</a></h2>
+<h3 id="why-do-we-need-aggregates">Why Do We Need Aggregates?<a class="headerlink" href="#why-do-we-need-aggregates" title="Permanent link">&para;</a></h3>
+<ul>
+<li>An <strong>aggregate</strong> is a cluster of domain objects treated as a single unit for data changes</li>
+<li>It acts as a <strong>consistency boundary</strong>: all invariants within the aggregate are guaranteed to be consistent after each operation</li>
+<li>Operations across aggregates accept <strong>eventual consistency</strong></li>
+</ul>
+<h3 id="choosing-an-aggregate">Choosing an Aggregate<a class="headerlink" href="#choosing-an-aggregate" title="Permanent link">&para;</a></h3>
+<ul>
+<li>In the allocation example, <code>Product</code> becomes the aggregate root</li>
+<li>A <code>Product</code> contains its <code>Batch</code>es — you always go through the <code>Product</code> to allocate</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">Product</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sku</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">batches</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Batch</span><span class="p">],</span> <span class="n">version_number</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sku</span> <span class="o">=</span> <span class="n">sku</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">batches</span> <span class="o">=</span> <span class="n">batches</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">version_number</span> <span class="o">=</span> <span class="n">version_number</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">allocate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">line</span><span class="p">:</span> <span class="n">OrderLine</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">batch</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="n">b</span> <span class="k">for</span> <span class="n">b</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">batches</span><span class="p">)</span> <span class="k">if</span> <span class="n">b</span><span class="o">.</span><span class="n">can_allocate</span><span class="p">(</span><span class="n">line</span><span class="p">))</span>
+        <span class="k">except</span> <span class="ne">StopIteration</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">OutOfStock</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Out of stock for sku </span><span class="si">{</span><span class="n">line</span><span class="o">.</span><span class="n">sku</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">batch</span><span class="o">.</span><span class="n">allocate</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">version_number</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="k">return</span> <span class="n">batch</span><span class="o">.</span><span class="n">reference</span>
+</code></pre></div>
+<h3 id="optimistic-concurrency-with-version-numbers">Optimistic Concurrency with Version Numbers<a class="headerlink" href="#optimistic-concurrency-with-version-numbers" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>version_number</code> is incremented on each change to detect concurrent modifications</li>
+<li>Implemented with SQLAlchemy's <code>version_id_col</code> feature</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="c1">-- Optimistic lock at DB level</span>
+<span class="k">UPDATE</span><span class="w"> </span><span class="n">products</span><span class="w"> </span><span class="k">SET</span><span class="w"> </span><span class="n">version_number</span><span class="o">=</span><span class="p">:</span><span class="k">new</span>
+<span class="k">WHERE</span><span class="w"> </span><span class="n">sku</span><span class="o">=</span><span class="p">:</span><span class="n">sku</span><span class="w"> </span><span class="k">AND</span><span class="w"> </span><span class="n">version_number</span><span class="o">=</span><span class="p">:</span><span class="k">old</span>
+</code></pre></div>
+<ul>
+<li>If two transactions try to modify the same <code>Product</code> concurrently, one will fail (0 rows updated) and retry</li>
+</ul>
+<h3 id="one-aggregate-one-repository">One Aggregate = One Repository<a class="headerlink" href="#one-aggregate-one-repository" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Each aggregate type gets its own repository</li>
+<li>The repository fetches the <em>entire</em> aggregate (root + children) and saves it as a unit</li>
+<li>Aggregates reference each other only by identity (e.g., <code>sku</code> string), not by direct object reference</li>
+</ul>
+<hr />
+<h2 id="chapter-8-events-and-the-message-bus">Chapter 8: Events and the Message Bus<a class="headerlink" href="#chapter-8-events-and-the-message-bus" title="Permanent link">&para;</a></h2>
+<h3 id="events">Events<a class="headerlink" href="#events" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Domain Event</strong>: a data structure representing something that happened in the domain</li>
+<li>Events are simple dataclasses</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">dataclasses</span><span class="w"> </span><span class="kn">import</span> <span class="n">dataclass</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">Event</span><span class="p">:</span>
+    <span class="k">pass</span>
+
+<span class="nd">@dataclass</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">OutOfStock</span><span class="p">(</span><span class="n">Event</span><span class="p">):</span>
+    <span class="n">sku</span><span class="p">:</span> <span class="nb">str</span>
+
+<span class="nd">@dataclass</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Allocated</span><span class="p">(</span><span class="n">Event</span><span class="p">):</span>
+    <span class="n">orderid</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">sku</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">qty</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="n">batchref</span><span class="p">:</span> <span class="nb">str</span>
+</code></pre></div>
+<h3 id="the-model-raises-events">The Model Raises Events<a class="headerlink" href="#the-model-raises-events" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Domain objects collect events on an internal list; they don't dispatch them directly</li>
+<li>Events are harvested and dispatched <em>after</em> the transaction commits</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">Product</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sku</span><span class="p">,</span> <span class="n">batches</span><span class="p">,</span> <span class="n">version_number</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sku</span> <span class="o">=</span> <span class="n">sku</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">batches</span> <span class="o">=</span> <span class="n">batches</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">version_number</span> <span class="o">=</span> <span class="n">version_number</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">events</span> <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># list of domain events</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">allocate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">line</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">batch</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">StopIteration</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">events</span><span class="o">.</span><span class="n">OutOfStock</span><span class="p">(</span><span class="n">line</span><span class="o">.</span><span class="n">sku</span><span class="p">))</span>
+            <span class="k">return</span> <span class="kc">None</span>
+        <span class="o">...</span>
+</code></pre></div>
+<h3 id="the-message-bus-maps-events-to-handlers">The Message Bus Maps Events to Handlers<a class="headerlink" href="#the-message-bus-maps-events-to-handlers" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># service_layer/messagebus.py</span>
+<span class="n">HANDLERS</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="n">events</span><span class="o">.</span><span class="n">OutOfStock</span><span class="p">:</span> <span class="p">[</span><span class="n">handlers</span><span class="o">.</span><span class="n">send_out_of_stock_notification</span><span class="p">],</span>
+<span class="p">}</span>  <span class="c1"># type: Dict[Type[events.Event], List[Callable]]</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">handle</span><span class="p">(</span><span class="n">event</span><span class="p">:</span> <span class="n">events</span><span class="o">.</span><span class="n">Event</span><span class="p">,</span> <span class="n">uow</span><span class="p">:</span> <span class="n">AbstractUnitOfWork</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">handler</span> <span class="ow">in</span> <span class="n">HANDLERS</span><span class="p">[</span><span class="nb">type</span><span class="p">(</span><span class="n">event</span><span class="p">)]:</span>
+        <span class="n">handler</span><span class="p">(</span><span class="n">event</span><span class="p">,</span> <span class="n">uow</span><span class="o">=</span><span class="n">uow</span><span class="p">)</span>
+</code></pre></div>
+<h3 id="the-uow-publishes-events-to-the-message-bus">The UoW Publishes Events to the Message Bus<a class="headerlink" href="#the-uow-publishes-events-to-the-message-bus" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">AbstractUnitOfWork</span><span class="p">(</span><span class="n">abc</span><span class="o">.</span><span class="n">ABC</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">collect_new_events</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">product</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">products</span><span class="o">.</span><span class="n">seen</span><span class="p">:</span>
+            <span class="k">while</span> <span class="n">product</span><span class="o">.</span><span class="n">events</span><span class="p">:</span>
+                <span class="k">yield</span> <span class="n">product</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+</code></pre></div>
+<ul>
+<li><code>products.seen</code> tracks all aggregates loaded during this UoW</li>
+<li>After commit, the service layer calls <code>messagebus.handle()</code> for each collected event</li>
+</ul>
+<hr />
+<h2 id="chapter-9-going-to-town-on-the-message-bus">Chapter 9: Going to Town on the Message Bus<a class="headerlink" href="#chapter-9-going-to-town-on-the-message-bus" title="Permanent link">&para;</a></h2>
+<h3 id="a-new-architecture-everything-is-an-event-handler">A New Architecture: Everything Is an Event Handler<a class="headerlink" href="#a-new-architecture-everything-is-an-event-handler" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Refactors the entire application so that <em>all use cases</em> are event handlers</li>
+<li>The Flask endpoint just creates an event and passes it to the message bus</li>
+<li>The message bus becomes the single entrypoint for the service layer</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="c1"># Flask entrypoint</span>
+<span class="nd">@app</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s2">&quot;/allocate&quot;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;POST&quot;</span><span class="p">])</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">allocate_endpoint</span><span class="p">():</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">event</span> <span class="o">=</span> <span class="n">events</span><span class="o">.</span><span class="n">AllocationRequired</span><span class="p">(</span>
+            <span class="n">request</span><span class="o">.</span><span class="n">json</span><span class="p">[</span><span class="s2">&quot;orderid&quot;</span><span class="p">],</span> <span class="n">request</span><span class="o">.</span><span class="n">json</span><span class="p">[</span><span class="s2">&quot;sku&quot;</span><span class="p">],</span> <span class="n">request</span><span class="o">.</span><span class="n">json</span><span class="p">[</span><span class="s2">&quot;qty&quot;</span><span class="p">]</span>
+        <span class="p">)</span>
+        <span class="n">results</span> <span class="o">=</span> <span class="n">messagebus</span><span class="o">.</span><span class="n">handle</span><span class="p">(</span><span class="n">event</span><span class="p">,</span> <span class="n">uow</span><span class="p">)</span>
+        <span class="n">batchref</span> <span class="o">=</span> <span class="n">results</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+    <span class="k">except</span> <span class="n">InvalidSku</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">jsonify</span><span class="p">({</span><span class="s2">&quot;message&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)}),</span> <span class="mi">400</span>
+    <span class="k">return</span> <span class="n">jsonify</span><span class="p">({</span><span class="s2">&quot;batchref&quot;</span><span class="p">:</span> <span class="n">batchref</span><span class="p">}),</span> <span class="mi">201</span>
+</code></pre></div>
+<h3 id="test-driving-a-new-handler">Test-Driving a New Handler<a class="headerlink" href="#test-driving-a-new-handler" title="Permanent link">&para;</a></h3>
+<ul>
+<li>New use case: <code>BatchQuantityChanged</code> event triggers reallocation if needed</li>
+<li>Test is end-to-end through the message bus: send events, assert outcomes</li>
+</ul>
+<h3 id="optionally-unit-testing-event-handlers-in-isolation-with-a-fake-message-bus">Optionally: Unit Testing Event Handlers in Isolation with a Fake Message Bus<a class="headerlink" href="#optionally-unit-testing-event-handlers-in-isolation-with-a-fake-message-bus" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">FakeUnitOfWorkWithFakeMessageBus</span><span class="p">(</span><span class="n">FakeUnitOfWork</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">events_published</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">publish_events</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">product</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">products</span><span class="o">.</span><span class="n">seen</span><span class="p">:</span>
+            <span class="k">while</span> <span class="n">product</span><span class="o">.</span><span class="n">events</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">events_published</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">product</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>
+</code></pre></div>
+<ul>
+<li>Allows testing individual handlers without triggering the full chain</li>
+<li>Use edge-to-edge tests first; resort to isolated handler tests only for complex chains</li>
+</ul>
+<hr />
+<h2 id="chapter-10-commands-and-command-handler">Chapter 10: Commands and Command Handler<a class="headerlink" href="#chapter-10-commands-and-command-handler" title="Permanent link">&para;</a></h2>
+<h3 id="commands-and-events">Commands and Events<a class="headerlink" href="#commands-and-events" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Event</th>
+<th>Command</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Named</td>
+<td>Past tense (<code>BatchCreated</code>)</td>
+<td>Imperative mood (<code>CreateBatch</code>)</td>
+</tr>
+<tr>
+<td>Error handling</td>
+<td>Fail independently</td>
+<td>Fail noisily</td>
+</tr>
+<tr>
+<td>Sent to</td>
+<td>All listeners (broadcast)</td>
+<td>One recipient (directed)</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>Commands</strong> capture <em>intent</em>; <strong>Events</strong> capture <em>facts</em></li>
+<li>Commands are sent by one actor to another with expectation of result</li>
+<li>Events are broadcast — sender doesn't know/care who handles them</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">Command</span><span class="p">:</span>
+    <span class="k">pass</span>
+
+<span class="nd">@dataclass</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Allocate</span><span class="p">(</span><span class="n">Command</span><span class="p">):</span>
+    <span class="n">orderid</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">sku</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">qty</span><span class="p">:</span> <span class="nb">int</span>
+
+<span class="nd">@dataclass</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">CreateBatch</span><span class="p">(</span><span class="n">Command</span><span class="p">):</span>
+    <span class="n">ref</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">sku</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">qty</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="n">eta</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">date</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+</code></pre></div>
+<h3 id="differences-in-exception-handling">Differences in Exception Handling<a class="headerlink" href="#differences-in-exception-handling" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># messagebus.py</span>
+<span class="n">Message</span> <span class="o">=</span> <span class="n">Union</span><span class="p">[</span><span class="n">commands</span><span class="o">.</span><span class="n">Command</span><span class="p">,</span> <span class="n">events</span><span class="o">.</span><span class="n">Event</span><span class="p">]</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">handle</span><span class="p">(</span><span class="n">message</span><span class="p">:</span> <span class="n">Message</span><span class="p">,</span> <span class="n">uow</span><span class="p">):</span>
+    <span class="n">results</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">queue</span> <span class="o">=</span> <span class="p">[</span><span class="n">message</span><span class="p">]</span>
+    <span class="k">while</span> <span class="n">queue</span><span class="p">:</span>
+        <span class="n">message</span> <span class="o">=</span> <span class="n">queue</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">message</span><span class="p">,</span> <span class="n">events</span><span class="o">.</span><span class="n">Event</span><span class="p">):</span>
+            <span class="n">handle_event</span><span class="p">(</span><span class="n">message</span><span class="p">,</span> <span class="n">queue</span><span class="p">,</span> <span class="n">uow</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">message</span><span class="p">,</span> <span class="n">commands</span><span class="o">.</span><span class="n">Command</span><span class="p">):</span>
+            <span class="n">cmd_result</span> <span class="o">=</span> <span class="n">handle_command</span><span class="p">(</span><span class="n">message</span><span class="p">,</span> <span class="n">queue</span><span class="p">,</span> <span class="n">uow</span><span class="p">)</span>
+            <span class="n">results</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">cmd_result</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">results</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">handle_event</span><span class="p">(</span><span class="n">event</span><span class="p">,</span> <span class="n">queue</span><span class="p">,</span> <span class="n">uow</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">handler</span> <span class="ow">in</span> <span class="n">EVENT_HANDLERS</span><span class="p">[</span><span class="nb">type</span><span class="p">(</span><span class="n">event</span><span class="p">)]:</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">handler</span><span class="p">(</span><span class="n">event</span><span class="p">,</span> <span class="n">uow</span><span class="o">=</span><span class="n">uow</span><span class="p">)</span>
+            <span class="n">queue</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">uow</span><span class="o">.</span><span class="n">collect_new_events</span><span class="p">())</span>
+        <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">exception</span><span class="p">(</span><span class="s2">&quot;Exception handling event </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">event</span><span class="p">)</span>
+            <span class="k">continue</span>  <span class="c1"># events: log and continue</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">handle_command</span><span class="p">(</span><span class="n">command</span><span class="p">,</span> <span class="n">queue</span><span class="p">,</span> <span class="n">uow</span><span class="p">):</span>
+    <span class="n">handler</span> <span class="o">=</span> <span class="n">COMMAND_HANDLERS</span><span class="p">[</span><span class="nb">type</span><span class="p">(</span><span class="n">command</span><span class="p">)]</span>  <span class="c1"># exactly one handler</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">handler</span><span class="p">(</span><span class="n">command</span><span class="p">,</span> <span class="n">uow</span><span class="o">=</span><span class="n">uow</span><span class="p">)</span>
+        <span class="n">queue</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">uow</span><span class="o">.</span><span class="n">collect_new_events</span><span class="p">())</span>
+        <span class="k">return</span> <span class="n">result</span>
+    <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">exception</span><span class="p">(</span><span class="s2">&quot;Exception handling command </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">command</span><span class="p">)</span>
+        <span class="k">raise</span>  <span class="c1"># commands: raise to caller</span>
+</code></pre></div>
+<ul>
+<li><strong>Events</strong>: catch exceptions, log, continue (event failures are isolated)</li>
+<li><strong>Commands</strong>: let exceptions bubble up (the caller needs to know it failed)</li>
+</ul>
+<h3 id="recovering-from-errors-synchronously">Recovering from Errors Synchronously<a class="headerlink" href="#recovering-from-errors-synchronously" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Library: <code>tenacity</code></strong> — Python library for retry logic with exponential backoff</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">tenacity</span><span class="w"> </span><span class="kn">import</span> <span class="n">Retrying</span><span class="p">,</span> <span class="n">RetryError</span><span class="p">,</span> <span class="n">stop_after_attempt</span><span class="p">,</span> <span class="n">wait_exponential</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">handle_event</span><span class="p">(</span><span class="n">event</span><span class="p">,</span> <span class="n">queue</span><span class="p">,</span> <span class="n">uow</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">handler</span> <span class="ow">in</span> <span class="n">EVENT_HANDLERS</span><span class="p">[</span><span class="nb">type</span><span class="p">(</span><span class="n">event</span><span class="p">)]:</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">attempt</span> <span class="ow">in</span> <span class="n">Retrying</span><span class="p">(</span>
+                <span class="n">stop</span><span class="o">=</span><span class="n">stop_after_attempt</span><span class="p">(</span><span class="mi">3</span><span class="p">),</span>
+                <span class="n">wait</span><span class="o">=</span><span class="n">wait_exponential</span><span class="p">()</span>
+            <span class="p">):</span>
+                <span class="k">with</span> <span class="n">attempt</span><span class="p">:</span>
+                    <span class="n">handler</span><span class="p">(</span><span class="n">event</span><span class="p">,</span> <span class="n">uow</span><span class="o">=</span><span class="n">uow</span><span class="p">)</span>
+                    <span class="n">queue</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">uow</span><span class="o">.</span><span class="n">collect_new_events</span><span class="p">())</span>
+        <span class="k">except</span> <span class="n">RetryError</span> <span class="k">as</span> <span class="n">retry_failure</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Failed to handle event </span><span class="si">%s</span><span class="s2"> times, giving up!&quot;</span><span class="p">,</span>
+                         <span class="n">retry_failure</span><span class="o">.</span><span class="n">last_attempt</span><span class="o">.</span><span class="n">attempt_number</span><span class="p">)</span>
+            <span class="k">continue</span>
+</code></pre></div>
+<hr />
+<h2 id="chapter-11-event-driven-architecture-using-events-to-integrate-microservices">Chapter 11: Event-Driven Architecture: Using Events to Integrate Microservices<a class="headerlink" href="#chapter-11-event-driven-architecture-using-events-to-integrate-microservices" title="Permanent link">&para;</a></h2>
+<h3 id="distributed-ball-of-mud-and-thinking-in-nouns">Distributed Ball of Mud, and Thinking in Nouns<a class="headerlink" href="#distributed-ball-of-mud-and-thinking-in-nouns" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Anti-pattern: splitting a system into microservices by <em>nouns</em> (Orders, Batches, Warehouse) and using synchronous HTTP calls between them</li>
+<li>This creates <strong>temporal coupling</strong>: every part must be online at the same time</li>
+<li><strong>Connascence</strong>: a taxonomy for types of coupling. Events reduce Connascence of Execution/Timing to Connascence of Name (only need to agree on event names/fields)</li>
+</ul>
+<h3 id="the-alternative-temporal-decoupling-using-asynchronous-messaging">The Alternative: Temporal Decoupling Using Asynchronous Messaging<a class="headerlink" href="#the-alternative-temporal-decoupling-using-asynchronous-messaging" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Think in terms of <em>verbs</em> (ordering, allocating), not <em>nouns</em> (orders, batches)</li>
+<li>Microservices should be <strong>consistency boundaries</strong> (like aggregates)</li>
+<li>Use <strong>asynchronous messaging</strong> (events) to integrate services — accept eventual consistency</li>
+</ul>
+<h3 id="using-a-redis-pubsub-channel-for-integration">Using a Redis Pub/Sub Channel for Integration<a class="headerlink" href="#using-a-redis-pubsub-channel-for-integration" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Message broker</strong>: infrastructure that routes messages between services (e.g., Redis pub/sub, RabbitMQ, Kafka, Amazon EventBridge)</li>
+<li>The book uses Redis pub/sub as a lightweight example</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="c1"># Redis event consumer (entrypoint) — src/allocation/entrypoints/redis_eventconsumer.py</span>
+<span class="n">r</span> <span class="o">=</span> <span class="n">redis</span><span class="o">.</span><span class="n">Redis</span><span class="p">(</span><span class="o">**</span><span class="n">config</span><span class="o">.</span><span class="n">get_redis_host_and_port</span><span class="p">())</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">():</span>
+    <span class="n">orm</span><span class="o">.</span><span class="n">start_mappers</span><span class="p">()</span>
+    <span class="n">pubsub</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="n">pubsub</span><span class="p">(</span><span class="n">ignore_subscribe_messages</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">pubsub</span><span class="o">.</span><span class="n">subscribe</span><span class="p">(</span><span class="s2">&quot;change_batch_quantity&quot;</span><span class="p">)</span>  <span class="c1"># listen on channel</span>
+
+    <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">pubsub</span><span class="o">.</span><span class="n">listen</span><span class="p">():</span>
+        <span class="n">handle_change_batch_quantity</span><span class="p">(</span><span class="n">m</span><span class="p">)</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">handle_change_batch_quantity</span><span class="p">(</span><span class="n">m</span><span class="p">):</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">m</span><span class="p">[</span><span class="s2">&quot;data&quot;</span><span class="p">])</span>
+    <span class="n">cmd</span> <span class="o">=</span> <span class="n">commands</span><span class="o">.</span><span class="n">ChangeBatchQuantity</span><span class="p">(</span><span class="n">ref</span><span class="o">=</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;batchref&quot;</span><span class="p">],</span> <span class="n">qty</span><span class="o">=</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;qty&quot;</span><span class="p">])</span>
+    <span class="n">messagebus</span><span class="o">.</span><span class="n">handle</span><span class="p">(</span><span class="n">cmd</span><span class="p">,</span> <span class="n">uow</span><span class="o">=</span><span class="n">unit_of_work</span><span class="o">.</span><span class="n">SqlAlchemyUnitOfWork</span><span class="p">())</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="c1"># Redis event publisher — src/allocation/adapters/redis_eventpublisher.py</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">publish</span><span class="p">(</span><span class="n">channel</span><span class="p">,</span> <span class="n">event</span><span class="p">:</span> <span class="n">events</span><span class="o">.</span><span class="n">Event</span><span class="p">):</span>
+    <span class="n">r</span><span class="o">.</span><span class="n">publish</span><span class="p">(</span><span class="n">channel</span><span class="p">,</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">asdict</span><span class="p">(</span><span class="n">event</span><span class="p">)))</span>
+</code></pre></div>
+<h3 id="internal-versus-external-events">Internal Versus External Events<a class="headerlink" href="#internal-versus-external-events" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Keep a clear distinction: not all internal events should be published externally</li>
+<li>Outbound events are a place where <strong>validation</strong> is especially important</li>
+</ul>
+<hr />
+<h2 id="chapter-12-command-query-responsibility-segregation-cqrs">Chapter 12: Command-Query Responsibility Segregation (CQRS)<a class="headerlink" href="#chapter-12-command-query-responsibility-segregation-cqrs" title="Permanent link">&para;</a></h2>
+<h3 id="domain-models-are-for-writing">Domain Models Are for Writing<a class="headerlink" href="#domain-models-are-for-writing" title="Permanent link">&para;</a></h3>
+<ul>
+<li>All the patterns in the book (aggregates, UoW, domain events) exist to enforce rules during <em>writes</em></li>
+<li>Reads have very different requirements: simpler logic, higher throughput, staleness is OK</li>
+</ul>
+<h3 id="most-users-arent-going-to-buy-your-furniture">Most Users Aren't Going to Buy Your Furniture<a class="headerlink" href="#most-users-arent-going-to-buy-your-furniture" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Reads vastly outnumber writes in most systems</li>
+<li>Reads can be <strong>eventually consistent</strong> — trade consistency for performance</li>
+</ul>
+<h3 id="postredirectget-and-cqs">Post/Redirect/Get and CQS<a class="headerlink" href="#postredirectget-and-cqs" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>CQS (Command-Query Separation)</strong>: functions should either modify state OR answer questions, never both</li>
+<li>Separate your POST (write) and GET (read) endpoints</li>
+</ul>
+<h3 id="hold-on-to-your-lunch-folks">Hold On to Your Lunch, Folks<a class="headerlink" href="#hold-on-to-your-lunch-folks" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Simplest CQRS: use raw SQL for reads, bypassing the domain model entirely</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="c1"># views.py — raw SQL read model</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">allocations</span><span class="p">(</span><span class="n">orderid</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">uow</span><span class="p">:</span> <span class="n">unit_of_work</span><span class="o">.</span><span class="n">SqlAlchemyUnitOfWork</span><span class="p">):</span>
+    <span class="k">with</span> <span class="n">uow</span><span class="p">:</span>
+        <span class="n">results</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">uow</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span>
+            <span class="s1">&#39;SELECT ol.sku, b.reference&#39;</span>
+            <span class="s1">&#39; FROM allocations AS a&#39;</span>
+            <span class="s1">&#39; JOIN batches AS b ON a.batch_id = b.id&#39;</span>
+            <span class="s1">&#39; JOIN order_lines AS ol ON a.orderline_id = ol.id&#39;</span>
+            <span class="s1">&#39; WHERE ol.orderid = :orderid&#39;</span><span class="p">,</span>
+            <span class="nb">dict</span><span class="p">(</span><span class="n">orderid</span><span class="o">=</span><span class="n">orderid</span><span class="p">)</span>
+        <span class="p">))</span>
+    <span class="k">return</span> <span class="p">[{</span><span class="s2">&quot;sku&quot;</span><span class="p">:</span> <span class="n">sku</span><span class="p">,</span> <span class="s2">&quot;batchref&quot;</span><span class="p">:</span> <span class="n">batchref</span><span class="p">}</span> <span class="k">for</span> <span class="n">sku</span><span class="p">,</span> <span class="n">batchref</span> <span class="ow">in</span> <span class="n">results</span><span class="p">]</span>
+</code></pre></div>
+<h3 id="alternatives-for-read-models">Alternatives for Read Models<a class="headerlink" href="#alternatives-for-read-models" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Pros</th>
+<th>Cons</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Use repositories</td>
+<td>Simple, consistent approach</td>
+<td>Performance issues with complex queries</td>
+</tr>
+<tr>
+<td>Custom ORM queries</td>
+<td>Reuse DB config and model definitions</td>
+<td>Adds query language complexity</td>
+</tr>
+<tr>
+<td>Hand-rolled SQL</td>
+<td>Fine control over performance</td>
+<td>Schema changes affect both ORM and SQL</td>
+</tr>
+<tr>
+<td>Separate read store (events)</td>
+<td>Read-only copies scale out; queries are simple</td>
+<td>Complex technique; eventual consistency</td>
+</tr>
+</tbody>
+</table>
+<h3 id="updating-a-read-model-table-using-an-event-handler">Updating a Read Model Table Using an Event Handler<a class="headerlink" href="#updating-a-read-model-table-using-an-event-handler" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># Build a denormalized read-model table, updated by event handlers</span>
+<span class="n">EVENT_HANDLERS</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="n">events</span><span class="o">.</span><span class="n">Allocated</span><span class="p">:</span> <span class="p">[</span>
+        <span class="n">handlers</span><span class="o">.</span><span class="n">publish_allocated_event</span><span class="p">,</span>
+        <span class="n">handlers</span><span class="o">.</span><span class="n">add_allocation_to_read_model</span><span class="p">,</span>  <span class="c1"># updates the read table</span>
+    <span class="p">],</span>
+<span class="p">}</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">add_allocation_to_read_model</span><span class="p">(</span><span class="n">event</span><span class="p">:</span> <span class="n">events</span><span class="o">.</span><span class="n">Allocated</span><span class="p">,</span> <span class="n">uow</span><span class="p">):</span>
+    <span class="k">with</span> <span class="n">uow</span><span class="p">:</span>
+        <span class="n">uow</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span>
+            <span class="s1">&#39;INSERT INTO allocations_view (orderid, sku, batchref)&#39;</span>
+            <span class="s1">&#39; VALUES (:orderid, :sku, :batchref)&#39;</span><span class="p">,</span>
+            <span class="nb">dict</span><span class="p">(</span><span class="n">orderid</span><span class="o">=</span><span class="n">event</span><span class="o">.</span><span class="n">orderid</span><span class="p">,</span> <span class="n">sku</span><span class="o">=</span><span class="n">event</span><span class="o">.</span><span class="n">sku</span><span class="p">,</span> <span class="n">batchref</span><span class="o">=</span><span class="n">event</span><span class="o">.</span><span class="n">batchref</span><span class="p">)</span>
+        <span class="p">)</span>
+        <span class="n">uow</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+</code></pre></div>
+<h3 id="changing-our-read-model-implementation-is-easy">Changing Our Read Model Implementation Is Easy<a class="headerlink" href="#changing-our-read-model-implementation-is-easy" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Can swap from SQL table to Redis with minimal changes</li>
+<li>Integration tests still pass because they test through the message bus, not the storage backend</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="c1"># Redis-backed read model</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">add_allocation_to_read_model</span><span class="p">(</span><span class="n">event</span><span class="p">:</span> <span class="n">events</span><span class="o">.</span><span class="n">Allocated</span><span class="p">,</span> <span class="n">_</span><span class="p">):</span>
+    <span class="n">redis_eventpublisher</span><span class="o">.</span><span class="n">update_readmodel</span><span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">orderid</span><span class="p">,</span> <span class="n">event</span><span class="o">.</span><span class="n">sku</span><span class="p">,</span> <span class="n">event</span><span class="o">.</span><span class="n">batchref</span><span class="p">)</span>
+
+<span class="c1"># In redis_eventpublisher.py</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">update_readmodel</span><span class="p">(</span><span class="n">orderid</span><span class="p">,</span> <span class="n">sku</span><span class="p">,</span> <span class="n">batchref</span><span class="p">):</span>
+    <span class="n">r</span><span class="o">.</span><span class="n">hset</span><span class="p">(</span><span class="n">orderid</span><span class="p">,</span> <span class="n">sku</span><span class="p">,</span> <span class="n">batchref</span><span class="p">)</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">get_readmodel</span><span class="p">(</span><span class="n">orderid</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">r</span><span class="o">.</span><span class="n">hgetall</span><span class="p">(</span><span class="n">orderid</span><span class="p">)</span>
+</code></pre></div>
+<hr />
+<h2 id="chapter-13-dependency-injection-and-bootstrapping">Chapter 13: Dependency Injection (and Bootstrapping)<a class="headerlink" href="#chapter-13-dependency-injection-and-bootstrapping" title="Permanent link">&para;</a></h2>
+<h3 id="implicit-versus-explicit-dependencies">Implicit Versus Explicit Dependencies<a class="headerlink" href="#implicit-versus-explicit-dependencies" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Explicit</strong>: handler declares <code>uow: AbstractUnitOfWork</code> as a parameter — easy to swap in tests</li>
+<li><strong>Implicit</strong>: handler does <code>from allocation.adapters import email</code> — tied to implementation; requires <code>mock.patch</code> in tests</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="c1"># Explicit (preferred) — dependency is a parameter</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">send_out_of_stock_notification</span><span class="p">(</span><span class="n">event</span><span class="p">:</span> <span class="n">events</span><span class="o">.</span><span class="n">OutOfStock</span><span class="p">,</span> <span class="n">send_mail</span><span class="p">:</span> <span class="n">Callable</span><span class="p">):</span>
+    <span class="n">send_mail</span><span class="p">(</span><span class="s1">&#39;stock@made.com&#39;</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;Out of stock for </span><span class="si">{</span><span class="n">event</span><span class="o">.</span><span class="n">sku</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+<span class="c1"># Implicit (less preferred) — dependency is a hardcoded import</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">allocation.adapters</span><span class="w"> </span><span class="kn">import</span> <span class="n">email</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">send_out_of_stock_notification</span><span class="p">(</span><span class="n">event</span><span class="p">:</span> <span class="n">events</span><span class="o">.</span><span class="n">OutOfStock</span><span class="p">,</span> <span class="n">uow</span><span class="p">):</span>
+    <span class="n">email</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="s1">&#39;stock@made.com&#39;</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;Out of stock for </span><span class="si">{</span><span class="n">event</span><span class="o">.</span><span class="n">sku</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</code></pre></div>
+<ul>
+<li>Mocks tightly couple tests to <em>implementation</em>; explicit DI couples them to <em>abstractions</em></li>
+</ul>
+<h3 id="preparing-handlers-manual-di-with-closures-and-partials">Preparing Handlers: Manual DI with Closures and Partials<a class="headerlink" href="#preparing-handlers-manual-di-with-closures-and-partials" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># Using closures / functools.partial to inject dependencies</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">functools</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">bootstrap</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
+    <span class="n">uow</span> <span class="o">=</span> <span class="n">unit_of_work</span><span class="o">.</span><span class="n">SqlAlchemyUnitOfWork</span><span class="p">()</span>
+    <span class="c1"># closure approach</span>
+    <span class="n">allocate_composed</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">cmd</span><span class="p">:</span> <span class="n">allocate</span><span class="p">(</span><span class="n">cmd</span><span class="p">,</span> <span class="n">uow</span><span class="p">)</span>
+    <span class="c1"># or equivalently with a partial</span>
+    <span class="n">allocate_composed</span> <span class="o">=</span> <span class="n">functools</span><span class="o">.</span><span class="n">partial</span><span class="p">(</span><span class="n">allocate</span><span class="p">,</span> <span class="n">uow</span><span class="o">=</span><span class="n">uow</span><span class="p">)</span>
+</code></pre></div>
+<ul>
+<li>Closures use late binding (can cause surprises with mutable deps)</li>
+<li><code>functools.partial</code> uses early binding — generally safer</li>
+</ul>
+<h3 id="an-alternative-using-classes">An Alternative Using Classes<a class="headerlink" href="#an-alternative-using-classes" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">AllocateHandler</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">uow</span><span class="p">:</span> <span class="n">unit_of_work</span><span class="o">.</span><span class="n">AbstractUnitOfWork</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">uow</span> <span class="o">=</span> <span class="n">uow</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cmd</span><span class="p">:</span> <span class="n">commands</span><span class="o">.</span><span class="n">Allocate</span><span class="p">):</span>
+        <span class="n">line</span> <span class="o">=</span> <span class="n">OrderLine</span><span class="p">(</span><span class="n">cmd</span><span class="o">.</span><span class="n">orderid</span><span class="p">,</span> <span class="n">cmd</span><span class="o">.</span><span class="n">sku</span><span class="p">,</span> <span class="n">cmd</span><span class="o">.</span><span class="n">qty</span><span class="p">)</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">uow</span><span class="p">:</span>
+            <span class="c1"># ... handler body</span>
+</code></pre></div>
+<h3 id="a-bootstrap-script">A Bootstrap Script<a class="headerlink" href="#a-bootstrap-script" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># src/allocation/bootstrap.py</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">bootstrap</span><span class="p">(</span>
+    <span class="n">start_orm</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="n">uow</span><span class="p">:</span> <span class="n">unit_of_work</span><span class="o">.</span><span class="n">AbstractUnitOfWork</span> <span class="o">=</span> <span class="n">unit_of_work</span><span class="o">.</span><span class="n">SqlAlchemyUnitOfWork</span><span class="p">(),</span>
+    <span class="n">send_mail</span><span class="p">:</span> <span class="n">Callable</span> <span class="o">=</span> <span class="n">email</span><span class="o">.</span><span class="n">send</span><span class="p">,</span>
+    <span class="n">publish</span><span class="p">:</span> <span class="n">Callable</span> <span class="o">=</span> <span class="n">redis_eventpublisher</span><span class="o">.</span><span class="n">publish</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">messagebus</span><span class="o">.</span><span class="n">MessageBus</span><span class="p">:</span>
+
+    <span class="k">if</span> <span class="n">start_orm</span><span class="p">:</span>
+        <span class="n">orm</span><span class="o">.</span><span class="n">start_mappers</span><span class="p">()</span>
+
+    <span class="n">dependencies</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;uow&quot;</span><span class="p">:</span> <span class="n">uow</span><span class="p">,</span> <span class="s2">&quot;send_mail&quot;</span><span class="p">:</span> <span class="n">send_mail</span><span class="p">,</span> <span class="s2">&quot;publish&quot;</span><span class="p">:</span> <span class="n">publish</span><span class="p">}</span>
+
+    <span class="n">injected_event_handlers</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="n">event_type</span><span class="p">:</span> <span class="p">[</span>
+            <span class="n">inject_dependencies</span><span class="p">(</span><span class="n">handler</span><span class="p">,</span> <span class="n">dependencies</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">handler</span> <span class="ow">in</span> <span class="n">event_handlers</span>
+        <span class="p">]</span>
+        <span class="k">for</span> <span class="n">event_type</span><span class="p">,</span> <span class="n">event_handlers</span> <span class="ow">in</span> <span class="n">handlers</span><span class="o">.</span><span class="n">EVENT_HANDLERS</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
+    <span class="p">}</span>
+    <span class="c1"># ... same for command handlers</span>
+
+    <span class="k">return</span> <span class="n">messagebus</span><span class="o">.</span><span class="n">MessageBus</span><span class="p">(</span>
+        <span class="n">uow</span><span class="o">=</span><span class="n">uow</span><span class="p">,</span>
+        <span class="n">event_handlers</span><span class="o">=</span><span class="n">injected_event_handlers</span><span class="p">,</span>
+        <span class="n">command_handlers</span><span class="o">=</span><span class="n">injected_command_handlers</span><span class="p">,</span>
+    <span class="p">)</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">inject_dependencies</span><span class="p">(</span><span class="n">handler</span><span class="p">,</span> <span class="n">dependencies</span><span class="p">):</span>
+    <span class="n">params</span> <span class="o">=</span> <span class="n">inspect</span><span class="o">.</span><span class="n">signature</span><span class="p">(</span><span class="n">handler</span><span class="p">)</span><span class="o">.</span><span class="n">parameters</span>
+    <span class="n">deps</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="n">name</span><span class="p">:</span> <span class="n">dependency</span>
+        <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">dependency</span> <span class="ow">in</span> <span class="n">dependencies</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">params</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="k">lambda</span> <span class="n">message</span><span class="p">:</span> <span class="n">handler</span><span class="p">(</span><span class="n">message</span><span class="p">,</span> <span class="o">**</span><span class="n">deps</span><span class="p">)</span>
+</code></pre></div>
+<ul>
+<li><code>inspect.signature</code> matches handler params to the dependencies dict</li>
+<li>Keeps all initialization in one place — the <strong>composition root</strong></li>
+</ul>
+<h3 id="initializing-di-in-our-tests">Initializing DI in Our Tests<a class="headerlink" href="#initializing-di-in-our-tests" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># Integration test bootstrap</span>
+<span class="nd">@pytest</span><span class="o">.</span><span class="n">fixture</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">sqlite_bus</span><span class="p">(</span><span class="n">sqlite_session_factory</span><span class="p">):</span>
+    <span class="n">bus</span> <span class="o">=</span> <span class="n">bootstrap</span><span class="o">.</span><span class="n">bootstrap</span><span class="p">(</span>
+        <span class="n">start_orm</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">uow</span><span class="o">=</span><span class="n">unit_of_work</span><span class="o">.</span><span class="n">SqlAlchemyUnitOfWork</span><span class="p">(</span><span class="n">sqlite_session_factory</span><span class="p">),</span>
+        <span class="n">send_mail</span><span class="o">=</span><span class="k">lambda</span> <span class="o">*</span><span class="n">args</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>  <span class="c1"># no-op</span>
+        <span class="n">publish</span><span class="o">=</span><span class="k">lambda</span> <span class="o">*</span><span class="n">args</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="k">yield</span> <span class="n">bus</span>
+    <span class="n">clear_mappers</span><span class="p">()</span>
+
+<span class="c1"># Unit test bootstrap</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">bootstrap_test_app</span><span class="p">():</span>
+    <span class="k">return</span> <span class="n">bootstrap</span><span class="o">.</span><span class="n">bootstrap</span><span class="p">(</span>
+        <span class="n">start_orm</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">uow</span><span class="o">=</span><span class="n">FakeUnitOfWork</span><span class="p">(),</span>
+        <span class="n">send_mail</span><span class="o">=</span><span class="k">lambda</span> <span class="o">*</span><span class="n">args</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">publish</span><span class="o">=</span><span class="k">lambda</span> <span class="o">*</span><span class="n">args</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span>
+</code></pre></div>
+<h3 id="building-an-adapter-properly-a-worked-example">Building an Adapter "Properly": A Worked Example<a class="headerlink" href="#building-an-adapter-properly-a-worked-example" title="Permanent link">&para;</a></h3>
+<ol>
+<li><strong>Define the abstract interface</strong> (ABC)</li>
+<li><strong>Implement the real thing</strong> (e.g., <code>EmailNotifications</code> using <code>smtplib</code>)</li>
+<li><strong>Build a fake</strong> for unit/service-layer tests (e.g., <code>FakeNotifications</code>)</li>
+<li><strong>Find a "less fake" for integration</strong> (e.g., MailHog in Docker)</li>
+<li><strong>Integration test</strong> against the less-fake version</li>
+</ol>
+<div class="highlight"><pre><span></span><code><span class="c1"># Abstract</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">AbstractNotifications</span><span class="p">(</span><span class="n">abc</span><span class="o">.</span><span class="n">ABC</span><span class="p">):</span>
+    <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">send</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">destination</span><span class="p">,</span> <span class="n">message</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span>
+
+<span class="c1"># Real</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">EmailNotifications</span><span class="p">(</span><span class="n">AbstractNotifications</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">smtp_host</span><span class="o">=</span><span class="n">DEFAULT_HOST</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="n">DEFAULT_PORT</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">server</span> <span class="o">=</span> <span class="n">smtplib</span><span class="o">.</span><span class="n">SMTP</span><span class="p">(</span><span class="n">smtp_host</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="n">port</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">noop</span><span class="p">()</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">send</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">destination</span><span class="p">,</span> <span class="n">message</span><span class="p">):</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;Subject: allocation service notification</span><span class="se">\n</span><span class="si">{</span><span class="n">message</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">sendmail</span><span class="p">(</span>
+            <span class="n">from_addr</span><span class="o">=</span><span class="s2">&quot;allocations@example.com&quot;</span><span class="p">,</span>
+            <span class="n">to_addrs</span><span class="o">=</span><span class="p">[</span><span class="n">destination</span><span class="p">],</span>
+            <span class="n">msg</span><span class="o">=</span><span class="n">msg</span>
+        <span class="p">)</span>
+
+<span class="c1"># Fake (for unit tests)</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">FakeNotifications</span><span class="p">(</span><span class="n">AbstractNotifications</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sent</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="nb">list</span><span class="p">)</span>  <span class="c1"># type: Dict[str, List[str]]</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">send</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">destination</span><span class="p">,</span> <span class="n">message</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sent</span><span class="p">[</span><span class="n">destination</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
+</code></pre></div>
+<h3 id="di-framework-mentions">DI Framework Mentions<a class="headerlink" href="#di-framework-mentions" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong><code>Inject</code></strong> — used at MADE.com, works fine but annoys Pylint</li>
+<li><strong><code>Punq</code></strong> — written by Bob Gregory</li>
+<li><strong><code>dependencies</code></strong> — by the DRY-Python crew</li>
+<li>For most cases, manual DI (lambdas/partials + bootstrap script) is sufficient</li>
+</ul>
+<h3 id="message-bus-is-given-handlers-at-runtime">Message Bus Is Given Handlers at Runtime<a class="headerlink" href="#message-bus-is-given-handlers-at-runtime" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">MessageBus</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">uow</span><span class="p">,</span> <span class="n">event_handlers</span><span class="p">,</span> <span class="n">command_handlers</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">uow</span> <span class="o">=</span> <span class="n">uow</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">event_handlers</span> <span class="o">=</span> <span class="n">event_handlers</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">command_handlers</span> <span class="o">=</span> <span class="n">command_handlers</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">handle</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">:</span> <span class="n">Message</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">queue</span> <span class="o">=</span> <span class="p">[</span><span class="n">message</span><span class="p">]</span>
+        <span class="k">while</span> <span class="bp">self</span><span class="o">.</span><span class="n">queue</span><span class="p">:</span>
+            <span class="n">message</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">queue</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">message</span><span class="p">,</span> <span class="n">events</span><span class="o">.</span><span class="n">Event</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">handle_event</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">message</span><span class="p">,</span> <span class="n">commands</span><span class="o">.</span><span class="n">Command</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">handle_command</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">message</span><span class="si">}</span><span class="s2"> was not an Event or Command&quot;</span><span class="p">)</span>
+</code></pre></div>
+<hr />
+<h2 id="epilogue">Epilogue<a class="headerlink" href="#epilogue" title="Permanent link">&para;</a></h2>
+<h3 id="how-do-i-get-there-from-here">How Do I Get There from Here?<a class="headerlink" href="#how-do-i-get-there-from-here" title="Permanent link">&para;</a></h3>
+<ul>
+<li>You don't need a greenfield project — these patterns can be incrementally adopted in existing codebases</li>
+<li>Link refactoring to feature work to justify the investment (<strong>"architecture tax"</strong>)</li>
+</ul>
+<h3 id="separating-entangled-responsibilities">Separating Entangled Responsibilities<a class="headerlink" href="#separating-entangled-responsibilities" title="Permanent link">&para;</a></h3>
+<ol>
+<li>Identify <strong>use cases</strong> — give each an imperative name (Apply Billing Charges, Create Workspace)</li>
+<li>Create a single function/class per use case that orchestrates the work</li>
+<li>Pull data access and I/O out of the domain model and into use-case functions</li>
+</ol>
+<h3 id="identifying-aggregates-and-bounded-contexts">Identifying Aggregates and Bounded Contexts<a class="headerlink" href="#identifying-aggregates-and-bounded-contexts" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Break apart your object graph by replacing direct object references with IDs</li>
+<li><strong>Bidirectional links</strong> are a code smell — they suggest aggregate boundaries are wrong</li>
+<li>For <em>reads</em>, replace ORM loops with raw SQL (first step toward CQRS)</li>
+<li>For <em>writes</em>, use message bus + events to coordinate between aggregates</li>
+</ul>
+<h3 id="an-event-driven-approach-to-go-to-microservices-via-strangler-pattern">An Event-Driven Approach to Go to Microservices via Strangler Pattern<a class="headerlink" href="#an-event-driven-approach-to-go-to-microservices-via-strangler-pattern" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Strangler Fig pattern</strong>: wrap a new system around the edges of the old one, gradually replacing functionality</li>
+<li><strong>Event interception</strong>:</li>
+<li>Raise events in the old system</li>
+<li>Build a new system that consumes those events</li>
+<li>Replace the old system</li>
+</ul>
+<h3 id="convincing-your-stakeholders-to-try-something-new">Convincing Your Stakeholders to Try Something New<a class="headerlink" href="#convincing-your-stakeholders-to-try-something-new" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Use <strong>domain modeling</strong> (event storming, CRC cards, event modeling) to align engineers and business</li>
+<li>Treat domain problems as TDD katas — start small, demonstrate value</li>
+</ul>
+<h3 id="footguns">Footguns<a class="headerlink" href="#footguns" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Reliable messaging is hard</strong>: Redis pub/sub is not a production message broker; consider RabbitMQ, Kafka, Amazon EventBridge</li>
+<li><strong>Small, focused transactions</strong>: design operations to fail independently</li>
+<li><strong>Idempotency</strong>: handlers should be safe to call repeatedly with the same message</li>
+<li><strong>Event schema evolution</strong>: document and version your events (JSON schema + markdown)</li>
+</ul>
+<hr />
+<h2 id="appendix-a-summary-diagram-and-table">Appendix A: Summary Diagram and Table<a class="headerlink" href="#appendix-a-summary-diagram-and-table" title="Permanent link">&para;</a></h2>
+<h3 id="component-reference">Component Reference<a class="headerlink" href="#component-reference" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Layer</th>
+<th>Component</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Domain</strong></td>
+<td>Entity</td>
+<td>Object with identity that may change over time</td>
+</tr>
+<tr>
+<td></td>
+<td>Value Object</td>
+<td>Immutable, defined entirely by its attributes</td>
+</tr>
+<tr>
+<td></td>
+<td>Aggregate</td>
+<td>Cluster of objects treated as a unit; consistency boundary</td>
+</tr>
+<tr>
+<td></td>
+<td>Event</td>
+<td>Dataclass representing something that happened</td>
+</tr>
+<tr>
+<td></td>
+<td>Command</td>
+<td>Dataclass representing a job the system should do</td>
+</tr>
+<tr>
+<td><strong>Service Layer</strong></td>
+<td>Handler</td>
+<td>Receives a command/event and orchestrates response</td>
+</tr>
+<tr>
+<td></td>
+<td>Unit of Work</td>
+<td>Abstraction around atomic DB operations</td>
+</tr>
+<tr>
+<td></td>
+<td>Message Bus</td>
+<td>Routes commands/events to their handlers</td>
+</tr>
+<tr>
+<td><strong>Adapters</strong></td>
+<td>Repository</td>
+<td>Abstraction around persistent storage</td>
+</tr>
+<tr>
+<td></td>
+<td>Event Publisher</td>
+<td>Pushes events to external message bus</td>
+</tr>
+<tr>
+<td><strong>Entrypoints</strong></td>
+<td>Web (Flask)</td>
+<td>Translates HTTP requests → commands</td>
+</tr>
+<tr>
+<td></td>
+<td>Event Consumer</td>
+<td>Translates external messages → commands</td>
+</tr>
+<tr>
+<td><strong>Infrastructure</strong></td>
+<td>External Message Bus</td>
+<td>Message broker (Redis, Kafka, etc.) for inter-service communication</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="appendix-b-a-template-project-structure">Appendix B: A Template Project Structure<a class="headerlink" href="#appendix-b-a-template-project-structure" title="Permanent link">&para;</a></h2>
+<h3 id="project-layout">Project Layout<a class="headerlink" href="#project-layout" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>.
+├── Dockerfile
+├── Makefile
+├── docker-compose.yml
+├── mypy.ini
+├── requirements.txt
+├── src
+│   ├── allocation
+│   │   ├── __init__.py
+│   │   ├── adapters/        (orm.py, repository.py)
+│   │   ├── config.py
+│   │   ├── domain/          (model.py, events.py, commands.py)
+│   │   ├── entrypoints/     (flask_app.py, redis_eventconsumer.py)
+│   │   └── service_layer/   (handlers.py, messagebus.py, unit_of_work.py)
+│   └── setup.py
+└── tests
+    ├── conftest.py
+    ├── e2e/          (test_api.py)
+    ├── integration/  (test_orm.py, test_repository.py)
+    ├── pytest.ini
+    └── unit/         (test_batches.py, test_handlers.py)
+</code></pre></div>
+<h3 id="key-config-patterns">Key Config Patterns<a class="headerlink" href="#key-config-patterns" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong><code>config.py</code></strong>: functions (not constants) that read from <code>os.environ</code> with sensible dev defaults</li>
+<li><strong><code>docker-compose.yml</code></strong>: define services, set env vars, mount volumes for dev hot-reload</li>
+<li><strong><code>setup.py</code></strong>: minimal <code>pip install -e</code> for src package</li>
+<li><strong><code>PYTHONDONTWRITEBYTECODE=1</code></strong>: prevents .pyc clutter when mounting volumes in Docker</li>
+<li><strong>Library: <code>environ-config</code></strong> — elegant environment-based config in Python</li>
+</ul>
+<hr />
+<h2 id="appendix-c-swapping-out-the-infrastructure-do-everything-with-csvs">Appendix C: Swapping Out the Infrastructure: Do Everything with CSVs<a class="headerlink" href="#appendix-c-swapping-out-the-infrastructure-do-everything-with-csvs" title="Permanent link">&para;</a></h2>
+<h3 id="key-lesson">Key Lesson<a class="headerlink" href="#key-lesson" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Because the domain model and service layer are decoupled from infrastructure, you can swap Postgres for CSV files by implementing new <code>CsvRepository</code> and <code>CsvUnitOfWork</code> classes</li>
+<li>All domain logic and service-layer orchestration is reused unchanged</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">CsvRepository</span><span class="p">(</span><span class="n">repository</span><span class="o">.</span><span class="n">AbstractRepository</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">folder</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_batches_path</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">folder</span><span class="p">)</span> <span class="o">/</span> <span class="s2">&quot;batches.csv&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_allocations_path</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">folder</span><span class="p">)</span> <span class="o">/</span> <span class="s2">&quot;allocations.csv&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_batches</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_load</span><span class="p">()</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">reference</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_batches</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">reference</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">add</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">batch</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_batches</span><span class="p">[</span><span class="n">batch</span><span class="o">.</span><span class="n">reference</span><span class="p">]</span> <span class="o">=</span> <span class="n">batch</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">CsvUnitOfWork</span><span class="p">(</span><span class="n">unit_of_work</span><span class="o">.</span><span class="n">AbstractUnitOfWork</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">folder</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">batches</span> <span class="o">=</span> <span class="n">CsvRepository</span><span class="p">(</span><span class="n">folder</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">commit</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># write allocations back to CSV</span>
+        <span class="o">...</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">rollback</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">pass</span>
+</code></pre></div>
+<hr />
+<h2 id="appendix-d-repository-and-unit-of-work-patterns-with-django">Appendix D: Repository and Unit of Work Patterns with Django<a class="headerlink" href="#appendix-d-repository-and-unit-of-work-patterns-with-django" title="Permanent link">&para;</a></h2>
+<p><em>(Brief overview — see the book for full Django-specific code)</em></p>
+<ul>
+<li>Django's ORM uses the Active Record pattern (model = table row), unlike SQLAlchemy's Data Mapper</li>
+<li>You can still apply Repository and UoW patterns on top of Django, though it requires more effort</li>
+<li>The key trick: use Django's <code>model_to_dict</code> and manual mapping to keep your domain model separate from Django models</li>
+<li>Django's <code>transaction.atomic()</code> can serve as the UoW's <code>commit()</code> boundary</li>
+</ul>
+<hr />
+<h2 id="appendix-e-validation">Appendix E: Validation<a class="headerlink" href="#appendix-e-validation" title="Permanent link">&para;</a></h2>
+<h3 id="three-types-of-validation">Three Types of Validation<a class="headerlink" href="#three-types-of-validation" title="Permanent link">&para;</a></h3>
+<ol>
+<li><strong>Syntax validation</strong>: is the input well-formed? (correct types, required fields present)</li>
+<li><strong>Semantics validation</strong>: does the input make sense? (is this a real SKU? is quantity positive?)</li>
+<li><strong>Pragmatic validation</strong>: can we do what's being asked? (is there enough stock?)</li>
+</ol>
+<h3 id="where-to-validate">Where to Validate<a class="headerlink" href="#where-to-validate" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Syntax</strong>: at the edge — in the entrypoint or on the message/command itself</li>
+<li><strong>Semantics</strong>: in the domain model or handlers (e.g., checking a SKU exists)</li>
+<li><strong>Pragmatic</strong>: deep in the domain model (business rules like "can't allocate more than available")</li>
+</ul>
+<h3 id="the-ensure-pattern">The Ensure Pattern<a class="headerlink" href="#the-ensure-pattern" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># Validation at command creation</span>
+<span class="nd">@dataclass</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Allocate</span><span class="p">(</span><span class="n">Command</span><span class="p">):</span>
+    <span class="n">orderid</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">sku</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">qty</span><span class="p">:</span> <span class="nb">int</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">__post_init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">orderid</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;orderid is required&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">qty</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;qty must be positive&quot;</span><span class="p">)</span>
+</code></pre></div>
+<ul>
+<li>Validate as early as possible</li>
+<li>Commands/events should be valid by construction</li>
+<li>Don't let invalid data propagate through the system</li>
+</ul>
+<hr />
+
+
+
+
+
+
+
+
+
+
+
+
+                
+  
+
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        
+
+<footer class="md-footer">
+  
+    <nav
+      class="md-footer__inner md-grid"
+      aria-label="footer.title"
+    >
+      
+        <a
+          href="../tdd_python/"
+          class="md-footer__link md-footer__link--prev"
+          rel="prev"
+        >
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              TDD with Python
+            </div>
+          </div>
+        </a>
+      
+      
+        <a
+          href="../refactoring/"
+          class="md-footer__link md-footer__link--next"
+          rel="next"
+        >
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              Refactoring
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        Made with
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+          Material for MkDocs
+        </a>
+        with emoji by
+        <a href="https://github.com/twitter/twemoji" target="_blank" rel="noopener">
+          Twemoji
+        </a>
+      </div>
+      
+<div class="md-social">
+  
+</div>
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["announce.dismiss", "content.action.edit", "content.action.view", "content.code.annotate", "content.code.copy", "content.tooltips", "header.autohide", "navigation.expand", "navigation.footer", "navigation.indexes", "navigation.instant", "navigation.sections", "navigation.tabs", "navigation.top", "navigation.tracking", "search.highlight", "search.share", "search.suggest", "toc.follow", "toc.integrate"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../../javascripts/extra.js"></script>
+      
+        <script src="../../assets/pymdownx-extras/extra-loader-B5CKpNQx.js"></script>
+      
+    
+  </body>
+</html>

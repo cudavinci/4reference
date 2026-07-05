@@ -1,0 +1,2789 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Notes and code snippets">
+      
+      
+        <meta name="author" content="Sean Fuller">
+      
+      
+        <link rel="canonical" href="https://cudavinci.github.io/4reference/books/serious_python/">
+      
+      
+        <link rel="prev" href="../api_design_patterns/">
+      
+      
+        <link rel="next" href="../tdd_python/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Serious Python - My Snippets & Notes</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+
+      
+    
+<script src="../../assets/pymdownx-extras/material-extra-theme-2ek1P7jT.js" type="text/javascript"></script>
+<script src="../../assets/pymdownx-extras/material-extra-3rdparty-BUCF4rjN.js" type="text/javascript"></script>
+
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+      <link rel="stylesheet" href="../../assets/pymdownx-extras/extra-c6ab11540a.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="dracula" data-md-color-primary="#f8f8f2" data-md-color-accent="#bd93f9">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#serious-python-black-belt-advice-on-deployment-scalability-testing-and-more" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+
+<header class="md-header" data-md-component="header">
+  <nav
+    class="md-header__inner md-grid"
+    aria-label="header.title"
+  >
+    <a
+      href="https://cudavinci.github.io/4reference/"
+      title="My Snippets &amp; Notes"
+      class="md-header__button md-logo"
+      aria-label="My Snippets & Notes"
+    >
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            My Snippets & Notes
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Serious Python
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    <div class="md-header__options">
+      <div class="md-header-nav__scheme md-header-nav__button md-source__icon md-icon">
+          <a
+            href="javascript:toggleScheme();"
+            title="Light mode"
+            class="light-mode"
+          >
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+          </a>
+          <a
+            href="javascript:toggleScheme();"
+            title="Dark mode"
+            class="dark-mode"
+          >
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+          </a>
+          <a
+            href="javascript:toggleScheme();"
+            title="System preference"
+            class="system-mode"
+          >
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M7.5 2c-1.79 1.15-3 3.18-3 5.5s1.21 4.35 3.03 5.5C4.46 13 2 10.54 2 7.5A5.5 5.5 0 0 1 7.5 2m11.57 1.5 1.43 1.43L4.93 20.5 3.5 19.07zm-6.18 2.43L11.41 5 9.97 6l.42-1.7L9 3.24l1.75-.12.58-1.65L12 3.1l1.73.03-1.35 1.13zm-3.3 3.61-1.16-.73-1.12.78.34-1.32-1.09-.83 1.36-.09.45-1.29.51 1.27 1.36.03-1.05.87zM19 13.5a5.5 5.5 0 0 1-5.5 5.5c-1.22 0-2.35-.4-3.26-1.07l7.69-7.69c.67.91 1.07 2.04 1.07 3.26m-4.4 6.58 2.77-1.15-.24 3.35zm4.33-2.7 1.15-2.77 2.2 2.54zm1.15-4.96-1.14-2.78 3.34.24zM9.63 18.93l2.77 1.15-2.53 2.19z"/></svg>
+          </a>
+           <a
+            href="javascript:toggleScheme();"
+            title="Unknown scheme"
+            class="unknown-mode"
+          >
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m15.07 11.25-.9.92C13.45 12.89 13 13.5 13 15h-2v-.5c0-1.11.45-2.11 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41a2 2 0 0 0-2-2 2 2 0 0 0-2 2H8a4 4 0 0 1 4-4 4 4 0 0 1 4 4 3.2 3.2 0 0 1-.93 2.25M13 19h-2v-2h2M12 2A10 10 0 0 0 2 12a10 10 0 0 0 10 10 10 10 0 0 0 10-10c0-5.53-4.5-10-10-10"/></svg>
+          </a>
+      </div>
+    </div>
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../snippets/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Code Snippets
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../webdev_snippets/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Web Development
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Book Summaries
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../notes/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Notes
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--lifted md-nav--integrated" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="My Snippets &amp; Notes" class="md-nav__button md-logo" aria-label="My Snippets & Notes" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    My Snippets & Notes
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../snippets/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Code Snippets
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../webdev_snippets/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Web Development
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Book Summaries
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4" id="__nav_4_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Book Summaries
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../crafting_tdd_python/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Crafting TDD
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../pytest/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    pytest
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../python_packaging/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Python Packaging
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../selenium_testing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Selenium Testing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api_design_patterns/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API Design Patterns
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Serious Python
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Serious Python
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#chapter-1-starting-your-project" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chapter 1: Starting Your Project
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Chapter 1: Starting Your Project">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#versions-of-python" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Versions of Python
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#laying-out-your-project" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Laying Out Your Project
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Laying Out Your Project">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-to-do" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What to Do
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-not-to-do" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What Not to Do
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#version-numbering" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Version Numbering
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#coding-style-and-automated-checks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Coding Style and Automated Checks
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Coding Style and Automated Checks">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#tools-to-catch-style-errors" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tools to Catch Style Errors
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tools-to-catch-coding-errors" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tools to Catch Coding Errors
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#chapter-2-modules-libraries-and-frameworks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chapter 2: Modules, Libraries, and Frameworks
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Chapter 2: Modules, Libraries, and Frameworks">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-import-system" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Import System
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="The Import System">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-sys-module" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The sys Module
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#import-paths" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Import Paths
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#custom-importers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Custom Importers
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#useful-standard-libraries" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Useful Standard Libraries
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#external-libraries" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        External Libraries
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="External Libraries">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-external-libraries-safety-checklist" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The External Libraries Safety Checklist
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#protecting-your-code-with-an-api-wrapper" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Protecting Your Code with an API Wrapper
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#package-installation-getting-more-from-pip" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Package Installation: Getting More from pip
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#using-and-choosing-frameworks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Using and Choosing Frameworks
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#chapter-3-documentation-and-good-api-practice" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chapter 3: Documentation and Good API Practice
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Chapter 3: Documentation and Good API Practice">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#documenting-with-sphinx" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Documenting with Sphinx
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Documenting with Sphinx">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#getting-started-with-sphinx-and-rest" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Getting Started with Sphinx and reST
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sphinx-modules" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sphinx Modules
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#writing-a-sphinx-extension" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Writing a Sphinx Extension
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#managing-changes-to-your-apis" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Managing Changes to Your APIs
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Managing Changes to Your APIs">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#documenting-your-api-changes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Documenting Your API Changes
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#marking-deprecated-functions-with-the-warnings-module" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Marking Deprecated Functions with the warnings Module
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#chapter-4-handling-timestamps-and-time-zones" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chapter 4: Handling Timestamps and Time Zones
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Chapter 4: Handling Timestamps and Time Zones">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-problem-of-missing-time-zones" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Problem of Missing Time Zones
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#building-default-datetime-objects" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Building Default datetime Objects
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#time-zone-aware-timestamps-with-dateutil" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Time Zone-Aware Timestamps with dateutil
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#serializing-time-zone-aware-datetime-objects" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Serializing Time Zone-Aware datetime Objects
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#solving-ambiguous-times" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Solving Ambiguous Times
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#chapter-5-distributing-your-software" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chapter 5: Distributing Your Software
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Chapter 5: Distributing Your Software">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#a-bit-of-setuppy-history" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A Bit of setup.py History
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#packaging-with-setupcfg" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Packaging with setup.cfg
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-wheel-format-distribution-standard" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Wheel Format Distribution Standard
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sharing-your-work-with-the-world" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sharing Your Work with the World
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#entry-points" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Entry Points
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Entry Points">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#using-console-scripts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Using Console Scripts
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#using-plugins-and-drivers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Using Plugins and Drivers
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#chapter-6-unit-testing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chapter 6: Unit Testing
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Chapter 6: Unit Testing">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-basics-of-testing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Basics of Testing
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="The Basics of Testing">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#some-simple-tests" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Some Simple Tests
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#skipping-tests" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Skipping Tests
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#running-particular-tests" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Running Particular Tests
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#running-tests-in-parallel" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Running Tests in Parallel
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#creating-objects-used-in-tests-with-fixtures" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Creating Objects Used in Tests with Fixtures
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#running-test-scenarios" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Running Test Scenarios
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#controlled-tests-using-mocking" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Controlled Tests Using Mocking
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#revealing-untested-code-with-coverage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Revealing Untested Code with coverage
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#virtual-environments" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Virtual Environments
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Virtual Environments">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#using-virtualenv-with-tox" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Using virtualenv with tox
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#testing-policy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Testing Policy
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#chapter-7-methods-and-decorators" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chapter 7: Methods and Decorators
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Chapter 7: Methods and Decorators">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#decorators-and-when-to-use-them" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Decorators and When to Use Them
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#how-methods-work-in-python" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How Methods Work in Python
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#static-methods" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Static Methods
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#class-methods" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Class Methods
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#abstract-methods" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Abstract Methods
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-truth-about-super" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Truth About super
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#chapter-8-functional-programming" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chapter 8: Functional Programming
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Chapter 8: Functional Programming">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#creating-pure-functions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Creating Pure Functions
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#generators" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Generators
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#list-comprehensions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        List Comprehensions
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#functional-functions-functioning" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Functional Functions Functioning
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#useful-itertools-functions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Useful itertools Functions
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#chapter-9-the-abstract-syntax-tree-hy-and-lisp-like-attributes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chapter 9: The Abstract Syntax Tree, Hy, and Lisp-like Attributes
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Chapter 9: The Abstract Syntax Tree, Hy, and Lisp-like Attributes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#looking-at-the-ast" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Looking at the AST
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#extending-flake8-with-ast-checks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Extending flake8 with AST Checks
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#a-quick-introduction-to-hy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A Quick Introduction to Hy
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#chapter-10-performances-and-optimizations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chapter 10: Performances and Optimizations
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Chapter 10: Performances and Optimizations">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#data-structures" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Data Structures
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#profiling" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Profiling
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#defining-functions-efficiently" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Defining Functions Efficiently
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ordered-lists-and-bisect" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ordered Lists and bisect
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#namedtuple-and-slots" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        namedtuple and Slots
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#memoization" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Memoization
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#faster-python-with-pypy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Faster Python with PyPy
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#achieving-zero-copy-with-the-buffer-protocol" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Achieving Zero Copy with the Buffer Protocol
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#chapter-11-scaling-and-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chapter 11: Scaling and Architecture
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Chapter 11: Scaling and Architecture">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#multithreading-in-python-and-its-limitations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Multithreading in Python and Its Limitations
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#multiprocessing-vs-multithreading" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Multiprocessing vs. Multithreading
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#event-driven-architecture-asyncio" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Event-Driven Architecture / asyncio
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#service-oriented-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Service-Oriented Architecture
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#interprocess-communication-with-zeromq" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Interprocess Communication with ZeroMQ
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#chapter-12-managing-relational-databases" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chapter 12: Managing Relational Databases
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Chapter 12: Managing Relational Databases">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#rdbmss-orms-and-when-to-use-them" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        RDBMSs, ORMs, and When to Use Them
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#database-backends" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Database Backends
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#streaming-data-with-flask-and-postgresql" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Streaming Data with Flask and PostgreSQL
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#chapter-13-write-less-code-more" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chapter 13: Write Less, Code More
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Chapter 13: Write Less, Code More">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#single-dispatch" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Single Dispatch
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#context-managers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Context Managers
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#less-boilerplate-with-attrs-dataclasses" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Less Boilerplate with attrs / dataclasses
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tdd_python/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    TDD with Python
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../arch_patterns_python/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture Patterns
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../refactoring/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Refactoring
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../fundamentals_data_engineering/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Data Engineering
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../data_pipelines_airflow/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Airflow
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../fastapi_cookbook/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    FastAPI Cookbook
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../notes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Notes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+  
+                  
+
+
+
+<h1 id="serious-python-black-belt-advice-on-deployment-scalability-testing-and-more">Serious Python — Black-Belt Advice on Deployment, Scalability, Testing, and More<a class="headerlink" href="#serious-python-black-belt-advice-on-deployment-scalability-testing-and-more" title="Permanent link">&para;</a></h1>
+<p><strong>Author:</strong> Julien Danjou | <strong>Publisher:</strong> No Starch Press, 2019</p>
+<hr />
+<h2 id="chapter-1-starting-your-project">Chapter 1: Starting Your Project<a class="headerlink" href="#chapter-1-starting-your-project" title="Permanent link">&para;</a></h2>
+<h3 id="versions-of-python">Versions of Python<a class="headerlink" href="#versions-of-python" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Python 2 reached EOL in 2020 — <strong>always target Python 3</strong> for new projects</li>
+<li>Each minor version gets <strong>18 months bug-fix</strong> + <strong>5 years security</strong> support</li>
+<li>Target the latest stable release; ensure compat with <code>N-1</code> if your OS ships it</li>
+</ul>
+<h3 id="laying-out-your-project">Laying Out Your Project<a class="headerlink" href="#laying-out-your-project" title="Permanent link">&para;</a></h3>
+<h4 id="what-to-do">What to Do<a class="headerlink" href="#what-to-do" title="Permanent link">&para;</a></h4>
+<ul>
+<li>Keep hierarchy <strong>flat but logical</strong> — deep nesting is hard to navigate, flat gets bloated</li>
+<li>Place unit tests <strong>inside</strong> your package as a subpackage (e.g. <code>mylib/tests/</code>) so they ship with the module and don't accidentally install as a top-level <code>tests</code> module</li>
+<li>Mirror your module hierarchy in your test tree: <code>mylib/foobar.py</code> → <code>mylib/tests/test_foobar.py</code></li>
+</ul>
+<p><strong>Standard project layout:</strong>
+<div class="highlight"><pre><span></span><code>setup.py
+setup.cfg
+README.rst
+docs/
+    conf.py
+    index.rst
+foobar/
+    __init__.py
+    cli.py
+    storage.py
+    tests/
+        __init__.py
+        test_cli.py
+        test_storage.py
+    data/
+        image.png
+</code></pre></div></p>
+<p>Other common top-level dirs: <code>etc/</code> (sample config), <code>tools/</code> (shell scripts), <code>bin/</code> (binary scripts)</p>
+<h4 id="what-not-to-do">What Not to Do<a class="headerlink" href="#what-not-to-do" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Don't organize by code type</strong> (e.g. <code>functions.py</code>, <code>exceptions.py</code>) — organize by <strong>feature</strong></li>
+<li><strong>Don't create a directory with only <code>__init__.py</code></strong> — use a single file instead (e.g. <code>hooks.py</code> not <code>hooks/__init__.py</code>)</li>
+<li><strong>Keep <code>__init__.py</code> empty</strong> unless you have a specific reason — code there runs on first import of anything in that package</li>
+<li>Don't remove <code>__init__.py</code> entirely though — Python requires it to recognize a directory as a package</li>
+</ul>
+<h3 id="version-numbering">Version Numbering<a class="headerlink" href="#version-numbering" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Follow <strong>PEP 440</strong>: <code>N[.N]+[{a|b|rc}N][.postN][.devN]</code></li>
+<li><code>1.2</code> == <code>1.2.0</code>; <code>1.2a1</code> = alpha; <code>1.2b2</code> = beta; <code>1.2rc1</code> = release candidate</li>
+<li><code>.postN</code> = post-release (minor publication errors, <strong>not</strong> bug fixes — bump minor version for those)</li>
+<li><code>.devN</code> = dev/pre-release (discouraged, hard to parse)</li>
+<li><strong>Semantic Versioning</strong> partially overlaps with PEP 440 but is <strong>not fully compatible</strong> (e.g. <code>1.0.0-alpha+001</code> is invalid PEP 440)</li>
+</ul>
+<h3 id="coding-style-and-automated-checks">Coding Style and Automated Checks<a class="headerlink" href="#coding-style-and-automated-checks" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>PEP 8</strong> is the canonical style guide: 4-space indents, 79-char lines, <code>CamelCase</code> classes, <code>snake_case</code> functions, <code>_private</code> prefix</li>
+<li><strong>Always enforce PEP 8 from day one</strong> via CI — easier than retrofitting later</li>
+</ul>
+<h4 id="tools-to-catch-style-errors">Tools to Catch Style Errors<a class="headerlink" href="#tools-to-catch-style-errors" title="Permanent link">&para;</a></h4>
+<ul>
+<li><code>pycodestyle</code> (formerly <code>pep8</code>): checks PEP 8 conformance</li>
+<li><code>--ignore=E3</code> to suppress categories incrementally</li>
+</ul>
+<h4 id="tools-to-catch-coding-errors">Tools to Catch Coding Errors<a class="headerlink" href="#tools-to-catch-coding-errors" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Pyflakes</strong>: static analysis, extendable via plugins</li>
+<li><strong>Pylint</strong>: PEP 8 + code error checks, plugin-based</li>
+<li><strong>flake8</strong> (<strong>recommended</strong>): combines <code>pyflakes</code> + <code>pycodestyle</code>, supports <code># noqa</code> inline suppression, rich plugin ecosystem</li>
+<li><code>flake8-import-order</code>: checks alphabetical imports</li>
+<li>Can write custom AST-based plugins (see Chapter 9)</li>
+</ul>
+<hr />
+<h2 id="chapter-2-modules-libraries-and-frameworks">Chapter 2: Modules, Libraries, and Frameworks<a class="headerlink" href="#chapter-2-modules-libraries-and-frameworks" title="Permanent link">&para;</a></h2>
+<h3 id="the-import-system">The Import System<a class="headerlink" href="#the-import-system" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>import foo</code> is syntactic sugar for <code>foo = __import__("foo")</code></li>
+<li><code>__import__</code> is useful for <strong>dynamic imports</strong> where the module name isn't known until runtime:
+  <div class="highlight"><pre><span></span><code><span class="n">mod</span> <span class="o">=</span> <span class="nb">__import__</span><span class="p">(</span><span class="s2">&quot;RANDOM&quot;</span><span class="o">.</span><span class="n">lower</span><span class="p">())</span>  <span class="c1"># imports &#39;random&#39;</span>
+</code></pre></div></li>
+<li>Imported modules are objects — their attributes (classes, functions, variables) are all objects</li>
+</ul>
+<h4 id="the-sys-module">The sys Module<a class="headerlink" href="#the-sys-module" title="Permanent link">&para;</a></h4>
+<ul>
+<li><code>sys.modules</code>: dict of all currently loaded modules (key = name, value = module object)</li>
+<li><code>sys.builtin_module_names</code>: tuple of modules compiled into the interpreter</li>
+</ul>
+<h4 id="import-paths">Import Paths<a class="headerlink" href="#import-paths" title="Permanent link">&para;</a></h4>
+<ul>
+<li><code>sys.path</code>: ordered list of directories Python searches for modules</li>
+<li>Can modify at runtime: <code>sys.path.append('/foo/bar')</code> or via <code>PYTHONPATH</code> env var</li>
+<li><strong>Order matters</strong> — first match wins. Common pitfall: naming your file <code>random.py</code> shadows the stdlib module</li>
+</ul>
+<h4 id="custom-importers">Custom Importers<a class="headerlink" href="#custom-importers" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>PEP 302</strong> import hooks: extend the import system via <code>sys.meta_path</code> (meta path finders) or <code>sys.path_hooks</code> (path entry finders)</li>
+<li>A meta path finder exposes <code>find_module(fullname, path=None)</code> → returns a loader with <code>load_module(fullname)</code></li>
+</ul>
+<h3 id="useful-standard-libraries">Useful Standard Libraries<a class="headerlink" href="#useful-standard-libraries" title="Permanent link">&para;</a></h3>
+<p>Key modules to know: <code>atexit</code>, <code>argparse</code>, <code>bisect</code>, <code>collections</code>, <code>concurrent.futures</code>, <code>copy</code>, <code>csv</code>, <code>datetime</code>, <code>fnmatch</code>, <code>glob</code>, <code>io</code>, <code>json</code>, <code>logging</code>, <code>multiprocessing</code>, <code>operator</code>, <code>os</code>, <code>random</code>, <code>re</code>, <code>sched</code>, <code>select</code>, <code>shutil</code>, <code>signal</code>, <code>tempfile</code>, <code>threading</code>, <code>urllib</code>, <code>uuid</code></p>
+<blockquote>
+<p><strong>Rule of thumb:</strong> Before writing a utility function, check if the stdlib already provides it.</p>
+</blockquote>
+<h3 id="external-libraries">External Libraries<a class="headerlink" href="#external-libraries" title="Permanent link">&para;</a></h3>
+<h4 id="the-external-libraries-safety-checklist">The External Libraries Safety Checklist<a class="headerlink" href="#the-external-libraries-safety-checklist" title="Permanent link">&para;</a></h4>
+<p>Before adopting an external library, evaluate:</p>
+<ol>
+<li><strong>Python 3 compatibility</strong></li>
+<li><strong>Active development</strong> (check GitHub activity)</li>
+<li><strong>Active maintenance</strong> (bug tracker responsiveness)</li>
+<li><strong>Packaged with OS distributions</strong> (indicates broader adoption)</li>
+<li><strong>API compatibility commitment</strong> (history of breaking changes?)</li>
+<li><strong>License compatibility</strong> with your project</li>
+</ol>
+<h4 id="protecting-your-code-with-an-api-wrapper">Protecting Your Code with an API Wrapper<a class="headerlink" href="#protecting-your-code-with-an-api-wrapper" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Never let an external library's API leak into your codebase</strong> — write a thin wrapper/adapter layer</li>
+<li>If the library dies or changes its API, you only rewrite the wrapper, not your entire application</li>
+</ul>
+<h3 id="package-installation-getting-more-from-pip">Package Installation: Getting More from pip<a class="headerlink" href="#package-installation-getting-more-from-pip" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>pip install --user &lt;pkg&gt;</code>: install to home directory</li>
+<li><code>pip freeze</code>: list installed packages + versions</li>
+<li><code>pip install -e .</code>: <strong>editable install</strong> — egg-link to local source (changes reflect immediately)</li>
+<li><code>pip install -e git+https://github.com/user/repo.git#egg=name</code>: install directly from VCS</li>
+</ul>
+<h3 id="using-and-choosing-frameworks">Using and Choosing Frameworks<a class="headerlink" href="#using-and-choosing-frameworks" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Framework = your code extends it (vs. library = you call it)</li>
+<li><strong>Replacing a framework is orders of magnitude harder</strong> than replacing a library — choose very carefully</li>
+<li>Lighter frameworks (Flask) give more freedom; heavier ones (Django) do more but lock you in</li>
+</ul>
+<hr />
+<h2 id="chapter-3-documentation-and-good-api-practice">Chapter 3: Documentation and Good API Practice<a class="headerlink" href="#chapter-3-documentation-and-good-api-practice" title="Permanent link">&para;</a></h2>
+<h3 id="documenting-with-sphinx">Documenting with Sphinx<a class="headerlink" href="#documenting-with-sphinx" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Sphinx</strong> is the de facto standard; uses <strong>reStructuredText (reST)</strong> markup</li>
+<li>Minimum docs: problem statement, license, quick-start example, install instructions, links to community/bugs/source</li>
+</ul>
+<h4 id="getting-started-with-sphinx-and-rest">Getting Started with Sphinx and reST<a class="headerlink" href="#getting-started-with-sphinx-and-rest" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code>pip<span class="w"> </span>install<span class="w"> </span>sphinx
+sphinx-quickstart<span class="w">       </span><span class="c1"># creates docs/source/conf.py + index.rst</span>
+sphinx-build<span class="w"> </span>doc/source<span class="w"> </span>doc/build<span class="w">   </span><span class="c1"># build HTML</span>
+</code></pre></div>
+<h4 id="sphinx-modules">Sphinx Modules<a class="headerlink" href="#sphinx-modules" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong><code>sphinx.ext.autodoc</code></strong>: extracts docstrings from code into <code>.rst</code> files</li>
+<li><strong><code>sphinx.ext.autosummary</code></strong>: auto-generates table of contents for module APIs</li>
+<li><strong><code>sphinx.ext.doctest</code></strong>: runs code examples in docs as tests — enables <strong>Documentation-Driven Development (DDD)</strong></li>
+</ul>
+<h4 id="writing-a-sphinx-extension">Writing a Sphinx Extension<a class="headerlink" href="#writing-a-sphinx-extension" title="Permanent link">&para;</a></h4>
+<ul>
+<li>Custom extensions implement <code>setup(app)</code> and use Sphinx event/directive APIs</li>
+<li>Rule: <strong>if you can extract documentation from code, automate it</strong></li>
+</ul>
+<h3 id="managing-changes-to-your-apis">Managing Changes to Your APIs<a class="headerlink" href="#managing-changes-to-your-apis" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Convention: <code>foo</code> is public, <code>_bar</code> is private</li>
+</ul>
+<h4 id="documenting-your-api-changes">Documenting Your API Changes<a class="headerlink" href="#documenting-your-api-changes" title="Permanent link">&para;</a></h4>
+<ul>
+<li>Always document: new elements, deprecated elements, migration instructions</li>
+<li><strong>Keep old interfaces available</strong> as long as feasible after deprecation</li>
+</ul>
+<h4 id="marking-deprecated-functions-with-the-warnings-module">Marking Deprecated Functions with the warnings Module<a class="headerlink" href="#marking-deprecated-functions-with-the-warnings-module" title="Permanent link">&para;</a></h4>
+<p><div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">old_function</span><span class="p">():</span>
+    <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s2">&quot;old_function is deprecated, use new_function&quot;</span><span class="p">,</span>
+                   <span class="ne">DeprecationWarning</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">new_function</span><span class="p">()</span>
+</code></pre></div>
+- The <code>debtcollector</code> library provides decorators to automate deprecation</p>
+<hr />
+<h2 id="chapter-4-handling-timestamps-and-time-zones">Chapter 4: Handling Timestamps and Time Zones<a class="headerlink" href="#chapter-4-handling-timestamps-and-time-zones" title="Permanent link">&para;</a></h2>
+<h3 id="the-problem-of-missing-time-zones">The Problem of Missing Time Zones<a class="headerlink" href="#the-problem-of-missing-time-zones" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>A timestamp without a timezone is meaningless</strong></li>
+<li><strong>Never store timestamps after TZ conversion</strong> — store in original TZ, convert at display time</li>
+<li><code>datetime.datetime</code> objects are <strong>timezone-unaware by default</strong></li>
+</ul>
+<h3 id="building-default-datetime-objects">Building Default datetime Objects<a class="headerlink" href="#building-default-datetime-objects" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">datetime</span>
+<span class="c1"># WRONG — returns naive (no timezone) datetime:</span>
+<span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">utcnow</span><span class="p">()</span>          <span class="c1"># tzinfo is None!</span>
+<span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>              <span class="c1"># also tzinfo is None!</span>
+</code></pre></div>
+<h3 id="time-zone-aware-timestamps-with-dateutil">Time Zone-Aware Timestamps with dateutil<a class="headerlink" href="#time-zone-aware-timestamps-with-dateutil" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">dateutil</span><span class="w"> </span><span class="kn">import</span> <span class="n">tz</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">datetime</span>
+
+<span class="c1"># CORRECT — always attach timezone:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">utcnow</span><span class="p">():</span>
+    <span class="k">return</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">(</span><span class="n">tz</span><span class="o">=</span><span class="n">tz</span><span class="o">.</span><span class="n">tzutc</span><span class="p">())</span>
+
+<span class="n">paris</span> <span class="o">=</span> <span class="n">tz</span><span class="o">.</span><span class="n">gettz</span><span class="p">(</span><span class="s2">&quot;Europe/Paris&quot;</span><span class="p">)</span>
+<span class="n">local</span> <span class="o">=</span> <span class="n">tz</span><span class="o">.</span><span class="n">gettz</span><span class="p">()</span>  <span class="c1"># auto-detect local timezone</span>
+</code></pre></div>
+<h3 id="serializing-time-zone-aware-datetime-objects">Serializing Time Zone-Aware datetime Objects<a class="headerlink" href="#serializing-time-zone-aware-datetime-objects" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Always use ISO 8601</strong>: <code>datetime_obj.isoformat()</code> / <code>iso8601.parse_date(string)</code></li>
+</ul>
+<h3 id="solving-ambiguous-times">Solving Ambiguous Times<a class="headerlink" href="#solving-ambiguous-times" title="Permanent link">&para;</a></h3>
+<ul>
+<li>During DST transitions, same wall-clock time occurs twice</li>
+<li>Python 3.6+ <code>fold</code> attribute (PEP 495): <code>fold=0</code> = first, <code>fold=1</code> = second</li>
+<li><strong>Best practice: stick to UTC internally</strong></li>
+</ul>
+<hr />
+<h2 id="chapter-5-distributing-your-software">Chapter 5: Distributing Your Software<a class="headerlink" href="#chapter-5-distributing-your-software" title="Permanent link">&para;</a></h2>
+<h3 id="a-bit-of-setuppy-history">A Bit of setup.py History<a class="headerlink" href="#a-bit-of-setuppy-history" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Use <code>setuptools</code></strong> — it's the current standard</li>
+</ul>
+<h3 id="packaging-with-setupcfg">Packaging with setup.cfg<a class="headerlink" href="#packaging-with-setupcfg" title="Permanent link">&para;</a></h3>
+<p><div class="highlight"><pre><span></span><code><span class="c1"># setup.py — minimal:</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">setuptools</span>
+<span class="n">setuptools</span><span class="o">.</span><span class="n">setup</span><span class="p">()</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="c1"># setup.cfg — metadata:</span>
+<span class="k">[metadata]</span>
+<span class="na">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">foobar</span>
+<span class="na">author</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">Dave Null</span>
+<span class="na">license</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">MIT</span>
+<span class="na">long_description</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">file: README.rst</span>
+<span class="na">requires-python</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&gt;=3.6</span>
+</code></pre></div>
+- <strong>pbr</strong>: auto-generates docs, AUTHORS, ChangeLog from git, manages versions via git tags</p>
+<h3 id="the-wheel-format-distribution-standard">The Wheel Format Distribution Standard<a class="headerlink" href="#the-wheel-format-distribution-standard" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Wheel</strong> (PEP 427): official <code>.whl</code> distribution format</li>
+<li><code>python setup.py bdist_wheel</code> / <code>--universal</code> for Py2+3</li>
+<li>Can run directly: <code>python mypackage.whl/module</code></li>
+</ul>
+<h3 id="sharing-your-work-with-the-world">Sharing Your Work with the World<a class="headerlink" href="#sharing-your-work-with-the-world" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>python setup.py sdist</code> → upload to PyPI</li>
+<li>Use <strong>TestPyPI</strong> for dry runs</li>
+</ul>
+<h3 id="entry-points">Entry Points<a class="headerlink" href="#entry-points" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Metadata declaring discoverable features organized into groups</li>
+</ul>
+<h4 id="using-console-scripts">Using Console Scripts<a class="headerlink" href="#using-console-scripts" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="n">setup</span><span class="p">(</span><span class="n">entry_points</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;console_scripts&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;mycommand = mypackage.cli:main&quot;</span><span class="p">]})</span>
+</code></pre></div>
+<h4 id="using-plugins-and-drivers">Using Plugins and Drivers<a class="headerlink" href="#using-plugins-and-drivers" title="Permanent link">&para;</a></h4>
+<ul>
+<li><code>pkg_resources.iter_entry_points('group_name')</code> for runtime discovery</li>
+<li><strong>stevedore</strong> library: <code>ExtensionManager</code> (all plugins), <code>DriverManager</code> (single named plugin)</li>
+</ul>
+<hr />
+<h2 id="chapter-6-unit-testing">Chapter 6: Unit Testing<a class="headerlink" href="#chapter-6-unit-testing" title="Permanent link">&para;</a></h2>
+<h3 id="the-basics-of-testing">The Basics of Testing<a class="headerlink" href="#the-basics-of-testing" title="Permanent link">&para;</a></h3>
+<h4 id="some-simple-tests">Some Simple Tests<a class="headerlink" href="#some-simple-tests" title="Permanent link">&para;</a></h4>
+<p><div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">test_addition</span><span class="p">():</span>
+    <span class="k">assert</span> <span class="mi">1</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">==</span> <span class="mi">2</span>
+</code></pre></div>
+- Run: <code>pytest -v</code>; pytest provides <strong>rich failure diffs</strong> automatically</p>
+<h4 id="skipping-tests">Skipping Tests<a class="headerlink" href="#skipping-tests" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">skip</span><span class="p">(</span><span class="s2">&quot;reason&quot;</span><span class="p">)</span>
+<span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">skipif</span><span class="p">(</span><span class="n">condition</span><span class="p">,</span> <span class="n">reason</span><span class="o">=</span><span class="s2">&quot;...&quot;</span><span class="p">)</span>
+<span class="n">pytest</span><span class="o">.</span><span class="n">skip</span><span class="p">(</span><span class="s2">&quot;runtime skip&quot;</span><span class="p">)</span>
+</code></pre></div>
+<h4 id="running-particular-tests">Running Particular Tests<a class="headerlink" href="#running-particular-tests" title="Permanent link">&para;</a></h4>
+<ul>
+<li>By file/name/marker: <code>pytest -k name</code>, <code>pytest -m marker</code></li>
+</ul>
+<h4 id="running-tests-in-parallel">Running Tests in Parallel<a class="headerlink" href="#running-tests-in-parallel" title="Permanent link">&para;</a></h4>
+<ul>
+<li><code>pytest-xdist</code>: <code>pytest -n auto</code></li>
+</ul>
+<h4 id="creating-objects-used-in-tests-with-fixtures">Creating Objects Used in Tests with Fixtures<a class="headerlink" href="#creating-objects-used-in-tests-with-fixtures" title="Permanent link">&para;</a></h4>
+<p><div class="highlight"><pre><span></span><code><span class="nd">@pytest</span><span class="o">.</span><span class="n">fixture</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">database</span><span class="p">():</span>
+    <span class="n">db</span> <span class="o">=</span> <span class="n">create_connection</span><span class="p">()</span>
+    <span class="k">yield</span> <span class="n">db</span>        <span class="c1"># teardown after test</span>
+    <span class="n">db</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+<span class="nd">@pytest</span><span class="o">.</span><span class="n">fixture</span><span class="p">(</span><span class="n">scope</span><span class="o">=</span><span class="s2">&quot;module&quot;</span><span class="p">)</span>   <span class="c1"># shared across module</span>
+<span class="nd">@pytest</span><span class="o">.</span><span class="n">fixture</span><span class="p">(</span><span class="n">autouse</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>     <span class="c1"># auto-applied</span>
+</code></pre></div>
+Scopes: <code>function</code> (default), <code>class</code>, <code>module</code>, <code>session</code></p>
+<h4 id="running-test-scenarios">Running Test Scenarios<a class="headerlink" href="#running-test-scenarios" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="nd">@pytest</span><span class="o">.</span><span class="n">fixture</span><span class="p">(</span><span class="n">params</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;mysql&quot;</span><span class="p">,</span> <span class="s2">&quot;postgresql&quot;</span><span class="p">])</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">database</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+    <span class="n">d</span> <span class="o">=</span> <span class="n">connect</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">param</span><span class="p">)</span>
+    <span class="k">yield</span> <span class="n">d</span>
+    <span class="n">d</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</code></pre></div>
+<h4 id="controlled-tests-using-mocking">Controlled Tests Using Mocking<a class="headerlink" href="#controlled-tests-using-mocking" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">unittest</span><span class="w"> </span><span class="kn">import</span> <span class="n">mock</span>
+
+<span class="n">m</span> <span class="o">=</span> <span class="n">mock</span><span class="o">.</span><span class="n">Mock</span><span class="p">()</span>
+<span class="n">m</span><span class="o">.</span><span class="n">method</span><span class="o">.</span><span class="n">return_value</span> <span class="o">=</span> <span class="mi">42</span>
+<span class="n">m</span><span class="o">.</span><span class="n">method</span><span class="o">.</span><span class="n">side_effect</span> <span class="o">=</span> <span class="n">some_function</span>
+
+<span class="c1"># Patch external dependencies:</span>
+<span class="k">with</span> <span class="n">mock</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="s1">&#39;os.unlink&#39;</span><span class="p">,</span> <span class="n">fake_unlink</span><span class="p">):</span>
+    <span class="n">os</span><span class="o">.</span><span class="n">unlink</span><span class="p">(</span><span class="s1">&#39;file&#39;</span><span class="p">)</span>
+
+<span class="nd">@mock</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="s1">&#39;requests.get&#39;</span><span class="p">,</span> <span class="n">fake_get</span><span class="p">)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">test_http</span><span class="p">():</span> <span class="o">...</span>
+
+<span class="c1"># Verify:</span>
+<span class="n">m</span><span class="o">.</span><span class="n">method</span><span class="o">.</span><span class="n">assert_called_once_with</span><span class="p">(</span><span class="s1">&#39;foo&#39;</span><span class="p">,</span> <span class="s1">&#39;bar&#39;</span><span class="p">)</span>
+</code></pre></div>
+<h4 id="revealing-untested-code-with-coverage">Revealing Untested Code with coverage<a class="headerlink" href="#revealing-untested-code-with-coverage" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code>pytest<span class="w"> </span>--cov<span class="o">=</span>mypackage<span class="w"> </span>--cov-report<span class="o">=</span>html<span class="w"> </span>tests/
+</code></pre></div>
+<h3 id="virtual-environments">Virtual Environments<a class="headerlink" href="#virtual-environments" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>python3 -m venv myvenv</code> → <code>source myvenv/bin/activate</code> → <code>deactivate</code></li>
+</ul>
+<h4 id="using-virtualenv-with-tox">Using virtualenv with tox<a class="headerlink" href="#using-virtualenv-with-tox" title="Permanent link">&para;</a></h4>
+<p><div class="highlight"><pre><span></span><code><span class="k">[tox]</span>
+<span class="na">envlist</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">py39, py310, pep8</span>
+
+<span class="k">[testenv]</span>
+<span class="na">deps</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">pytest</span>
+<span class="na">commands</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">pytest</span>
+
+<span class="k">[testenv:pep8]</span>
+<span class="na">deps</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">flake8</span>
+<span class="na">commands</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">flake8</span>
+</code></pre></div>
+- <code>tox --recreate</code>, <code>tox -e py310</code>, <strong>detox</strong> for parallel</p>
+<h3 id="testing-policy">Testing Policy<a class="headerlink" href="#testing-policy" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Zero tolerance for untested code</strong>; automate via CI</li>
+</ul>
+<hr />
+<h2 id="chapter-7-methods-and-decorators">Chapter 7: Methods and Decorators<a class="headerlink" href="#chapter-7-methods-and-decorators" title="Permanent link">&para;</a></h2>
+<h3 id="decorators-and-when-to-use-them">Decorators and When to Use Them<a class="headerlink" href="#decorators-and-when-to-use-them" title="Permanent link">&para;</a></h3>
+<p><div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">functools</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">my_decorator</span><span class="p">(</span><span class="n">f</span><span class="p">):</span>
+    <span class="nd">@functools</span><span class="o">.</span><span class="n">wraps</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>  <span class="c1"># ALWAYS use this</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">wrapper</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="c1"># before</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">f</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="c1"># after</span>
+        <span class="k">return</span> <span class="n">result</span>
+    <span class="k">return</span> <span class="n">wrapper</span>
+</code></pre></div>
+- Stacking: bottom decorator applied first, executed first (innermost)</p>
+<h3 id="how-methods-work-in-python">How Methods Work in Python<a class="headerlink" href="#how-methods-work-in-python" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Instance access → auto-bound; class access → unbound function</li>
+</ul>
+<h3 id="static-methods">Static Methods<a class="headerlink" href="#static-methods" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>@staticmethod</code>: no <code>self</code>/<code>cls</code>; operates only on params; faster, clearer intent</li>
+</ul>
+<h3 id="class-methods">Class Methods<a class="headerlink" href="#class-methods" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>@classmethod</code>: receives <code>cls</code>; primary use = <strong>factory methods</strong></li>
+</ul>
+<h3 id="abstract-methods">Abstract Methods<a class="headerlink" href="#abstract-methods" title="Permanent link">&para;</a></h3>
+<p><div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">abc</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Base</span><span class="p">(</span><span class="n">metaclass</span><span class="o">=</span><span class="n">abc</span><span class="o">.</span><span class="n">ABCMeta</span><span class="p">):</span>
+    <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">method</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span> <span class="o">...</span>
+</code></pre></div>
+- Cannot instantiate class with unimplemented abstract methods (<code>TypeError</code>)
+- Abstract methods <strong>can have implementations</strong> accessible via <code>super()</code></p>
+<h3 id="the-truth-about-super">The Truth About super<a class="headerlink" href="#the-truth-about-super" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>super()</code> delegates via <strong>MRO</strong> (Method Resolution Order)</li>
+<li>Python 3: no-arg <code>super()</code> auto-detects context</li>
+<li><strong>Always use <code>super()</code></strong> for parent calls</li>
+</ul>
+<hr />
+<h2 id="chapter-8-functional-programming">Chapter 8: Functional Programming<a class="headerlink" href="#chapter-8-functional-programming" title="Permanent link">&para;</a></h2>
+<h3 id="creating-pure-functions">Creating Pure Functions<a class="headerlink" href="#creating-pure-functions" title="Permanent link">&para;</a></h3>
+<ul>
+<li>No side effects; same input → same output; return copies, don't mutate</li>
+</ul>
+<h3 id="generators">Generators<a class="headerlink" href="#generators" title="Permanent link">&para;</a></h3>
+<p><div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">gen</span><span class="p">():</span>
+    <span class="k">yield</span> <span class="mi">1</span>
+    <span class="k">yield</span> <span class="mi">2</span>
+</code></pre></div>
+- Lazy evaluation; memory efficient; <code>send()</code> for coroutine pattern
+- Generator expressions: <code>(x for x in items)</code></p>
+<h3 id="list-comprehensions">List Comprehensions<a class="headerlink" href="#list-comprehensions" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="p">[</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span> <span class="k">if</span> <span class="n">x</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span><span class="p">]</span>
+<span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="n">v</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">items</span><span class="p">}</span>
+<span class="p">{</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">items</span><span class="p">}</span>
+</code></pre></div>
+<h3 id="functional-functions-functioning">Functional Functions Functioning<a class="headerlink" href="#functional-functions-functioning" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>map</code>, <code>filter</code>, <code>enumerate</code>, <code>sorted</code>, <code>any</code>/<code>all</code>, <code>zip</code></li>
+<li>Prefer <code>functools.partial</code> over <code>lambda</code></li>
+</ul>
+<h3 id="useful-itertools-functions">Useful itertools Functions<a class="headerlink" href="#useful-itertools-functions" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>chain</code>, <code>groupby</code>, <code>combinations</code>, <code>permutations</code>, <code>product</code>, <code>accumulate</code>, <code>dropwhile</code>, <code>takewhile</code>, <code>cycle</code>, <code>count</code>, <code>repeat</code>, <code>compress</code></li>
+</ul>
+<hr />
+<h2 id="chapter-9-the-abstract-syntax-tree-hy-and-lisp-like-attributes">Chapter 9: The Abstract Syntax Tree, Hy, and Lisp-like Attributes<a class="headerlink" href="#chapter-9-the-abstract-syntax-tree-hy-and-lisp-like-attributes" title="Permanent link">&para;</a></h2>
+<h3 id="looking-at-the-ast">Looking at the AST<a class="headerlink" href="#looking-at-the-ast" title="Permanent link">&para;</a></h3>
+<p><div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">ast</span>
+<span class="n">ast</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">ast</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="s2">&quot;x = 42&quot;</span><span class="p">))</span>
+</code></pre></div>
+- <code>ast.walk()</code>, <code>ast.NodeTransformer</code>, <code>ast.literal_eval()</code> (safe eval)</p>
+<h3 id="extending-flake8-with-ast-checks">Extending flake8 with AST Checks<a class="headerlink" href="#extending-flake8-with-ast-checks" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Write plugins that walk AST to detect code patterns (e.g. missing <code>@staticmethod</code>)</li>
+<li>Register via entry points</li>
+</ul>
+<h3 id="a-quick-introduction-to-hy">A Quick Introduction to Hy<a class="headerlink" href="#a-quick-introduction-to-hy" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Lisp dialect → Python AST → fully interoperable with Python</li>
+</ul>
+<hr />
+<h2 id="chapter-10-performances-and-optimizations">Chapter 10: Performances and Optimizations<a class="headerlink" href="#chapter-10-performances-and-optimizations" title="Permanent link">&para;</a></h2>
+<h3 id="data-structures">Data Structures<a class="headerlink" href="#data-structures" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>dict.get()</code>, set operations, <code>collections.defaultdict</code>, <code>collections.Counter</code></li>
+</ul>
+<h3 id="profiling">Profiling<a class="headerlink" href="#profiling" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>cProfile</code>: <code>python -m cProfile -s time script.py</code>; visualize with KCacheGrind</li>
+<li><code>dis.dis(fn)</code>: bytecode disassembly</li>
+</ul>
+<h3 id="defining-functions-efficiently">Defining Functions Efficiently<a class="headerlink" href="#defining-functions-efficiently" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Cache attribute lookups as locals in hot loops (<code>LOAD_FAST</code> &gt; <code>LOAD_GLOBAL</code>)</li>
+</ul>
+<h3 id="ordered-lists-and-bisect">Ordered Lists and bisect<a class="headerlink" href="#ordered-lists-and-bisect" title="Permanent link">&para;</a></h3>
+<ul>
+<li>O(log n) binary search; <code>bisect.insort()</code> maintains sorted order</li>
+</ul>
+<h3 id="namedtuple-and-slots">namedtuple and Slots<a class="headerlink" href="#namedtuple-and-slots" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>namedtuple</code>: lightweight immutable; <code>__slots__</code>: ~50% memory savings</li>
+</ul>
+<h3 id="memoization">Memoization<a class="headerlink" href="#memoization" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="nd">@functools</span><span class="o">.</span><span class="n">lru_cache</span><span class="p">(</span><span class="n">maxsize</span><span class="o">=</span><span class="mi">128</span><span class="p">)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">expensive</span><span class="p">(</span><span class="n">n</span><span class="p">):</span> <span class="o">...</span>
+</code></pre></div>
+<h3 id="faster-python-with-pypy">Faster Python with PyPy<a class="headerlink" href="#faster-python-with-pypy" title="Permanent link">&para;</a></h3>
+<ul>
+<li>JIT compilation; 10-100x faster for CPU-bound pure Python</li>
+</ul>
+<h3 id="achieving-zero-copy-with-the-buffer-protocol">Achieving Zero Copy with the Buffer Protocol<a class="headerlink" href="#achieving-zero-copy-with-the-buffer-protocol" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="n">view</span> <span class="o">=</span> <span class="nb">memoryview</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+<span class="n">chunk</span> <span class="o">=</span> <span class="n">view</span><span class="p">[</span><span class="mi">5</span><span class="p">:</span><span class="mi">10</span><span class="p">]</span>  <span class="c1"># no copy</span>
+</code></pre></div>
+<hr />
+<h2 id="chapter-11-scaling-and-architecture">Chapter 11: Scaling and Architecture<a class="headerlink" href="#chapter-11-scaling-and-architecture" title="Permanent link">&para;</a></h2>
+<h3 id="multithreading-in-python-and-its-limitations">Multithreading in Python and Its Limitations<a class="headerlink" href="#multithreading-in-python-and-its-limitations" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>GIL</strong>: one thread executes bytecode at a time; threads useful for I/O only</li>
+</ul>
+<h3 id="multiprocessing-vs-multithreading">Multiprocessing vs. Multithreading<a class="headerlink" href="#multiprocessing-vs-multithreading" title="Permanent link">&para;</a></h3>
+<ul>
+<li>I/O-bound → threads/async; CPU-bound → <code>multiprocessing</code></li>
+</ul>
+<h3 id="event-driven-architecture-asyncio">Event-Driven Architecture / asyncio<a class="headerlink" href="#event-driven-architecture-asyncio" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>asyncio</code>: native <code>async</code>/<code>await</code> for high-concurrency I/O</li>
+</ul>
+<h3 id="service-oriented-architecture">Service-Oriented Architecture<a class="headerlink" href="#service-oriented-architecture" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Independent services with well-defined APIs; scale/deploy/fail independently</li>
+</ul>
+<h3 id="interprocess-communication-with-zeromq">Interprocess Communication with ZeroMQ<a class="headerlink" href="#interprocess-communication-with-zeromq" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Lightweight messaging: req/rep, pub/sub, push/pull</li>
+</ul>
+<hr />
+<h2 id="chapter-12-managing-relational-databases">Chapter 12: Managing Relational Databases<a class="headerlink" href="#chapter-12-managing-relational-databases" title="Permanent link">&para;</a></h2>
+<h3 id="rdbmss-orms-and-when-to-use-them">RDBMSs, ORMs, and When to Use Them<a class="headerlink" href="#rdbmss-orms-and-when-to-use-them" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>SQLAlchemy</strong>: gold standard (Core + ORM layers); know when to drop to raw SQL</li>
+</ul>
+<h3 id="database-backends">Database Backends<a class="headerlink" href="#database-backends" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>PostgreSQL</strong> (recommended), SQLite (dev/test), MySQL</li>
+</ul>
+<h3 id="streaming-data-with-flask-and-postgresql">Streaming Data with Flask and PostgreSQL<a class="headerlink" href="#streaming-data-with-flask-and-postgresql" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>LISTEN/NOTIFY</code> for real-time event streaming without polling</li>
+</ul>
+<hr />
+<h2 id="chapter-13-write-less-code-more">Chapter 13: Write Less, Code More<a class="headerlink" href="#chapter-13-write-less-code-more" title="Permanent link">&para;</a></h2>
+<h3 id="single-dispatch">Single Dispatch<a class="headerlink" href="#single-dispatch" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="nd">@functools</span><span class="o">.</span><span class="n">singledispatch</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">process</span><span class="p">(</span><span class="n">arg</span><span class="p">):</span> <span class="o">...</span>
+
+<span class="nd">@process</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_</span><span class="p">(</span><span class="n">arg</span><span class="p">):</span> <span class="o">...</span>
+</code></pre></div>
+<h3 id="context-managers">Context Managers<a class="headerlink" href="#context-managers" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">contextlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">contextmanager</span>
+
+<span class="nd">@contextmanager</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">resource</span><span class="p">():</span>
+    <span class="n">r</span> <span class="o">=</span> <span class="n">acquire</span><span class="p">()</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">yield</span> <span class="n">r</span>
+    <span class="k">finally</span><span class="p">:</span>
+        <span class="n">release</span><span class="p">(</span><span class="n">r</span><span class="p">)</span>
+</code></pre></div>
+<h3 id="less-boilerplate-with-attrs-dataclasses">Less Boilerplate with attrs / dataclasses<a class="headerlink" href="#less-boilerplate-with-attrs-dataclasses" title="Permanent link">&para;</a></h3>
+<p><div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">dataclasses</span><span class="w"> </span><span class="kn">import</span> <span class="n">dataclass</span>
+
+<span class="nd">@dataclass</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Point</span><span class="p">:</span>
+    <span class="n">x</span><span class="p">:</span> <span class="nb">float</span>
+    <span class="n">y</span><span class="p">:</span> <span class="nb">float</span>
+    <span class="n">z</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span>
+</code></pre></div>
+- <strong>Always prefer <code>dataclasses</code> (stdlib, 3.7+) or <code>attrs</code> over hand-written boilerplate</strong></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+  
+
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        
+
+<footer class="md-footer">
+  
+    <nav
+      class="md-footer__inner md-grid"
+      aria-label="footer.title"
+    >
+      
+        <a
+          href="../api_design_patterns/"
+          class="md-footer__link md-footer__link--prev"
+          rel="prev"
+        >
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              API Design Patterns
+            </div>
+          </div>
+        </a>
+      
+      
+        <a
+          href="../tdd_python/"
+          class="md-footer__link md-footer__link--next"
+          rel="next"
+        >
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              TDD with Python
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        Made with
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+          Material for MkDocs
+        </a>
+        with emoji by
+        <a href="https://github.com/twitter/twemoji" target="_blank" rel="noopener">
+          Twemoji
+        </a>
+      </div>
+      
+<div class="md-social">
+  
+</div>
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["announce.dismiss", "content.action.edit", "content.action.view", "content.code.annotate", "content.code.copy", "content.tooltips", "header.autohide", "navigation.expand", "navigation.footer", "navigation.indexes", "navigation.instant", "navigation.sections", "navigation.tabs", "navigation.top", "navigation.tracking", "search.highlight", "search.share", "search.suggest", "toc.follow", "toc.integrate"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../../javascripts/extra.js"></script>
+      
+        <script src="../../assets/pymdownx-extras/extra-loader-B5CKpNQx.js"></script>
+      
+    
+  </body>
+</html>

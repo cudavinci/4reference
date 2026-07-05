@@ -1,0 +1,2367 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Notes and code snippets">
+      
+      
+        <meta name="author" content="Sean Fuller">
+      
+      
+        <link rel="canonical" href="https://cudavinci.github.io/4reference/books/pytest/">
+      
+      
+        <link rel="prev" href="../crafting_tdd_python/">
+      
+      
+        <link rel="next" href="../python_packaging/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>pytest - My Snippets & Notes</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+
+      
+    
+<script src="../../assets/pymdownx-extras/material-extra-theme-2ek1P7jT.js" type="text/javascript"></script>
+<script src="../../assets/pymdownx-extras/material-extra-3rdparty-BUCF4rjN.js" type="text/javascript"></script>
+
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+      <link rel="stylesheet" href="../../assets/pymdownx-extras/extra-c6ab11540a.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="dracula" data-md-color-primary="#f8f8f2" data-md-color-accent="#bd93f9">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#book2-python-testing-with-pytest-second-edition-summary" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+
+<header class="md-header" data-md-component="header">
+  <nav
+    class="md-header__inner md-grid"
+    aria-label="header.title"
+  >
+    <a
+      href="https://cudavinci.github.io/4reference/"
+      title="My Snippets &amp; Notes"
+      class="md-header__button md-logo"
+      aria-label="My Snippets & Notes"
+    >
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            My Snippets & Notes
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              pytest
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    <div class="md-header__options">
+      <div class="md-header-nav__scheme md-header-nav__button md-source__icon md-icon">
+          <a
+            href="javascript:toggleScheme();"
+            title="Light mode"
+            class="light-mode"
+          >
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+          </a>
+          <a
+            href="javascript:toggleScheme();"
+            title="Dark mode"
+            class="dark-mode"
+          >
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+          </a>
+          <a
+            href="javascript:toggleScheme();"
+            title="System preference"
+            class="system-mode"
+          >
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M7.5 2c-1.79 1.15-3 3.18-3 5.5s1.21 4.35 3.03 5.5C4.46 13 2 10.54 2 7.5A5.5 5.5 0 0 1 7.5 2m11.57 1.5 1.43 1.43L4.93 20.5 3.5 19.07zm-6.18 2.43L11.41 5 9.97 6l.42-1.7L9 3.24l1.75-.12.58-1.65L12 3.1l1.73.03-1.35 1.13zm-3.3 3.61-1.16-.73-1.12.78.34-1.32-1.09-.83 1.36-.09.45-1.29.51 1.27 1.36.03-1.05.87zM19 13.5a5.5 5.5 0 0 1-5.5 5.5c-1.22 0-2.35-.4-3.26-1.07l7.69-7.69c.67.91 1.07 2.04 1.07 3.26m-4.4 6.58 2.77-1.15-.24 3.35zm4.33-2.7 1.15-2.77 2.2 2.54zm1.15-4.96-1.14-2.78 3.34.24zM9.63 18.93l2.77 1.15-2.53 2.19z"/></svg>
+          </a>
+           <a
+            href="javascript:toggleScheme();"
+            title="Unknown scheme"
+            class="unknown-mode"
+          >
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m15.07 11.25-.9.92C13.45 12.89 13 13.5 13 15h-2v-.5c0-1.11.45-2.11 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41a2 2 0 0 0-2-2 2 2 0 0 0-2 2H8a4 4 0 0 1 4-4 4 4 0 0 1 4 4 3.2 3.2 0 0 1-.93 2.25M13 19h-2v-2h2M12 2A10 10 0 0 0 2 12a10 10 0 0 0 10 10 10 10 0 0 0 10-10c0-5.53-4.5-10-10-10"/></svg>
+          </a>
+      </div>
+    </div>
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../snippets/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Code Snippets
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../webdev_snippets/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Web Development
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Book Summaries
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../notes/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Notes
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--lifted md-nav--integrated" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="My Snippets &amp; Notes" class="md-nav__button md-logo" aria-label="My Snippets & Notes" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    My Snippets & Notes
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../snippets/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Code Snippets
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../webdev_snippets/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Web Development
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Book Summaries
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4" id="__nav_4_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Book Summaries
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../crafting_tdd_python/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Crafting TDD
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    pytest
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    pytest
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#part-i-primary-power" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Part I — Primary Power
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Part I — Primary Power">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-getting-started-with-pytest" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Getting Started with pytest
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-writing-test-functions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Writing Test Functions
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-pytest-fixtures" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. pytest Fixtures
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-builtin-fixtures" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Builtin Fixtures
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-parametrization" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Parametrization
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-markers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Markers
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#part-ii-working-with-projects" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Part II — Working with Projects
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Part II — Working with Projects">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#7-strategy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Strategy
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#8-configuration-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Configuration Files
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#9-coverage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. Coverage
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#10-mocking" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10. Mocking
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#11-tox-and-continuous-integration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11. tox and Continuous Integration
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12-testing-scripts-and-applications" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        12. Testing Scripts and Applications
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#13-debugging-test-failures" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        13. Debugging Test Failures
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#part-iii-booster-rockets" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Part III — Booster Rockets
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Part III — Booster Rockets">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#14-third-party-plugins" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        14. Third-Party Plugins
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#15-building-plugins" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        15. Building Plugins
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#16-advanced-parametrization" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        16. Advanced Parametrization
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#appendices" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Appendices
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Appendices">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#a1-virtual-environments" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A1. Virtual Environments
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#a2-pip" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A2. pip
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../python_packaging/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Python Packaging
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../selenium_testing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Selenium Testing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api_design_patterns/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API Design Patterns
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../serious_python/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Serious Python
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tdd_python/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    TDD with Python
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../arch_patterns_python/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture Patterns
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../refactoring/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Refactoring
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../fundamentals_data_engineering/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Data Engineering
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../data_pipelines_airflow/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Airflow
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../fastapi_cookbook/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    FastAPI Cookbook
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../notes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Notes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+  
+                  
+
+
+
+<h1 id="book2-python-testing-with-pytest-second-edition-summary">Book2 - Python Testing with pytest, Second Edition — Summary<a class="headerlink" href="#book2-python-testing-with-pytest-second-edition-summary" title="Permanent link">&para;</a></h1>
+<blockquote>
+<p><strong>Author:</strong> Brian Okken | <strong>Publisher:</strong> Pragmatic Bookshelf (Feb 2022)
+<strong>Sample App:</strong> "Cards" — a CLI task tracker built with <strong>Typer</strong> (CLI), <strong>Rich</strong> (formatting), and <strong>TinyDB</strong> (database)</p>
+</blockquote>
+<hr />
+<h3 id="part-i-primary-power">Part I — Primary Power<a class="headerlink" href="#part-i-primary-power" title="Permanent link">&para;</a></h3>
+<h4 id="1-getting-started-with-pytest">1. Getting Started with pytest<a class="headerlink" href="#1-getting-started-with-pytest" title="Permanent link">&para;</a></h4>
+<h5 id="installing-pytest">Installing pytest<a class="headerlink" href="#installing-pytest" title="Permanent link">&para;</a></h5>
+<div class="highlight"><pre><span></span><code>python3<span class="w"> </span>-m<span class="w"> </span>venv<span class="w"> </span>venv
+<span class="nb">source</span><span class="w"> </span>venv/bin/activate<span class="w">        </span><span class="c1"># Windows: venv\Scripts\activate.bat</span>
+pip<span class="w"> </span>install<span class="w"> </span>pytest
+</code></pre></div>
+<h5 id="running-pytest">Running pytest<a class="headerlink" href="#running-pytest" title="Permanent link">&para;</a></h5>
+<ul>
+<li><code>pytest</code> — searches current dir + subdirs for tests</li>
+<li><code>pytest test_file.py</code> — run one file</li>
+<li><code>pytest test_file.py::test_func</code> — run one test</li>
+<li><code>pytest dir/</code> — run a directory</li>
+<li><code>-v</code> / <code>--verbose</code> — show individual test names and PASSED/FAILED</li>
+<li><code>--tb=no</code> — suppress tracebacks</li>
+</ul>
+<h5 id="test-discovery">Test Discovery<a class="headerlink" href="#test-discovery" title="Permanent link">&para;</a></h5>
+<ul>
+<li>Files named <code>test_*.py</code> or <code>*_test.py</code></li>
+<li>Functions/methods named <code>test_*</code></li>
+<li>Classes named <code>Test*</code></li>
+</ul>
+<h5 id="test-outcomes">Test Outcomes<a class="headerlink" href="#test-outcomes" title="Permanent link">&para;</a></h5>
+<table>
+<thead>
+<tr>
+<th>Symbol</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>.</code> / PASSED</td>
+<td>Test succeeded</td>
+</tr>
+<tr>
+<td><code>F</code> / FAILED</td>
+<td>Assertion or uncaught exception in test</td>
+</tr>
+<tr>
+<td><code>s</code> / SKIPPED</td>
+<td>Test skipped via <code>@pytest.mark.skip</code> or <code>skipif</code></td>
+</tr>
+<tr>
+<td><code>x</code> / XFAIL</td>
+<td>Expected failure, and it did fail</td>
+</tr>
+<tr>
+<td><code>X</code> / XPASS</td>
+<td>Expected failure, but it passed</td>
+</tr>
+<tr>
+<td><code>E</code> / ERROR</td>
+<td>Exception in a fixture or hook, not the test itself</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h4 id="2-writing-test-functions">2. Writing Test Functions<a class="headerlink" href="#2-writing-test-functions" title="Permanent link">&para;</a></h4>
+<h5 id="installing-the-sample-application">Installing the Sample Application<a class="headerlink" href="#installing-the-sample-application" title="Permanent link">&para;</a></h5>
+<ul>
+<li>Cards is an installable Python package: <code>pip install ./cards_proj/</code></li>
+<li><strong>Application code</strong> = code under test (CUT/SUT/DUT)</li>
+<li><strong>Test code</strong> = code that validates the application</li>
+</ul>
+<h5 id="writing-knowledge-building-tests">Writing Knowledge-Building Tests<a class="headerlink" href="#writing-knowledge-building-tests" title="Permanent link">&para;</a></h5>
+<ul>
+<li>Quick tests to verify understanding of data structures / APIs</li>
+<li>Cards uses a Python <strong>dataclass</strong> (<code>Card</code>) with <code>summary</code>, <code>owner</code>, <code>state</code>, <code>id</code></li>
+<li><code>compare=False</code> on <code>id</code> means equality ignores <code>id</code></li>
+<li>Convenience methods: <code>Card.from_dict(d)</code>, <code>card.to_dict()</code></li>
+</ul>
+<h5 id="using-assert-statements">Using assert Statements<a class="headerlink" href="#using-assert-statements" title="Permanent link">&para;</a></h5>
+<ul>
+<li>pytest uses plain <code>assert</code> — no <code>assertEqual</code>, <code>assertTrue</code>, etc.</li>
+<li><strong>Assert rewriting</strong>: pytest intercepts <code>assert</code> to provide rich failure diffs</li>
+<li><code>-vv</code> shows full diff details (matching vs differing attributes, caret markers)</li>
+</ul>
+<h5 id="failing-with-pytestfail-and-exceptions">Failing with pytest.fail() and Exceptions<a class="headerlink" href="#failing-with-pytestfail-and-exceptions" title="Permanent link">&para;</a></h5>
+<ul>
+<li>Any uncaught exception fails a test</li>
+<li><code>pytest.fail("message")</code> explicitly fails with a message</li>
+<li>Use <code>assert</code> by default; reserve <code>pytest.fail()</code> for assertion helpers</li>
+</ul>
+<h5 id="writing-assertion-helper-functions">Writing Assertion Helper Functions<a class="headerlink" href="#writing-assertion-helper-functions" title="Permanent link">&para;</a></h5>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">assert_identical</span><span class="p">(</span><span class="n">c1</span><span class="p">:</span> <span class="n">Card</span><span class="p">,</span> <span class="n">c2</span><span class="p">:</span> <span class="n">Card</span><span class="p">):</span>
+    <span class="n">__tracebackhide__</span> <span class="o">=</span> <span class="kc">True</span>        <span class="c1"># hide this frame from traceback</span>
+    <span class="k">assert</span> <span class="n">c1</span> <span class="o">==</span> <span class="n">c2</span>
+    <span class="k">if</span> <span class="n">c1</span><span class="o">.</span><span class="n">id</span> <span class="o">!=</span> <span class="n">c2</span><span class="o">.</span><span class="n">id</span><span class="p">:</span>
+        <span class="n">pytest</span><span class="o">.</span><span class="n">fail</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;id&#39;s don&#39;t match. </span><span class="si">{</span><span class="n">c1</span><span class="o">.</span><span class="n">id</span><span class="si">}</span><span class="s2"> != </span><span class="si">{</span><span class="n">c2</span><span class="o">.</span><span class="n">id</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</code></pre></div>
+<h5 id="testing-for-expected-exceptions">Testing for Expected Exceptions<a class="headerlink" href="#testing-for-expected-exceptions" title="Permanent link">&para;</a></h5>
+<p><div class="highlight"><pre><span></span><code><span class="c1"># Check exception type</span>
+<span class="k">with</span> <span class="n">pytest</span><span class="o">.</span><span class="n">raises</span><span class="p">(</span><span class="ne">TypeError</span><span class="p">):</span>
+    <span class="n">cards</span><span class="o">.</span><span class="n">CardsDB</span><span class="p">()</span>
+
+<span class="c1"># Check exception message with regex</span>
+<span class="k">with</span> <span class="n">pytest</span><span class="o">.</span><span class="n">raises</span><span class="p">(</span><span class="ne">TypeError</span><span class="p">,</span> <span class="n">match</span><span class="o">=</span><span class="s2">&quot;missing 1 .* positional argument&quot;</span><span class="p">):</span>
+    <span class="n">cards</span><span class="o">.</span><span class="n">CardsDB</span><span class="p">()</span>
+
+<span class="c1"># Inspect the exception object</span>
+<span class="k">with</span> <span class="n">pytest</span><span class="o">.</span><span class="n">raises</span><span class="p">(</span><span class="ne">TypeError</span><span class="p">)</span> <span class="k">as</span> <span class="n">exc_info</span><span class="p">:</span>
+    <span class="n">cards</span><span class="o">.</span><span class="n">CardsDB</span><span class="p">()</span>
+<span class="k">assert</span> <span class="s2">&quot;missing 1 required&quot;</span> <span class="ow">in</span> <span class="nb">str</span><span class="p">(</span><span class="n">exc_info</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
+</code></pre></div>
+- <code>exc_info</code> is of type <code>ExceptionInfo</code></p>
+<h5 id="structuring-test-functions">Structuring Test Functions<a class="headerlink" href="#structuring-test-functions" title="Permanent link">&para;</a></h5>
+<ul>
+<li><strong>Arrange-Act-Assert</strong> (Bill Wake) / <strong>Given-When-Then</strong> (BDD, Dan North)</li>
+<li><strong>Given/Arrange</strong> — set up data/state</li>
+<li><strong>When/Act</strong> — perform the action under test</li>
+<li><strong>Then/Assert</strong> — verify the outcome</li>
+<li>Avoid interleaved assert patterns (<code>Arrange-Assert-Act-Assert-...</code>); keep assertions at the end</li>
+</ul>
+<h5 id="grouping-tests-with-classes">Grouping Tests with Classes<a class="headerlink" href="#grouping-tests-with-classes" title="Permanent link">&para;</a></h5>
+<p><div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">TestEquality</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_equality</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="o">...</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_inequality</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="o">...</span>
+</code></pre></div>
+- Run a class: <code>pytest test_file.py::TestEquality</code>
+- Run a method: <code>pytest test_file.py::TestEquality::test_equality</code>
+- Use classes primarily for grouping; avoid complex inheritance</p>
+<h5 id="running-a-subset-of-tests">Running a Subset of Tests<a class="headerlink" href="#running-a-subset-of-tests" title="Permanent link">&para;</a></h5>
+<table>
+<thead>
+<tr>
+<th>Subset</th>
+<th>Syntax</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Single function</td>
+<td><code>pytest path/test_mod.py::test_func</code></td>
+</tr>
+<tr>
+<td>Single class</td>
+<td><code>pytest path/test_mod.py::TestClass</code></td>
+</tr>
+<tr>
+<td>Single method</td>
+<td><code>pytest path/test_mod.py::TestClass::test_method</code></td>
+</tr>
+<tr>
+<td>Single module</td>
+<td><code>pytest path/test_mod.py</code></td>
+</tr>
+<tr>
+<td>Directory</td>
+<td><code>pytest path/</code></td>
+</tr>
+<tr>
+<td>Keyword pattern</td>
+<td><code>pytest -k "pattern"</code></td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><code>-k</code> supports <code>and</code>, <code>or</code>, <code>not</code>, and parentheses:
+  <div class="highlight"><pre><span></span><code>pytest<span class="w"> </span>-k<span class="w"> </span><span class="s2">&quot;(dict or ids) and not TestEquality&quot;</span>
+</code></pre></div></li>
+</ul>
+<hr />
+<h4 id="3-pytest-fixtures">3. pytest Fixtures<a class="headerlink" href="#3-pytest-fixtures" title="Permanent link">&para;</a></h4>
+<h5 id="getting-started-with-fixtures">Getting Started with Fixtures<a class="headerlink" href="#getting-started-with-fixtures" title="Permanent link">&para;</a></h5>
+<p><div class="highlight"><pre><span></span><code><span class="nd">@pytest</span><span class="o">.</span><span class="n">fixture</span><span class="p">()</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">some_data</span><span class="p">():</span>
+    <span class="k">return</span> <span class="mi">42</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">test_some_data</span><span class="p">(</span><span class="n">some_data</span><span class="p">):</span>    <span class="c1"># pytest injects by name</span>
+    <span class="k">assert</span> <span class="n">some_data</span> <span class="o">==</span> <span class="mi">42</span>
+</code></pre></div>
+- <strong>Fixture</strong>: a <code>@pytest.fixture()</code> decorated function run by pytest before (and sometimes after) tests
+- Exception in a fixture → test reports <strong>Error</strong>, not Fail</p>
+<h5 id="using-fixtures-for-setup-and-teardown">Using Fixtures for Setup and Teardown<a class="headerlink" href="#using-fixtures-for-setup-and-teardown" title="Permanent link">&para;</a></h5>
+<p><div class="highlight"><pre><span></span><code><span class="nd">@pytest</span><span class="o">.</span><span class="n">fixture</span><span class="p">()</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">cards_db</span><span class="p">():</span>
+    <span class="k">with</span> <span class="n">TemporaryDirectory</span><span class="p">()</span> <span class="k">as</span> <span class="n">db_dir</span><span class="p">:</span>
+        <span class="n">db</span> <span class="o">=</span> <span class="n">cards</span><span class="o">.</span><span class="n">CardsDB</span><span class="p">(</span><span class="n">Path</span><span class="p">(</span><span class="n">db_dir</span><span class="p">))</span>
+        <span class="k">yield</span> <span class="n">db</span>          <span class="c1"># test runs here</span>
+        <span class="n">db</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>        <span class="c1"># teardown — guaranteed to run</span>
+</code></pre></div>
+- Code <strong>before</strong> <code>yield</code> = setup; code <strong>after</strong> <code>yield</code> = teardown
+- Teardown runs regardless of test pass/fail</p>
+<h5 id="tracing-fixture-execution-with-setup-show">Tracing Fixture Execution with --setup-show<a class="headerlink" href="#tracing-fixture-execution-with-setup-show" title="Permanent link">&para;</a></h5>
+<p><div class="highlight"><pre><span></span><code>pytest<span class="w"> </span>--setup-show<span class="w"> </span>test_count.py
+</code></pre></div>
+- Shows <code>SETUP</code> / <code>TEARDOWN</code> around each test, with scope letter (<code>F</code>=function, <code>M</code>=module, <code>S</code>=session)</p>
+<h5 id="specifying-fixture-scope">Specifying Fixture Scope<a class="headerlink" href="#specifying-fixture-scope" title="Permanent link">&para;</a></h5>
+<table>
+<thead>
+<tr>
+<th>Scope</th>
+<th>Runs once per...</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>function</code> (default)</td>
+<td>each test function</td>
+</tr>
+<tr>
+<td><code>class</code></td>
+<td>each test class</td>
+</tr>
+<tr>
+<td><code>module</code></td>
+<td>each test module (.py file)</td>
+</tr>
+<tr>
+<td><code>package</code></td>
+<td>each test directory</td>
+</tr>
+<tr>
+<td><code>session</code></td>
+<td>entire test session</td>
+</tr>
+</tbody>
+</table>
+<p><div class="highlight"><pre><span></span><code><span class="nd">@pytest</span><span class="o">.</span><span class="n">fixture</span><span class="p">(</span><span class="n">scope</span><span class="o">=</span><span class="s2">&quot;session&quot;</span><span class="p">)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">db</span><span class="p">():</span>
+    <span class="o">...</span>
+</code></pre></div>
+- Scope is defined at the fixture, not where it's used
+- Fixtures can only depend on fixtures of <strong>equal or wider</strong> scope</p>
+<h5 id="sharing-fixtures-through-conftestpy">Sharing Fixtures through conftest.py<a class="headerlink" href="#sharing-fixtures-through-conftestpy" title="Permanent link">&para;</a></h5>
+<ul>
+<li>Place fixtures in <code>conftest.py</code> to share across multiple test files</li>
+<li>pytest reads <code>conftest.py</code> automatically — <strong>never import it</strong></li>
+<li>Can have <code>conftest.py</code> at any directory level</li>
+</ul>
+<h5 id="finding-where-fixtures-are-defined">Finding Where Fixtures Are Defined<a class="headerlink" href="#finding-where-fixtures-are-defined" title="Permanent link">&para;</a></h5>
+<ul>
+<li><code>pytest --fixtures</code> — list all available fixtures with source locations</li>
+<li><code>pytest --fixtures-per-test test_file.py::test_name</code> — fixtures used by a specific test</li>
+</ul>
+<h5 id="using-multiple-fixture-levels">Using Multiple Fixture Levels<a class="headerlink" href="#using-multiple-fixture-levels" title="Permanent link">&para;</a></h5>
+<ul>
+<li>Use a session-scoped DB fixture + a function-scoped fixture that calls <code>delete_all()</code></li>
+<li>Gives you one DB connection but clean state per test</li>
+</ul>
+<h5 id="using-multiple-fixtures-per-test-or-fixture">Using Multiple Fixtures per Test or Fixture<a class="headerlink" href="#using-multiple-fixtures-per-test-or-fixture" title="Permanent link">&para;</a></h5>
+<ul>
+<li>Tests and fixtures can depend on multiple fixtures in their parameter lists</li>
+</ul>
+<h5 id="deciding-fixture-scope-dynamically">Deciding Fixture Scope Dynamically<a class="headerlink" href="#deciding-fixture-scope-dynamically" title="Permanent link">&para;</a></h5>
+<p><div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">db_scope</span><span class="p">(</span><span class="n">fixture_name</span><span class="p">,</span> <span class="n">config</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">config</span><span class="o">.</span><span class="n">getoption</span><span class="p">(</span><span class="s2">&quot;--func-db&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s2">&quot;function&quot;</span>
+    <span class="k">return</span> <span class="s2">&quot;session&quot;</span>
+
+<span class="nd">@pytest</span><span class="o">.</span><span class="n">fixture</span><span class="p">(</span><span class="n">scope</span><span class="o">=</span><span class="n">db_scope</span><span class="p">)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">db</span><span class="p">():</span>
+    <span class="o">...</span>
+</code></pre></div>
+- Pass a callable to <code>scope=</code> for runtime decisions</p>
+<h5 id="using-autouse-for-fixtures-that-always-get-used">Using autouse for Fixtures That Always Get Used<a class="headerlink" href="#using-autouse-for-fixtures-that-always-get-used" title="Permanent link">&para;</a></h5>
+<p><div class="highlight"><pre><span></span><code><span class="nd">@pytest</span><span class="o">.</span><span class="n">fixture</span><span class="p">(</span><span class="n">autouse</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">scope</span><span class="o">=</span><span class="s2">&quot;session&quot;</span><span class="p">)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">footer_session_scope</span><span class="p">():</span>
+    <span class="k">yield</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;finished: </span><span class="si">{</span><span class="n">time</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="o">...</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</code></pre></div>
+- Runs for every test in scope without being named in the test's parameter list
+- Use sparingly</p>
+<h5 id="renaming-fixtures">Renaming Fixtures<a class="headerlink" href="#renaming-fixtures" title="Permanent link">&para;</a></h5>
+<div class="highlight"><pre><span></span><code><span class="nd">@pytest</span><span class="o">.</span><span class="n">fixture</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;app&quot;</span><span class="p">)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_app</span><span class="p">():</span>
+    <span class="k">yield</span> <span class="n">app</span><span class="p">()</span>
+</code></pre></div>
+<hr />
+<h4 id="4-builtin-fixtures">4. Builtin Fixtures<a class="headerlink" href="#4-builtin-fixtures" title="Permanent link">&para;</a></h4>
+<h5 id="using-tmp_path-and-tmp_path_factory">Using tmp_path and tmp_path_factory<a class="headerlink" href="#using-tmp_path-and-tmp_path_factory" title="Permanent link">&para;</a></h5>
+<ul>
+<li><strong><code>tmp_path</code></strong> (function scope) — returns a <code>pathlib.Path</code> to a temp directory</li>
+<li><strong><code>tmp_path_factory</code></strong> (session scope) — call <code>.mktemp("name")</code> to get temp dirs</li>
+<li><code>--basetemp=mydir</code> to override the base temp directory</li>
+<li>Legacy equivalents: <code>tmpdir</code> / <code>tmpdir_factory</code> (return <code>py.path.local</code>)</li>
+</ul>
+<h5 id="using-capsys">Using capsys<a class="headerlink" href="#using-capsys" title="Permanent link">&para;</a></h5>
+<p><div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">test_version</span><span class="p">(</span><span class="n">capsys</span><span class="p">):</span>
+    <span class="n">cards</span><span class="o">.</span><span class="n">cli</span><span class="o">.</span><span class="n">version</span><span class="p">()</span>
+    <span class="n">output</span> <span class="o">=</span> <span class="n">capsys</span><span class="o">.</span><span class="n">readouterr</span><span class="p">()</span><span class="o">.</span><span class="n">out</span><span class="o">.</span><span class="n">rstrip</span><span class="p">()</span>
+    <span class="k">assert</span> <span class="n">output</span> <span class="o">==</span> <span class="n">cards</span><span class="o">.</span><span class="n">__version__</span>
+</code></pre></div>
+- <code>.readouterr()</code> returns a namedtuple with <code>.out</code> and <code>.err</code>
+- <code>capsys.disabled()</code> context manager temporarily turns off capture
+- <code>-s</code> / <code>--capture=no</code> flag disables capture globally
+- Variants: <code>capfd</code>, <code>capsysbinary</code>, <code>capfdbinary</code>, <code>caplog</code></p>
+<h5 id="using-monkeypatch">Using monkeypatch<a class="headerlink" href="#using-monkeypatch" title="Permanent link">&para;</a></h5>
+<ul>
+<li><strong>Monkeypatch</strong>: dynamic modification of code/environment during a test, automatically undone after</li>
+<li>Methods:</li>
+<li><code>setattr(target, name, value)</code> / <code>delattr(target, name)</code></li>
+<li><code>setitem(dic, name, value)</code> / <code>delitem(dic, name)</code></li>
+<li><code>setenv(name, value)</code> / <code>delenv(name)</code></li>
+<li><code>syspath_prepend(path)</code></li>
+<li><code>chdir(path)</code></li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">test_patch_env_var</span><span class="p">(</span><span class="n">monkeypatch</span><span class="p">,</span> <span class="n">tmp_path</span><span class="p">):</span>
+    <span class="n">monkeypatch</span><span class="o">.</span><span class="n">setenv</span><span class="p">(</span><span class="s2">&quot;CARDS_DB_DIR&quot;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">tmp_path</span><span class="p">))</span>
+    <span class="k">assert</span> <span class="n">run_cards</span><span class="p">(</span><span class="s2">&quot;config&quot;</span><span class="p">)</span> <span class="o">==</span> <span class="nb">str</span><span class="p">(</span><span class="n">tmp_path</span><span class="p">)</span>
+</code></pre></div>
+<h5 id="remaining-builtin-fixtures">Remaining Builtin Fixtures<a class="headerlink" href="#remaining-builtin-fixtures" title="Permanent link">&para;</a></h5>
+<ul>
+<li><code>cache</code> — persist values across pytest runs (enables <code>--last-failed</code>, <code>--failed-first</code>)</li>
+<li><code>pytestconfig</code> — access config values and plugin hooks</li>
+<li><code>request</code> — info on executing test; used in fixture parametrization</li>
+<li><code>recwarn</code> — test warning messages</li>
+<li><code>pytester</code> / <code>testdir</code> — for testing pytest plugins</li>
+<li><code>record_property</code> / <code>record_testsuite_property</code> — add metadata to XML reports</li>
+</ul>
+<hr />
+<h4 id="5-parametrization">5. Parametrization<a class="headerlink" href="#5-parametrization" title="Permanent link">&para;</a></h4>
+<h5 id="testing-without-parametrize">Testing Without Parametrize<a class="headerlink" href="#testing-without-parametrize" title="Permanent link">&para;</a></h5>
+<ul>
+<li>Writing separate functions for each test case is redundant</li>
+<li>Combining into a loop loses individual reporting and stops at first failure</li>
+</ul>
+<h5 id="parametrizing-functions">Parametrizing Functions<a class="headerlink" href="#parametrizing-functions" title="Permanent link">&para;</a></h5>
+<p><div class="highlight"><pre><span></span><code><span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">parametrize</span><span class="p">(</span><span class="s2">&quot;start_state&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;done&quot;</span><span class="p">,</span> <span class="s2">&quot;in prog&quot;</span><span class="p">,</span> <span class="s2">&quot;todo&quot;</span><span class="p">])</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">test_finish</span><span class="p">(</span><span class="n">cards_db</span><span class="p">,</span> <span class="n">start_state</span><span class="p">):</span>
+    <span class="n">c</span> <span class="o">=</span> <span class="n">Card</span><span class="p">(</span><span class="s2">&quot;write a book&quot;</span><span class="p">,</span> <span class="n">state</span><span class="o">=</span><span class="n">start_state</span><span class="p">)</span>
+    <span class="o">...</span>
+</code></pre></div>
+- First arg: comma-separated string or list of param names
+- Second arg: list of values (or tuples for multiple params)
+- Each value becomes a separate test case</p>
+<h5 id="parametrizing-fixtures">Parametrizing Fixtures<a class="headerlink" href="#parametrizing-fixtures" title="Permanent link">&para;</a></h5>
+<p><div class="highlight"><pre><span></span><code><span class="nd">@pytest</span><span class="o">.</span><span class="n">fixture</span><span class="p">(</span><span class="n">params</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;done&quot;</span><span class="p">,</span> <span class="s2">&quot;in prog&quot;</span><span class="p">,</span> <span class="s2">&quot;todo&quot;</span><span class="p">])</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">start_state</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">request</span><span class="o">.</span><span class="n">param</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">test_finish</span><span class="p">(</span><span class="n">cards_db</span><span class="p">,</span> <span class="n">start_state</span><span class="p">):</span>
+    <span class="o">...</span>
+</code></pre></div>
+- Useful when setup/teardown must run per parameter value
+- All tests using the fixture get parametrized</p>
+<h5 id="parametrizing-with-pytest_generate_tests">Parametrizing with pytest_generate_tests<a class="headerlink" href="#parametrizing-with-pytest_generate_tests" title="Permanent link">&para;</a></h5>
+<p><div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">pytest_generate_tests</span><span class="p">(</span><span class="n">metafunc</span><span class="p">):</span>
+    <span class="k">if</span> <span class="s2">&quot;start_state&quot;</span> <span class="ow">in</span> <span class="n">metafunc</span><span class="o">.</span><span class="n">fixturenames</span><span class="p">:</span>
+        <span class="n">metafunc</span><span class="o">.</span><span class="n">parametrize</span><span class="p">(</span><span class="s2">&quot;start_state&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;done&quot;</span><span class="p">,</span> <span class="s2">&quot;in prog&quot;</span><span class="p">,</span> <span class="s2">&quot;todo&quot;</span><span class="p">])</span>
+</code></pre></div>
+- Hook function called during test collection
+- Most powerful: can use command-line flags, combine parameters dynamically</p>
+<h5 id="using-keywords-to-select-test-cases">Using Keywords to Select Test Cases<a class="headerlink" href="#using-keywords-to-select-test-cases" title="Permanent link">&para;</a></h5>
+<p><div class="highlight"><pre><span></span><code>pytest<span class="w"> </span>-k<span class="w"> </span><span class="s2">&quot;todo and not (play or create)&quot;</span>
+</code></pre></div>
+- Works on parametrized test IDs (the bracket portion)
+- Quote expressions with spaces/brackets for shell safety</p>
+<hr />
+<h4 id="6-markers">6. Markers<a class="headerlink" href="#6-markers" title="Permanent link">&para;</a></h4>
+<h5 id="using-builtin-markers">Using Builtin Markers<a class="headerlink" href="#using-builtin-markers" title="Permanent link">&para;</a></h5>
+<ul>
+<li><code>@pytest.mark.skip(reason=None)</code> — unconditional skip</li>
+<li><code>@pytest.mark.skipif(condition, *, reason)</code> — conditional skip</li>
+<li><code>@pytest.mark.xfail(condition, *, reason, run=True, raises=None, strict=False)</code> — expected failure</li>
+<li><code>@pytest.mark.parametrize(...)</code> — covered in Ch5</li>
+<li><code>@pytest.mark.usefixtures(...)</code> — apply fixtures to tests</li>
+<li><code>@pytest.mark.filterwarnings(warning)</code> — add warning filter</li>
+</ul>
+<h5 id="skipping-tests-with-pytestmarkskip">Skipping Tests with pytest.mark.skip<a class="headerlink" href="#skipping-tests-with-pytestmarkskip" title="Permanent link">&para;</a></h5>
+<p><div class="highlight"><pre><span></span><code><span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">skip</span><span class="p">(</span><span class="n">reason</span><span class="o">=</span><span class="s2">&quot;Feature not implemented yet&quot;</span><span class="p">)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">test_less_than</span><span class="p">():</span>
+    <span class="o">...</span>
+</code></pre></div>
+- <code>-ra</code> flag shows reasons for all non-passing tests</p>
+<h5 id="skipping-tests-conditionally-with-pytestmarkskipif">Skipping Tests Conditionally with pytest.mark.skipif<a class="headerlink" href="#skipping-tests-conditionally-with-pytestmarkskipif" title="Permanent link">&para;</a></h5>
+<p><div class="highlight"><pre><span></span><code><span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">skipif</span><span class="p">(</span>
+    <span class="n">parse</span><span class="p">(</span><span class="n">cards</span><span class="o">.</span><span class="n">__version__</span><span class="p">)</span><span class="o">.</span><span class="n">major</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">,</span>
+    <span class="n">reason</span><span class="o">=</span><span class="s2">&quot;Not supported in 1.x&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+</code></pre></div>
+- Uses <strong><code>packaging</code></strong> library (<code>pip install packaging</code>) for version parsing</p>
+<h5 id="expecting-tests-to-fail-with-pytestmarkxfail">Expecting Tests to Fail with pytest.mark.xfail<a class="headerlink" href="#expecting-tests-to-fail-with-pytestmarkxfail" title="Permanent link">&para;</a></h5>
+<ul>
+<li><code>strict=False</code> (default): passing xfail → XPASS (not a failure)</li>
+<li><code>strict=True</code>: passing xfail → FAILED</li>
+<li>Recommendation: set <code>xfail_strict = true</code> in <code>pytest.ini</code></li>
+</ul>
+<h5 id="selecting-tests-with-custom-markers">Selecting Tests with Custom Markers<a class="headerlink" href="#selecting-tests-with-custom-markers" title="Permanent link">&para;</a></h5>
+<p><div class="highlight"><pre><span></span><code><span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">smoke</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">test_start</span><span class="p">(</span><span class="n">cards_db</span><span class="p">):</span>
+    <span class="o">...</span>
+</code></pre></div>
+- Register markers in <code>pytest.ini</code> to avoid typo warnings:
+  <div class="highlight"><pre><span></span><code><span class="k">[pytest]</span>
+<span class="na">markers</span><span class="w"> </span><span class="o">=</span>
+<span class="w">    </span><span class="na">smoke</span><span class="o">:</span><span class="w"> </span><span class="s">subset of tests</span>
+<span class="w">    </span><span class="na">exception</span><span class="o">:</span><span class="w"> </span><span class="s">check for expected exceptions</span>
+</code></pre></div></p>
+<ul>
+<li>Select: <code>pytest -m smoke</code></li>
+</ul>
+<h5 id="marking-files-classes-and-parameters">Marking Files, Classes, and Parameters<a class="headerlink" href="#marking-files-classes-and-parameters" title="Permanent link">&para;</a></h5>
+<ul>
+<li><strong>File-level</strong>: <code>pytestmark = pytest.mark.finish</code> (or a list)</li>
+<li><strong>Class-level</strong>: <code>@pytest.mark.smoke</code> on the class</li>
+<li><strong>Parameter-level</strong>: <code>pytest.param("in prog", marks=pytest.mark.smoke)</code></li>
+</ul>
+<h5 id="using-and-or-not-and-parentheses-with-markers">Using "and," "or," "not," and Parentheses with Markers<a class="headerlink" href="#using-and-or-not-and-parentheses-with-markers" title="Permanent link">&para;</a></h5>
+<p><div class="highlight"><pre><span></span><code>pytest<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;(exception or smoke) and (not finish)&quot;</span>
+</code></pre></div>
+- Can combine <code>-m</code> and <code>-k</code> flags</p>
+<h5 id="being-strict-with-markers">Being Strict with Markers<a class="headerlink" href="#being-strict-with-markers" title="Permanent link">&para;</a></h5>
+<ul>
+<li><code>--strict-markers</code> turns unknown marker warnings into errors</li>
+<li>Add to <code>addopts</code> in <code>pytest.ini</code> for always-on behavior</li>
+</ul>
+<h5 id="combining-markers-with-fixtures">Combining Markers with Fixtures<a class="headerlink" href="#combining-markers-with-fixtures" title="Permanent link">&para;</a></h5>
+<p><div class="highlight"><pre><span></span><code><span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">num_cards</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">test_three_cards</span><span class="p">(</span><span class="n">cards_db</span><span class="p">):</span>
+    <span class="k">assert</span> <span class="n">cards_db</span><span class="o">.</span><span class="n">count</span><span class="p">()</span> <span class="o">==</span> <span class="mi">3</span>
+</code></pre></div>
+- In the fixture, use <code>request.node.get_closest_marker("num_cards")</code> to read the marker
+- Access args via <code>marker.args</code> and <code>marker.kwargs</code>
+- <strong>Faker</strong> library (<code>pip install Faker</code>): provides a <code>faker</code> fixture for generating fake data
+  - <code>faker.sentence()</code>, <code>faker.first_name()</code>, <code>faker.seed_instance(101)</code></p>
+<h5 id="listing-markers">Listing Markers<a class="headerlink" href="#listing-markers" title="Permanent link">&para;</a></h5>
+<div class="highlight"><pre><span></span><code>pytest<span class="w"> </span>--markers
+</code></pre></div>
+<hr />
+<h3 id="part-ii-working-with-projects">Part II — Working with Projects<a class="headerlink" href="#part-ii-working-with-projects" title="Permanent link">&para;</a></h3>
+<h4 id="7-strategy">7. Strategy<a class="headerlink" href="#7-strategy" title="Permanent link">&para;</a></h4>
+<h5 id="determining-test-scope">Determining Test Scope<a class="headerlink" href="#determining-test-scope" title="Permanent link">&para;</a></h5>
+<ul>
+<li>Consider: security, performance, load testing, input validation</li>
+<li>Start with user-visible functionality testing; defer other concerns until needed</li>
+</ul>
+<h5 id="considering-software-architecture">Considering Software Architecture<a class="headerlink" href="#considering-software-architecture" title="Permanent link">&para;</a></h5>
+<ul>
+<li>Cards has 3 layers: <strong>CLI</strong> (cli.py) → <strong>API</strong> (api.py) → <strong>DB</strong> (db.py)</li>
+<li>CLI and DB layers intentionally thin; most logic in API</li>
+<li>Strategy: test features through the API; test CLI just enough to verify it calls the API correctly</li>
+</ul>
+<h5 id="evaluating-the-features-to-test">Evaluating the Features to Test<a class="headerlink" href="#evaluating-the-features-to-test" title="Permanent link">&para;</a></h5>
+<ul>
+<li>Prioritize by: <strong>Recent</strong>, <strong>Core</strong>, <strong>Risk</strong>, <strong>Problematic</strong>, <strong>Expertise</strong></li>
+<li>Core features get thorough testing; non-core get at least one test case</li>
+</ul>
+<h5 id="creating-test-cases">Creating Test Cases<a class="headerlink" href="#creating-test-cases" title="Permanent link">&para;</a></h5>
+<ul>
+<li>Start with a non-trivial <strong>happy path</strong> test case</li>
+<li>Then consider: interesting inputs, interesting starting states, interesting end states, error states</li>
+<li>Example for <code>count</code>: empty DB, one item, more than one item</li>
+<li>Example for <code>delete</code>: delete one of many, delete the last card, delete non-existent</li>
+</ul>
+<h5 id="writing-a-test-strategy">Writing a Test Strategy<a class="headerlink" href="#writing-a-test-strategy" title="Permanent link">&para;</a></h5>
+<ul>
+<li>Document the strategy so you and your team can refer to it later</li>
+<li>Cards strategy summary:</li>
+<li>Test user-visible features through the API</li>
+<li>Test CLI just enough to verify API integration</li>
+<li>Test core features thoroughly (<code>add</code>, <code>count</code>, <code>delete</code>, <code>finish</code>, <code>list</code>, <code>start</code>, <code>update</code>)</li>
+<li>Cursory tests for <code>config</code> and <code>version</code></li>
+</ul>
+<hr />
+<h4 id="8-configuration-files">8. Configuration Files<a class="headerlink" href="#8-configuration-files" title="Permanent link">&para;</a></h4>
+<h5 id="understanding-pytest-configuration-files">Understanding pytest Configuration Files<a class="headerlink" href="#understanding-pytest-configuration-files" title="Permanent link">&para;</a></h5>
+<table>
+<thead>
+<tr>
+<th>File</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>pytest.ini</code></td>
+<td>Primary config; its location defines <strong>rootdir</strong></td>
+</tr>
+<tr>
+<td><code>conftest.py</code></td>
+<td>Fixtures and hook functions; can exist at any level</td>
+</tr>
+<tr>
+<td><code>__init__.py</code></td>
+<td>Prevents test filename collisions across subdirectories</td>
+</tr>
+<tr>
+<td><code>tox.ini</code></td>
+<td>tox config; can include a <code>[pytest]</code> section</td>
+</tr>
+<tr>
+<td><code>pyproject.toml</code></td>
+<td>Modern Python packaging; uses <code>[tool.pytest.ini_options]</code></td>
+</tr>
+<tr>
+<td><code>setup.cfg</code></td>
+<td>Legacy packaging; uses <code>[tool:pytest]</code></td>
+</tr>
+</tbody>
+</table>
+<h5 id="saving-settings-and-flags-in-pytestini">Saving Settings and Flags in pytest.ini<a class="headerlink" href="#saving-settings-and-flags-in-pytestini" title="Permanent link">&para;</a></h5>
+<p><div class="highlight"><pre><span></span><code><span class="k">[pytest]</span>
+<span class="na">addopts</span><span class="w"> </span><span class="o">=</span>
+<span class="w">    </span><span class="na">--strict-markers</span>
+<span class="w">    </span><span class="na">--strict-config</span>
+<span class="w">    </span><span class="na">-ra</span>
+<span class="na">testpaths</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">tests</span>
+<span class="na">markers</span><span class="w"> </span><span class="o">=</span>
+<span class="w">    </span><span class="na">smoke</span><span class="o">:</span><span class="w"> </span><span class="s">subset of tests</span>
+</code></pre></div>
+- <code>--strict-config</code> raises errors for config file parsing issues</p>
+<h5 id="using-toxini-pyprojecttoml-or-setupcfg-in-place-of-pytestini">Using tox.ini, pyproject.toml, or setup.cfg in place of pytest.ini<a class="headerlink" href="#using-toxini-pyprojecttoml-or-setupcfg-in-place-of-pytestini" title="Permanent link">&para;</a></h5>
+<ul>
+<li><strong>tox.ini</strong>: identical <code>[pytest]</code> section syntax</li>
+<li><strong>pyproject.toml</strong>: <code>[tool.pytest.ini_options]</code>; values are quoted strings or lists</li>
+<li><strong>setup.cfg</strong>: <code>[tool:pytest]</code> section; beware parser differences</li>
+</ul>
+<h5 id="determining-a-root-directory-and-config-file">Determining a Root Directory and Config File<a class="headerlink" href="#determining-a-root-directory-and-config-file" title="Permanent link">&para;</a></h5>
+<ul>
+<li>pytest searches upward from test path for a config file → that directory becomes <strong>rootdir</strong></li>
+<li>Tip: always place at least an empty <code>pytest.ini</code> at the project root</li>
+</ul>
+<h5 id="sharing-local-fixtures-and-hook-functions-with-conftestpy">Sharing Local Fixtures and Hook Functions with conftest.py<a class="headerlink" href="#sharing-local-fixtures-and-hook-functions-with-conftestpy" title="Permanent link">&para;</a></h5>
+<ul>
+<li>Anything in <code>conftest.py</code> applies to tests in that directory and below</li>
+<li>Try to stick to one <code>conftest.py</code> for easy fixture discovery</li>
+</ul>
+<h5 id="avoiding-test-file-name-collision">Avoiding Test File Name Collision<a class="headerlink" href="#avoiding-test-file-name-collision" title="Permanent link">&para;</a></h5>
+<ul>
+<li><code>__init__.py</code> in test subdirs allows duplicate filenames like <code>tests/api/test_add.py</code> and <code>tests/cli/test_add.py</code></li>
+<li>Without it: <code>import file mismatch</code> error</li>
+</ul>
+<hr />
+<h4 id="9-coverage">9. Coverage<a class="headerlink" href="#9-coverage" title="Permanent link">&para;</a></h4>
+<blockquote>
+<p><strong>Key libraries:</strong> <strong>coverage.py</strong> (<code>pip install coverage</code>) and <strong>pytest-cov</strong> (<code>pip install pytest-cov</code>)</p>
+</blockquote>
+<h5 id="using-coveragepy-with-pytest-cov">Using coverage.py with pytest-cov<a class="headerlink" href="#using-coveragepy-with-pytest-cov" title="Permanent link">&para;</a></h5>
+<p><div class="highlight"><pre><span></span><code>pytest<span class="w"> </span>--cov<span class="o">=</span>cards<span class="w"> </span>ch7<span class="w">                          </span><span class="c1"># basic report</span>
+pytest<span class="w"> </span>--cov<span class="o">=</span>cards<span class="w"> </span>--cov-report<span class="o">=</span>term-missing<span class="w"> </span>ch7<span class="w">  </span><span class="c1"># show missed lines</span>
+</code></pre></div>
+- Equivalent without pytest-cov:
+  <div class="highlight"><pre><span></span><code>coverage<span class="w"> </span>run<span class="w"> </span>--source<span class="o">=</span>cards<span class="w"> </span>-m<span class="w"> </span>pytest<span class="w"> </span>ch7
+coverage<span class="w"> </span>report<span class="w"> </span>--show-missing
+</code></pre></div></p>
+<ul>
+<li><code>.coveragerc</code> config maps installed package paths to local source:
+  <div class="highlight"><pre><span></span><code><span class="k">[paths]</span>
+<span class="na">source</span><span class="w"> </span><span class="o">=</span>
+<span class="w">    </span><span class="na">cards_proj/src/cards</span>
+<span class="w">    </span><span class="na">*/site-packages/cards</span>
+</code></pre></div></li>
+</ul>
+<h5 id="generating-html-reports">Generating HTML Reports<a class="headerlink" href="#generating-html-reports" title="Permanent link">&para;</a></h5>
+<p><div class="highlight"><pre><span></span><code>pytest<span class="w"> </span>--cov<span class="o">=</span>cards<span class="w"> </span>--cov-report<span class="o">=</span>html<span class="w"> </span>ch7
+<span class="c1"># or</span>
+coverage<span class="w"> </span>html
+</code></pre></div>
+- Output: <code>htmlcov/index.html</code> — color-coded line-by-line coverage</p>
+<h5 id="excluding-code-from-coverage">Excluding Code from Coverage<a class="headerlink" href="#excluding-code-from-coverage" title="Permanent link">&para;</a></h5>
+<p><div class="highlight"><pre><span></span><code><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>  <span class="c1"># pragma: no cover</span>
+    <span class="n">main</span><span class="p">()</span>
+</code></pre></div>
+- <code># pragma: no cover</code> excludes a line or block</p>
+<h5 id="running-coverage-on-tests">Running Coverage on Tests<a class="headerlink" href="#running-coverage-on-tests" title="Permanent link">&para;</a></h5>
+<p><div class="highlight"><pre><span></span><code>pytest<span class="w"> </span>--cov<span class="o">=</span>cards<span class="w"> </span>--cov<span class="o">=</span>ch7<span class="w"> </span>ch7
+</code></pre></div>
+- Catches duplicate test function names (only last one in a file runs)
+- Catches unused fixtures / dead code in fixtures</p>
+<h5 id="running-coverage-on-a-directory">Running Coverage on a Directory<a class="headerlink" href="#running-coverage-on-a-directory" title="Permanent link">&para;</a></h5>
+<div class="highlight"><pre><span></span><code>pytest<span class="w"> </span>--cov<span class="o">=</span>ch9/some_code<span class="w"> </span>ch9/some_code
+</code></pre></div>
+<h5 id="running-coverage-on-a-single-file">Running Coverage on a Single File<a class="headerlink" href="#running-coverage-on-a-single-file" title="Permanent link">&para;</a></h5>
+<div class="highlight"><pre><span></span><code>pytest<span class="w"> </span>--cov<span class="o">=</span>single_file<span class="w"> </span>single_file.py<span class="w">   </span><span class="c1"># no .py in --cov</span>
+</code></pre></div>
+<hr />
+<h4 id="10-mocking">10. Mocking<a class="headerlink" href="#10-mocking" title="Permanent link">&para;</a></h4>
+<blockquote>
+<p><strong>Key library:</strong> <code>unittest.mock</code> (stdlib since Python 3.3)</p>
+</blockquote>
+<h5 id="isolating-the-command-line-interface">Isolating the Command-Line Interface<a class="headerlink" href="#isolating-the-command-line-interface" title="Permanent link">&para;</a></h5>
+<ul>
+<li>Cards CLI accesses: <code>cards.__version__</code>, <code>cards.CardsDB</code>, <code>cards.InvalidCardId</code>, <code>cards.Card</code></li>
+<li><strong>Typer</strong> provides <code>CliRunner</code> for in-process CLI testing:
+  <div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">typer.testing</span><span class="w"> </span><span class="kn">import</span> <span class="n">CliRunner</span>
+<span class="n">runner</span> <span class="o">=</span> <span class="n">CliRunner</span><span class="p">()</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">runner</span><span class="o">.</span><span class="n">invoke</span><span class="p">(</span><span class="n">cards</span><span class="o">.</span><span class="n">app</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;version&quot;</span><span class="p">])</span>
+</code></pre></div></li>
+</ul>
+<h5 id="testing-with-typer">Testing with Typer<a class="headerlink" href="#testing-with-typer" title="Permanent link">&para;</a></h5>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">shlex</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">cards_cli</span><span class="p">(</span><span class="n">command_string</span><span class="p">):</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">runner</span><span class="o">.</span><span class="n">invoke</span><span class="p">(</span><span class="n">cards</span><span class="o">.</span><span class="n">app</span><span class="p">,</span> <span class="n">shlex</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">command_string</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">result</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">rstrip</span><span class="p">()</span>
+</code></pre></div>
+<h5 id="mocking-an-attribute">Mocking an Attribute<a class="headerlink" href="#mocking-an-attribute" title="Permanent link">&para;</a></h5>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">unittest</span><span class="w"> </span><span class="kn">import</span> <span class="n">mock</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">test_mock_version</span><span class="p">():</span>
+    <span class="k">with</span> <span class="n">mock</span><span class="o">.</span><span class="n">patch</span><span class="o">.</span><span class="n">object</span><span class="p">(</span><span class="n">cards</span><span class="p">,</span> <span class="s2">&quot;__version__&quot;</span><span class="p">,</span> <span class="s2">&quot;1.2.3&quot;</span><span class="p">):</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">runner</span><span class="o">.</span><span class="n">invoke</span><span class="p">(</span><span class="n">app</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;version&quot;</span><span class="p">])</span>
+        <span class="k">assert</span> <span class="n">result</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">rstrip</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;1.2.3&quot;</span>
+</code></pre></div>
+<h5 id="mocking-a-class-and-methods">Mocking a Class and Methods<a class="headerlink" href="#mocking-a-class-and-methods" title="Permanent link">&para;</a></h5>
+<p><div class="highlight"><pre><span></span><code><span class="k">with</span> <span class="n">mock</span><span class="o">.</span><span class="n">patch</span><span class="o">.</span><span class="n">object</span><span class="p">(</span><span class="n">cards</span><span class="p">,</span> <span class="s2">&quot;CardsDB&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">MockCardsDB</span><span class="p">:</span>
+    <span class="n">MockCardsDB</span><span class="o">.</span><span class="n">return_value</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">return_value</span> <span class="o">=</span> <span class="s2">&quot;/foo/&quot;</span>
+</code></pre></div>
+- Calling a mock returns <code>mock.return_value</code> (another mock)
+- Set <code>.return_value</code> on chained mocks for method calls</p>
+<h5 id="keeping-mock-and-implementation-in-sync-with-autospec">Keeping Mock and Implementation in Sync with Autospec<a class="headerlink" href="#keeping-mock-and-implementation-in-sync-with-autospec" title="Permanent link">&para;</a></h5>
+<p><div class="highlight"><pre><span></span><code><span class="k">with</span> <span class="n">mock</span><span class="o">.</span><span class="n">patch</span><span class="o">.</span><span class="n">object</span><span class="p">(</span><span class="n">cards</span><span class="p">,</span> <span class="s2">&quot;CardsDB&quot;</span><span class="p">,</span> <span class="n">autospec</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="k">as</span> <span class="n">CardsDB</span><span class="p">:</span>
+    <span class="o">...</span>
+</code></pre></div>
+- <strong>Always use <code>autospec=True</code></strong> — prevents mock drift (misspelled methods, wrong params)
+- Without it, mocks silently accept any attribute or call</p>
+<h5 id="making-sure-functions-are-called-correctly">Making Sure Functions Are Called Correctly<a class="headerlink" href="#making-sure-functions-are-called-correctly" title="Permanent link">&para;</a></h5>
+<p><div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">test_add_with_owner</span><span class="p">(</span><span class="n">mock_cardsdb</span><span class="p">):</span>
+    <span class="n">cards_cli</span><span class="p">(</span><span class="s2">&quot;add some task -o brian&quot;</span><span class="p">)</span>
+    <span class="n">expected</span> <span class="o">=</span> <span class="n">cards</span><span class="o">.</span><span class="n">Card</span><span class="p">(</span><span class="s2">&quot;some task&quot;</span><span class="p">,</span> <span class="n">owner</span><span class="o">=</span><span class="s2">&quot;brian&quot;</span><span class="p">,</span> <span class="n">state</span><span class="o">=</span><span class="s2">&quot;todo&quot;</span><span class="p">)</span>
+    <span class="n">mock_cardsdb</span><span class="o">.</span><span class="n">add_card</span><span class="o">.</span><span class="n">assert_called_with</span><span class="p">(</span><span class="n">expected</span><span class="p">)</span>
+</code></pre></div>
+- Variants: <code>assert_called()</code>, <code>assert_called_once()</code>, <code>assert_called_once_with(...)</code>, <code>assert_not_called()</code></p>
+<h5 id="creating-error-conditions">Creating Error Conditions<a class="headerlink" href="#creating-error-conditions" title="Permanent link">&para;</a></h5>
+<div class="highlight"><pre><span></span><code><span class="n">mock_cardsdb</span><span class="o">.</span><span class="n">delete_card</span><span class="o">.</span><span class="n">side_effect</span> <span class="o">=</span> <span class="n">cards</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">InvalidCardId</span>
+<span class="n">out</span> <span class="o">=</span> <span class="n">cards_cli</span><span class="p">(</span><span class="s2">&quot;delete 25&quot;</span><span class="p">)</span>
+<span class="k">assert</span> <span class="s2">&quot;Error: Invalid card id 25&quot;</span> <span class="ow">in</span> <span class="n">out</span>
+</code></pre></div>
+<h5 id="testing-at-multiple-layers-to-avoid-mocking">Testing at Multiple Layers to Avoid Mocking<a class="headerlink" href="#testing-at-multiple-layers-to-avoid-mocking" title="Permanent link">&para;</a></h5>
+<ul>
+<li>Alternative: call CLI, then use the real API to verify state</li>
+<li>Tests <strong>behavior</strong> instead of implementation → more resilient to refactoring</li>
+<li><strong>Change detector tests</strong>: tests that break during valid refactoring (avoid these)</li>
+</ul>
+<h5 id="using-plugins-to-assist-mocking">Using Plugins to Assist Mocking<a class="headerlink" href="#using-plugins-to-assist-mocking" title="Permanent link">&para;</a></h5>
+<ul>
+<li><strong>pytest-mock</strong>: provides a <code>mocker</code> fixture (thin wrapper around <code>unittest.mock</code>)</li>
+<li>Domain-specific: <code>pytest-postgresql</code>, <code>pytest-mongo</code>, <code>pytest-httpserver</code>, <code>responses</code>, <code>betamax</code></li>
+</ul>
+<hr />
+<h4 id="11-tox-and-continuous-integration">11. tox and Continuous Integration<a class="headerlink" href="#11-tox-and-continuous-integration" title="Permanent link">&para;</a></h4>
+<h5 id="what-is-continuous-integration">What Is Continuous Integration?<a class="headerlink" href="#what-is-continuous-integration" title="Permanent link">&para;</a></h5>
+<ul>
+<li>Automated build + test triggered on code changes</li>
+<li>Allows frequent integration, reducing merge conflicts</li>
+</ul>
+<h5 id="introducing-tox">Introducing tox<a class="headerlink" href="#introducing-tox" title="Permanent link">&para;</a></h5>
+<blockquote>
+<p><strong>tox</strong> (<code>pip install tox</code>): local CI automation tool</p>
+</blockquote>
+<ul>
+<li>For each environment: creates venv → installs deps → builds package → installs package → runs tests</li>
+</ul>
+<h5 id="setting-up-tox">Setting Up tox<a class="headerlink" href="#setting-up-tox" title="Permanent link">&para;</a></h5>
+<div class="highlight"><pre><span></span><code><span class="k">[tox]</span>
+<span class="na">envlist</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">py310</span>
+<span class="na">isolated_build</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">True</span><span class="w">       </span><span class="c1"># required for pyproject.toml-based packages</span>
+
+<span class="k">[testenv]</span>
+<span class="na">deps</span><span class="w"> </span><span class="o">=</span>
+<span class="w">    </span><span class="na">pytest</span>
+<span class="w">    </span><span class="na">faker</span>
+<span class="na">commands</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">pytest</span>
+</code></pre></div>
+<h5 id="running-tox">Running tox<a class="headerlink" href="#running-tox" title="Permanent link">&para;</a></h5>
+<div class="highlight"><pre><span></span><code>tox<span class="w">                         </span><span class="c1"># run all environments</span>
+tox<span class="w"> </span>-e<span class="w"> </span>py310<span class="w">                </span><span class="c1"># run one environment</span>
+tox<span class="w"> </span>-p<span class="w">                      </span><span class="c1"># run environments in parallel</span>
+</code></pre></div>
+<h5 id="testing-multiple-python-versions">Testing Multiple Python Versions<a class="headerlink" href="#testing-multiple-python-versions" title="Permanent link">&para;</a></h5>
+<div class="highlight"><pre><span></span><code><span class="na">envlist</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">py37, py38, py39, py310</span>
+<span class="na">skip_missing_interpreters</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">True</span>
+</code></pre></div>
+<h5 id="adding-a-coverage-report-to-tox">Adding a Coverage Report to tox<a class="headerlink" href="#adding-a-coverage-report-to-tox" title="Permanent link">&para;</a></h5>
+<ul>
+<li>Add <code>pytest-cov</code> to <code>deps</code>, change commands to <code>pytest --cov=cards</code></li>
+<li>Use <code>.coveragerc</code> with <code>[paths]</code> to unify source paths</li>
+</ul>
+<h5 id="specifying-a-minimum-coverage-level">Specifying a Minimum Coverage Level<a class="headerlink" href="#specifying-a-minimum-coverage-level" title="Permanent link">&para;</a></h5>
+<div class="highlight"><pre><span></span><code><span class="na">commands</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">pytest --cov=cards --cov=tests --cov-fail-under=100</span>
+</code></pre></div>
+<h5 id="passing-pytest-parameters-through-tox">Passing pytest Parameters Through tox<a class="headerlink" href="#passing-pytest-parameters-through-tox" title="Permanent link">&para;</a></h5>
+<p><div class="highlight"><pre><span></span><code><span class="na">commands</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">pytest --cov=cards {posargs}</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>tox<span class="w"> </span>-e<span class="w"> </span>py310<span class="w"> </span>--<span class="w"> </span>-k<span class="w"> </span>test_version<span class="w"> </span>--no-cov
+</code></pre></div>
+- <code>--</code> separates tox args from pytest args</p>
+<h5 id="running-tox-with-github-actions">Running tox with GitHub Actions<a class="headerlink" href="#running-tox-with-github-actions" title="Permanent link">&para;</a></h5>
+<p><div class="highlight"><pre><span></span><code><span class="c1"># .github/workflows/main.yml</span>
+<span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">CI</span>
+<span class="nt">on</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">push</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">pull_request</span><span class="p p-Indicator">]</span>
+<span class="nt">jobs</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">build</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">runs-on</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ubuntu-latest</span>
+<span class="w">    </span><span class="nt">strategy</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">matrix</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">python</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;3.7&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;3.8&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;3.9&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;3.10&quot;</span><span class="p p-Indicator">]</span>
+<span class="w">    </span><span class="nt">steps</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">actions/checkout@v2</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">actions/setup-python@v2</span>
+<span class="w">        </span><span class="nt">with</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">python-version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${{ matrix.python }}</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pip install tox</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">tox -e py</span>
+</code></pre></div>
+- CI alternatives: GitLab CI, Bitbucket Pipelines, CircleCI, Jenkins</p>
+<hr />
+<h4 id="12-testing-scripts-and-applications">12. Testing Scripts and Applications<a class="headerlink" href="#12-testing-scripts-and-applications" title="Permanent link">&para;</a></h4>
+<h5 id="testing-a-simple-python-script">Testing a Simple Python Script<a class="headerlink" href="#testing-a-simple-python-script" title="Permanent link">&para;</a></h5>
+<p><div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">subprocess</span><span class="w"> </span><span class="kn">import</span> <span class="n">run</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">test_hello</span><span class="p">():</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">run</span><span class="p">([</span><span class="s2">&quot;python&quot;</span><span class="p">,</span> <span class="s2">&quot;hello.py&quot;</span><span class="p">],</span> <span class="n">capture_output</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="n">result</span><span class="o">.</span><span class="n">stdout</span> <span class="o">==</span> <span class="s2">&quot;Hello, World!</span><span class="se">\n</span><span class="s2">&quot;</span>
+</code></pre></div>
+- For tox with non-packaged code: set <code>skipsdist = true</code></p>
+<h5 id="testing-an-importable-python-script">Testing an Importable Python Script<a class="headerlink" href="#testing-an-importable-python-script" title="Permanent link">&para;</a></h5>
+<ul>
+<li>Wrap logic in <code>main()</code>, guard with <code>if __name__ == "__main__": main()</code></li>
+<li>Now tests can <code>import hello</code> and call <code>hello.main()</code> with <code>capsys</code></li>
+</ul>
+<h5 id="separating-code-into-src-and-tests-directories">Separating Code into src and tests Directories<a class="headerlink" href="#separating-code-into-src-and-tests-directories" title="Permanent link">&para;</a></h5>
+<p><div class="highlight"><pre><span></span><code><span class="c1"># pytest.ini</span>
+<span class="k">[pytest]</span>
+<span class="na">pythonpath</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">src</span>
+<span class="na">testpaths</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">tests</span>
+</code></pre></div>
+- <code>pythonpath</code> (pytest 7+) adds directories to <code>sys.path</code> during test collection
+- For pytest 6.2: use the <strong>pytest-srcpaths</strong> plugin</p>
+<h5 id="defining-the-python-search-path">Defining the Python Search Path<a class="headerlink" href="#defining-the-python-search-path" title="Permanent link">&para;</a></h5>
+<ul>
+<li><code>sys.path</code> = list of directories Python searches during import</li>
+<li>pytest adds test directories automatically; <code>pythonpath</code> adds source directories</li>
+</ul>
+<h5 id="testing-requirementstxt-based-applications">Testing requirements.txt-Based Applications<a class="headerlink" href="#testing-requirementstxt-based-applications" title="Permanent link">&para;</a></h5>
+<ul>
+<li>In <code>tox.ini</code>, add <code>-rrequirements.txt</code> to <code>deps</code> to install dependencies</li>
+</ul>
+<hr />
+<h4 id="13-debugging-test-failures">13. Debugging Test Failures<a class="headerlink" href="#13-debugging-test-failures" title="Permanent link">&para;</a></h4>
+<h5 id="installing-cards-in-editable-mode">Installing Cards in Editable Mode<a class="headerlink" href="#installing-cards-in-editable-mode" title="Permanent link">&para;</a></h5>
+<div class="highlight"><pre><span></span><code>pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;./cards_proj/[test]&quot;</span><span class="w">   </span><span class="c1"># editable + optional test deps</span>
+</code></pre></div>
+<h5 id="debugging-with-pytest-flags">Debugging with pytest Flags<a class="headerlink" href="#debugging-with-pytest-flags" title="Permanent link">&para;</a></h5>
+<p><strong>Test selection/ordering:</strong></p>
+<ul>
+<li><code>--lf</code> / <code>--last-failed</code> — rerun only failures</li>
+<li><code>--ff</code> / <code>--failed-first</code> — run all, failures first</li>
+<li><code>-x</code> / <code>--exitfirst</code> — stop after first failure</li>
+<li><code>--maxfail=num</code> — stop after N failures</li>
+<li><code>--sw</code> / <code>--stepwise</code> — stop at first failure; resume from there next time</li>
+<li><code>--nf</code> / <code>--new-first</code> — order by file modification time</li>
+</ul>
+<p><strong>Output control:</strong></p>
+<ul>
+<li><code>-v</code> / <code>--verbose</code></li>
+<li><code>--tb=[auto/long/short/line/native/no]</code></li>
+<li><code>-l</code> / <code>--showlocals</code> — display local variables in tracebacks</li>
+</ul>
+<p><strong>Debugger:</strong></p>
+<ul>
+<li><code>--pdb</code> — drop into pdb at point of failure</li>
+<li><code>--trace</code> — drop into pdb at start of each test</li>
+<li><code>--pdbcls=IPython.terminal.debugger:TerminalPdb</code> — use IPython debugger</li>
+</ul>
+<h5 id="re-running-failed-tests">Re-Running Failed Tests<a class="headerlink" href="#re-running-failed-tests" title="Permanent link">&para;</a></h5>
+<div class="highlight"><pre><span></span><code>pytest<span class="w"> </span>--lf<span class="w"> </span>--tb<span class="o">=</span>no<span class="w">          </span><span class="c1"># verify failures reproduce</span>
+pytest<span class="w"> </span>--lf<span class="w"> </span>-x<span class="w">               </span><span class="c1"># stop at first, show traceback</span>
+pytest<span class="w"> </span>--lf<span class="w"> </span>-x<span class="w"> </span>-l<span class="w"> </span>--tb<span class="o">=</span>short<span class="w"> </span><span class="c1"># also show local variables</span>
+</code></pre></div>
+<h5 id="debugging-with-pdb">Debugging with pdb<a class="headerlink" href="#debugging-with-pdb" title="Permanent link">&para;</a></h5>
+<ul>
+<li><code>breakpoint()</code> in code → pytest stops there</li>
+<li><strong>pdb commands:</strong></li>
+<li><code>l(ist)</code> / <code>ll</code> — show source; <code>w(here)</code> — stack trace</li>
+<li><code>p expr</code> / <code>pp expr</code> — print/pretty-print</li>
+<li><code>n(ext)</code> — next line; <code>s(tep)</code> — step into; <code>r(eturn)</code> — continue to return</li>
+<li><code>c(ontinue)</code> — run to next breakpoint; <code>unt(il) lineno</code> — run to line</li>
+<li><code>q(uit)</code> — exit</li>
+</ul>
+<h5 id="combining-pdb-and-tox">Combining pdb and tox<a class="headerlink" href="#combining-pdb-and-tox" title="Permanent link">&para;</a></h5>
+<div class="highlight"><pre><span></span><code>tox<span class="w"> </span>-e<span class="w"> </span>py310<span class="w"> </span>--<span class="w"> </span>--pdb<span class="w"> </span>--no-cov
+</code></pre></div>
+<hr />
+<h3 id="part-iii-booster-rockets">Part III — Booster Rockets<a class="headerlink" href="#part-iii-booster-rockets" title="Permanent link">&para;</a></h3>
+<h4 id="14-third-party-plugins">14. Third-Party Plugins<a class="headerlink" href="#14-third-party-plugins" title="Permanent link">&para;</a></h4>
+<h5 id="finding-plugins">Finding Plugins<a class="headerlink" href="#finding-plugins" title="Permanent link">&para;</a></h5>
+<ul>
+<li>https://docs.pytest.org/en/latest/reference/plugin_list.html</li>
+<li>https://pypi.org — search for <code>pytest-</code></li>
+<li>https://github.com/pytest-dev</li>
+</ul>
+<h5 id="installing-plugins">Installing Plugins<a class="headerlink" href="#installing-plugins" title="Permanent link">&para;</a></h5>
+<div class="highlight"><pre><span></span><code>pip<span class="w"> </span>install<span class="w"> </span>pytest-cov<span class="w">     </span><span class="c1"># or any plugin</span>
+</code></pre></div>
+<h5 id="exploring-the-diversity-of-pytest-plugins">Exploring the Diversity of pytest Plugins<a class="headerlink" href="#exploring-the-diversity-of-pytest-plugins" title="Permanent link">&para;</a></h5>
+<p><strong>Test flow:</strong></p>
+<ul>
+<li><strong>pytest-order</strong> — specify run order via marker</li>
+<li><strong>pytest-randomly</strong> — randomize order (also seeds Faker/Factory Boy)</li>
+<li><strong>pytest-repeat</strong> — repeat tests N times (<code>--count=10</code>)</li>
+<li><strong>pytest-rerunfailures</strong> — rerun flaky tests</li>
+<li><strong>pytest-xdist</strong> — parallel execution (<code>-n=auto</code>)</li>
+</ul>
+<p><strong>Output:</strong></p>
+<ul>
+<li><strong>pytest-instafail</strong> — show failures immediately</li>
+<li><strong>pytest-sugar</strong> — green checkmarks + progress bar</li>
+<li><strong>pytest-html</strong> — HTML test reports</li>
+</ul>
+<p><strong>Web:</strong></p>
+<ul>
+<li><strong>pytest-selenium</strong>, <strong>pytest-splinter</strong> — browser testing</li>
+<li><strong>pytest-django</strong>, <strong>pytest-flask</strong> — framework integration</li>
+</ul>
+<p><strong>Fake data:</strong></p>
+<ul>
+<li><strong>Faker</strong> — general fake data</li>
+<li><strong>model-bakery</strong> — Django model objects</li>
+<li><strong>pytest-factoryboy</strong> — Factory Boy fixtures</li>
+<li><strong>pytest-mimesis</strong> — faster alternative to Faker</li>
+</ul>
+<p><strong>Misc:</strong></p>
+<ul>
+<li><strong>pytest-cov</strong> — coverage</li>
+<li><strong>pytest-benchmark</strong> — timing benchmarks</li>
+<li><strong>pytest-timeout</strong> — enforce time limits</li>
+<li><strong>pytest-asyncio</strong> — async tests</li>
+<li><strong>pytest-bdd</strong> — BDD-style tests</li>
+<li><strong>pytest-freezegun</strong> — freeze time</li>
+<li><strong>pytest-mock</strong> — thin <code>unittest.mock</code> wrapper</li>
+</ul>
+<h5 id="running-tests-in-parallel">Running Tests in Parallel<a class="headerlink" href="#running-tests-in-parallel" title="Permanent link">&para;</a></h5>
+<div class="highlight"><pre><span></span><code>pip<span class="w"> </span>install<span class="w"> </span>pytest-xdist
+pytest<span class="w"> </span>-n<span class="o">=</span>auto<span class="w">              </span><span class="c1"># use all CPU cores</span>
+pytest<span class="w"> </span>--looponfail<span class="w">         </span><span class="c1"># watch mode: rerun failures on file changes</span>
+</code></pre></div>
+<h5 id="randomizing-test-order">Randomizing Test Order<a class="headerlink" href="#randomizing-test-order" title="Permanent link">&para;</a></h5>
+<div class="highlight"><pre><span></span><code>pip<span class="w"> </span>install<span class="w"> </span>pytest-randomly
+pytest<span class="w"> </span>-v<span class="w">                   </span><span class="c1"># order is now randomized</span>
+pytest<span class="w"> </span>-p<span class="w"> </span>no:randomly<span class="w">       </span><span class="c1"># disable temporarily</span>
+</code></pre></div>
+<hr />
+<h4 id="15-building-plugins">15. Building Plugins<a class="headerlink" href="#15-building-plugins" title="Permanent link">&para;</a></h4>
+<h5 id="starting-with-a-cool-idea">Starting with a Cool Idea<a class="headerlink" href="#starting-with-a-cool-idea" title="Permanent link">&para;</a></h5>
+<ul>
+<li>Example: skip <code>@pytest.mark.slow</code> tests by default; include with <code>--slow</code> flag</li>
+<li>Default behavior change: no flag = exclude slow; <code>--slow</code> = include all</li>
+</ul>
+<h5 id="building-a-local-conftest-plugin">Building a Local conftest Plugin<a class="headerlink" href="#building-a-local-conftest-plugin" title="Permanent link">&para;</a></h5>
+<p>Three <strong>hook functions</strong> used:
+<div class="highlight"><pre><span></span><code><span class="c1"># 1. Declare the marker</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">pytest_configure</span><span class="p">(</span><span class="n">config</span><span class="p">):</span>
+    <span class="n">config</span><span class="o">.</span><span class="n">addinivalue_line</span><span class="p">(</span><span class="s2">&quot;markers&quot;</span><span class="p">,</span> <span class="s2">&quot;slow: mark test as slow to run&quot;</span><span class="p">)</span>
+
+<span class="c1"># 2. Add --slow CLI flag</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">pytest_addoption</span><span class="p">(</span><span class="n">parser</span><span class="p">):</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">addoption</span><span class="p">(</span><span class="s2">&quot;--slow&quot;</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s2">&quot;store_true&quot;</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;include tests marked slow&quot;</span><span class="p">)</span>
+
+<span class="c1"># 3. Skip slow tests unless --slow is passed</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">pytest_collection_modifyitems</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="n">items</span><span class="p">):</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">config</span><span class="o">.</span><span class="n">getoption</span><span class="p">(</span><span class="s2">&quot;--slow&quot;</span><span class="p">):</span>
+        <span class="n">skip_slow</span> <span class="o">=</span> <span class="n">pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">skip</span><span class="p">(</span><span class="n">reason</span><span class="o">=</span><span class="s2">&quot;need --slow option to run&quot;</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">items</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">item</span><span class="o">.</span><span class="n">get_closest_marker</span><span class="p">(</span><span class="s2">&quot;slow&quot;</span><span class="p">):</span>
+                <span class="n">item</span><span class="o">.</span><span class="n">add_marker</span><span class="p">(</span><span class="n">skip_slow</span><span class="p">)</span>
+</code></pre></div></p>
+<h5 id="creating-an-installable-plugin">Creating an Installable Plugin<a class="headerlink" href="#creating-an-installable-plugin" title="Permanent link">&para;</a></h5>
+<ul>
+<li>Move conftest code into <code>pytest_skip_slow.py</code></li>
+<li>Use <strong>Flit</strong> (<code>pip install flit</code>) to scaffold <code>pyproject.toml</code> with <code>flit init</code></li>
+<li>Key <code>pyproject.toml</code> additions:</li>
+<li><code>[project.entry-points.pytest11]</code> with <code>skip_slow = "pytest_skip_slow"</code></li>
+<li>Classifier: <code>"Framework :: Pytest"</code></li>
+<li>Build: <code>flit build</code> → creates <code>.whl</code> in <code>dist/</code></li>
+<li>Install: <code>pip install dist/pytest_skip_slow-0.0.1-py3-none-any.whl</code></li>
+</ul>
+<h5 id="testing-plugins-with-pytester">Testing Plugins with pytester<a class="headerlink" href="#testing-plugins-with-pytester" title="Permanent link">&para;</a></h5>
+<p><div class="highlight"><pre><span></span><code><span class="c1"># tests/conftest.py</span>
+<span class="n">pytest_plugins</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;pytester&quot;</span><span class="p">]</span>
+
+<span class="c1"># tests/test_plugin.py</span>
+<span class="nd">@pytest</span><span class="o">.</span><span class="n">fixture</span><span class="p">()</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">examples</span><span class="p">(</span><span class="n">pytester</span><span class="p">):</span>
+    <span class="n">pytester</span><span class="o">.</span><span class="n">copy_example</span><span class="p">(</span><span class="s2">&quot;examples/test_slow.py&quot;</span><span class="p">)</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">test_skip_slow</span><span class="p">(</span><span class="n">pytester</span><span class="p">,</span> <span class="n">examples</span><span class="p">):</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">pytester</span><span class="o">.</span><span class="n">runpytest</span><span class="p">(</span><span class="s2">&quot;-v&quot;</span><span class="p">)</span>
+    <span class="n">result</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">fnmatch_lines</span><span class="p">([</span><span class="s2">&quot;*test_slow SKIPPED*&quot;</span><span class="p">])</span>
+    <span class="n">result</span><span class="o">.</span><span class="n">assert_outcomes</span><span class="p">(</span><span class="n">passed</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">skipped</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</code></pre></div>
+- <strong>pytester</strong> fixture: creates temp dir, provides <code>runpytest()</code>, <code>copy_example()</code>, <code>makepyfile()</code>, etc.
+- <code>fnmatch_lines()</code> — glob-style matching on stdout lines
+- <code>assert_outcomes()</code> — check pass/fail/skip counts
+- <code>parseoutcomes()</code> — returns dict for manual assertions</p>
+<h5 id="testing-multiple-python-and-pytest-versions-with-tox">Testing Multiple Python and pytest Versions with tox<a class="headerlink" href="#testing-multiple-python-and-pytest-versions-with-tox" title="Permanent link">&para;</a></h5>
+<p><div class="highlight"><pre><span></span><code><span class="k">[tox]</span>
+<span class="na">envlist</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">py{37,38,39,310}-pytest{62,70}</span>
+
+<span class="k">[testenv]</span>
+<span class="na">deps</span><span class="w"> </span><span class="o">=</span>
+<span class="w">    </span><span class="na">pytest62</span><span class="o">:</span><span class="w"> </span><span class="s">pytest==6.2.5</span>
+<span class="w">    </span><span class="na">pytest70</span><span class="o">:</span><span class="w"> </span><span class="s">pytest==7.0.0</span>
+<span class="na">commands</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">pytest {posargs:tests}</span>
+</code></pre></div>
+- Curly braces + dashes create a matrix of environments</p>
+<h5 id="publishing-plugins">Publishing Plugins<a class="headerlink" href="#publishing-plugins" title="Permanent link">&para;</a></h5>
+<ul>
+<li>Git repository: <code>pip install git+https://github.com/user/repo</code></li>
+<li>Shared directory: <code>pip install pkg --no-index --find-links=path/</code></li>
+<li>PyPI: see Python packaging docs and Flit upload docs</li>
+</ul>
+<hr />
+<h4 id="16-advanced-parametrization">16. Advanced Parametrization<a class="headerlink" href="#16-advanced-parametrization" title="Permanent link">&para;</a></h4>
+<h5 id="using-complex-values">Using Complex Values<a class="headerlink" href="#using-complex-values" title="Permanent link">&para;</a></h5>
+<p><div class="highlight"><pre><span></span><code><span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">parametrize</span><span class="p">(</span><span class="s2">&quot;starting_card&quot;</span><span class="p">,</span> <span class="p">[</span>
+    <span class="n">Card</span><span class="p">(</span><span class="s2">&quot;foo&quot;</span><span class="p">,</span> <span class="n">state</span><span class="o">=</span><span class="s2">&quot;todo&quot;</span><span class="p">),</span>
+    <span class="n">Card</span><span class="p">(</span><span class="s2">&quot;foo&quot;</span><span class="p">,</span> <span class="n">state</span><span class="o">=</span><span class="s2">&quot;in prog&quot;</span><span class="p">),</span>
+    <span class="n">Card</span><span class="p">(</span><span class="s2">&quot;foo&quot;</span><span class="p">,</span> <span class="n">state</span><span class="o">=</span><span class="s2">&quot;done&quot;</span><span class="p">),</span>
+<span class="p">])</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">test_card</span><span class="p">(</span><span class="n">cards_db</span><span class="p">,</span> <span class="n">starting_card</span><span class="p">):</span>
+    <span class="o">...</span>
+</code></pre></div>
+- Object values get numbered IDs by default (<code>starting_card0</code>, <code>starting_card1</code>, ...)</p>
+<h5 id="creating-custom-identifiers">Creating Custom Identifiers<a class="headerlink" href="#creating-custom-identifiers" title="Permanent link">&para;</a></h5>
+<p><strong><code>ids</code> as a function:</strong>
+<div class="highlight"><pre><span></span><code><span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">parametrize</span><span class="p">(</span><span class="s2">&quot;starting_card&quot;</span><span class="p">,</span> <span class="n">card_list</span><span class="p">,</span> <span class="n">ids</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">:</span> <span class="n">c</span><span class="o">.</span><span class="n">state</span><span class="p">)</span>
+</code></pre></div></p>
+<p><strong><code>ids</code> as a list:</strong>
+<div class="highlight"><pre><span></span><code><span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">parametrize</span><span class="p">(</span><span class="s2">&quot;starting_card&quot;</span><span class="p">,</span> <span class="n">card_list</span><span class="p">,</span> <span class="n">ids</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;todo&quot;</span><span class="p">,</span> <span class="s2">&quot;in prog&quot;</span><span class="p">,</span> <span class="s2">&quot;done&quot;</span><span class="p">])</span>
+</code></pre></div></p>
+<p><strong><code>pytest.param</code> with explicit <code>id</code>:</strong>
+<div class="highlight"><pre><span></span><code><span class="n">pytest</span><span class="o">.</span><span class="n">param</span><span class="p">(</span><span class="n">Card</span><span class="p">(</span><span class="s2">&quot;foo&quot;</span><span class="p">,</span> <span class="n">state</span><span class="o">=</span><span class="s2">&quot;in prog&quot;</span><span class="p">),</span> <span class="nb">id</span><span class="o">=</span><span class="s2">&quot;special&quot;</span><span class="p">)</span>
+</code></pre></div></p>
+<p><strong>Dictionary technique</strong> (keeps IDs and values together):
+<div class="highlight"><pre><span></span><code><span class="n">text_variants</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;Short&quot;</span><span class="p">:</span> <span class="s2">&quot;x&quot;</span><span class="p">,</span> <span class="s2">&quot;With Spaces&quot;</span><span class="p">:</span> <span class="s2">&quot;x y z&quot;</span><span class="p">,</span> <span class="o">...</span><span class="p">}</span>
+<span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">parametrize</span><span class="p">(</span>
+    <span class="s2">&quot;variant&quot;</span><span class="p">,</span> <span class="n">text_variants</span><span class="o">.</span><span class="n">values</span><span class="p">(),</span> <span class="n">ids</span><span class="o">=</span><span class="n">text_variants</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
+<span class="p">)</span>
+</code></pre></div></p>
+<h5 id="parametrizing-with-dynamic-values">Parametrizing with Dynamic Values<a class="headerlink" href="#parametrizing-with-dynamic-values" title="Permanent link">&para;</a></h5>
+<p><div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">text_variants</span><span class="p">():</span>
+    <span class="n">variants</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;Short&quot;</span><span class="p">:</span> <span class="s2">&quot;x&quot;</span><span class="p">,</span> <span class="s2">&quot;With Spaces&quot;</span><span class="p">:</span> <span class="s2">&quot;x y z&quot;</span><span class="p">,</span> <span class="o">...</span><span class="p">}</span>
+    <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">variants</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="k">yield</span> <span class="n">pytest</span><span class="o">.</span><span class="n">param</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="n">key</span><span class="p">)</span>
+
+<span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">parametrize</span><span class="p">(</span><span class="s2">&quot;variant&quot;</span><span class="p">,</span> <span class="n">text_variants</span><span class="p">())</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">test_summary</span><span class="p">(</span><span class="n">cards_db</span><span class="p">,</span> <span class="n">variant</span><span class="p">):</span>
+    <span class="o">...</span>
+</code></pre></div>
+- Generator function can read from files, databases, APIs, etc.</p>
+<h5 id="using-multiple-parameters">Using Multiple Parameters<a class="headerlink" href="#using-multiple-parameters" title="Permanent link">&para;</a></h5>
+<p><strong>Explicit tuples:</strong>
+<div class="highlight"><pre><span></span><code><span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">parametrize</span><span class="p">(</span><span class="s2">&quot;summary, owner, state&quot;</span><span class="p">,</span> <span class="p">[</span>
+    <span class="p">(</span><span class="s2">&quot;short&quot;</span><span class="p">,</span> <span class="s2">&quot;First&quot;</span><span class="p">,</span> <span class="s2">&quot;todo&quot;</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">&quot;short&quot;</span><span class="p">,</span> <span class="s2">&quot;First&quot;</span><span class="p">,</span> <span class="s2">&quot;in prog&quot;</span><span class="p">),</span>
+<span class="p">])</span>
+</code></pre></div></p>
+<p><strong>Stacking decorators</strong> (creates a matrix):
+<div class="highlight"><pre><span></span><code><span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">parametrize</span><span class="p">(</span><span class="s2">&quot;state&quot;</span><span class="p">,</span> <span class="n">states</span><span class="p">)</span>
+<span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">parametrize</span><span class="p">(</span><span class="s2">&quot;owner&quot;</span><span class="p">,</span> <span class="n">owners</span><span class="p">)</span>
+<span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">parametrize</span><span class="p">(</span><span class="s2">&quot;summary&quot;</span><span class="p">,</span> <span class="n">summaries</span><span class="p">)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">test_stacking</span><span class="p">(</span><span class="n">cards_db</span><span class="p">,</span> <span class="n">summary</span><span class="p">,</span> <span class="n">owner</span><span class="p">,</span> <span class="n">state</span><span class="p">):</span>
+    <span class="o">...</span>
+</code></pre></div>
+- 2 summaries × 2 owners × 3 states = 12 test cases</p>
+<h5 id="using-indirect-parametrization">Using Indirect Parametrization<a class="headerlink" href="#using-indirect-parametrization" title="Permanent link">&para;</a></h5>
+<p><div class="highlight"><pre><span></span><code><span class="nd">@pytest</span><span class="o">.</span><span class="n">fixture</span><span class="p">()</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">user</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+    <span class="n">role</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">param</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Log in as </span><span class="si">{</span><span class="n">role</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="k">yield</span> <span class="n">role</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Log out </span><span class="si">{</span><span class="n">role</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">parametrize</span><span class="p">(</span><span class="s2">&quot;user&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;admin&quot;</span><span class="p">,</span> <span class="s2">&quot;team_member&quot;</span><span class="p">,</span> <span class="s2">&quot;visitor&quot;</span><span class="p">],</span> <span class="n">indirect</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;user&quot;</span><span class="p">])</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">test_access_rights</span><span class="p">(</span><span class="n">user</span><span class="p">):</span>
+    <span class="o">...</span>
+</code></pre></div>
+- <code>indirect=["user"]</code> routes the param through the <code>user</code> fixture instead of directly to the test
+- Useful for: setup/teardown per param, selecting a subset of fixture params</p>
+<p><strong>Optional indirect fixture</strong> (works with and without parametrize):
+<div class="highlight"><pre><span></span><code><span class="nd">@pytest</span><span class="o">.</span><span class="n">fixture</span><span class="p">()</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">user</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+    <span class="n">role</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s2">&quot;param&quot;</span><span class="p">,</span> <span class="s2">&quot;visitor&quot;</span><span class="p">)</span>   <span class="c1"># default if not parametrized</span>
+    <span class="o">...</span>
+</code></pre></div></p>
+<hr />
+<h3 id="appendices">Appendices<a class="headerlink" href="#appendices" title="Permanent link">&para;</a></h3>
+<h4 id="a1-virtual-environments">A1. Virtual Environments<a class="headerlink" href="#a1-virtual-environments" title="Permanent link">&para;</a></h4>
+<ul>
+<li><code>python -m venv venv --prompt .</code> — creates venv; <code>--prompt .</code> uses parent dir name</li>
+<li>Activate: <code>source venv/bin/activate</code> (macOS/Linux) or <code>venv\Scripts\activate.bat</code> (Windows)</li>
+<li><code>deactivate</code> to exit</li>
+</ul>
+<h4 id="a2-pip">A2. pip<a class="headerlink" href="#a2-pip" title="Permanent link">&para;</a></h4>
+<ul>
+<li><code>pip install package</code> — install from PyPI</li>
+<li><code>pip install ./local_dir/</code> — install local package</li>
+<li><code>pip install -e ./local_dir/</code> — install in editable/development mode</li>
+<li><code>pip install -r requirements.txt</code> — install from requirements file</li>
+<li><code>pip install git+https://github.com/user/repo</code> — install from git</li>
+<li><code>pip list</code> — show installed packages</li>
+<li><code>pip uninstall package</code> — remove a package</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+  
+
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        
+
+<footer class="md-footer">
+  
+    <nav
+      class="md-footer__inner md-grid"
+      aria-label="footer.title"
+    >
+      
+        <a
+          href="../crafting_tdd_python/"
+          class="md-footer__link md-footer__link--prev"
+          rel="prev"
+        >
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              Crafting TDD
+            </div>
+          </div>
+        </a>
+      
+      
+        <a
+          href="../python_packaging/"
+          class="md-footer__link md-footer__link--next"
+          rel="next"
+        >
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              Python Packaging
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        Made with
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+          Material for MkDocs
+        </a>
+        with emoji by
+        <a href="https://github.com/twitter/twemoji" target="_blank" rel="noopener">
+          Twemoji
+        </a>
+      </div>
+      
+<div class="md-social">
+  
+</div>
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["announce.dismiss", "content.action.edit", "content.action.view", "content.code.annotate", "content.code.copy", "content.tooltips", "header.autohide", "navigation.expand", "navigation.footer", "navigation.indexes", "navigation.instant", "navigation.sections", "navigation.tabs", "navigation.top", "navigation.tracking", "search.highlight", "search.share", "search.suggest", "toc.follow", "toc.integrate"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../../javascripts/extra.js"></script>
+      
+        <script src="../../assets/pymdownx-extras/extra-loader-B5CKpNQx.js"></script>
+      
+    
+  </body>
+</html>
